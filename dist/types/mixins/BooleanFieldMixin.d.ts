@@ -1,8 +1,10 @@
-export declare const LktAbstractFieldMixin: {
+import { ILktObject } from "lkt-tools";
+export declare const BooleanFieldMixin: {
+    emits: string[];
     props: {
         modelValue: {
-            type: (ObjectConstructor | StringConstructor | BooleanConstructor | NumberConstructor | DateConstructor | ArrayConstructor)[];
-            default: () => undefined;
+            type: BooleanConstructor;
+            default: boolean;
         };
         placeholder: {
             type: StringConstructor;
@@ -20,7 +22,7 @@ export declare const LktAbstractFieldMixin: {
             type: StringConstructor;
             default: string;
         };
-        invalid: {
+        valid: {
             type: BooleanConstructor;
             default: boolean;
         };
@@ -32,35 +34,25 @@ export declare const LktAbstractFieldMixin: {
             type: BooleanConstructor;
             default: boolean;
         };
-        canReset: {
-            type: BooleanConstructor;
-            default: boolean;
-        };
         emptyLabel: {
             type: BooleanConstructor;
             default: boolean;
         };
     };
-    data(): object;
+    data(): ILktObject;
     computed: {
+        isValid(): any;
         changed(): boolean;
         canRenderLabelSlot(): boolean;
         canRenderLabelHtml(): boolean;
     };
+    watch: {
+        modelValue(v: string): void;
+    };
     methods: {
+        focus(): void;
         setIsDisabled(status?: boolean): any;
         isDisabled(): any;
-        reset(): void;
         getValue(): any;
-        onKeyUp($event: any): void;
-        onKeyDown($event: any): void;
-        onFocus($event: any): void;
-        onBlur($event: any): void;
-        onClick($event: any): void;
     };
-    watch: {
-        value(v: any): void;
-        Value(v: any): void;
-    };
-    mounted(): void;
 };

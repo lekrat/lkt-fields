@@ -26,12 +26,7 @@ export declare const LktStateUIMixin: {
         };
         showError: {
             type: BooleanConstructor;
-            default: boolean; /**
-             *
-             * @param $event
-             * @param key
-             * @param data
-             */
+            default: boolean;
         };
         showWarn: {
             type: BooleanConstructor;
@@ -47,8 +42,18 @@ export declare const LktStateUIMixin: {
         };
         textAdd: {
             type: StringConstructor;
-            default: string;
-        };
+            default: string; /**
+             *
+             * @param $event
+             * @param key
+             * @param data
+             */
+        }; /**
+         *
+         * @param $event
+         * @param key
+         * @param data
+         */
         textInfo: {
             type: StringConstructor;
             default: string;

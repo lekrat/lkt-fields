@@ -1,30 +1,38 @@
-import {generateRandomString} from "lkt-tools";
+import {generateRandomString, ILktObject, isFunction} from "lkt-tools";
 import {emitBlur, emitClick, emitFocus, emitKeyDown, emitKeyUp} from "../functions/vm-functions";
 
-export const LktAbstractFieldMixin = {
+export const TextFieldMixin = {
+    emits: ['update:modelValue', 'keyup', 'keydown', 'focus', 'blur', 'click'],
     props: {
-        modelValue: {type: [String, Number, Object, Array, Date, Boolean], default: (): undefined => { return undefined; }},
+        modelValue: {type: String, default: ''},
         placeholder: {type: String, default: ''},
         label: {type: String, default: ''},
         state: {type: String, default: ''},
         name: {type: String, default: generateRandomString(16)},
-        invalid: { type: Boolean, default: false, },
+        valid: { type: Boolean, default: false, },
         disabled: { type: Boolean, default: false, },
         readonly: { type: Boolean, default: false, },
-        canReset: { type: Boolean, default: false, },
         emptyLabel: { type: Boolean, default: false, },
     },
-    data(): object {
+    data(): ILktObject {
         return {
-            Value: this.modelValue,
             Identifier: generateRandomString(16),
-            canEmit: false,
-            originalValue: this.value,
+            originalValue: this.modelValue,
+            value: this.modelValue,
         }
     },
     computed: {
+        isValid() {
+            if (isFunction(this.valid)) {
+                return this.valid();
+            }
+            return this.valid;
+        },
+        isEmpty() {
+            return !this.modelValue;
+        },
         changed() {
-            return this.Value !== this.originalValue;
+            return this.value !== this.originalValue;
         },
         canRenderLabelSlot() {
             return !!this.$slots['label'];
@@ -39,7 +47,22 @@ export const LktAbstractFieldMixin = {
             return !!this.label;
         }
     },
+    watch: {
+        modelValue(v: string) {
+            this.value = v;
+            console.log('updated modelValue', v, this.modelValue);
+        },
+        value(v: string) {
+            console.log('updated value', v, this.value);
+            this.$emit('update:modelValue', v)
+        }
+    },
     methods: {
+        focus() {
+            this.$nextTick(() => {
+                this.$refs.input.focus();
+            });
+        },
         setIsDisabled(status: boolean = false) {
             this.disabled = status === true;
             return this;
@@ -49,11 +72,11 @@ export const LktAbstractFieldMixin = {
         },
 
         reset() {
-            this.Value = undefined;
+            this.modelValue = this.originalValue;
         },
 
         getValue(){
-            return this.Value;
+            return this.modelValue;
         },
 
         onKeyUp($event: any) {
@@ -77,20 +100,4 @@ export const LktAbstractFieldMixin = {
         }
 
     },
-    watch: {
-        value(v: any) {
-            console.log('Updated value', v);
-            this.Value = v;
-        },
-        Value(v: any) {
-            console.log('Updated Value', v, this.canEmit);
-            if (this.canEmit === true) {
-                this.$emit('input', v);
-                this.$emit('change', v);
-            }
-        },
-    },
-    mounted() {
-        this.canEmit = true;
-    }
 }

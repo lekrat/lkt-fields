@@ -1,4 +1,4 @@
-interface PluginOptionsInterface {
+interface IPluginOptions {
     noOptionsMessage?: string;
     showPasswordMessage?: string;
     isMandatoryMessage?: string;

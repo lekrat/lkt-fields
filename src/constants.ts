@@ -1,86 +1,26 @@
-import {LktFieldsSettings} from "./settings/LktFieldsSettings";
+import {Settings} from "./settings/Settings";
 
 export const FIELD_STATE_PROPS = {
-    showAdd: {
-        type: Boolean,
-        default: false,
-    },
-    showLink: {
-        type: Boolean,
-        default: false,
-    },
-    showOpen: {
-        type: Boolean,
-        default: false,
-    },
-    showInfo: {
-        type: Boolean,
-        default: false,
-    },
-    showPassword: {
-        type: Boolean,
-        default: false,
-    },
-    showMandatory: {
-        type: Boolean,
-        default: false,
-    },
-    showError: {
-        type: Boolean,
-        default: false,
-    },
-    showWarn: {
-        type: Boolean,
-        default: false,
-    },
-    showLog: {
-        type: Boolean,
-        default: false,
-    },
-    showReset: {
-        type: Boolean,
-        default: false,
-    },
-    textAdd: {
-        type: String,
-        default: '',
-    },
-    textInfo: {
-        type: String,
-        default: 'More info',
-    },
-    textPassword: {
-        type: String,
-        default: LktFieldsSettings.SHOW_PASSWORD_MESSAGE,
-    },
-    textMandatory: {
-        type: String,
-        default: LktFieldsSettings.IS_MANDATORY_MESSAGE,
-    },
-    textError: {
-        type: String,
-        default: '',
-    },
-    textWarn: {
-        type: String,
-        default: '',
-    },
-    textLog: {
-        type: String,
-        default: '',
-    },
-    textLink: {
-        type: String,
-        default: 'Follow link',
-    },
-    textOpen: {
-        type: String,
-        default: 'Show details',
-    },
-    textReset: {
-        type: String,
-        default: 'Reset',
-    },
+    showAdd: {type: Boolean, default: false},
+    showLink: {type: Boolean, default: false},
+    showOpen: {type: Boolean, default: false},
+    showInfo: {type: Boolean, default: false},
+    showPassword: {type: Boolean, default: false},
+    showMandatory: {type: Boolean, default: false},
+    showError: {type: Boolean, default: false},
+    showWarn: {type: Boolean, default: false},
+    showLog: {type: Boolean, default: false},
+    showReset: {type: Boolean, default: false},
+    textAdd: {type: String, default: ''},
+    textInfo: {type: String, default: 'More info'},
+    textPassword: {type: String, default: Settings.SHOW_PASSWORD_MESSAGE},
+    textMandatory: {type: String, default: Settings.IS_MANDATORY_MESSAGE},
+    textError: {type: String, default: ''},
+    textWarn: {type: String, default: ''},
+    textLog: {type: String, default: ''},
+    textLink: {type: String, default: Settings.FOLLOW_LINK_MESSAGE},
+    textOpen: {type: String, default: Settings.OPEN_MESSAGE},
+    textReset: {type: String, default: Settings.RESET_MESSAGE},
 };
 
 export const SHOW_PASSWORD_MESSAGE = 'Show password';
@@ -96,7 +36,7 @@ export const THIS_MONTH_RANGE_TEXT = 'This month';
 export const LAST_MONTH_RANGE_TEXT = 'Last month';
 export const THIS_YEAR_RANGE_TEXT = 'This year';
 
-export const DEFAULT_PLUGIN_OPTIONS:IPluginOptions = {
+export const DEFAULT_PLUGIN_OPTIONS: IPluginOptions = {
     noOptionsMessage: NO_OPTIONS_MESSAGE,
     showPasswordMessage: SHOW_PASSWORD_MESSAGE,
     isMandatoryMessage: IS_MANDATORY_MESSAGE,

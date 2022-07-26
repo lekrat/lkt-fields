@@ -1,5 +1,7 @@
 interface IOption {
     value: string | number | IOption[],
     label: string,
-    data?: object
+    data?: object,
+    disabled?: boolean,
+    group?: boolean,
 }

@@ -13,7 +13,9 @@
 
         <vue-next-select
             v-model="Value"
-            v-bind:options="[{label: 'red', id: 1}, {label: 'green', value: 2,},{ label: 'test', id: 3, children: [{label: 'yellow', id: 4}]}]"
+            v-bind:options="Options"
+            v-bind:label-by="'label'"
+            v-bind:group-by="'group'"
         > </vue-next-select>
 
         <slot v-if="canRenderLabelSlot" name="label"></slot>

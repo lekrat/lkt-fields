@@ -1,4 +1,4 @@
-export declare class LktFieldsSettings {
+export declare class Settings {
     /**
      * Common texts
      */

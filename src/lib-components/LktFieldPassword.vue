@@ -2,15 +2,15 @@
     <div data-lkt="field-password"
          v-bind:data-state="state"
          v-bind:data-show-ui="showInfoUi"
-         v-bind:data-error="invalid"
+         v-bind:data-error="!isValid"
          v-bind:data-disabled="disabled"
          v-bind:data-changed="changed"
-         v-bind:data-empty="!Value"
-         v-bind:data-filled="!!Value"
+         v-bind:data-empty="isEmpty"
+         v-bind:data-filled="!isEmpty"
     >
         <slot name="prefix"></slot>
         <template v-if="placeholder">
-            <input v-model="Value"
+            <input v-model="value"
                    v-bind:type="inputType"
                    v-bind:name="name"
                    v-bind:id="Identifier"
@@ -19,7 +19,7 @@
                    v-bind:placeholder="placeholder">
         </template>
         <template v-else>
-            <input v-model="Value"
+            <input v-model="value"
                    v-bind:type="inputType"
                    v-bind:name="name"
                    v-bind:id="Identifier"
@@ -32,7 +32,7 @@
         <lkt-field-state
             v-if="showInfoUi"
             v-bind:show-add="showAdd"
-            v-bind:show-password="showPassword && Value.length > 0"
+            v-bind:show-password="showPassword && value.length > 0"
             v-bind:show-error="showError"
             v-bind:show-info="showInfo"
             v-bind:show-log="showLog"
@@ -57,17 +57,14 @@
 </template>
 
 <script lang="ts">
-import {LktAbstractFieldMixin} from "../mixins/LktAbstractFieldMixin";
 import {LktFieldStateMixin} from "../mixins/LktFieldStateMixin";
 import lktFieldState from "../components/LktFieldState.vue";
+import {TextFieldMixin} from "../mixins/TextFieldMixin";
 
 export default {
     name: "LktFieldPassword",
     components: {lktFieldState},
-    mixins: [LktAbstractFieldMixin, LktFieldStateMixin],
-    props: {
-        value: {type: String, default: ''},
-    },
+    mixins: [TextFieldMixin, LktFieldStateMixin],
     data() {
         return {
             visiblePassword: false

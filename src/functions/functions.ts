@@ -1,4 +1,4 @@
-import {ILktObject} from "lkt-tools";
+import {ILktObject, rmArrayValue} from "lkt-tools";
 
 /**
  *
@@ -25,15 +25,25 @@ export const defaultOptionParser = (option: any = {}, i:number = 0) => {
  */
 export const mapOptions = (options: Array<any>, parser: Function, select2Compatibility: boolean = false): IOption[] => {
     if (select2Compatibility) {
-        return options.map((opt: any) => {
+        let r: IOption[] = [];
+
+
+        options.forEach((opt: ILktObject) => {
 
             let keys = Object.keys(opt);
 
-            let index = keys.indexOf('id');
-            keys.splice(index, 1);
+            rmArrayValue(keys, 'id');
+            rmArrayValue(keys, 'text');
+            rmArrayValue(keys, 'children');
+            rmArrayValue(keys, 'disabled');
 
-            index = keys.indexOf('text');
-            keys.splice(index, 1);
+            let group = false,
+                children: IOption[] = [];
+
+            if (opt['children']) {
+                group = true;
+                children = mapOptions(opt['children'], parser, select2Compatibility);
+            }
 
             let data: ILktObject = {};
             keys.forEach(z => {
@@ -41,12 +51,20 @@ export const mapOptions = (options: Array<any>, parser: Function, select2Compati
             });
 
 
-            return {
-                value: opt.id,
+            r.push({
+                group,
+                disabled: opt.disabled && opt.disabled === true || group,
+                value: group ? children : opt.id,
                 label: opt.text,
                 data,
-            }
+            });
+
+            children.forEach(z => {
+                r.push(z);
+            })
         });
+
+        return r;
     }
     return options.map((option:any, i:number) => parser(option, i))
 }

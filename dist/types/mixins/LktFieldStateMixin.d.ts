@@ -2,11 +2,7 @@ export declare const LktFieldStateMixin: {
     mixins: {
         props: {
             showAdd: {
-                type: BooleanConstructor; /**
-                 *
-                 * @param $event
-                 * @param key
-                 */
+                type: BooleanConstructor;
                 default: boolean;
             };
             showLink: {
@@ -14,6 +10,11 @@ export declare const LktFieldStateMixin: {
                 default: boolean;
             };
             showOpen: {
+                /**
+                 *
+                 * @param $event
+                 * @param key
+                 */
                 type: BooleanConstructor;
                 default: boolean;
             };

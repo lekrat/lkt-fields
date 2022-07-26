@@ -2,15 +2,15 @@
     <div data-lkt="field-date"
          :data-state="state"
          :data-show-ui="showInfoUi"
-         :data-error="invalid"
+         :data-error="!isValid"
          :data-disabled="disabled"
          :data-changed="changed"
-         :data-empty="!Value"
-         :data-filled="!!Value"
+         :data-empty="!modelValue"
+         :data-filled="!!modelValue"
     >
         <slot name="prefix"></slot>
 
-        <Datepicker v-model="Value"
+        <Datepicker v-model="modelValue"
                     v-bind:uid="Identifier"
                     v-bind:disabled="disabled"
                     v-bind:name="name"
@@ -61,35 +61,12 @@
 
 <script lang="ts">
 import lktFieldState from "../components/LktFieldState.vue";
-import {LktAbstractFieldMixin} from "../mixins/LktAbstractFieldMixin";
 import {LktFieldStateMixin} from "../mixins/LktFieldStateMixin";
+import {DateFieldMixin} from "../mixins/DateFieldMixin";
 
 export default {
     name: "LktFieldDate",
     components: {lktFieldState},
-    mixins: [LktAbstractFieldMixin, LktFieldStateMixin],
-    props: {
-        value: {type: [String, Date], default: '',},
-        disabledDates: {
-            type: Object, default() {
-                return {};
-            },
-        },
-        utc: {type: Boolean, default: false},
-        multiDates: {type: Boolean, default: false},
-        inline: {type: Boolean, default: false},
-        monthPicker: {type: Boolean, default: false},
-        timePicker: {type: Boolean, default: false},
-        weekPicker: {type: Boolean, default: false},
-        yearPicker: {type: Boolean, default: false},
-        preventMinMaxNavigation: {type: Boolean, default: false},
-        range: {type: Boolean, default: false},
-        autoRange: {type: [Number, String], default: null},
-        multiCalendars: {type: [Boolean, Number, String], default: null},
-        flow: {type: Array, default: (): Array<any> => []},
-        presetRanges: {type: Array, default: (): Array<any> => []},
-        minDate: {type: [Date, String], default: null},
-        maxDate: {type: [Date, String], default: null},
-    },
+    mixins: [DateFieldMixin, LktFieldStateMixin],
 }
 </script>

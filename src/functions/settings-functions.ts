@@ -1,5 +1,5 @@
-import {LktFieldsSettings} from "../settings/LktFieldsSettings";
+import {Settings} from "../settings/Settings";
 
 export const getNoOptionsMessage = () => {
-    return LktFieldsSettings.NO_OPTIONS_MESSAGE;
+    return Settings.NO_OPTIONS_MESSAGE;
 }

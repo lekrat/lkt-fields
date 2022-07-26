@@ -2,7 +2,7 @@ declare const _default: {
     name: string;
     mixins: ({
         props: {
-            value: {
+            modelValue: {
                 type: (ObjectConstructor | StringConstructor | BooleanConstructor | NumberConstructor | DateConstructor | ArrayConstructor)[];
                 default: () => undefined;
             };
@@ -69,7 +69,7 @@ declare const _default: {
         props: {
             options: {
                 type: ArrayConstructor;
-                default: () => any[];
+                default: () => IOption[];
             };
             multiple: {
                 type: BooleanConstructor;
@@ -90,6 +90,10 @@ declare const _default: {
             optionParser: {
                 type: FunctionConstructor;
                 default: (option?: any, i?: number) => any;
+            };
+            select2Compatibility: {
+                type: BooleanConstructor;
+                default: boolean;
             };
         };
         data(): any;

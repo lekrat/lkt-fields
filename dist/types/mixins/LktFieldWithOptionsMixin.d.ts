@@ -2,7 +2,7 @@ export declare const LktFieldWithOptionsMixin: {
     props: {
         options: {
             type: ArrayConstructor;
-            default: () => Array<any>;
+            default: () => Array<IOption>;
         };
         multiple: {
             type: BooleanConstructor;
@@ -23,6 +23,10 @@ export declare const LktFieldWithOptionsMixin: {
         optionParser: {
             type: FunctionConstructor;
             default: (option?: any, i?: number) => any;
+        };
+        select2Compatibility: {
+            type: BooleanConstructor;
+            default: boolean;
         };
     };
     data(): any;

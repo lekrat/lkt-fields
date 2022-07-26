@@ -2,16 +2,16 @@
     <div data-lkt="field-text"
          v-bind:data-state="state"
          v-bind:data-show-ui="showInfoUi"
-         v-bind:data-error="invalid"
+         v-bind:data-error="!isValid"
          v-bind:data-disabled="disabled"
          v-bind:data-changed="changed"
-         v-bind:data-empty="!Value"
-         v-bind:data-filled="!!Value"
+         v-bind:data-empty="isEmpty"
+         v-bind:data-filled="!isEmpty"
          v-bind:data-labeled="canRenderLabelHtml"
     >
         <slot name="prefix"></slot>
         <template v-if="placeholder">
-            <input v-model="Value"
+            <input v-model="value"
                    ref="input"
                    type="text"
                    v-bind:name="name"
@@ -27,7 +27,7 @@
             >
         </template>
         <template v-else>
-            <input v-model="Value"
+            <input v-model="value"
                    ref="input"
                    type="text"
                    v-bind:name="name"
@@ -69,24 +69,13 @@
 </template>
 
 <script>
-import {LktAbstractFieldMixin} from "../mixins/LktAbstractFieldMixin";
 import {LktFieldStateMixin} from "../mixins/LktFieldStateMixin";
 import lktFieldState from "../components/LktFieldState.vue";
+import {TextFieldMixin} from "../mixins/TextFieldMixin";
 
 export default {
     name: "LktFieldText",
     components: {lktFieldState},
-    mixins: [LktAbstractFieldMixin, LktFieldStateMixin],
-    emits: ['input', 'change', 'keyup', 'keydown', 'focus', 'blur', 'click'],
-    props: {
-        value: {type: String, default: ''},
-    },
-    methods: {
-        focus() {
-            this.$nextTick(() => {
-                this.$refs.input.focus();
-            });
-        }
-    }
+    mixins: [TextFieldMixin, LktFieldStateMixin],
 }
 </script>

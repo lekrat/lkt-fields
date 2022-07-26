@@ -1,4 +1,5 @@
 import {LktStateUIMixin} from "./LktStateUIMixin";
+import {emitClickUI} from "../functions/vm-functions";
 
 export const LktFieldStateMixin = {
 
@@ -19,9 +20,7 @@ export const LktFieldStateMixin = {
                 this.visiblePassword = !this.visiblePassword;
                 return;
             }
-            this.onUIStatusClick($event, key, {
-                field: this,
-            });
+            emitClickUI(this, $event, key, {field: this});
         }
     }
 };

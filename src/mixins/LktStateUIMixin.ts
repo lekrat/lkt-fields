@@ -1,5 +1,5 @@
 import {FIELD_STATE_PROPS} from "../constants";
-import {createLktEvent} from "lkt-events";
+import {emitClickUI} from "../functions/vm-functions";
 
 export const LktStateUIMixin = {
 
@@ -29,7 +29,7 @@ export const LktStateUIMixin = {
          * @param data
          */
         onUIStatusClick($event: any, key: string, data:any = {}){
-            this.$emit('click-ui', $event, createLktEvent(key, data));
+            emitClickUI(this, $event, key, data);
         },
     }
 };

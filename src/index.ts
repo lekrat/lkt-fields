@@ -10,6 +10,7 @@ import '@vuepic/vue-datepicker/dist/main.css'
  * Import Select
  */
 import VueNextSelect from 'vue-next-select';
+import 'vue-next-select/dist/index.min.css';
 
 /**
  * Import library components
@@ -30,7 +31,7 @@ import LktFieldSelect from "./lib-components/LktFieldSelect.vue";
  * Additional imports
  */
 import {isObject, isUndefined} from "lkt-tools";
-import {LktFieldsSettings} from "./settings/LktFieldsSettings";
+import {Settings} from "./settings/Settings";
 import {DEFAULT_PLUGIN_OPTIONS} from "./constants";
 
 
@@ -54,34 +55,34 @@ const LktFields = {
 
         if (isObject(options)) {
             if (!isUndefined(options.noOptionsMessage)) {
-                LktFieldsSettings.NO_OPTIONS_MESSAGE = options.noOptionsMessage;
+                Settings.NO_OPTIONS_MESSAGE = options.noOptionsMessage;
             }
             if (!isUndefined(options.showPasswordMessage)) {
-                LktFieldsSettings.SHOW_PASSWORD_MESSAGE = options.showPasswordMessage;
+                Settings.SHOW_PASSWORD_MESSAGE = options.showPasswordMessage;
             }
             if (!isUndefined(options.isMandatoryMessage)) {
-                LktFieldsSettings.IS_MANDATORY_MESSAGE = options.isMandatoryMessage;
+                Settings.IS_MANDATORY_MESSAGE = options.isMandatoryMessage;
             }
             if (!isUndefined(options.todayRangeText)) {
-                LktFieldsSettings.TODAY_RANGE_TEXT = options.todayRangeText;
+                Settings.TODAY_RANGE_TEXT = options.todayRangeText;
             }
             if (!isUndefined(options.thisMonthRangeText)) {
-                LktFieldsSettings.THIS_MONTH_RANGE_TEXT = options.thisMonthRangeText;
+                Settings.THIS_MONTH_RANGE_TEXT = options.thisMonthRangeText;
             }
             if (!isUndefined(options.lastMonthRangeText)) {
-                LktFieldsSettings.LAST_MONTH_RANGE_TEXT = options.lastMonthRangeText;
+                Settings.LAST_MONTH_RANGE_TEXT = options.lastMonthRangeText;
             }
             if (!isUndefined(options.thisYearRangeText)) {
-                LktFieldsSettings.THIS_YEAR_RANGE_TEXT = options.thisYearRangeText;
+                Settings.THIS_YEAR_RANGE_TEXT = options.thisYearRangeText;
             }
             if (!isUndefined(options.followLinkMessage)) {
-                LktFieldsSettings.FOLLOW_LINK_MESSAGE = options.followLinkMessage;
+                Settings.FOLLOW_LINK_MESSAGE = options.followLinkMessage;
             }
             if (!isUndefined(options.openMessage)) {
-                LktFieldsSettings.OPEN_MESSAGE = options.openMessage;
+                Settings.OPEN_MESSAGE = options.openMessage;
             }
             if (!isUndefined(options.resetMessage)) {
-                LktFieldsSettings.RESET_MESSAGE = options.resetMessage;
+                Settings.RESET_MESSAGE = options.resetMessage;
             }
         }
     },

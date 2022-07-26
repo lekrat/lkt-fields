@@ -1,14 +1,14 @@
 <template>
     <div data-lkt="field-switch"
          v-bind:data-state="state"
-         v-bind:data-error="invalid"
+         v-bind:data-error="!isValid"
          v-bind:data-disabled="disabled"
          v-bind:data-changed="changed"
-         v-bind:data-empty="!Value"
-         v-bind:data-filled="!!Value"
+         v-bind:data-empty="!modelValue"
+         v-bind:data-filled="!!modelValue"
     >
         <slot name="prefix"></slot>
-        <input v-model="Value"
+        <input v-model="modelValue"
                type="checkbox"
                v-bind:name="name"
                v-bind:id="Identifier"
@@ -21,19 +21,10 @@
 </template>
 
 <script>
-import {LktAbstractFieldMixin} from "../mixins/LktAbstractFieldMixin";
+import {BooleanFieldMixin} from "../mixins/BooleanFieldMixin";
 
 export default {
     name: "LktFieldSwitch",
-    mixins: [LktAbstractFieldMixin],
-    props: {
-        value: {type: Boolean, default: false},
-    },
-    data() {
-        return {
-            Value: false,
-            ValueOriginal: false,
-        }
-    },
+    mixins: [BooleanFieldMixin],
 }
 </script>
