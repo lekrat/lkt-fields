@@ -23,7 +23,7 @@ export declare const TextFieldMixin: {
             default: string;
         };
         valid: {
-            type: BooleanConstructor;
+            type: (FunctionConstructor | BooleanConstructor)[];
             default: boolean;
         };
         disabled: {

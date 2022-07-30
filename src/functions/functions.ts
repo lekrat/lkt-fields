@@ -66,7 +66,14 @@ export const mapOptions = (options: Array<any>, parser: Function, select2Compati
 
         return r;
     }
-    return options.map((option:any, i:number) => parser(option, i))
+    return options.map((option:any, i:number): IOption => parser(option, i))
+}
+
+export const mapDisabledOptions = (options: IOption[], disabledOptions: any[]) => {
+    options.forEach(z => {
+        z.disabled = z.disabled || (disabledOptions.indexOf(z.value) > -1);
+    });
+    return options;
 }
 
 /**

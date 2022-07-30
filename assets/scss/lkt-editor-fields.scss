@@ -1,0 +1,43 @@
+@use "config";
+
+@mixin generate() {
+  [data-lkt="field-editor"] {
+    display: flex;
+    flex-direction: column-reverse;
+    font-size: 16px;
+    position: relative;
+    color: #444444;
+
+    .sun-editor {
+      width: 100% !important;
+      border: 1px solid #ddd;
+      box-shadow: config.$box-shadow;
+      background-color: #fff;
+      color: #32373c;
+
+      .se-toolbar {
+        z-index: 2;
+
+        &.se-toolbar-sticky {
+          position: static !important;
+        }
+      }
+
+      .se-wrapper {
+        .se-wrapper-inner {
+          min-height: config.get-height-eight();
+        }
+      }
+
+      + label {
+        display: block;
+        font-weight: bold;
+        font-size: 13px;
+        line-height: 1.4em;
+        margin: 0 0 3px;
+      }
+    }
+  }
+}
+
+

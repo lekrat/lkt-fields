@@ -87,7 +87,7 @@ export declare const DateFieldMixin: {
             default: string;
         };
         valid: {
-            type: BooleanConstructor;
+            type: (FunctionConstructor | BooleanConstructor)[];
             default: boolean;
         };
         disabled: {

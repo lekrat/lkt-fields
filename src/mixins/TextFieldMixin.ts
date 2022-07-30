@@ -1,4 +1,4 @@
-import {generateRandomString, ILktObject, isFunction} from "lkt-tools";
+import {generateRandomString, ILktObject, isFunction, slotProvided} from "lkt-tools";
 import {emitBlur, emitClick, emitFocus, emitKeyDown, emitKeyUp} from "../functions/vm-functions";
 
 export const TextFieldMixin = {
@@ -9,7 +9,7 @@ export const TextFieldMixin = {
         label: {type: String, default: ''},
         state: {type: String, default: ''},
         name: {type: String, default: generateRandomString(16)},
-        valid: { type: Boolean, default: false, },
+        valid: { type: [Boolean, Function], default: false, },
         disabled: { type: Boolean, default: false, },
         readonly: { type: Boolean, default: false, },
         emptyLabel: { type: Boolean, default: false, },
@@ -35,7 +35,7 @@ export const TextFieldMixin = {
             return this.value !== this.originalValue;
         },
         canRenderLabelSlot() {
-            return !!this.$slots['label'];
+            return slotProvided(this, 'label');
         },
         canRenderLabelHtml() {
             if (this.canRenderLabelSlot) {

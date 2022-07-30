@@ -1,21 +1,28 @@
 <template>
-    <div data-lkt="api-select"
+    <div data-lkt="select"
          :data-state="state"
          :data-multiple="multiple"
          :data-show-ui="showInfoUi"
-         :data-error="invalid"
+         :data-error="!isValid"
          :data-disabled="disabled"
          :data-changed="changed"
-         :data-empty="!Value"
-         :data-filled="!!Value"
+         :data-empty="isEmpty"
+         :data-filled="!isEmpty"
     >
         <slot name="prefix"></slot>
 
         <vue-next-select
-            v-model="Value"
+            v-model="value"
             v-bind:options="Options"
             v-bind:label-by="'label'"
             v-bind:group-by="'group'"
+            v-bind:visible-options="visibleOptions"
+            v-bind:searchable="isSearchable"
+            v-bind:multiple="multiple"
+            v-bind:loading="loading"
+            v-on:search:input="handleInput"
+            v-bind:search-placeholder="searchPlaceholder"
+            clear-on-close
         > </vue-next-select>
 
         <slot v-if="canRenderLabelSlot" name="label"></slot>
@@ -48,14 +55,13 @@
 
 <script lang="ts">
 import lktFieldState from "../components/LktFieldState.vue";
-import {LktAbstractFieldMixin} from "../mixins/LktAbstractFieldMixin";
 import {LktFieldStateMixin} from "../mixins/LktFieldStateMixin";
-import {LktFieldWithOptionsMixin} from "../mixins/LktFieldWithOptionsMixin";
 import VueNextSelect from 'vue-next-select';
+import {SelectFieldMixin} from "../mixins/SelectFieldMixin";
 
 export default {
     name: "LktFieldSelect",
     components: {lktFieldState, VueNextSelect},
-    mixins: [LktAbstractFieldMixin, LktFieldStateMixin, LktFieldWithOptionsMixin],
+    mixins: [SelectFieldMixin, LktFieldStateMixin],
 }
 </script>

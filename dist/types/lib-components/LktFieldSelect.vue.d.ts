@@ -424,10 +424,11 @@ declare const _default: {
             onClickUi($event: any, key: string): void;
         };
     } | {
+        emits: string[];
         props: {
             modelValue: {
-                type: (ObjectConstructor | StringConstructor | BooleanConstructor | NumberConstructor | DateConstructor | ArrayConstructor)[];
-                default: () => undefined;
+                type: (StringConstructor | NumberConstructor | ArrayConstructor)[];
+                default: string;
             };
             placeholder: {
                 type: StringConstructor;
@@ -445,8 +446,8 @@ declare const _default: {
                 type: StringConstructor;
                 default: string;
             };
-            invalid: {
-                type: BooleanConstructor;
+            valid: {
+                type: (FunctionConstructor | BooleanConstructor)[];
                 default: boolean;
             };
             disabled: {
@@ -457,42 +458,17 @@ declare const _default: {
                 type: BooleanConstructor;
                 default: boolean;
             };
-            canReset: {
-                type: BooleanConstructor;
-                default: boolean;
-            };
             emptyLabel: {
                 type: BooleanConstructor;
                 default: boolean;
             };
-        };
-        data(): object;
-        computed: {
-            changed(): boolean;
-            canRenderLabelSlot(): boolean;
-            canRenderLabelHtml(): boolean;
-        };
-        methods: {
-            setIsDisabled(status?: boolean): any;
-            isDisabled(): any;
-            reset(): void;
-            getValue(): any;
-            onKeyUp($event: any): void;
-            onKeyDown($event: any): void;
-            onFocus($event: any): void;
-            onBlur($event: any): void;
-            onClick($event: any): void;
-        };
-        watch: {
-            value(v: any): void;
-            Value(v: any): void;
-        };
-        mounted(): void;
-    } | {
-        props: {
             options: {
                 type: ArrayConstructor;
                 default: () => IOption[];
+            };
+            disabledOptions: {
+                type: ArrayConstructor;
+                default: () => any[];
             };
             multiple: {
                 type: BooleanConstructor;
@@ -518,26 +494,57 @@ declare const _default: {
                 type: BooleanConstructor;
                 default: boolean;
             };
+            resource: {
+                type: StringConstructor;
+                default: () => null;
+            };
+            searchOptions: {
+                type: (ObjectConstructor | FunctionConstructor)[];
+                default: () => null;
+            };
+            searchPlaceholder: {
+                type: StringConstructor;
+                default: string;
+            };
         };
-        data(): any;
+        data(): import("lkt-tools").ILktObject;
         computed: {
+            isSearchable(): boolean;
             renderSelectedOption: {
                 cache: boolean;
                 get(): any;
             };
+            isValid(): any;
+            isEmpty(): boolean;
+            changed(): boolean;
+            canRenderLabelSlot(): boolean;
+            canRenderLabelHtml(): boolean;
         };
         watch: {
+            modelValue(v: string): void;
+            value(v: string): void;
             options: {
+                handler(): void;
+                deep: boolean;
+            };
+            apiOptions: {
                 handler(): void;
                 deep: boolean;
             };
         };
         methods: {
+            buildVisibleOptions(): void;
+            handleInput(inputEvent: InputEvent): Promise<void>;
             getDropdownOptionSelector(option: any, highlightOption?: number, i?: number): {
                 'is-highlight': boolean;
                 'is-selected': boolean;
             };
             renderOption(option: any): any;
+            focus(): void;
+            setIsDisabled(status?: boolean): any;
+            isDisabled(): any;
+            reset(): void;
+            getValue(): any;
         };
     })[];
 };

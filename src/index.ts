@@ -13,6 +13,12 @@ import VueNextSelect from 'vue-next-select';
 import 'vue-next-select/dist/index.min.css';
 
 /**
+ * Import editor
+ */
+import 'suneditor/dist/css/suneditor.min.css'
+import 'katex/dist/katex.min.css'
+
+/**
  * Import library components
  */
 import LktFieldCheck from "./lib-components/LktFieldCheck.vue";
@@ -26,6 +32,8 @@ import LktFieldPassword from "./lib-components/LktFieldPassword.vue";
 import LktFieldRadio from "./lib-components/LktFieldRadio.vue";
 import LktFieldDate from "./lib-components/LktFieldDate.vue";
 import LktFieldSelect from "./lib-components/LktFieldSelect.vue";
+import LktFieldEditor from "./lib-components/LktFieldEditor.vue";
+import LktFieldKatex from "./lib-components/LktFieldKatex.vue";
 
 /**
  * Additional imports
@@ -33,10 +41,11 @@ import LktFieldSelect from "./lib-components/LktFieldSelect.vue";
 import {isObject, isUndefined} from "lkt-tools";
 import {Settings} from "./settings/Settings";
 import {DEFAULT_PLUGIN_OPTIONS} from "./constants";
+import {App} from "vue";
 
 
 const LktFields = {
-    install: (app: any, options: IPluginOptions = DEFAULT_PLUGIN_OPTIONS) => {
+    install: (app: App, options: IPluginOptions = DEFAULT_PLUGIN_OPTIONS) => {
         app
             .component('Datepicker', Datepicker)
             .component('vue-next-select', VueNextSelect)
@@ -51,6 +60,8 @@ const LktFields = {
             .component('lkt-field-radio', LktFieldRadio)
             .component('lkt-field-date', LktFieldDate)
             .component('lkt-field-select', LktFieldSelect)
+            .component('lkt-field-editor', LktFieldEditor)
+            .component('lkt-field-katex', LktFieldKatex)
         ;
 
         if (isObject(options)) {

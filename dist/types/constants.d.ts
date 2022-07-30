@@ -91,3 +91,5 @@ export declare const THIS_MONTH_RANGE_TEXT = "This month";
 export declare const LAST_MONTH_RANGE_TEXT = "Last month";
 export declare const THIS_YEAR_RANGE_TEXT = "This year";
 export declare const DEFAULT_PLUGIN_OPTIONS: IPluginOptions;
+export declare const DEFAULT_EDITOR_BUTTONS: (string | string[])[];
+export declare const DEFAULT_KATEX_BUTTONS: (string | string[])[];

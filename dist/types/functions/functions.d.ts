@@ -16,6 +16,7 @@ export declare const defaultOptionParser: (option?: any, i?: number) => any;
  * @param select2Compatibility
  */
 export declare const mapOptions: (options: Array<any>, parser: Function, select2Compatibility?: boolean) => IOption[];
+export declare const mapDisabledOptions: (options: IOption[], disabledOptions: any[]) => IOption[];
 /**
  *
  * @param value
