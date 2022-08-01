@@ -1,0 +1,9 @@
+@use "../lkt-fields-config";
+
+@mixin getLabelStyles() {
+  display: block;
+  font-weight: bold;
+  font-size: lkt-fields-config.$font-size-label;
+  line-height: 1.4em;
+  margin: 0 0 3px;
+}

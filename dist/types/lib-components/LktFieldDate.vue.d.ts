@@ -197,8 +197,8 @@ declare const _default: {
                 default: string;
             };
             disabledDates: {
-                type: ObjectConstructor;
-                default(): {};
+                type: ArrayConstructor;
+                default: () => any[];
             };
             utc: {
                 type: BooleanConstructor;
@@ -246,7 +246,7 @@ declare const _default: {
             };
             flow: {
                 type: ArrayConstructor;
-                default: () => any[];
+                default: () => null;
             };
             presetRanges: {
                 type: ArrayConstructor;
@@ -296,12 +296,14 @@ declare const _default: {
         data(): import("lkt-tools").ILktObject;
         computed: {
             isValid(): any;
+            isEmpty(): boolean;
             changed(): boolean;
             canRenderLabelSlot(): boolean;
             canRenderLabelHtml(): boolean;
         };
         watch: {
-            modelValue(v: string): void;
+            modelValue(v: any): void;
+            value(v: any): void;
         };
         methods: {
             focus(): void;

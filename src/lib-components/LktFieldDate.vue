@@ -5,12 +5,12 @@
          :data-error="!isValid"
          :data-disabled="disabled"
          :data-changed="changed"
-         :data-empty="!modelValue"
-         :data-filled="!!modelValue"
+         :data-empty="isEmpty"
+         :data-filled="!isEmpty"
     >
         <slot name="prefix"></slot>
 
-        <Datepicker v-model="modelValue"
+        <Datepicker v-model="value"
                     v-bind:uid="Identifier"
                     v-bind:disabled="disabled"
                     v-bind:name="name"

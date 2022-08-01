@@ -4,11 +4,7 @@ export const DateFieldMixin = {
     emits: ['update:modelValue'],
     props: {
         modelValue: {type: [String, Date], default: '',},
-        disabledDates: {
-            type: Object, default() {
-                return {};
-            },
-        },
+        disabledDates: {type: Array, default: (): Array<any> => []},
         utc: {type: Boolean, default: false},
         multiDates: {type: Boolean, default: false},
         inline: {type: Boolean, default: false},
@@ -20,7 +16,7 @@ export const DateFieldMixin = {
         range: {type: Boolean, default: false},
         autoRange: {type: [Number, String], default: (): null => null},
         multiCalendars: {type: [Boolean, Number, String], default: (): null => null},
-        flow: {type: Array, default: (): Array<any> => []},
+        flow: {type: Array, default: (): null => null},
         presetRanges: {type: Array, default: (): Array<any> => []},
         minDate: {type: [Date, String], default: (): null => null},
         maxDate: {type: [Date, String], default: (): null => null},
@@ -37,6 +33,7 @@ export const DateFieldMixin = {
         return {
             Identifier: generateRandomString(16),
             originalValue: this.modelValue,
+            value: this.modelValue,
         }
     },
     computed: {
@@ -46,8 +43,11 @@ export const DateFieldMixin = {
             }
             return this.valid;
         },
+        isEmpty() {
+            return !this.value;
+        },
         changed() {
-            return this.Value !== this.originalValue;
+            return this.value !== this.originalValue;
         },
         canRenderLabelSlot() {
             return slotProvided(this, 'label');
@@ -63,7 +63,12 @@ export const DateFieldMixin = {
         }
     },
     watch: {
-        modelValue(v: string) {
+        modelValue(v: any) {
+            this.value = v;
+            console.log('Updated modelValue', v);
+        },
+        value(v: any) {
+            console.log('Updated value', v);
             this.$emit('update:modelValue', v)
         }
     },

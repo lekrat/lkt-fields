@@ -21,6 +21,10 @@ declare namespace _default {
                     vue: string;
                     '@vuepic/vue-datepicker': string;
                     'vue-next-select': string;
+                    suneditor: string;
+                    katex: string;
+                    'lkt-tools': string;
+                    'lkt-http': string;
                 };
                 const sourcemapExcludeSources: boolean;
             }

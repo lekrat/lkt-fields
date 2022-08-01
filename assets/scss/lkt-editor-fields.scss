@@ -1,19 +1,20 @@
-@use "config";
+@use "lkt-fields-config";
+@use "mixins/mixins";
 
 @mixin generate() {
   [data-lkt="field-editor"] {
     display: flex;
     flex-direction: column-reverse;
-    font-size: 16px;
     position: relative;
-    color: #444444;
+    font-size: lkt-fields-config.$font-size;
+    color: lkt-fields-config.$font-color-label;
 
     .sun-editor {
       width: 100% !important;
-      border: 1px solid #ddd;
-      box-shadow: config.$box-shadow;
-      background-color: #fff;
-      color: #32373c;
+      border: lkt-fields-config.$border-width lkt-fields-config.$border-style lkt-fields-config.$border-color;
+      box-shadow: lkt-fields-config.$box-shadow;
+      background-color: lkt-fields-config.$background-color;
+      color: lkt-fields-config.$font-color;
 
       .se-toolbar {
         z-index: 2;
@@ -25,16 +26,12 @@
 
       .se-wrapper {
         .se-wrapper-inner {
-          min-height: config.get-height-eight();
+          min-height: lkt-fields-config.get-height-eight();
         }
       }
 
       + label {
-        display: block;
-        font-weight: bold;
-        font-size: 13px;
-        line-height: 1.4em;
-        margin: 0 0 3px;
+        @include mixins.getLabelStyles();
       }
     }
   }

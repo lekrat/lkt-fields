@@ -26,6 +26,10 @@ export default {
                     vue: 'Vue',
                     '@vuepic/vue-datepicker': 'Datepicker',
                     'vue-next-select': 'VueSelect',
+                    'suneditor': 'suneditor',
+                    'katex': 'katex',
+                    'lkt-tools': 'LktTools',
+                    'lkt-http': 'LktHTTP',
                 },
                 sourcemapExcludeSources: true
             }

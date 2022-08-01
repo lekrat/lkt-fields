@@ -1,7 +1,7 @@
 import {generateRandomString, ILktObject, isFunction, isObject, slotProvided} from "lkt-tools";
 import {getNoOptionsMessage} from "../functions/settings-functions";
 import {defaultOptionFormatter, defaultOptionParser, mapDisabledOptions, mapOptions} from "../functions/functions";
-// import {existsHTTPResource} from "lkt-http";
+import {existsHTTPResource} from "lkt-http";
 export const SelectFieldMixin = {
     emits: ['update:modelValue'],
     props: {
@@ -40,9 +40,7 @@ export const SelectFieldMixin = {
     },
     computed: {
         isSearchable(): boolean {
-            return true;
-            //@todo fix this
-            // return existsHTTPResource(this.resource);
+            return existsHTTPResource(this.resource);
         },
         renderSelectedOption: {
             cache: false,

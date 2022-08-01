@@ -7,8 +7,8 @@ export declare const DateFieldMixin: {
             default: string;
         };
         disabledDates: {
-            type: ObjectConstructor;
-            default(): {};
+            type: ArrayConstructor;
+            default: () => Array<any>;
         };
         utc: {
             type: BooleanConstructor;
@@ -56,7 +56,7 @@ export declare const DateFieldMixin: {
         };
         flow: {
             type: ArrayConstructor;
-            default: () => Array<any>;
+            default: () => null;
         };
         presetRanges: {
             type: ArrayConstructor;
@@ -106,12 +106,14 @@ export declare const DateFieldMixin: {
     data(): ILktObject;
     computed: {
         isValid(): any;
+        isEmpty(): boolean;
         changed(): boolean;
         canRenderLabelSlot(): boolean;
         canRenderLabelHtml(): boolean;
     };
     watch: {
-        modelValue(v: string): void;
+        modelValue(v: any): void;
+        value(v: any): void;
     };
     methods: {
         focus(): void;

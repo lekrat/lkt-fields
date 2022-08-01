@@ -2,8 +2,9 @@ import Ct from "@vuepic/vue-datepicker";
 import ce from "vue-next-select";
 import { generateRandomString as P, isFunction as q, slotProvided as le, isUndefined as V, rmArrayValue as ie, isObject as he, mergeObjects as pe } from "lkt-tools";
 import { openBlock as k, createElementBlock as z, renderSlot as N, withDirectives as D, createElementVNode as W, vModelCheckbox as fe, createCommentVNode as L, resolveComponent as F, vModelText as H, createBlock as $, vModelDynamic as de, Fragment as zt, renderList as Lt, vModelRadio as Et, createVNode as ge } from "vue";
+import { existsHTTPResource as It } from "lkt-http";
 import me from "suneditor";
-import It from "katex";
+import Rt from "katex";
 const be = {
   emits: ["update:modelValue"],
   props: {
@@ -63,11 +64,11 @@ const be = {
   for (const [n, l] of t)
     i[n] = l;
   return i;
-}, Rt = {
+}, Tt = {
   name: "LktFieldCheck",
   mixins: [be]
-}, Tt = ["data-state", "data-error", "data-disabled", "data-changed", "data-empty", "data-filled"], Bt = ["name", "id", "disabled", "readonly", "placeholder", "value"], At = ["for", "innerHTML"];
-function Nt(e, t, i, n, l, o) {
+}, Bt = ["data-state", "data-error", "data-disabled", "data-changed", "data-empty", "data-filled"], At = ["name", "id", "disabled", "readonly", "placeholder", "value"], Nt = ["for", "innerHTML"];
+function Mt(e, t, i, n, l, o) {
   return k(), z("div", {
     "data-lkt": "field-check",
     "data-state": e.state,
@@ -87,7 +88,7 @@ function Nt(e, t, i, n, l, o) {
       readonly: e.readonly,
       placeholder: e.placeholder,
       value: e.modelValue ? "true" : "false"
-    }, null, 8, Bt), [
+    }, null, 8, At), [
       [fe, e.modelValue]
     ]),
     e.canRenderLabelSlot ? N(e.$slots, "label", { key: 0 }) : L("", !0),
@@ -95,14 +96,14 @@ function Nt(e, t, i, n, l, o) {
       key: 1,
       for: e.Identifier,
       innerHTML: e.label
-    }, null, 8, At)) : L("", !0)
-  ], 8, Tt);
+    }, null, 8, Nt)) : L("", !0)
+  ], 8, Bt);
 }
-const Mt = /* @__PURE__ */ U(Rt, [["render", Nt]]), Dt = {
+const Dt = /* @__PURE__ */ U(Tt, [["render", Mt]]), Ot = {
   name: "LktFieldSwitch",
   mixins: [be]
-}, Ot = ["data-state", "data-error", "data-disabled", "data-changed", "data-empty", "data-filled"], Ut = ["name", "id", "disabled", "readonly", "placeholder"], Vt = ["for", "innerHTML"];
-function Ft(e, t, i, n, l, o) {
+}, Ut = ["data-state", "data-error", "data-disabled", "data-changed", "data-empty", "data-filled"], Vt = ["name", "id", "disabled", "readonly", "placeholder"], Ft = ["for", "innerHTML"];
+function Ht(e, t, i, n, l, o) {
   return k(), z("div", {
     "data-lkt": "field-switch",
     "data-state": e.state,
@@ -121,7 +122,7 @@ function Ft(e, t, i, n, l, o) {
       disabled: e.disabled,
       readonly: e.readonly,
       placeholder: e.placeholder
-    }, null, 8, Ut), [
+    }, null, 8, Vt), [
       [fe, e.modelValue]
     ]),
     e.canRenderLabelSlot ? N(e.$slots, "label", { key: 0 }) : L("", !0),
@@ -129,10 +130,10 @@ function Ft(e, t, i, n, l, o) {
       key: 1,
       for: e.Identifier,
       innerHTML: e.label
-    }, null, 8, Vt)) : L("", !0)
-  ], 8, Ot);
+    }, null, 8, Ft)) : L("", !0)
+  ], 8, Ut);
 }
-const Ht = /* @__PURE__ */ U(Dt, [["render", Ft]]);
+const Pt = /* @__PURE__ */ U(Ot, [["render", Ht]]);
 class R {
 }
 R.SHOW_PASSWORD_MESSAGE = "";
@@ -145,7 +146,7 @@ R.TODAY_RANGE_TEXT = "";
 R.THIS_MONTH_RANGE_TEXT = "";
 R.LAST_MONTH_RANGE_TEXT = "";
 R.THIS_YEAR_RANGE_TEXT = "";
-const Pt = {
+const $t = {
   showAdd: { type: Boolean, default: !1 },
   showLink: { type: Boolean, default: !1 },
   showOpen: { type: Boolean, default: !1 },
@@ -166,18 +167,18 @@ const Pt = {
   textLink: { type: String, default: R.FOLLOW_LINK_MESSAGE },
   textOpen: { type: String, default: R.OPEN_MESSAGE },
   textReset: { type: String, default: R.RESET_MESSAGE }
-}, $t = "Show password", Gt = "This is mandatory", qt = "Follow link", jt = "Show details", Wt = "Reset", Yt = "No results. Try typing some text.", Xt = "Today", Kt = "This month", Jt = "Last month", Zt = "This year", Qt = {
-  noOptionsMessage: Yt,
-  showPasswordMessage: $t,
-  isMandatoryMessage: Gt,
-  followLinkMessage: qt,
-  openMessage: jt,
-  resetMessage: Wt,
-  todayRangeText: Xt,
-  thisMonthRangeText: Kt,
-  lastMonthRangeText: Jt,
-  thisYearRangeText: Zt
-}, ei = [
+}, Gt = "Show password", qt = "This is mandatory", jt = "Follow link", Wt = "Show details", Yt = "Reset", Xt = "No results. Try typing some text.", Kt = "Today", Jt = "This month", Zt = "Last month", Qt = "This year", ei = {
+  noOptionsMessage: Xt,
+  showPasswordMessage: Gt,
+  isMandatoryMessage: qt,
+  followLinkMessage: jt,
+  openMessage: Wt,
+  resetMessage: Yt,
+  todayRangeText: Kt,
+  thisMonthRangeText: Jt,
+  lastMonthRangeText: Zt,
+  thisYearRangeText: Qt
+}, ti = [
   ["undo", "redo"],
   ["font", "fontSize", "formatBlock"],
   ["paragraphStyle", "blockquote"],
@@ -191,7 +192,7 @@ const Pt = {
   ["fullScreen", "showBlocks", "codeView"],
   ["preview", "print"],
   ["template"]
-], ti = [
+], ii = [
   ["undo", "redo"],
   ["font", "fontSize", "formatBlock"],
   ["paragraphStyle", "blockquote"],
@@ -206,12 +207,12 @@ const Pt = {
   ["preview", "print"],
   ["template"]
 ];
-class ii {
+class ni {
   constructor(t, i) {
     this.id = void 0, this.value = void 0, this.id = t, this.value = i;
   }
 }
-const K = (e, t) => new ii(e, t), ve = (e, t, i, n = {}) => {
+const K = (e, t) => new ni(e, t), ve = (e, t, i, n = {}) => {
   e.$emit("click-ui", t, K(i, n));
 }, _e = (e, t, i, n = {}) => {
   e.$emit("keyup", t, K(i, n));
@@ -224,7 +225,7 @@ const K = (e, t) => new ii(e, t), ve = (e, t, i, n = {}) => {
 }, Se = (e, t, i, n = {}) => {
   e.$emit("click", t, K(i, n));
 }, xe = {
-  props: Pt,
+  props: $t,
   computed: {
     showInfoUi() {
       return this.showAdd || this.showMandatory || this.showOpen || this.showInfo || this.showError || this.showLog || this.showWarn || this.showLink || this.showReset || this.showPassword;
@@ -250,76 +251,76 @@ const K = (e, t) => new ii(e, t), ve = (e, t, i, n = {}) => {
       ve(this, e, t, { field: this });
     }
   }
-}, ni = {
+}, li = {
   name: "lktFieldState",
   mixins: [xe]
 };
-const li = { "data-lkt": "field-state-ui" }, oi = ["title"], si = ["title"], ai = ["title"], ri = ["title"], di = ["title"], ui = ["title"], ci = ["title"], hi = ["title"], pi = ["title"], fi = ["title"];
-function gi(e, t, i, n, l, o) {
-  return k(), z("div", li, [
+const oi = { "data-lkt": "field-state-ui" }, si = ["title"], ai = ["title"], ri = ["title"], di = ["title"], ui = ["title"], ci = ["title"], hi = ["title"], pi = ["title"], fi = ["title"], gi = ["title"];
+function mi(e, t, i, n, l, o) {
+  return k(), z("div", oi, [
     e.showAdd ? (k(), z("i", {
       key: 0,
       "data-lkt": "add-icon",
       title: e.textAdd,
       onClick: t[0] || (t[0] = (s) => e.onUIStatusClick(s, "add"))
-    }, null, 8, oi)) : L("", !0),
+    }, null, 8, si)) : L("", !0),
     e.showOpen ? (k(), z("i", {
       key: 1,
       "data-lkt": "open-icon",
       title: e.textOpen,
       onClick: t[1] || (t[1] = (s) => e.onUIStatusClick(s, "open"))
-    }, null, 8, si)) : L("", !0),
+    }, null, 8, ai)) : L("", !0),
     e.showLink ? (k(), z("i", {
       key: 2,
       "data-lkt": "link-icon",
       title: e.textLink,
       onClick: t[2] || (t[2] = (s) => e.onUIStatusClick(s, "link"))
-    }, null, 8, ai)) : L("", !0),
+    }, null, 8, ri)) : L("", !0),
     e.showInfo ? (k(), z("i", {
       key: 3,
       "data-lkt": "info-icon",
       title: e.textInfo,
       onClick: t[3] || (t[3] = (s) => e.onUIStatusClick(s, "info"))
-    }, null, 8, ri)) : L("", !0),
+    }, null, 8, di)) : L("", !0),
     e.showPassword ? (k(), z("i", {
       key: 4,
       "data-lkt": "show-password-icon",
       title: e.textPassword,
       onClick: t[4] || (t[4] = (s) => e.onUIStatusClick(s, "show-password"))
-    }, null, 8, di)) : L("", !0),
+    }, null, 8, ui)) : L("", !0),
     e.showLog ? (k(), z("i", {
       key: 5,
       "data-lkt": "log-icon",
       title: e.textLog,
       onClick: t[5] || (t[5] = (s) => e.onUIStatusClick(s, "log"))
-    }, null, 8, ui)) : L("", !0),
+    }, null, 8, ci)) : L("", !0),
     e.showWarn ? (k(), z("i", {
       key: 6,
       "data-lkt": "warn-icon",
       title: e.textWarn,
       onClick: t[6] || (t[6] = (s) => e.onUIStatusClick(s, "warn"))
-    }, null, 8, ci)) : L("", !0),
+    }, null, 8, hi)) : L("", !0),
     e.showError ? (k(), z("i", {
       key: 7,
       "data-lkt": "error-icon",
       title: e.textError,
       onClick: t[7] || (t[7] = (s) => e.onUIStatusClick(s, "error"))
-    }, null, 8, hi)) : L("", !0),
+    }, null, 8, pi)) : L("", !0),
     e.showMandatory ? (k(), z("i", {
       key: 8,
       "data-lkt": "mandatory-icon",
       title: e.textMandatory,
       onClick: t[8] || (t[8] = (s) => e.onUIStatusClick(s, "mandatory"))
-    }, null, 8, pi)) : L("", !0),
+    }, null, 8, fi)) : L("", !0),
     e.showReset ? (k(), z("i", {
       key: 9,
       "data-lkt": "reset-icon",
       title: e.textReset,
       onClick: t[9] || (t[9] = (s) => e.onUIStatusClick(s, "reset"))
-    }, null, 8, fi)) : L("", !0)
+    }, null, 8, gi)) : L("", !0)
   ]);
 }
-const G = /* @__PURE__ */ U(ni, [["render", gi]]), J = {
+const G = /* @__PURE__ */ U(li, [["render", mi]]), J = {
   emits: ["update:modelValue", "keyup", "keydown", "focus", "blur", "click"],
   props: {
     modelValue: { type: String, default: "" },
@@ -398,12 +399,12 @@ const G = /* @__PURE__ */ U(ni, [["render", gi]]), J = {
       Se(this, e, this.name, { value: this.Value });
     }
   }
-}, mi = {
+}, bi = {
   name: "LktFieldText",
   components: { lktFieldState: G },
   mixins: [J, j]
-}, bi = ["data-state", "data-show-ui", "data-error", "data-disabled", "data-changed", "data-empty", "data-filled", "data-labeled"], vi = ["name", "id", "disabled", "readonly", "placeholder"], _i = ["name", "id", "disabled", "readonly"], yi = ["for", "innerHTML"];
-function wi(e, t, i, n, l, o) {
+}, vi = ["data-state", "data-show-ui", "data-error", "data-disabled", "data-changed", "data-empty", "data-filled", "data-labeled"], _i = ["name", "id", "disabled", "readonly", "placeholder"], yi = ["name", "id", "disabled", "readonly"], wi = ["for", "innerHTML"];
+function ki(e, t, i, n, l, o) {
   const s = F("lkt-field-state");
   return k(), z("div", {
     "data-lkt": "field-text",
@@ -432,7 +433,7 @@ function wi(e, t, i, n, l, o) {
       onFocus: t[3] || (t[3] = (...a) => e.onFocus && e.onFocus(...a)),
       onBlur: t[4] || (t[4] = (...a) => e.onBlur && e.onBlur(...a)),
       onClick: t[5] || (t[5] = (...a) => e.onClick && e.onClick(...a))
-    }, null, 40, vi)), [
+    }, null, 40, _i)), [
       [H, e.value]
     ]) : D((k(), z("input", {
       key: 1,
@@ -448,7 +449,7 @@ function wi(e, t, i, n, l, o) {
       onFocus: t[9] || (t[9] = (...a) => e.onFocus && e.onFocus(...a)),
       onBlur: t[10] || (t[10] = (...a) => e.onBlur && e.onBlur(...a)),
       onClick: t[11] || (t[11] = (...a) => e.onClick && e.onClick(...a))
-    }, null, 40, _i)), [
+    }, null, 40, yi)), [
       [H, e.value]
     ]),
     e.canRenderLabelSlot ? N(e.$slots, "label", { key: 2 }) : L("", !0),
@@ -456,7 +457,7 @@ function wi(e, t, i, n, l, o) {
       key: 3,
       for: e.Identifier,
       innerHTML: e.label
-    }, null, 8, yi)) : L("", !0),
+    }, null, 8, wi)) : L("", !0),
     e.showInfoUi ? (k(), $(s, {
       key: 4,
       "show-add": e.showAdd,
@@ -479,14 +480,14 @@ function wi(e, t, i, n, l, o) {
       "show-reset": e.showReset && !e.disabled,
       onClickUi: e.onClickUi
     }, null, 8, ["show-add", "show-error", "show-info", "show-log", "show-warn", "text-add", "text-error", "text-info", "text-log", "text-warn", "show-mandatory", "text-mandatory", "show-open", "text-open", "show-link", "text-link", "text-reset", "show-reset", "onClickUi"])) : L("", !0)
-  ], 8, bi);
+  ], 8, vi);
 }
-const ki = /* @__PURE__ */ U(mi, [["render", wi]]), Si = {
+const Si = /* @__PURE__ */ U(bi, [["render", ki]]), xi = {
   name: "LktFieldTextArea",
   components: { lktFieldState: G },
   mixins: [J, j]
-}, xi = ["data-state", "data-show-ui", "data-error", "data-disabled", "data-changed", "data-empty", "data-filled"], Ci = ["name", "id", "disabled", "readonly", "placeholder"], zi = ["name", "id", "disabled", "readonly"], Li = ["for", "innerHTML"];
-function Ei(e, t, i, n, l, o) {
+}, Ci = ["data-state", "data-show-ui", "data-error", "data-disabled", "data-changed", "data-empty", "data-filled"], zi = ["name", "id", "disabled", "readonly", "placeholder"], Li = ["name", "id", "disabled", "readonly"], Ei = ["for", "innerHTML"];
+function Ii(e, t, i, n, l, o) {
   const s = F("lkt-field-state");
   return k(), z("div", {
     "data-lkt": "field-textarea",
@@ -507,7 +508,7 @@ function Ei(e, t, i, n, l, o) {
       disabled: e.disabled,
       readonly: e.readonly,
       placeholder: e.placeholder
-    }, null, 8, Ci)), [
+    }, null, 8, zi)), [
       [H, e.value]
     ]) : D((k(), z("textarea", {
       key: 1,
@@ -516,7 +517,7 @@ function Ei(e, t, i, n, l, o) {
       id: e.Identifier,
       disabled: e.disabled,
       readonly: e.readonly
-    }, null, 8, zi)), [
+    }, null, 8, Li)), [
       [H, e.value]
     ]),
     e.canRenderLabelSlot ? N(e.$slots, "label", { key: 2 }) : L("", !0),
@@ -524,7 +525,7 @@ function Ei(e, t, i, n, l, o) {
       key: 3,
       for: e.Identifier,
       innerHTML: e.label
-    }, null, 8, Li)) : L("", !0),
+    }, null, 8, Ei)) : L("", !0),
     e.showInfoUi ? (k(), $(s, {
       key: 4,
       "show-add": e.showAdd,
@@ -547,14 +548,14 @@ function Ei(e, t, i, n, l, o) {
       "show-reset": e.showReset && !e.disabled,
       onClickUi: e.onClickUi
     }, null, 8, ["show-add", "show-error", "show-info", "show-log", "show-warn", "text-add", "text-error", "text-info", "text-log", "text-warn", "show-mandatory", "text-mandatory", "show-open", "text-open", "show-link", "text-link", "text-reset", "show-reset", "onClickUi"])) : L("", !0)
-  ], 8, xi);
+  ], 8, Ci);
 }
-const Ii = /* @__PURE__ */ U(Si, [["render", Ei]]), Ri = {
+const Ri = /* @__PURE__ */ U(xi, [["render", Ii]]), Ti = {
   name: "LktFieldEmail",
   components: { lktFieldState: G },
   mixins: [J, j]
-}, Ti = ["data-show-ui", "data-error", "data-disabled", "data-changed", "data-empty", "data-filled"], Bi = ["name", "id", "disabled", "readonly", "placeholder"], Ai = ["name", "id", "disabled", "readonly"], Ni = ["for", "innerHTML"];
-function Mi(e, t, i, n, l, o) {
+}, Bi = ["data-show-ui", "data-error", "data-disabled", "data-changed", "data-empty", "data-filled"], Ai = ["name", "id", "disabled", "readonly", "placeholder"], Ni = ["name", "id", "disabled", "readonly"], Mi = ["for", "innerHTML"];
+function Di(e, t, i, n, l, o) {
   const s = F("lkt-field-state");
   return k(), z("div", {
     "data-lkt": "field-email",
@@ -575,7 +576,7 @@ function Mi(e, t, i, n, l, o) {
       disabled: e.disabled,
       readonly: e.readonly,
       placeholder: e.placeholder
-    }, null, 8, Bi)), [
+    }, null, 8, Ai)), [
       [H, e.value]
     ]) : D((k(), z("input", {
       key: 1,
@@ -585,7 +586,7 @@ function Mi(e, t, i, n, l, o) {
       id: e.Identifier,
       disabled: e.disabled,
       readonly: e.readonly
-    }, null, 8, Ai)), [
+    }, null, 8, Ni)), [
       [H, e.value]
     ]),
     e.canRenderLabelSlot ? N(e.$slots, "label", { key: 2 }) : L("", !0),
@@ -593,7 +594,7 @@ function Mi(e, t, i, n, l, o) {
       key: 3,
       for: e.Identifier,
       innerHTML: e.label
-    }, null, 8, Ni)) : L("", !0),
+    }, null, 8, Mi)) : L("", !0),
     e.showInfoUi ? (k(), $(s, {
       key: 4,
       "show-add": e.showAdd,
@@ -616,14 +617,14 @@ function Mi(e, t, i, n, l, o) {
       "show-reset": e.showReset && !e.disabled,
       onClickUi: e.onClickUi
     }, null, 8, ["show-add", "show-error", "show-info", "show-log", "show-warn", "text-add", "text-error", "text-info", "text-log", "text-warn", "show-mandatory", "text-mandatory", "show-open", "text-open", "show-link", "text-link", "text-reset", "show-reset", "onClickUi"])) : L("", !0)
-  ], 8, Ti);
+  ], 8, Bi);
 }
-const Di = /* @__PURE__ */ U(Ri, [["render", Mi]]), Oi = {
+const Oi = /* @__PURE__ */ U(Ti, [["render", Di]]), Ui = {
   name: "LktFieldTel",
   components: { lktFieldState: G },
   mixins: [J, j]
-}, Ui = ["data-show-ui", "data-error", "data-disabled", "data-changed", "data-empty", "data-filled"], Vi = ["name", "id", "disabled", "readonly", "placeholder"], Fi = ["name", "id", "disabled", "readonly"], Hi = ["for", "innerHTML"];
-function Pi(e, t, i, n, l, o) {
+}, Vi = ["data-show-ui", "data-error", "data-disabled", "data-changed", "data-empty", "data-filled"], Fi = ["name", "id", "disabled", "readonly", "placeholder"], Hi = ["name", "id", "disabled", "readonly"], Pi = ["for", "innerHTML"];
+function $i(e, t, i, n, l, o) {
   const s = F("lkt-field-state");
   return k(), z("div", {
     "data-lkt": "field-tel",
@@ -644,7 +645,7 @@ function Pi(e, t, i, n, l, o) {
       disabled: e.disabled,
       readonly: e.readonly,
       placeholder: e.placeholder
-    }, null, 8, Vi)), [
+    }, null, 8, Fi)), [
       [H, e.value]
     ]) : D((k(), z("input", {
       key: 1,
@@ -654,7 +655,7 @@ function Pi(e, t, i, n, l, o) {
       id: e.Identifier,
       disabled: e.disabled,
       readonly: e.readonly
-    }, null, 8, Fi)), [
+    }, null, 8, Hi)), [
       [H, e.value]
     ]),
     e.canRenderLabelSlot ? N(e.$slots, "label", { key: 2 }) : L("", !0),
@@ -662,7 +663,7 @@ function Pi(e, t, i, n, l, o) {
       key: 3,
       for: e.Identifier,
       innerHTML: e.label
-    }, null, 8, Hi)) : L("", !0),
+    }, null, 8, Pi)) : L("", !0),
     e.showInfoUi ? (k(), $(s, {
       key: 4,
       "show-error": e.showError,
@@ -681,9 +682,9 @@ function Pi(e, t, i, n, l, o) {
       "show-reset": e.showReset && !e.disabled,
       onClickUi: e.onClickUi
     }, null, 8, ["show-error", "show-info", "show-log", "show-warn", "text-error", "text-info", "text-log", "text-warn", "show-open", "text-open", "show-link", "text-link", "text-reset", "show-reset", "onClickUi"])) : L("", !0)
-  ], 8, Ui);
+  ], 8, Vi);
 }
-const $i = /* @__PURE__ */ U(Oi, [["render", Pi]]), Ce = {
+const Gi = /* @__PURE__ */ U(Ui, [["render", $i]]), Ce = {
   props: {
     modelValue: { type: [String, Number, Object, Array, Date, Boolean], default: () => {
     } },
@@ -756,7 +757,7 @@ const $i = /* @__PURE__ */ U(Oi, [["render", Pi]]), Ce = {
   mounted() {
     this.canEmit = !0;
   }
-}, Gi = {
+}, qi = {
   name: "LktFieldUnit",
   components: { lktFieldState: G },
   mixins: [Ce, j],
@@ -811,8 +812,8 @@ const $i = /* @__PURE__ */ U(Oi, [["render", Pi]]), Ce = {
       return this.min !== !1 && e < this.min ? (e = this.min, t = !0) : this.max !== !1 && e > this.max && (e = this.max, t = !0), t === !0 ? (this.Value = e, !0) : !1;
     }
   }
-}, qi = ["data-state", "data-show-ui", "data-error", "data-disabled", "data-changed", "data-empty", "data-filled", "data-ranged"], ji = ["id", "name", "disabled", "readonly", "min", "max"], Wi = ["name", "id", "disabled", "readonly", "min", "max", "step", "placeholder"], Yi = ["for", "innerHTML"];
-function Xi(e, t, i, n, l, o) {
+}, ji = ["data-state", "data-show-ui", "data-error", "data-disabled", "data-changed", "data-empty", "data-filled", "data-ranged"], Wi = ["id", "name", "disabled", "readonly", "min", "max"], Yi = ["name", "id", "disabled", "readonly", "min", "max", "step", "placeholder"], Xi = ["for", "innerHTML"];
+function Ki(e, t, i, n, l, o) {
   const s = F("lkt-field-state");
   return k(), z("div", {
     "data-lkt": "field-unit",
@@ -835,7 +836,7 @@ function Xi(e, t, i, n, l, o) {
       readonly: e.readonly,
       min: o.Min,
       max: o.Max
-    }, null, 8, ji)), [
+    }, null, 8, Wi)), [
       [H, l.Value]
     ]) : L("", !0),
     N(e.$slots, "prefix"),
@@ -850,7 +851,7 @@ function Xi(e, t, i, n, l, o) {
       max: o.Max,
       step: i.step,
       placeholder: e.placeholder
-    }, null, 8, Wi), [
+    }, null, 8, Yi), [
       [H, l.Value]
     ]),
     e.canRenderLabelSlot ? N(e.$slots, "label", { key: 1 }) : L("", !0),
@@ -858,7 +859,7 @@ function Xi(e, t, i, n, l, o) {
       key: 2,
       for: e.Identifier,
       innerHTML: e.label
-    }, null, 8, Yi)) : L("", !0),
+    }, null, 8, Xi)) : L("", !0),
     e.showInfoUi ? (k(), $(s, {
       key: 3,
       "show-add": e.showAdd,
@@ -881,9 +882,9 @@ function Xi(e, t, i, n, l, o) {
       "show-reset": e.showReset && !e.disabled,
       onClickUi: e.onClickUi
     }, null, 8, ["show-add", "show-error", "show-info", "show-log", "show-warn", "text-add", "text-error", "text-info", "text-log", "text-warn", "show-mandatory", "text-mandatory", "show-open", "text-open", "show-link", "text-link", "text-reset", "show-reset", "onClickUi"])) : L("", !0)
-  ], 8, qi);
+  ], 8, ji);
 }
-const Ki = /* @__PURE__ */ U(Gi, [["render", Xi]]), Ji = {
+const Ji = /* @__PURE__ */ U(qi, [["render", Ki]]), Zi = {
   name: "LktFieldPassword",
   components: { lktFieldState: G },
   mixins: [J, j],
@@ -897,8 +898,8 @@ const Ki = /* @__PURE__ */ U(Gi, [["render", Xi]]), Ji = {
       return this.visiblePassword ? "text" : "password";
     }
   }
-}, Zi = ["data-state", "data-show-ui", "data-error", "data-disabled", "data-changed", "data-empty", "data-filled"], Qi = ["type", "name", "id", "disabled", "readonly", "placeholder"], en = ["type", "name", "id", "disabled", "readonly"], tn = ["for", "innerHTML"];
-function nn(e, t, i, n, l, o) {
+}, Qi = ["data-state", "data-show-ui", "data-error", "data-disabled", "data-changed", "data-empty", "data-filled"], en = ["type", "name", "id", "disabled", "readonly", "placeholder"], tn = ["type", "name", "id", "disabled", "readonly"], nn = ["for", "innerHTML"];
+function ln(e, t, i, n, l, o) {
   const s = F("lkt-field-state");
   return k(), z("div", {
     "data-lkt": "field-password",
@@ -920,7 +921,7 @@ function nn(e, t, i, n, l, o) {
       disabled: e.disabled,
       readonly: e.readonly,
       placeholder: e.placeholder
-    }, null, 8, Qi)), [
+    }, null, 8, en)), [
       [de, e.value]
     ]) : D((k(), z("input", {
       key: 1,
@@ -930,7 +931,7 @@ function nn(e, t, i, n, l, o) {
       id: e.Identifier,
       disabled: e.disabled,
       readonly: e.readonly
-    }, null, 8, en)), [
+    }, null, 8, tn)), [
       [de, e.value]
     ]),
     e.canRenderLabelSlot ? N(e.$slots, "label", { key: 2 }) : L("", !0),
@@ -938,7 +939,7 @@ function nn(e, t, i, n, l, o) {
       key: 3,
       for: e.Identifier,
       innerHTML: e.label
-    }, null, 8, tn)) : L("", !0),
+    }, null, 8, nn)) : L("", !0),
     e.showInfoUi ? (k(), $(s, {
       key: 4,
       "show-add": e.showAdd,
@@ -963,9 +964,9 @@ function nn(e, t, i, n, l, o) {
       "show-reset": e.showReset && !e.disabled,
       onClickUi: e.onClickUi
     }, null, 8, ["show-add", "show-password", "show-error", "show-info", "show-log", "show-warn", "text-add", "text-error", "text-info", "text-log", "text-warn", "show-mandatory", "text-mandatory", "show-open", "text-open", "show-link", "text-link", "text-reset", "text-password", "show-reset", "onClickUi"])) : L("", !0)
-  ], 8, Zi);
+  ], 8, Qi);
 }
-const ln = /* @__PURE__ */ U(Ji, [["render", nn]]), ze = () => R.NO_OPTIONS_MESSAGE, Le = (e = {}) => e.label, Ee = (e = {}, t = 0) => e, X = (e, t, i = !1) => {
+const on = /* @__PURE__ */ U(Zi, [["render", ln]]), ze = () => R.NO_OPTIONS_MESSAGE, Le = (e = {}) => e.label, Ee = (e = {}, t = 0) => e, X = (e, t, i = !1) => {
   if (i) {
     let n = [];
     return e.forEach((l) => {
@@ -990,7 +991,7 @@ const ln = /* @__PURE__ */ U(Ji, [["render", nn]]), ze = () => R.NO_OPTIONS_MESS
   return e.map((n, l) => t(n, l));
 }, se = (e, t) => (e.forEach((i) => {
   i.disabled = i.disabled || t.indexOf(i.value) > -1;
-}), e), on = {
+}), e), sn = {
   props: {
     options: { type: Array, default: () => [] },
     multiple: { type: Boolean, default: !1 },
@@ -1033,14 +1034,14 @@ const ln = /* @__PURE__ */ U(Ji, [["render", nn]]), ze = () => R.NO_OPTIONS_MESS
       return q(this.optionFormatter) ? this.optionFormatter(e) : e.label;
     }
   }
-}, sn = {
+}, an = {
   name: "LktFieldRadio",
-  mixins: [Ce, on],
+  mixins: [Ce, sn],
   props: {
     value: { type: String, default: "" }
   }
-}, an = ["data-state", "data-error", "data-disabled", "data-changed", "data-empty", "data-filled"], rn = { "data-role": "option" }, dn = ["name", "id", "disabled", "readonly", "placeholder", "value", "checked"], un = ["for", "innerHTML"];
-function cn(e, t, i, n, l, o) {
+}, rn = ["data-state", "data-error", "data-disabled", "data-changed", "data-empty", "data-filled"], dn = { "data-role": "option" }, un = ["name", "id", "disabled", "readonly", "placeholder", "value", "checked"], cn = ["for", "innerHTML"];
+function hn(e, t, i, n, l, o) {
   return k(), z("div", {
     "data-lkt": "field-radio",
     "data-state": e.state,
@@ -1051,7 +1052,7 @@ function cn(e, t, i, n, l, o) {
     "data-filled": !!e.Value
   }, [
     N(e.$slots, "prefix"),
-    (k(!0), z(zt, null, Lt(e.Options, (s, a) => (k(), z("div", rn, [
+    (k(!0), z(zt, null, Lt(e.Options, (s, a) => (k(), z("div", dn, [
       D(W("input", {
         type: "radio",
         "onUpdate:modelValue": t[0] || (t[0] = (r) => e.Value = r),
@@ -1062,26 +1063,21 @@ function cn(e, t, i, n, l, o) {
         placeholder: e.placeholder,
         value: s.id,
         checked: s.id === e.Value
-      }, null, 8, dn), [
+      }, null, 8, un), [
         [Et, e.Value]
       ]),
       W("label", {
         for: e.Identifier + a,
         innerHTML: s.text
-      }, null, 8, un)
+      }, null, 8, cn)
     ]))), 256))
-  ], 8, an);
+  ], 8, rn);
 }
-const hn = /* @__PURE__ */ U(sn, [["render", cn]]), pn = {
+const pn = /* @__PURE__ */ U(an, [["render", hn]]), fn = {
   emits: ["update:modelValue"],
   props: {
     modelValue: { type: [String, Date], default: "" },
-    disabledDates: {
-      type: Object,
-      default() {
-        return {};
-      }
-    },
+    disabledDates: { type: Array, default: () => [] },
     utc: { type: Boolean, default: !1 },
     multiDates: { type: Boolean, default: !1 },
     inline: { type: Boolean, default: !1 },
@@ -1093,7 +1089,7 @@ const hn = /* @__PURE__ */ U(sn, [["render", cn]]), pn = {
     range: { type: Boolean, default: !1 },
     autoRange: { type: [Number, String], default: () => null },
     multiCalendars: { type: [Boolean, Number, String], default: () => null },
-    flow: { type: Array, default: () => [] },
+    flow: { type: Array, default: () => null },
     presetRanges: { type: Array, default: () => [] },
     minDate: { type: [Date, String], default: () => null },
     maxDate: { type: [Date, String], default: () => null },
@@ -1109,15 +1105,19 @@ const hn = /* @__PURE__ */ U(sn, [["render", cn]]), pn = {
   data() {
     return {
       Identifier: P(16),
-      originalValue: this.modelValue
+      originalValue: this.modelValue,
+      value: this.modelValue
     };
   },
   computed: {
     isValid() {
       return q(this.valid) ? this.valid() : this.valid;
     },
+    isEmpty() {
+      return !this.value;
+    },
     changed() {
-      return this.Value !== this.originalValue;
+      return this.value !== this.originalValue;
     },
     canRenderLabelSlot() {
       return le(this, "label");
@@ -1128,7 +1128,10 @@ const hn = /* @__PURE__ */ U(sn, [["render", cn]]), pn = {
   },
   watch: {
     modelValue(e) {
-      this.$emit("update:modelValue", e);
+      this.value = e, console.log("Updated modelValue", e);
+    },
+    value(e) {
+      console.log("Updated value", e), this.$emit("update:modelValue", e);
     }
   },
   methods: {
@@ -1150,12 +1153,12 @@ const hn = /* @__PURE__ */ U(sn, [["render", cn]]), pn = {
       return this.modelValue;
     }
   }
-}, fn = {
+}, gn = {
   name: "LktFieldDate",
   components: { lktFieldState: G },
-  mixins: [pn, j]
-}, gn = ["data-state", "data-show-ui", "data-error", "data-disabled", "data-changed", "data-empty", "data-filled"], mn = ["for", "innerHTML"];
-function bn(e, t, i, n, l, o) {
+  mixins: [fn, j]
+}, mn = ["data-state", "data-show-ui", "data-error", "data-disabled", "data-changed", "data-empty", "data-filled"], bn = ["for", "innerHTML"];
+function vn(e, t, i, n, l, o) {
   const s = F("Datepicker"), a = F("lkt-field-state");
   return k(), z("div", {
     "data-lkt": "field-date",
@@ -1164,13 +1167,13 @@ function bn(e, t, i, n, l, o) {
     "data-error": !e.isValid,
     "data-disabled": e.disabled,
     "data-changed": e.changed,
-    "data-empty": !e.modelValue,
-    "data-filled": !!e.modelValue
+    "data-empty": e.isEmpty,
+    "data-filled": !e.isEmpty
   }, [
     N(e.$slots, "prefix"),
     ge(s, {
-      modelValue: e.modelValue,
-      "onUpdate:modelValue": t[0] || (t[0] = (r) => e.modelValue = r),
+      modelValue: e.value,
+      "onUpdate:modelValue": t[0] || (t[0] = (r) => e.value = r),
       uid: e.Identifier,
       disabled: e.disabled,
       name: e.name,
@@ -1196,7 +1199,7 @@ function bn(e, t, i, n, l, o) {
       key: 1,
       for: e.Identifier,
       innerHTML: e.label
-    }, null, 8, mn)) : L("", !0),
+    }, null, 8, bn)) : L("", !0),
     e.showInfoUi ? (k(), $(a, {
       key: 2,
       "show-add": e.showAdd,
@@ -1219,9 +1222,9 @@ function bn(e, t, i, n, l, o) {
       "show-reset": e.showReset && !e.disabled,
       onClickUi: e.onClickUi
     }, null, 8, ["show-add", "show-error", "show-info", "show-log", "show-warn", "text-add", "text-error", "text-info", "text-log", "text-warn", "show-mandatory", "text-mandatory", "show-open", "text-open", "show-link", "text-link", "text-reset", "show-reset", "onClickUi"])) : L("", !0)
-  ], 8, gn);
+  ], 8, mn);
 }
-const vn = /* @__PURE__ */ U(fn, [["render", bn]]), _n = {
+const _n = /* @__PURE__ */ U(gn, [["render", vn]]), yn = {
   emits: ["update:modelValue"],
   props: {
     modelValue: { type: [String, Number, Array], default: "" },
@@ -1259,7 +1262,7 @@ const vn = /* @__PURE__ */ U(fn, [["render", bn]]), _n = {
   },
   computed: {
     isSearchable() {
-      return !0;
+      return It(this.resource);
     },
     renderSelectedOption: {
       cache: !1,
@@ -1344,12 +1347,12 @@ const vn = /* @__PURE__ */ U(fn, [["render", bn]]), _n = {
       return this.modelValue;
     }
   }
-}, yn = {
+}, wn = {
   name: "LktFieldSelect",
   components: { lktFieldState: G, VueNextSelect: ce },
-  mixins: [_n, j]
-}, wn = ["data-state", "data-multiple", "data-show-ui", "data-error", "data-disabled", "data-changed", "data-empty", "data-filled"], kn = ["for", "innerHTML"];
-function Sn(e, t, i, n, l, o) {
+  mixins: [yn, j]
+}, kn = ["data-state", "data-multiple", "data-show-ui", "data-error", "data-disabled", "data-changed", "data-empty", "data-filled"], Sn = ["for", "innerHTML"];
+function xn(e, t, i, n, l, o) {
   const s = F("vue-next-select"), a = F("lkt-field-state");
   return k(), z("div", {
     "data-lkt": "select",
@@ -1382,7 +1385,7 @@ function Sn(e, t, i, n, l, o) {
       key: 1,
       for: e.Identifier,
       innerHTML: e.label
-    }, null, 8, kn)) : L("", !0),
+    }, null, 8, Sn)) : L("", !0),
     e.showInfoUi ? (k(), $(a, {
       key: 2,
       "show-add": e.showAdd,
@@ -1405,9 +1408,9 @@ function Sn(e, t, i, n, l, o) {
       "show-reset": e.showReset && !e.disabled,
       onClickUi: e.onClickUi
     }, null, 8, ["show-add", "show-error", "show-info", "show-log", "show-warn", "text-add", "text-error", "text-info", "text-log", "text-warn", "show-mandatory", "text-mandatory", "show-open", "text-open", "show-link", "text-link", "text-reset", "show-reset", "onClickUi"])) : L("", !0)
-  ], 8, wn);
+  ], 8, kn);
 }
-const xn = /* @__PURE__ */ U(yn, [["render", Sn]]), Cn = {
+const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), zn = {
   name: "blockquote",
   display: "command",
   add: function(e, t) {
@@ -1428,7 +1431,7 @@ const xn = /* @__PURE__ */ U(yn, [["render", Sn]]), Cn = {
     const e = this.util.getParentElement(this.getSelectionNode(), "blockquote");
     e ? this.detachRangeFormatElement(e, null, null, !1, !1) : this.applyRangeFormatElement(this.context.blockquote.tag.cloneNode(!1));
   }
-}, zn = {
+}, Ln = {
   name: "align",
   display: "submenu",
   add: function(e, t) {
@@ -1498,7 +1501,7 @@ const xn = /* @__PURE__ */ U(yn, [["render", Sn]]), Cn = {
       this.util.setStyle(l[o], "textAlign", i === n ? "" : i);
     this.effectNode = null, this.submenuOff(), this.focus(), this.history.push(!1);
   }
-}, Ln = {
+}, En = {
   name: "font",
   display: "submenu",
   add: function(e, t) {
@@ -1553,7 +1556,7 @@ const xn = /* @__PURE__ */ U(yn, [["render", Sn]]), Cn = {
       this.nodeChange(null, ["font-family"], ["span"], !0);
     this.submenuOff();
   }
-}, En = {
+}, In = {
   name: "fontSize",
   display: "submenu",
   add: function(e, t) {
@@ -1724,7 +1727,7 @@ const xn = /* @__PURE__ */ U(yn, [["render", Sn]]), Cn = {
     });
     return this.util.removeItem(t), i.length >= 3 ? "#" + ((1 << 24) + (i[0] << 16) + (i[1] << 8) + i[2]).toString(16).substr(1) : !1;
   }
-}, In = {
+}, Rn = {
   name: "fontColor",
   display: "submenu",
   add: function(e, t) {
@@ -1766,7 +1769,7 @@ const xn = /* @__PURE__ */ U(yn, [["render", Sn]]), Cn = {
     const t = this.util.createElement("SPAN");
     t.style.color = e, this.nodeChange(t, ["color"], null, null), this.submenuOff();
   }
-}, Rn = {
+}, Tn = {
   name: "hiliteColor",
   display: "submenu",
   add: function(e, t) {
@@ -1808,7 +1811,7 @@ const xn = /* @__PURE__ */ U(yn, [["render", Sn]]), Cn = {
     const t = this.util.createElement("SPAN");
     t.style.backgroundColor = e, this.nodeChange(t, ["background-color"], null, null), this.submenuOff();
   }
-}, Tn = {
+}, Bn = {
   name: "horizontalRule",
   display: "submenu",
   add: function(e, t) {
@@ -1845,7 +1848,7 @@ const xn = /* @__PURE__ */ U(yn, [["render", Sn]]), Cn = {
     const n = this.plugins.horizontalRule.appendHr.call(this, t.firstElementChild);
     n && (this.setRange(n, 0, n, 0), this.submenuOff());
   }
-}, Bn = {
+}, An = {
   name: "list",
   display: "submenu",
   add: function(e, t) {
@@ -2032,7 +2035,7 @@ const xn = /* @__PURE__ */ U(yn, [["render", Sn]]), Cn = {
     const n = this.plugins.list.editList.call(this, i, null, !1);
     n && this.setRange(n.sc, n.so, n.ec, n.eo), this.submenuOff(), this.history.push(!1);
   }
-}, An = {
+}, Nn = {
   name: "table",
   display: "submenu",
   add: function(e, t) {
@@ -2573,7 +2576,7 @@ const xn = /* @__PURE__ */ U(yn, [["render", Sn]]), Cn = {
     }
     this.history.push(!1);
   }
-}, Nn = {
+}, Mn = {
   name: "formatBlock",
   display: "submenu",
   add: function(e, t) {
@@ -2669,7 +2672,7 @@ const xn = /* @__PURE__ */ U(yn, [["render", Sn]]), Cn = {
       this.submenuOff();
     }
   }
-}, Mn = {
+}, Dn = {
   name: "lineHeight",
   display: "submenu",
   add: function(e, t) {
@@ -2712,7 +2715,7 @@ const xn = /* @__PURE__ */ U(yn, [["render", Sn]]), Cn = {
       i[n].style.lineHeight = t;
     this.submenuOff(), this.history.push(!1);
   }
-}, Dn = {
+}, On = {
   name: "template",
   display: "submenu",
   add: function(e, t) {
@@ -2745,7 +2748,7 @@ const xn = /* @__PURE__ */ U(yn, [["render", Sn]]), Cn = {
       throw this.submenuOff(), Error('[SUNEDITOR.template.fail] cause : "templates[i].html not found"');
     this.submenuOff();
   }
-}, On = {
+}, Un = {
   name: "paragraphStyle",
   display: "submenu",
   add: function(e, t) {
@@ -2808,7 +2811,7 @@ const xn = /* @__PURE__ */ U(yn, [["render", Sn]]), Cn = {
       l(n[o], i);
     this.submenuOff(), this.history.push(!1);
   }
-}, Un = {
+}, Vn = {
   name: "textStyle",
   display: "submenu",
   add: function(e, t) {
@@ -2950,7 +2953,7 @@ var M = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : ty
     })), n;
   });
 })(Re);
-const Q = Re.exports, Vn = {
+const Q = Re.exports, Fn = {
   name: "selectMenu",
   add: function(e) {
     e.context.selectMenu = {
@@ -3015,7 +3018,7 @@ const Q = Re.exports, Vn = {
 }, Te = {
   name: "anchor",
   add: function(e) {
-    e.addModule([Vn]), e.context.anchor = {
+    e.addModule([Fn]), e.context.anchor = {
       caller: {},
       forms: this.setDialogForm(e),
       host: (e._w.location.origin + e._w.location.pathname).replace(/\/$/, ""),
@@ -3189,7 +3192,7 @@ const Q = Re.exports, Vn = {
   init: function(e) {
     e.linkAnchor = null, e.linkValue = e.preview.textContent = e.urlInput.value = "", e.anchorText.value = "", e.newWindowCheck.checked = !1, e.downloadCheck.checked = !1, e._change = !1, this.plugins.anchor.setRel.call(this, e, e.defaultRel), e.relList && this.plugins.anchor.toggleRelList.call(this, e, !1), this.context.anchor.callerContext = null, this.plugins.selectMenu.init.call(this, this.context.selectMenu.callerContext);
   }
-}, Fn = {
+}, Hn = {
   name: "link",
   display: "dialog",
   add: function(e) {
@@ -3753,7 +3756,7 @@ var Me = { exports: {} };
     })), n;
   });
 })(Me);
-const re = Me.exports, Hn = {
+const re = Me.exports, Pn = {
   name: "image",
   display: "dialog",
   add: function(e) {
@@ -4121,7 +4124,7 @@ const re = Me.exports, Hn = {
     const e = this.context.image;
     e.imgInputFile && (e.imgInputFile.value = ""), e.imgUrlFile && (e._v_src._linkValue = e.previewSrc.textContent = e.imgUrlFile.value = ""), e.imgInputFile && e.imgUrlFile && (e.imgUrlFile.removeAttribute("disabled"), e.previewSrc.style.textDecoration = ""), e.altText.value = "", e.modal.querySelector('input[name="suneditor_image_radio"][value="none"]').checked = !0, e.captionCheckEl.checked = !1, e._element = null, this.plugins.image.openTab.call(this, "init"), e._resizing && (e.inputX.value = this.options.imageWidth === e._defaultSizeX ? "" : this.options.imageWidth, e.inputY.value = this.options.imageHeight === e._defaultSizeY ? "" : this.options.imageHeight, e.proportion.checked = !0, e._ratio = !1, e._ratioX = 1, e._ratioY = 1), this.plugins.anchor.init.call(this, e.anchorCtx);
   }
-}, Pn = {
+}, $n = {
   name: "video",
   display: "dialog",
   add: function(e) {
@@ -4491,7 +4494,7 @@ const re = Me.exports, Hn = {
     const e = this.context.video;
     e.videoInputFile && (e.videoInputFile.value = ""), e.videoUrlFile && (e._linkValue = e.preview.textContent = e.videoUrlFile.value = ""), e.videoInputFile && e.videoUrlFile && (e.videoUrlFile.removeAttribute("disabled"), e.preview.style.textDecoration = ""), e._origin_w = this.options.videoWidth, e._origin_h = this.options.videoHeight, e.modal.querySelector('input[name="suneditor_video_radio"][value="none"]').checked = !0, e._resizing && (e.inputX.value = this.options.videoWidth === e._defaultSizeX ? "" : this.options.videoWidth, e.inputY.value = this.options.videoHeight === e._defaultSizeY ? "" : this.options.videoHeight, e.proportion.checked = !0, e.proportion.disabled = !0, this.plugins.video.setVideoRatioSelect.call(this, e._defaultRatio));
   }
-}, $n = {
+}, Gn = {
   name: "audio",
   display: "dialog",
   add: function(e) {
@@ -4738,7 +4741,7 @@ const re = Me.exports, Hn = {
     const e = this.context.audio;
     e.audioInputFile && (e.audioInputFile.value = ""), e.audioUrlFile && (e._linkValue = e.preview.textContent = e.audioUrlFile.value = ""), e.audioInputFile && e.audioUrlFile && (e.audioUrlFile.removeAttribute("disabled"), e.preview.style.textDecoration = ""), e._element = null;
   }
-}, Gn = {
+}, qn = {
   name: "math",
   display: "dialog",
   add: function(e) {
@@ -5008,10 +5011,10 @@ var De = { exports: {} };
     })), n;
   });
 })(De);
-const qn = De.exports, jn = {
+const jn = De.exports, Wn = {
   name: "imageGallery",
   add: function(e) {
-    e.addModule([qn]);
+    e.addModule([jn]);
     const t = e.context;
     t.imageGallery = {
       title: e.lang.toolbar.imageGallery,
@@ -5036,7 +5039,7 @@ const qn = De.exports, jn = {
       this.plugins.image.create_image.call(this, e.getAttribute("data-value"), null, this.context.image._origin_w, this.context.image._origin_h, "none", t, e.alt);
     }.bind(this), null);
   }
-}, Oe = { blockquote: Cn, align: zn, font: Ln, fontSize: En, fontColor: In, hiliteColor: Rn, horizontalRule: Tn, list: Bn, table: An, formatBlock: Nn, lineHeight: Mn, template: Dn, paragraphStyle: On, textStyle: Un, link: Fn, image: Hn, video: Pn, audio: $n, math: Gn, imageGallery: jn };
+}, Oe = { blockquote: zn, align: Ln, font: En, fontSize: In, fontColor: Rn, hiliteColor: Tn, horizontalRule: Bn, list: An, table: Nn, formatBlock: Mn, lineHeight: Dn, template: On, paragraphStyle: Un, textStyle: Vn, link: Hn, image: Pn, video: $n, audio: Gn, math: qn, imageGallery: Wn };
 var Ue = { exports: {} };
 (function(e) {
   (function(t, i) {
@@ -8208,7 +8211,7 @@ var _t = { exports: {} };
     })), n;
   });
 })(_t);
-const yt = _t.exports, Wn = { ckb: Ve, da: He, de: $e, en: oe, es: je, fr: Ye, he: Ke, it: Ze, ja: et, ko: it, lv: lt, nl: st, pl: rt, pt_br: ut, ro: ht, ru: ft, se: mt, ua: vt, zh_cn: yt }, ne = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const yt = _t.exports, Yn = { ckb: Ve, da: He, de: $e, en: oe, es: je, fr: Ye, he: Ke, it: Ze, ja: et, ko: it, lv: lt, nl: st, pl: rt, pt_br: ut, ro: ht, ru: ft, se: mt, ua: vt, zh_cn: yt }, ne = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   ckb: Ve,
   da: He,
@@ -8229,16 +8232,16 @@ const yt = _t.exports, Wn = { ckb: Ve, da: He, de: $e, en: oe, es: je, fr: Ye, h
   se: mt,
   ua: vt,
   zh_cn: yt,
-  default: Wn
-}, Symbol.toStringTag, { value: "Module" })), Yn = (e, t, i) => {
+  default: Yn
+}, Symbol.toStringTag, { value: "Module" })), Xn = (e, t, i) => {
   const n = pe(e, {
     plugins: Oe,
     lang: ne[t] ? ne[t] : oe
   });
   return me.create(i, n);
-}, Xn = (e, t, i) => {
+}, Kn = (e, t, i) => {
   const n = pe(e, {
-    katex: It,
+    katex: Rt,
     plugins: Oe,
     lang: ne[t] ? ne[t] : oe
   });
@@ -8250,7 +8253,7 @@ const yt = _t.exports, Wn = { ckb: Ve, da: He, de: $e, en: oe, es: je, fr: Ye, h
     editorOptions: {
       type: Object,
       default() {
-        return { buttonList: ei };
+        return { buttonList: ti };
       }
     }
   },
@@ -8275,15 +8278,15 @@ const yt = _t.exports, Wn = { ckb: Ve, da: He, de: $e, en: oe, es: je, fr: Ye, h
       this.disabled ? this.editor.disabled() : this.editor.enabled();
     }
   }
-}, Kn = {
+}, Jn = {
   name: "LktFieldEditor",
   components: { LktFieldState: G },
   mixins: [wt],
   mounted() {
-    this.editor = Yn(this.editorOptions, this.lang, this.Identifier), this.editor.onChange = this.storeEditorValue, this.updateEditorDisabled();
+    this.editor = Xn(this.editorOptions, this.lang, this.Identifier), this.editor.onChange = this.storeEditorValue, this.updateEditorDisabled();
   }
-}, Jn = ["data-state", "data-show-ui", "data-error", "data-disabled", "data-changed", "data-empty", "data-filled"], Zn = ["name", "id", "disabled", "readonly", "placeholder"], Qn = ["for", "innerHTML"];
-function el(e, t, i, n, l, o) {
+}, Zn = ["data-state", "data-show-ui", "data-error", "data-disabled", "data-changed", "data-empty", "data-filled"], Qn = ["name", "id", "disabled", "readonly", "placeholder"], el = ["for", "innerHTML"];
+function tl(e, t, i, n, l, o) {
   const s = F("lkt-field-state");
   return k(), z("div", {
     "data-lkt": "field-editor",
@@ -8303,7 +8306,7 @@ function el(e, t, i, n, l, o) {
       disabled: e.disabled,
       readonly: e.readonly,
       placeholder: e.placeholder
-    }, null, 8, Zn), [
+    }, null, 8, Qn), [
       [H, e.value]
     ]),
     e.canRenderLabelSlot ? N(e.$slots, "label", { key: 0 }) : L("", !0),
@@ -8311,7 +8314,7 @@ function el(e, t, i, n, l, o) {
       key: 1,
       for: e.Identifier,
       innerHTML: e.label
-    }, null, 8, Qn)) : L("", !0),
+    }, null, 8, el)) : L("", !0),
     e.showInfoUi ? (k(), $(s, {
       key: 2,
       "show-add": e.showAdd,
@@ -8334,9 +8337,9 @@ function el(e, t, i, n, l, o) {
       "show-reset": e.showReset && !e.disabled,
       onClickUi: e.onClickUi
     }, null, 8, ["show-add", "show-error", "show-info", "show-log", "show-warn", "text-add", "text-error", "text-info", "text-log", "text-warn", "show-mandatory", "text-mandatory", "show-open", "text-open", "show-link", "text-link", "text-reset", "show-reset", "onClickUi"])) : L("", !0)
-  ], 8, Jn);
+  ], 8, Zn);
 }
-const tl = /* @__PURE__ */ U(Kn, [["render", el]]), il = {
+const il = /* @__PURE__ */ U(Jn, [["render", tl]]), nl = {
   name: "LktFieldKatex",
   components: { LktFieldState: G },
   mixins: [wt],
@@ -8344,15 +8347,15 @@ const tl = /* @__PURE__ */ U(Kn, [["render", el]]), il = {
     editorOptions: {
       type: Object,
       default() {
-        return { buttonList: ti };
+        return { buttonList: ii };
       }
     }
   },
   mounted() {
-    this.editor = Xn(this.editorOptions, this.lang, this.Identifier), this.editor.onChange = this.storeEditorValue, this.updateEditorDisabled();
+    this.editor = Kn(this.editorOptions, this.lang, this.Identifier), this.editor.onChange = this.storeEditorValue, this.updateEditorDisabled();
   }
-}, nl = ["data-state", "data-show-ui", "data-error", "data-disabled", "data-changed", "data-empty", "data-filled"], ll = ["name", "id", "disabled", "readonly", "placeholder"], ol = ["for", "innerHTML"];
-function sl(e, t, i, n, l, o) {
+}, ll = ["data-state", "data-show-ui", "data-error", "data-disabled", "data-changed", "data-empty", "data-filled"], ol = ["name", "id", "disabled", "readonly", "placeholder"], sl = ["for", "innerHTML"];
+function al(e, t, i, n, l, o) {
   const s = F("lkt-field-state");
   return k(), z("div", {
     "data-lkt": "field-editor",
@@ -8372,7 +8375,7 @@ function sl(e, t, i, n, l, o) {
       disabled: e.disabled,
       readonly: e.readonly,
       placeholder: e.placeholder
-    }, null, 8, ll), [
+    }, null, 8, ol), [
       [H, e.value]
     ]),
     e.canRenderLabelSlot ? N(e.$slots, "label", { key: 0 }) : L("", !0),
@@ -8380,7 +8383,7 @@ function sl(e, t, i, n, l, o) {
       key: 1,
       for: e.Identifier,
       innerHTML: e.label
-    }, null, 8, ol)) : L("", !0),
+    }, null, 8, sl)) : L("", !0),
     e.showInfoUi ? (k(), $(s, {
       key: 2,
       "show-add": e.showAdd,
@@ -8403,9 +8406,9 @@ function sl(e, t, i, n, l, o) {
       "show-reset": e.showReset && !e.disabled,
       onClickUi: e.onClickUi
     }, null, 8, ["show-add", "show-error", "show-info", "show-log", "show-warn", "text-add", "text-error", "text-info", "text-log", "text-warn", "show-mandatory", "text-mandatory", "show-open", "text-open", "show-link", "text-link", "text-reset", "show-reset", "onClickUi"])) : L("", !0)
-  ], 8, nl);
+  ], 8, ll);
 }
-const al = /* @__PURE__ */ U(il, [["render", sl]]);
+const rl = /* @__PURE__ */ U(nl, [["render", al]]);
 function kt(e) {
   if (e === null || e === !0 || e === !1)
     return NaN;
@@ -8421,7 +8424,7 @@ function ee(e) {
   var t = Object.prototype.toString.call(e);
   return e instanceof Date || typeof e == "object" && t === "[object Date]" ? new Date(e.getTime()) : typeof e == "number" || t === "[object Number]" ? new Date(e) : ((typeof e == "string" || t === "[object String]") && typeof console < "u" && (console.warn("Starting with v2.0.0-beta.1 date-fns doesn't accept strings as date arguments. Please use `parseISO` to parse strings. See: https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#string-arguments"), console.warn(new Error().stack)), new Date(NaN));
 }
-function rl(e, t) {
+function dl(e, t) {
   Y(2, arguments);
   var i = ee(e), n = kt(t);
   if (isNaN(n))
@@ -8443,12 +8446,12 @@ function xt(e) {
   var t = ee(e);
   return t.setDate(1), t.setHours(0, 0, 0, 0), t;
 }
-function dl(e) {
+function ul(e) {
   Y(1, arguments);
   var t = ee(e), i = t.getFullYear();
   return t.setFullYear(i + 1, 0, 0), t.setHours(23, 59, 59, 999), t;
 }
-function ul(e) {
+function cl(e) {
   Y(1, arguments);
   var t = ee(e), i = new Date(0);
   return i.setFullYear(t.getFullYear(), 0, 1), i.setHours(0, 0, 0, 0), i;
@@ -8456,22 +8459,22 @@ function ul(e) {
 function ue(e, t) {
   Y(2, arguments);
   var i = kt(t);
-  return rl(e, -i);
+  return dl(e, -i);
 }
-const cl = () => ({ label: R.TODAY_RANGE_TEXT, range: [new Date(), new Date()] }), hl = () => ({ label: R.THIS_MONTH_RANGE_TEXT, range: [xt(new Date()), St(new Date())] }), pl = () => ({
+const hl = () => ({ label: R.TODAY_RANGE_TEXT, range: [new Date(), new Date()] }), pl = () => ({ label: R.THIS_MONTH_RANGE_TEXT, range: [xt(new Date()), St(new Date())] }), fl = () => ({
   label: R.LAST_MONTH_RANGE_TEXT,
   range: [xt(ue(new Date(), 1)), St(ue(new Date(), 1))]
-}), fl = () => ({ label: R.THIS_YEAR_RANGE_TEXT, range: [ul(new Date()), dl(new Date())] }), wl = () => [
-  cl(),
+}), gl = () => ({ label: R.THIS_YEAR_RANGE_TEXT, range: [cl(new Date()), ul(new Date())] }), Sl = () => [
   hl(),
   pl(),
-  fl()
-], kl = {
-  install: (e, t = Qt) => {
-    e.component("Datepicker", Ct).component("vue-next-select", ce).component("lkt-field-text", ki).component("lkt-field-text-area", Ii).component("lkt-field-check", Mt).component("lkt-field-switch", Ht).component("lkt-field-email", Di).component("lkt-field-tel", $i).component("lkt-field-unit", Ki).component("lkt-field-password", ln).component("lkt-field-radio", hn).component("lkt-field-date", vn).component("lkt-field-select", xn).component("lkt-field-editor", tl).component("lkt-field-katex", al), he(t) && (V(t.noOptionsMessage) || (R.NO_OPTIONS_MESSAGE = t.noOptionsMessage), V(t.showPasswordMessage) || (R.SHOW_PASSWORD_MESSAGE = t.showPasswordMessage), V(t.isMandatoryMessage) || (R.IS_MANDATORY_MESSAGE = t.isMandatoryMessage), V(t.todayRangeText) || (R.TODAY_RANGE_TEXT = t.todayRangeText), V(t.thisMonthRangeText) || (R.THIS_MONTH_RANGE_TEXT = t.thisMonthRangeText), V(t.lastMonthRangeText) || (R.LAST_MONTH_RANGE_TEXT = t.lastMonthRangeText), V(t.thisYearRangeText) || (R.THIS_YEAR_RANGE_TEXT = t.thisYearRangeText), V(t.followLinkMessage) || (R.FOLLOW_LINK_MESSAGE = t.followLinkMessage), V(t.openMessage) || (R.OPEN_MESSAGE = t.openMessage), V(t.resetMessage) || (R.RESET_MESSAGE = t.resetMessage));
+  fl(),
+  gl()
+], xl = {
+  install: (e, t = ei) => {
+    e.component("Datepicker", Ct).component("vue-next-select", ce).component("lkt-field-text", Si).component("lkt-field-text-area", Ri).component("lkt-field-check", Dt).component("lkt-field-switch", Pt).component("lkt-field-email", Oi).component("lkt-field-tel", Gi).component("lkt-field-unit", Ji).component("lkt-field-password", on).component("lkt-field-radio", pn).component("lkt-field-date", _n).component("lkt-field-select", Cn).component("lkt-field-editor", il).component("lkt-field-katex", rl), he(t) && (V(t.noOptionsMessage) || (R.NO_OPTIONS_MESSAGE = t.noOptionsMessage), V(t.showPasswordMessage) || (R.SHOW_PASSWORD_MESSAGE = t.showPasswordMessage), V(t.isMandatoryMessage) || (R.IS_MANDATORY_MESSAGE = t.isMandatoryMessage), V(t.todayRangeText) || (R.TODAY_RANGE_TEXT = t.todayRangeText), V(t.thisMonthRangeText) || (R.THIS_MONTH_RANGE_TEXT = t.thisMonthRangeText), V(t.lastMonthRangeText) || (R.LAST_MONTH_RANGE_TEXT = t.lastMonthRangeText), V(t.thisYearRangeText) || (R.THIS_YEAR_RANGE_TEXT = t.thisYearRangeText), V(t.followLinkMessage) || (R.FOLLOW_LINK_MESSAGE = t.followLinkMessage), V(t.openMessage) || (R.OPEN_MESSAGE = t.openMessage), V(t.resetMessage) || (R.RESET_MESSAGE = t.resetMessage));
   }
 };
 export {
-  kl as default,
-  wl as getDefaultPresetRanges
+  xl as default,
+  Sl as getDefaultPresetRanges
 };

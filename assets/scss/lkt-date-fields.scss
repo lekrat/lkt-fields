@@ -2,25 +2,12 @@
 @use "mixins/mixins";
 
 @mixin generate() {
-  [data-lkt="field-text"],
-  [data-lkt="field-password"],
-  [data-lkt="field-tel"],
-  [data-lkt="field-email"],
-  [data-lkt="field-textarea"] {
+  [data-lkt="field-date"] {
     display: flex;
     flex-direction: column-reverse;
     position: relative;
     color: lkt-fields-config.$font-color-label;
 
-    textarea {
-      height: lkt-fields-config.get-height-two();
-    }
-
-    input {
-      height: lkt-fields-config.get-height-one();
-    }
-
-    textarea,
     input {
       width: 100%;
       outline: 0;
@@ -29,7 +16,6 @@
       background-color: lkt-fields-config.$background-color;
       color: lkt-fields-config.$font-color;
       transition: 50ms border-color ease-in-out;
-      padding: 5px 10px;
       font-size: lkt-fields-config.$font-size;
       border-radius: 0;
       box-sizing: border-box;
@@ -46,7 +32,9 @@
         border: lkt-fields-config.$border-width lkt-fields-config.$border-style lkt-fields-config.$border-color-disabled;
         background-color: lkt-fields-config.$background-color-disabled !important;
       }
+    }
 
+    .dp__main {
       + label {
         @include mixins.getLabelStyles();
       }

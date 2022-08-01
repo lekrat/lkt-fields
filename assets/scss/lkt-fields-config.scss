@@ -1,0 +1,87 @@
+$border-width: 1px;
+$border-style: solid;
+$border-color: #ddd;
+$border-color-disabled: #ccc;
+$background-color: #fff;
+$background-color-disabled: #eee;
+$font-color: #32373c;
+$font-color-label: #444444;
+$font-size: 14px;
+$font-size-label: 13px;
+$focus-color: red !default;
+$hover-color: purple !default;
+$input-height: 35px !default;
+$gap: 15px !default;
+$box-shadow: inset 0 1px 2px rgba(0, 0, 0, .07) !default;
+$transition-time: 50ms;
+$transition-function: ease-in-out;
+
+@mixin configure($opts: ()) {
+  @if map-get($opts, focus-color) {
+    $focus-color: map-get($opts, focus-color) !global;
+  }
+  @if map-get($opts, hover-color) {
+    $hover-color: map-get($opts, hover-color) !global;
+  }
+  @if map-get($opts, input-height) {
+    $input-height: map-get($opts, input-height) !global;
+  }
+  @if map-get($opts, gap) {
+    $gap: map-get($opts, gap) !global;
+  }
+  @if map-get($opts, box-shadow) {
+    $box-shadow: map-get($opts, box-shadow) !global;
+  }
+  @if map-get($opts, border-width) {
+    $border-width: map-get($opts, border-width) !global;
+  }
+  @if map-get($opts, border-style) {
+    $border-style: map-get($opts, border-style) !global;
+  }
+  @if map-get($opts, border-color) {
+    $border-color: map-get($opts, border-color) !global;
+  }
+  @if map-get($opts, background-color) {
+    $background-color: map-get($opts, background-color) !global;
+  }
+  @if map-get($opts, font-color) {
+    $font-color: map-get($opts, font-color) !global;
+  }
+  @if map-get($opts, font-color-label) {
+    $font-color-label: map-get($opts, font-color-label) !global;
+  }
+  @if map-get($opts, font-size) {
+    $font-size: map-get($opts, font-size) !global;
+  }
+  @if map-get($opts, font-size-label) {
+    $font-size-label: map-get($opts, font-size-label) !global;
+  }
+  @if map-get($opts, border-color-disabled) {
+    $border-color-disabled: map-get($opts, border-color-disabled) !global;
+  }
+  @if map-get($opts, background-color-disabled) {
+    $background-color-disabled: map-get($opts, background-color-disabled) !global;
+  }
+  @if map-get($opts, transition-time) {
+    $transition-time: map-get($opts, transition-time) !global;
+  }
+  @if map-get($opts, transition-function) {
+    $transition-function: map-get($opts, transition-function) !global;
+  }
+}
+
+@function get-height-one() {
+  @return $input-height;
+}
+
+@function get-height-two() {
+  @return ($input-height * 2) + $gap;
+}
+
+@function get-height-four() {
+  @return (get-height-two() * 2) + $gap;
+}
+
+@function get-height-eight() {
+  @return (get-height-four() * 2) + $gap;
+}
