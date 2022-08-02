@@ -990,7 +990,7 @@ const on = /* @__PURE__ */ U(Zi, [["render", ln]]), ze = () => R.NO_OPTIONS_MESS
   }
   return e.map((n, l) => t(n, l));
 }, se = (e, t) => (e.forEach((i) => {
-  i.disabled = i.disabled || t.indexOf(i.value) > -1;
+  i.disabled = i.disabled === !0 || t.indexOf(i.value) > -1;
 }), e), sn = {
   props: {
     options: { type: Array, default: () => [] },
@@ -1255,13 +1255,18 @@ const _n = /* @__PURE__ */ U(gn, [["render", vn]]), yn = {
       value: this.modelValue,
       Options: se(X(this.options, this.optionParser, this.select2Compatibility), this.disabledOptions),
       loading: !1,
-      visibleOptions: [],
       latestTimestamp: Date.now(),
-      apiOptions: []
+      visibleOptions: [],
+      apiOptions: [],
+      optionsHaystack: [],
+      searchString: ""
     };
   },
   computed: {
     isSearchable() {
+      return !0;
+    },
+    isRemoteSearch() {
       return It(this.resource);
     },
     renderSelectedOption: {
@@ -1296,7 +1301,13 @@ const _n = /* @__PURE__ */ U(gn, [["render", vn]]), yn = {
     },
     options: {
       handler() {
-        this.Options = se(X(this.options, this.optionParser, this.select2Compatibility), this.disabledOptions), this.buildVisibleOptions();
+        this.Options = se(X(this.options, this.optionParser, this.select2Compatibility), this.disabledOptions);
+      },
+      deep: !0
+    },
+    Options: {
+      handler() {
+        console.log("Options watcher", this.visibleOptions), this.buildVisibleOptions();
       },
       deep: !0
     },
@@ -1309,16 +1320,18 @@ const _n = /* @__PURE__ */ U(gn, [["render", vn]]), yn = {
   },
   methods: {
     buildVisibleOptions() {
-      this.visibleOptions = [].concat(this.Options, this.apiOptions);
+      this.isRemoteSearch ? this.optionsHaystack = [].concat(this.Options, this.apiOptions) : this.optionsHaystack = [].concat(this.Options), this.visibleOptions = this.optionsHaystack.filter((e) => e.label.indexOf(this.searchString) !== -1);
     },
     async handleInput(e) {
-      if (console.log("inputEvent", e), this.isSearchable) {
+      const t = e.target;
+      if (this.searchString = t == null ? void 0 : t.value, console.log("searchString", this.searchString), this.isRemoteSearch) {
         console.log("resource", this.resource);
-        const t = q(this.searchOptions) ? this.searchOptions() : he(this.searchOptions) ? this.searchOptions : {};
-        console.log("searchOptions", this.searchOptions, t), console.log("$http", this.$http), this.$http(this.resource, t).then((i) => {
-          this.apiOptions = se(X(i.data.results, this.optionParser, this.select2Compatibility), this.disabledOptions), console.log("visibleOptions", this.visibleOptions);
+        const i = q(this.searchOptions) ? this.searchOptions() : he(this.searchOptions) ? this.searchOptions : {};
+        return console.log("searchOptions", this.searchOptions, i), console.log("$http", this.$http), this.$http(this.resource, i).then((n) => {
+          this.apiOptions = se(X(n.data.results, this.optionParser, this.select2Compatibility), this.disabledOptions), console.log("visibleOptions", this.visibleOptions);
         });
       }
+      this.buildVisibleOptions();
     },
     getDropdownOptionSelector(e, t = -1, i = -1) {
       let n = { "is-highlight": t == i, "is-selected": e.selected === !0 };
@@ -1346,6 +1359,9 @@ const _n = /* @__PURE__ */ U(gn, [["render", vn]]), yn = {
     getValue() {
       return this.modelValue;
     }
+  },
+  mounted() {
+    this.buildVisibleOptions();
   }
 }, wn = {
   name: "LktFieldSelect",
@@ -1355,7 +1371,7 @@ const _n = /* @__PURE__ */ U(gn, [["render", vn]]), yn = {
 function xn(e, t, i, n, l, o) {
   const s = F("vue-next-select"), a = F("lkt-field-state");
   return k(), z("div", {
-    "data-lkt": "select",
+    "data-lkt": "field-select",
     "data-state": e.state,
     "data-multiple": e.multiple,
     "data-show-ui": e.showInfoUi,
@@ -1369,7 +1385,7 @@ function xn(e, t, i, n, l, o) {
     ge(s, {
       modelValue: e.value,
       "onUpdate:modelValue": t[0] || (t[0] = (r) => e.value = r),
-      options: e.Options,
+      options: e.optionsHaystack,
       "label-by": "label",
       "group-by": "group",
       "visible-options": e.visibleOptions,

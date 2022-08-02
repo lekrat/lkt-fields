@@ -7,3 +7,31 @@
   line-height: 1.4em;
   margin: 0 0 3px;
 }
+
+@mixin getInputStyles() {
+  width: 100%;
+  max-width: 100%;
+  outline: 0;
+  border: lkt-fields-config.$border-width lkt-fields-config.$border-style lkt-fields-config.$border-color;
+  box-shadow: lkt-fields-config.$box-shadow;
+  background-color: lkt-fields-config.$background-color;
+  color: lkt-fields-config.$font-color;
+  transition: lkt-fields-config.$transition-time border-color lkt-fields-config.$transition-function;
+  padding: lkt-fields-config.$padding-input;
+  font-size: lkt-fields-config.$font-size;
+  border-radius: lkt-fields-config.$border-radius;
+  box-sizing: border-box;
+
+  &:focus {
+    outline: 0;
+    border: lkt-fields-config.$border-width lkt-fields-config.$border-style rgba(lkt-fields-config.$focus-color, .5);
+    box-shadow: 0 0 0 2px rgba(lkt-fields-config.$focus-color, .5);
+  }
+
+  &[disabled],
+  &[readonly] {
+    box-shadow: none;
+    border: lkt-fields-config.$border-width lkt-fields-config.$border-style lkt-fields-config.$border-color-disabled;
+    background-color: lkt-fields-config.$background-color-disabled !important;
+  }
+}

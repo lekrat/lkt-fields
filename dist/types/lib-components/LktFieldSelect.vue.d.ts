@@ -510,6 +510,7 @@ declare const _default: {
         data(): import("lkt-tools").ILktObject;
         computed: {
             isSearchable(): boolean;
+            isRemoteSearch(): boolean;
             renderSelectedOption: {
                 cache: boolean;
                 get(): any;
@@ -527,6 +528,10 @@ declare const _default: {
                 handler(): void;
                 deep: boolean;
             };
+            Options: {
+                handler(): void;
+                deep: boolean;
+            };
             apiOptions: {
                 handler(): void;
                 deep: boolean;
@@ -534,7 +539,7 @@ declare const _default: {
         };
         methods: {
             buildVisibleOptions(): void;
-            handleInput(inputEvent: InputEvent): Promise<void>;
+            handleInput(inputEvent: InputEvent): Promise<any>;
             getDropdownOptionSelector(option: any, highlightOption?: number, i?: number): {
                 'is-highlight': boolean;
                 'is-selected': boolean;
@@ -546,6 +551,7 @@ declare const _default: {
             reset(): void;
             getValue(): any;
         };
+        mounted(): void;
     })[];
 };
 export default _default;

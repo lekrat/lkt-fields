@@ -2,24 +2,26 @@
 @use "mixins/mixins";
 
 @mixin generate() {
-  [data-lkt="field-date"] {
+  [data-lkt="field-select"] {
     display: flex;
     flex-direction: column-reverse;
     position: relative;
     color: lkt-fields-config.$font-color-label;
 
     input {
-      @include mixins.getInputStyles();
+      height: lkt-fields-config.get-height-one();
     }
 
-    .dp__main {
+    .vue-select {
+      @include mixins.getInputStyles();
+
       + label {
         @include mixins.getLabelStyles();
       }
     }
 
     &:hover {
-      input {
+      .vue-select {
         box-shadow: inset 0 1px 2px rgba(lkt-fields-config.$hover-color, .07);
         border: 1px solid lkt-fields-config.$hover-color;
       }

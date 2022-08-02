@@ -71,7 +71,7 @@ export const mapOptions = (options: Array<any>, parser: Function, select2Compati
 
 export const mapDisabledOptions = (options: IOption[], disabledOptions: any[]) => {
     options.forEach(z => {
-        z.disabled = z.disabled || (disabledOptions.indexOf(z.value) > -1);
+        z.disabled = z.disabled === true || (disabledOptions.indexOf(z.value) > -1);
     });
     return options;
 }

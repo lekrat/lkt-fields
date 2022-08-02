@@ -33,13 +33,18 @@ export const SelectFieldMixin = {
             value: this.modelValue,
             Options: mapDisabledOptions(mapOptions(this.options, this.optionParser, this.select2Compatibility), this.disabledOptions),
             loading: false,
-            visibleOptions: [],
             latestTimestamp: Date.now(),
+            visibleOptions: [],
             apiOptions: [],
+            optionsHaystack: [],
+            searchString: '',
         }
     },
     computed: {
         isSearchable(): boolean {
+            return true;
+        },
+        isRemoteSearch(): boolean {
             return existsHTTPResource(this.resource);
         },
         renderSelectedOption: {
@@ -88,6 +93,11 @@ export const SelectFieldMixin = {
         options: {
             handler() {
                 this.Options = mapDisabledOptions(mapOptions(this.options, this.optionParser, this.select2Compatibility), this.disabledOptions);
+            }, deep: true
+        },
+        Options: {
+            handler() {
+                console.log('Options watcher', this.visibleOptions);
                 this.buildVisibleOptions();
             }, deep: true
         },
@@ -100,12 +110,22 @@ export const SelectFieldMixin = {
     },
     methods: {
         buildVisibleOptions() {
-            this.visibleOptions = [].concat(this.Options, this.apiOptions);
+            if (this.isRemoteSearch) {
+                this.optionsHaystack = [].concat(this.Options, this.apiOptions);
+            } else {
+                this.optionsHaystack = [].concat(this.Options);
+            }
+
+            this.visibleOptions = this.optionsHaystack.filter((z: IOption) => {
+                return z.label.indexOf(this.searchString) !== -1;
+            });
         },
         async handleInput(inputEvent: InputEvent) {
-            console.log('inputEvent', inputEvent);
+            const target = inputEvent.target as HTMLInputElement | null;
+            this.searchString = target?.value;
+            console.log('searchString', this.searchString);
 
-            if (this.isSearchable) {
+            if (this.isRemoteSearch) {
                 console.log('resource', this.resource);
 
                 const opts = isFunction(this.searchOptions)
@@ -113,13 +133,15 @@ export const SelectFieldMixin = {
 
                 console.log('searchOptions', this.searchOptions, opts);
                 console.log('$http', this.$http);
-                this.$http(this.resource, opts).then( (r: any) => {
+                return this.$http(this.resource, opts).then( (r: any) => {
                     this.apiOptions = mapDisabledOptions(mapOptions(r.data.results, this.optionParser, this.select2Compatibility), this.disabledOptions);
 
                     // this.visibleOptions = [].concat(this.Options, this.apiOptions);
                     console.log('visibleOptions', this.visibleOptions);
                 });
             }
+
+            this.buildVisibleOptions();
 
             // const timestamp = (this.latestTimestamp = Date.now())
             // const target = inputEvent.target as HTMLInputElement | null
@@ -173,4 +195,7 @@ export const SelectFieldMixin = {
             return this.modelValue;
         },
     },
+    mounted() {
+        this.buildVisibleOptions();
+    }
 }

@@ -14,6 +14,8 @@
 
     textarea {
       height: lkt-fields-config.get-height-two();
+      min-height: lkt-fields-config.get-height-two();
+      resize: vertical;
     }
 
     input {
@@ -22,17 +24,7 @@
 
     textarea,
     input {
-      width: 100%;
-      outline: 0;
-      border: lkt-fields-config.$border-width lkt-fields-config.$border-style lkt-fields-config.$border-color;
-      box-shadow: lkt-fields-config.$box-shadow;
-      background-color: lkt-fields-config.$background-color;
-      color: lkt-fields-config.$font-color;
-      transition: 50ms border-color ease-in-out;
-      padding: 5px 10px;
-      font-size: lkt-fields-config.$font-size;
-      border-radius: 0;
-      box-sizing: border-box;
+      @include mixins.getInputStyles();
 
       &:focus {
         outline: 0;

@@ -86,6 +86,7 @@ export declare const SelectFieldMixin: {
     data(): ILktObject;
     computed: {
         isSearchable(): boolean;
+        isRemoteSearch(): boolean;
         renderSelectedOption: {
             cache: boolean;
             get(): any;
@@ -103,6 +104,10 @@ export declare const SelectFieldMixin: {
             handler(): void;
             deep: boolean;
         };
+        Options: {
+            handler(): void;
+            deep: boolean;
+        };
         apiOptions: {
             handler(): void;
             deep: boolean;
@@ -110,7 +115,7 @@ export declare const SelectFieldMixin: {
     };
     methods: {
         buildVisibleOptions(): void;
-        handleInput(inputEvent: InputEvent): Promise<void>;
+        handleInput(inputEvent: InputEvent): Promise<any>;
         getDropdownOptionSelector(option: any, highlightOption?: number, i?: number): {
             'is-highlight': boolean;
             'is-selected': boolean;
@@ -122,4 +127,5 @@ export declare const SelectFieldMixin: {
         reset(): void;
         getValue(): any;
     };
+    mounted(): void;
 };

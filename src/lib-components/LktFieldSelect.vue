@@ -1,5 +1,5 @@
 <template>
-    <div data-lkt="select"
+    <div data-lkt="field-select"
          :data-state="state"
          :data-multiple="multiple"
          :data-show-ui="showInfoUi"
@@ -13,7 +13,7 @@
 
         <vue-next-select
             v-model="value"
-            v-bind:options="Options"
+            v-bind:options="optionsHaystack"
             v-bind:label-by="'label'"
             v-bind:group-by="'group'"
             v-bind:visible-options="visibleOptions"
