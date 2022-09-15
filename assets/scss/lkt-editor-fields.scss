@@ -1,40 +1,88 @@
 @use "lkt-fields-config";
 @use "mixins/mixins";
+@use "node_modules/lkt-theme/lkt-theme";
 
-@mixin generate() {
-  [data-lkt="field-editor"] {
-    display: flex;
-    flex-direction: column-reverse;
-    position: relative;
-    font-size: lkt-fields-config.$font-size;
-    color: lkt-fields-config.$font-color-label;
-
+@mixin __generateColor($color, $contrast) {
+  &.is-editor {
     .sun-editor {
-      width: 100% !important;
-      border: lkt-fields-config.$border-width lkt-fields-config.$border-style lkt-fields-config.$border-color;
-      box-shadow: lkt-fields-config.$box-shadow;
-      background-color: lkt-fields-config.$background-color;
-      color: lkt-fields-config.$font-color;
-
+      @include mixins.generate-color-style($color, $contrast);
       .se-toolbar {
-        z-index: 2;
-
-        &.se-toolbar-sticky {
-          position: static !important;
-        }
+        outline-color: $color;
       }
+    }
 
-      .se-wrapper {
-        .se-wrapper-inner {
-          min-height: lkt-fields-config.get-height-eight();
+    &:hover {
+      .sun-editor {
+        @include mixins.generate-color-style-hover($color, $contrast);
+        .se-toolbar {
+          outline-color: $color;
         }
-      }
-
-      + label {
-        @include mixins.getLabelStyles();
       }
     }
   }
 }
+
+@mixin generate() {
+  .lkt-field {
+    &.is-editor {
+      display: flex;
+      flex-direction: column-reverse;
+      position: relative;
+      font-size: lkt-fields-config.$font-size;
+      color: lkt-fields-config.$font-color-label;
+
+      .sun-editor {
+        width: 100% !important;
+        border: lkt-fields-config.$border-width lkt-fields-config.$border-style lkt-fields-config.$border-color;
+        box-shadow: lkt-fields-config.$box-shadow;
+        background-color: lkt-fields-config.$background-color;
+        color: lkt-fields-config.$font-color;
+
+        .se-toolbar {
+          z-index: 2;
+
+          &.se-toolbar-sticky {
+            position: static !important;
+          }
+        }
+
+        .se-wrapper {
+          .se-wrapper-inner {
+            min-height: lkt-fields-config.get-height-eight();
+          }
+        }
+
+        + label {
+          @include mixins.getLabelStyles();
+        }
+      }
+    }
+
+    @if (lkt-theme.$primary-color) {
+      &--primary {
+        @include __generateColor(lkt-theme.$primary-color, lkt-theme.$primary-color-contrast);
+      }
+    }
+
+    @if (lkt-theme.$success-color) {
+      &--success {
+        @include __generateColor(lkt-theme.$success-color, lkt-theme.$success-color-contrast);
+      }
+    }
+
+    @if (lkt-theme.$warning-color) {
+      &--warning {
+        @include __generateColor(lkt-theme.$warning-color, lkt-theme.$warning-color-contrast);
+      }
+    }
+
+    @if (lkt-theme.$danger-color) {
+      &--danger {
+        @include __generateColor(lkt-theme.$danger-color, lkt-theme.$danger-color-contrast);
+      }
+    }
+  }
+}
+
 
 

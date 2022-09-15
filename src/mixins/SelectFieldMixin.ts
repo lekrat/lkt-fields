@@ -1,9 +1,14 @@
-import {generateRandomString, ILktObject, isFunction, isObject, slotProvided} from "lkt-tools";
+import {generateRandomString} from "lkt-string-tools";
+import {slotProvided} from "lkt-vue-tools";
 import {getNoOptionsMessage} from "../functions/settings-functions";
 import {defaultOptionFormatter, defaultOptionParser, mapDisabledOptions, mapOptions} from "../functions/functions";
 import {existsHTTPResource} from "lkt-http";
+import {LktObject} from "lkt-ts-interfaces";
+import {FieldClassesMixin} from "./styling/FieldClassesMixin";
+
 export const SelectFieldMixin = {
     emits: ['update:modelValue'],
+    mixins: [FieldClassesMixin],
     props: {
         modelValue: {type: [String, Number, Array], default: ''},
         placeholder: {type: String, default: ''},
@@ -26,7 +31,7 @@ export const SelectFieldMixin = {
         searchOptions: {type: [Object, Function], default: (): null => null},
         searchPlaceholder: {type: String, default: ''},
     },
-    data(): ILktObject {
+    data(): LktObject {
         return {
             Identifier: generateRandomString(16),
             originalValue: this.modelValue,
@@ -53,11 +58,11 @@ export const SelectFieldMixin = {
                 let option = this.Options.filter((opt: any) => {
                     return opt.selected === true;
                 });
-                return option && option.length > 0 && isFunction(this.optionFormatter) ? this.optionFormatter(option[0]) : this.fetchString;
+                return option && option.length > 0 && typeof this.optionFormatter === 'function' ? this.optionFormatter(option[0]) : this.fetchString;
             }
         },
         isValid() {
-            if (isFunction(this.valid)) {
+            if (typeof this.valid === 'function') {
                 return this.valid();
             }
             return this.valid;
@@ -128,8 +133,8 @@ export const SelectFieldMixin = {
             if (this.isRemoteSearch) {
                 console.log('resource', this.resource);
 
-                const opts = isFunction(this.searchOptions)
-                    ? this.searchOptions() : (isObject(this.searchOptions) ? this.searchOptions :  {})
+                const opts = typeof this.searchOptions === 'function'
+                    ? this.searchOptions() : (typeof this.searchOptions === 'object' ? this.searchOptions :  {})
 
                 console.log('searchOptions', this.searchOptions, opts);
                 console.log('$http', this.$http);
@@ -171,7 +176,7 @@ export const SelectFieldMixin = {
         },
 
         renderOption(option: any) {
-            return isFunction(this.optionFormatter) ? this.optionFormatter(option) : option.label;
+            return typeof this.optionFormatter === 'function' ? this.optionFormatter(option) : option.label;
         },
 
         focus() {

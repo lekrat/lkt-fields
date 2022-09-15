@@ -1,27 +1,63 @@
 @use "lkt-fields-config";
 @use "mixins/mixins";
+@use "node_modules/lkt-theme/lkt-theme";
 
-@mixin generate() {
-  [data-lkt="field-date"] {
-    display: flex;
-    flex-direction: column-reverse;
-    position: relative;
-    color: lkt-fields-config.$font-color-label;
-
+@mixin __generateColor($color, $contrast) {
+  &.is-date {
     input {
-      @include mixins.getInputStyles();
-    }
-
-    .dp__main {
-      + label {
-        @include mixins.getLabelStyles();
-      }
+      @include mixins.generate-color-style($color, $contrast);
     }
 
     &:hover {
       input {
-        box-shadow: inset 0 1px 2px rgba(lkt-fields-config.$hover-color, .07);
-        border: 1px solid lkt-fields-config.$hover-color;
+        @include mixins.generate-color-style-hover($color, $contrast);
+      }
+    }
+  }
+}
+
+@mixin generate() {
+  .lkt-field {
+    &.is-date {
+      display: flex;
+      flex-direction: column-reverse;
+      position: relative;
+      color: lkt-fields-config.$font-color-label;
+
+      input {
+        @include mixins.getInputStyles();
+        padding-left: 35px;
+        padding-right: 35px;
+      }
+
+      .dp__main {
+        + label {
+          @include mixins.getLabelStyles();
+        }
+      }
+    }
+
+    @if (lkt-theme.$primary-color) {
+      &--primary {
+        @include __generateColor(lkt-theme.$primary-color, lkt-theme.$primary-color-contrast);
+      }
+    }
+
+    @if (lkt-theme.$success-color) {
+      &--success {
+        @include __generateColor(lkt-theme.$success-color, lkt-theme.$success-color-contrast);
+      }
+    }
+
+    @if (lkt-theme.$warning-color) {
+      &--warning {
+        @include __generateColor(lkt-theme.$warning-color, lkt-theme.$warning-color-contrast);
+      }
+    }
+
+    @if (lkt-theme.$danger-color) {
+      &--danger {
+        @include __generateColor(lkt-theme.$danger-color, lkt-theme.$danger-color-contrast);
       }
     }
   }

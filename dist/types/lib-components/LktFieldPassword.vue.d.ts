@@ -191,6 +191,11 @@ declare const _default: {
         };
     } | {
         emits: string[];
+        mixins: {
+            computed: {
+                classes(): string;
+            };
+        }[];
         props: {
             modelValue: {
                 type: StringConstructor;
@@ -229,7 +234,7 @@ declare const _default: {
                 default: boolean;
             };
         };
-        data(): import("lkt-tools").ILktObject;
+        data(): import("lkt-ts-interfaces").LktObject;
         computed: {
             isValid(): any;
             isEmpty(): boolean;

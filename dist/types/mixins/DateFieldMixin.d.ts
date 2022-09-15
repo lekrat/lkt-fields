@@ -1,6 +1,11 @@
-import { ILktObject } from "lkt-tools";
+import { LktObject } from "lkt-ts-interfaces";
 export declare const DateFieldMixin: {
     emits: string[];
+    mixins: {
+        computed: {
+            classes(): string;
+        };
+    }[];
     props: {
         modelValue: {
             type: (StringConstructor | DateConstructor)[];
@@ -103,7 +108,7 @@ export declare const DateFieldMixin: {
             default: boolean;
         };
     };
-    data(): ILktObject;
+    data(): LktObject;
     computed: {
         isValid(): any;
         isEmpty(): boolean;

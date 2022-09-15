@@ -1,22 +1,23 @@
-$border-width: 1px;
-$border-style: solid;
-$border-color: #ddd;
-$border-color-disabled: #ccc;
-$border-radius: 4.5px;
-$background-color: #fff;
-$background-color-disabled: #eee;
-$font-color: #32373c;
-$font-color-label: #444444;
-$font-size: 14px;
-$font-size-label: 13px;
+@use "node_modules/lkt-theme/lkt-theme";
+
+$border-width: 1px !default;
+$border-style: solid !default;
+$border-color: #ddd !default;
+$border-color-disabled: #ccc !default;
+$border-radius: 4.5px !default;
+$background-color: #fff !default;
+$background-color-disabled: #eee !default;
+$font-color: #32373c !default;
+$font-color-label: #444444 !default;
+$font-size: 14px !default;
+$font-size-label: 13px !default;
 $focus-color: red !default;
 $hover-color: purple !default;
 $input-height: 35px !default;
 $gap: 15px !default;
 $box-shadow: inset 0 1px 2px rgba(0, 0, 0, .07) !default;
-$transition-time: 50ms;
-$transition-function: ease-in-out;
-$padding-input: 5px 10px;
+$padding-input: 5px 10px !default;;
+$transition: lkt-theme.$primary-transition !default;
 
 @mixin configure($opts: ()) {
   @if map-get($opts, focus-color) {
@@ -64,11 +65,8 @@ $padding-input: 5px 10px;
   @if map-get($opts, background-color-disabled) {
     $background-color-disabled: map-get($opts, background-color-disabled) !global;
   }
-  @if map-get($opts, transition-time) {
-    $transition-time: map-get($opts, transition-time) !global;
-  }
-  @if map-get($opts, transition-function) {
-    $transition-function: map-get($opts, transition-function) !global;
+  @if map-get($opts, transition) {
+    $transition: map-get($opts, transition) !global;
   }
   @if map-get($opts, padding-input) {
     $padding-input: map-get($opts, padding-input) !global;

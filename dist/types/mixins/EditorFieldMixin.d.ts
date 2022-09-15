@@ -1,6 +1,10 @@
-import { ILktObject } from "lkt-tools";
+import { LktObject } from "lkt-ts-interfaces";
 export declare const EditorFieldMixin: {
     mixins: ({
+        computed: {
+            classes(): string;
+        };
+    } | {
         mixins: {
             props: {
                 showAdd: {
@@ -96,6 +100,11 @@ export declare const EditorFieldMixin: {
         };
     } | {
         emits: string[];
+        mixins: {
+            computed: {
+                classes(): string;
+            };
+        }[];
         props: {
             modelValue: {
                 type: StringConstructor;
@@ -134,7 +143,7 @@ export declare const EditorFieldMixin: {
                 default: boolean;
             };
         };
-        data(): ILktObject;
+        data(): LktObject;
         computed: {
             isValid(): any;
             isEmpty(): boolean;
@@ -171,7 +180,7 @@ export declare const EditorFieldMixin: {
             };
         };
     };
-    data(): ILktObject;
+    data(): LktObject;
     watch: {
         disabled(): void;
     };

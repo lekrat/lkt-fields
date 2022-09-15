@@ -1,15 +1,12 @@
 <template>
-    <div data-lkt="field-check"
-         v-bind:data-state="state"
-         v-bind:data-error="!isValid"
-         v-bind:data-disabled="disabled"
-         v-bind:data-changed="changed"
-         v-bind:data-empty="!modelValue"
-         v-bind:data-filled="!!modelValue"
+    <div class="is-check"
+         v-bind:class="classes"
+         v-bind:data-labeled="canRenderLabelHtml"
     >
         <slot name="prefix"></slot>
         <input v-model="modelValue"
                type="checkbox"
+               ref="input"
                v-bind:name="name"
                v-bind:id="Identifier"
                v-bind:disabled="disabled"

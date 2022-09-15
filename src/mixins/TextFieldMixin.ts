@@ -1,8 +1,12 @@
-import {generateRandomString, ILktObject, isFunction, slotProvided} from "lkt-tools";
+import {generateRandomString} from "lkt-string-tools";
+import {LktObject} from "lkt-ts-interfaces";
+import {slotProvided} from "lkt-vue-tools";
 import {emitBlur, emitClick, emitFocus, emitKeyDown, emitKeyUp} from "../functions/vm-functions";
+import {FieldClassesMixin} from "./styling/FieldClassesMixin";
 
 export const TextFieldMixin = {
     emits: ['update:modelValue', 'keyup', 'keydown', 'focus', 'blur', 'click'],
+    mixins: [FieldClassesMixin],
     props: {
         modelValue: {type: String, default: ''},
         placeholder: {type: String, default: ''},
@@ -14,7 +18,7 @@ export const TextFieldMixin = {
         readonly: { type: Boolean, default: false, },
         emptyLabel: { type: Boolean, default: false, },
     },
-    data(): ILktObject {
+    data(): LktObject {
         return {
             Identifier: generateRandomString(16),
             originalValue: this.modelValue,
@@ -23,7 +27,7 @@ export const TextFieldMixin = {
     },
     computed: {
         isValid() {
-            if (isFunction(this.valid)) {
+            if (typeof this.valid === 'function') {
                 return this.valid();
             }
             return this.valid;

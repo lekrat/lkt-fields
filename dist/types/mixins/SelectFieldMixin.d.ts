@@ -1,6 +1,11 @@
-import { ILktObject } from "lkt-tools";
+import { LktObject } from "lkt-ts-interfaces";
 export declare const SelectFieldMixin: {
     emits: string[];
+    mixins: {
+        computed: {
+            classes(): string;
+        };
+    }[];
     props: {
         modelValue: {
             type: (StringConstructor | NumberConstructor | ArrayConstructor)[];
@@ -83,7 +88,7 @@ export declare const SelectFieldMixin: {
             default: string;
         };
     };
-    data(): ILktObject;
+    data(): LktObject;
     computed: {
         isSearchable(): boolean;
         isRemoteSearch(): boolean;

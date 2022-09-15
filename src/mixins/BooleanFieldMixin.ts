@@ -1,19 +1,23 @@
-import {generateRandomString, ILktObject, isFunction, slotProvided} from "lkt-tools";
+import {generateRandomString} from "lkt-string-tools";
+import {slotProvided} from "lkt-vue-tools";
+import {LktObject} from "lkt-ts-interfaces";
+import {FieldClassesMixin} from "./styling/FieldClassesMixin";
 
 export const BooleanFieldMixin = {
     emits: ['update:modelValue'],
+    mixins: [FieldClassesMixin],
     props: {
         modelValue: {type: Boolean, default: false},
         placeholder: {type: String, default: ''},
         label: {type: String, default: ''},
         state: {type: String, default: ''},
         name: {type: String, default: generateRandomString(16)},
-        valid: { type: [Boolean, Function], default: false, },
-        disabled: { type: Boolean, default: false, },
-        readonly: { type: Boolean, default: false, },
-        emptyLabel: { type: Boolean, default: false, },
+        valid: {type: [Boolean, Function], default: false,},
+        disabled: {type: Boolean, default: false,},
+        readonly: {type: Boolean, default: false,},
+        emptyLabel: {type: Boolean, default: false,},
     },
-    data(): ILktObject {
+    data(): LktObject {
         return {
             Identifier: generateRandomString(16),
             originalValue: this.modelValue,
@@ -21,7 +25,7 @@ export const BooleanFieldMixin = {
     },
     computed: {
         isValid() {
-            if (isFunction(this.valid)) {
+            if (typeof this.valid === 'function') {
                 return this.valid();
             }
             return this.valid;
@@ -44,6 +48,7 @@ export const BooleanFieldMixin = {
     },
     watch: {
         modelValue(v: string) {
+            this.$refs.input.value = v ? 'true' : 'false';
             this.$emit('update:modelValue', v)
         }
     },
@@ -61,7 +66,7 @@ export const BooleanFieldMixin = {
             return this.disabled;
         },
 
-        getValue(){
+        getValue() {
             return this.modelValue;
         },
 

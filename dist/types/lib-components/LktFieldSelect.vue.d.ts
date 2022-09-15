@@ -425,6 +425,11 @@ declare const _default: {
         };
     } | {
         emits: string[];
+        mixins: {
+            computed: {
+                classes(): string;
+            };
+        }[];
         props: {
             modelValue: {
                 type: (StringConstructor | NumberConstructor | ArrayConstructor)[];
@@ -507,7 +512,7 @@ declare const _default: {
                 default: string;
             };
         };
-        data(): import("lkt-tools").ILktObject;
+        data(): import("lkt-ts-interfaces").LktObject;
         computed: {
             isSearchable(): boolean;
             isRemoteSearch(): boolean;

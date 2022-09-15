@@ -2,7 +2,7 @@
 @use "mixins/mixins";
 
 @mixin generate() {
-  [data-lkt="field-select"] {
+  .lkt-field-select {
     display: flex;
     flex-direction: column-reverse;
     position: relative;

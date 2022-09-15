@@ -1,11 +1,7 @@
 <template>
-    <div data-lkt="field-switch"
-         v-bind:data-state="state"
-         v-bind:data-error="!isValid"
-         v-bind:data-disabled="disabled"
-         v-bind:data-changed="changed"
-         v-bind:data-empty="!modelValue"
-         v-bind:data-filled="!!modelValue"
+    <div class="is-switch"
+         v-bind:class="classes"
+         v-bind:data-labeled="canRenderLabelHtml"
     >
         <slot name="prefix"></slot>
         <input v-model="modelValue"

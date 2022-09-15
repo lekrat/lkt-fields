@@ -37,13 +37,16 @@
     "vue": "^3.2.37",
     "vue-tsc": "^0.38.9"
   },
-  "peerDependencies": {
+  "dependencies": {
     "@vuepic/vue-datepicker": "^3.3.1",
     "katex": "^0.16.0",
-    "lkt-events": "git+https://gitlab.com/lkt-ui/lkt-events.git",
+    "lkt-events": "^1.0.2",
     "lkt-http": "git+https://gitlab.com/lkt-ui/lkt-http.git",
-    "lkt-scss": "git+https://gitlab.com/lkt-ui/lkt-scss.git",
     "lkt-tools": "git+https://gitlab.com/lkt-ui/lkt-tools.git",
+    "lkt-string-tools": "^1.0.2",
+    "lkt-theme": "^1.0.4",
+    "lkt-ts-interfaces": "^1.0.2",
+    "lkt-vue-tools": "^1.0.1",
     "suneditor": "^2.43.14",
     "vue": "^3.0.5",
     "vue-next-select": "^2.10.4"

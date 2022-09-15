@@ -97,6 +97,10 @@ declare const _default: {
     };
     mixins: {
         mixins: ({
+            computed: {
+                classes(): string;
+            };
+        } | {
             mixins: {
                 props: {
                     showAdd: {
@@ -192,6 +196,11 @@ declare const _default: {
             };
         } | {
             emits: string[];
+            mixins: {
+                computed: {
+                    classes(): string;
+                };
+            }[];
             props: {
                 modelValue: {
                     type: StringConstructor;
@@ -230,7 +239,7 @@ declare const _default: {
                     default: boolean;
                 };
             };
-            data(): import("lkt-tools").ILktObject;
+            data(): import("lkt-ts-interfaces").LktObject;
             computed: {
                 isValid(): any;
                 isEmpty(): boolean;
@@ -267,7 +276,7 @@ declare const _default: {
                 };
             };
         };
-        data(): import("lkt-tools").ILktObject;
+        data(): import("lkt-ts-interfaces").LktObject;
         watch: {
             disabled(): void;
         };

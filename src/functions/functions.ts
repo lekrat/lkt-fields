@@ -1,4 +1,5 @@
-import {ILktObject, rmArrayValue} from "lkt-tools";
+import {LktObject} from "lkt-ts-interfaces";
+import {rmArrayValue} from "lkt-tools";
 
 /**
  *
@@ -28,7 +29,7 @@ export const mapOptions = (options: Array<any>, parser: Function, select2Compati
         let r: IOption[] = [];
 
 
-        options.forEach((opt: ILktObject) => {
+        options.forEach((opt: LktObject) => {
 
             let keys = Object.keys(opt);
 
@@ -45,7 +46,7 @@ export const mapOptions = (options: Array<any>, parser: Function, select2Compati
                 children = mapOptions(opt['children'], parser, select2Compatibility);
             }
 
-            let data: ILktObject = {};
+            let data: LktObject = {};
             keys.forEach(z => {
                 data[z] = opt[z];
             });

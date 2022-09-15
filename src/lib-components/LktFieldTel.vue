@@ -1,11 +1,8 @@
 <template>
-    <div data-lkt="field-tel"
+    <div class="is-tel"
+         v-bind:class="classes"
          v-bind:data-show-ui="showInfoUi"
-         v-bind:data-error="!isValid"
-         v-bind:data-disabled="disabled"
-         v-bind:data-changed="changed"
-         v-bind:data-empty="isEmpty"
-         v-bind:data-filled="!isEmpty"
+         v-bind:data-labeled="canRenderLabelHtml"
     >
         <slot name="prefix"></slot>
         <template v-if="placeholder">

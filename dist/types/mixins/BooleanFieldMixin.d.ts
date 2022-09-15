@@ -1,6 +1,11 @@
-import { ILktObject } from "lkt-tools";
+import { LktObject } from "lkt-ts-interfaces";
 export declare const BooleanFieldMixin: {
     emits: string[];
+    mixins: {
+        computed: {
+            classes(): string;
+        };
+    }[];
     props: {
         modelValue: {
             type: BooleanConstructor;
@@ -39,7 +44,7 @@ export declare const BooleanFieldMixin: {
             default: boolean;
         };
     };
-    data(): ILktObject;
+    data(): LktObject;
     computed: {
         isValid(): any;
         changed(): boolean;

@@ -1,5 +1,5 @@
 <template>
-    <div data-lkt="field-select"
+    <div class="lkt-field-select"
          :data-state="state"
          :data-multiple="multiple"
          :data-show-ui="showInfoUi"

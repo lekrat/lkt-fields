@@ -1,5 +1,5 @@
 <template>
-    <div data-lkt="field-radio"
+    <div class="lkt-field-radio"
          v-bind:data-state="state"
          v-bind:data-error="invalid"
          v-bind:data-disabled="disabled"

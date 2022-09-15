@@ -1,7 +1,11 @@
-import {generateRandomString, ILktObject, isFunction, slotProvided} from "lkt-tools";
+import {generateRandomString} from "lkt-string-tools";
+import {slotProvided} from "lkt-vue-tools";
+import {LktObject} from "lkt-ts-interfaces";
+import {FieldClassesMixin} from "./styling/FieldClassesMixin";
 
 export const DateFieldMixin = {
     emits: ['update:modelValue'],
+    mixins: [FieldClassesMixin],
     props: {
         modelValue: {type: [String, Date], default: '',},
         disabledDates: {type: Array, default: (): Array<any> => []},
@@ -29,7 +33,7 @@ export const DateFieldMixin = {
         readonly: {type: Boolean, default: false,},
         emptyLabel: {type: Boolean, default: false,},
     },
-    data(): ILktObject {
+    data(): LktObject {
         return {
             Identifier: generateRandomString(16),
             originalValue: this.modelValue,
@@ -38,7 +42,7 @@ export const DateFieldMixin = {
     },
     computed: {
         isValid() {
-            if (isFunction(this.valid)) {
+            if (typeof this.valid === 'function') {
                 return this.valid();
             }
             return this.valid;

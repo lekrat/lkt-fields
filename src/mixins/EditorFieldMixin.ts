@@ -1,10 +1,11 @@
 import {TextFieldMixin} from "./TextFieldMixin";
 import {LktFieldStateMixin} from "./LktFieldStateMixin";
 import {DEFAULT_EDITOR_BUTTONS} from "../constants";
-import {ILktObject} from "lkt-tools";
+import {LktObject} from "lkt-ts-interfaces";
+import {FieldClassesMixin} from "./styling/FieldClassesMixin";
 
 export const EditorFieldMixin = {
-    mixins: [TextFieldMixin, LktFieldStateMixin],
+    mixins: [TextFieldMixin, LktFieldStateMixin, FieldClassesMixin],
     props: {
         lang: {type: String, default: 'en'},
         editorOptions: {
@@ -13,7 +14,7 @@ export const EditorFieldMixin = {
             }
         }
     },
-    data(): ILktObject {
+    data(): LktObject {
         return {
             editor: undefined,
             timeout: undefined,

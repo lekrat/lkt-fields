@@ -3,19 +3,8 @@
 @use "node_modules/lkt-theme/lkt-theme";
 
 @mixin __generateColor($color, $contrast) {
-  &.is-text,
-  &.is-textarea,
-  &.is-password,
-  &.is-tel,
-  &.is-email {
-    input, textarea {
-      @include mixins.generate-color-style($color, $contrast);
-    }
-
-    &:hover {
-      input, textarea {
-        @include mixins.generate-color-style-hover($color, $contrast);
-      }
+  &.is-switch {
+    input[type="checkbox"] {
     }
   }
 }
@@ -27,46 +16,79 @@
   }
 
   .lkt-field {
-    &.is-text,
-    &.is-textarea,
-    &.is-password,
-    &.is-tel,
-    &.is-email {
+    &.is-switch {
       display: flex;
-      flex-direction: column-reverse;
+      height: 34px;
+      font-size: 16px;
       position: relative;
+      margin-top: 0 !important;
+
+      flex-direction: row;
+      align-items: center;
       color: lkt-fields-config.$font-color-label;
 
-      textarea {
-        height: lkt-fields-config.get-height-two();
-        min-height: lkt-fields-config.get-height-two();
-        resize: vertical;
+      label {
+
+        &:before,
+        &:after {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          transition: all linear 200ms;
+          display: block;
+          content: '';
+          border-radius: lkt-theme.$primary-border-radius;
+        }
+
+        &:before {
+          left: 0;
+          width: 42px;
+          height: 22px;
+          background-color: #eeeeee;
+          border: 1px solid #cccccc;
+          z-index: 1;
+        }
+
+        &:after {
+          left: 2px;
+          width: 18px;
+          height: 18px;
+          background: lkt-theme.$warning-color;
+          z-index: 3;
+        }
       }
 
       input {
-        height: lkt-fields-config.get-height-one();
-      }
-
-      textarea,
-      input {
-        @include mixins.getInputStyles();
+        display: none;
+        opacity: 0;
 
         + label {
           @include mixins.getLabelStyles();
+          padding-left: 50px;
+        }
+
+        &:checked + label {
+          &:after {
+            background: lkt-theme.$success-color;
+            left: 22px;
+          }
+        }
+
+        &:disabled {
+          + label:after {
+            background: rgba(lkt-theme.$warning-color, .4);
+          }
+
+          &:checked {
+            + label:after {
+              background: rgba(lkt-theme.$success-color, .4);
+            }
+          }
         }
       }
 
 
-      textarea,
       input {
-
-        @if lkt-theme.$focus-color {
-          &:focus {
-            outline: 0;
-            border-color: lkt-theme.$focus-color;
-            box-shadow: 0 0 0 2px lkt-theme.$focus-color;
-          }
-        }
 
         @if lkt-theme.$disabled-color {
           &[disabled],

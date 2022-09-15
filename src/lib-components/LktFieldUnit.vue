@@ -1,5 +1,5 @@
 <template>
-    <div data-lkt="field-unit"
+    <div class="lkt-field-unit"
          v-bind:data-state="state"
          v-bind:data-show-ui="showInfoUi"
          v-bind:data-error="invalid"

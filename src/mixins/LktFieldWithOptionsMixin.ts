@@ -1,6 +1,5 @@
 import {getNoOptionsMessage} from "../functions/settings-functions";
 import {defaultOptionFormatter, defaultOptionParser, mapOptions} from "../functions/functions";
-import {isFunction} from "lkt-tools";
 
 export const LktFieldWithOptionsMixin = {
     props: {
@@ -26,7 +25,7 @@ export const LktFieldWithOptionsMixin = {
                 let option = this.Options.filter((opt: any) => {
                     return opt.selected === true;
                 });
-                return option && option.length > 0 && isFunction(this.optionFormatter) ? this.optionFormatter(option[0]) : this.fetchString;
+                return option && option.length > 0 && typeof this.optionFormatter === 'function' ? this.optionFormatter(option[0]) : this.fetchString;
             }
         }
     },
@@ -53,7 +52,7 @@ export const LktFieldWithOptionsMixin = {
         },
 
         renderOption(option: any) {
-            return isFunction(this.optionFormatter) ? this.optionFormatter(option) : option.label;
+            return typeof this.optionFormatter === 'function' ? this.optionFormatter(option) : option.label;
         },
     }
 };

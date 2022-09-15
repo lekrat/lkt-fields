@@ -1,4 +1,14 @@
+@use "node_modules/lkt-theme/lkt-theme";
 @use "../lkt-fields-config";
+
+@mixin generate-color-style($color, $contrast){
+  background: $contrast;
+  border-color: $color;
+}
+
+@mixin generate-color-style-hover($color, $contrast){
+  box-shadow: inset 0 1px 2px $color;
+}
 
 @mixin getLabelStyles() {
   display: block;
@@ -9,23 +19,34 @@
 }
 
 @mixin getInputStyles() {
+  box-sizing: border-box;
   width: 100%;
   max-width: 100%;
   outline: 0;
   border: lkt-fields-config.$border-width lkt-fields-config.$border-style lkt-fields-config.$border-color;
   box-shadow: lkt-fields-config.$box-shadow;
   background-color: lkt-fields-config.$background-color;
-  color: lkt-fields-config.$font-color;
-  transition: lkt-fields-config.$transition-time border-color lkt-fields-config.$transition-function;
   padding: lkt-fields-config.$padding-input;
-  font-size: lkt-fields-config.$font-size;
-  border-radius: lkt-fields-config.$border-radius;
-  box-sizing: border-box;
 
-  &:focus {
-    outline: 0;
-    border: lkt-fields-config.$border-width lkt-fields-config.$border-style rgba(lkt-fields-config.$focus-color, .5);
-    box-shadow: 0 0 0 2px rgba(lkt-fields-config.$focus-color, .5);
+  @if (lkt-theme.$text-color) {
+    color: lkt-theme.$text-color;
+  }
+  @if (lkt-theme.$primary-transition) {
+    transition: lkt-theme.$primary-transition;
+  }
+  @if (lkt-theme.$primary-text-font-size) {
+    font-size: lkt-theme.$primary-text-font-size;
+  }
+  @if (lkt-theme.$primary-border-radius) {
+    border-radius: lkt-theme.$primary-border-radius;
+  }
+
+  @if lkt-theme.$focus-color != false {
+    &:focus {
+      outline: 0;
+      border: lkt-fields-config.$border-width lkt-fields-config.$border-style lkt-theme.$focus-color;
+      box-shadow: 0 0 0 2px lkt-theme.$focus-color;
+    }
   }
 
   &[disabled],

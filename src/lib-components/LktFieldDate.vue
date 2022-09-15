@@ -1,12 +1,8 @@
 <template>
-    <div data-lkt="field-date"
-         :data-state="state"
-         :data-show-ui="showInfoUi"
-         :data-error="!isValid"
-         :data-disabled="disabled"
-         :data-changed="changed"
-         :data-empty="isEmpty"
-         :data-filled="!isEmpty"
+    <div class="is-date"
+         v-bind:class="classes"
+         v-bind:data-show-ui="showInfoUi"
+         v-bind:data-labeled="canRenderLabelHtml"
     >
         <slot name="prefix"></slot>
 

@@ -1,4 +1,4 @@
-import {generateRandomString} from "lkt-tools";
+import {generateRandomString} from "lkt-string-tools";
 import {emitBlur, emitClick, emitFocus, emitKeyDown, emitKeyUp} from "../functions/vm-functions";
 
 export const LktAbstractFieldMixin = {
