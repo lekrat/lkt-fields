@@ -1,13 +1,8 @@
 <template>
-    <div class="lkt-field-select"
-         :data-state="state"
-         :data-multiple="multiple"
-         :data-show-ui="showInfoUi"
-         :data-error="!isValid"
-         :data-disabled="disabled"
-         :data-changed="changed"
-         :data-empty="isEmpty"
-         :data-filled="!isEmpty"
+    <div class="is-select"
+         v-bind:class="classes"
+         v-bind:data-show-ui="showInfoUi"
+         v-bind:data-labeled="canRenderLabelHtml"
     >
         <slot name="prefix"></slot>
 
@@ -20,8 +15,10 @@
             v-bind:searchable="isSearchable"
             v-bind:multiple="multiple"
             v-bind:loading="loading"
+            v-bind:disabled="disabled"
             v-on:search:input="handleInput"
             v-bind:search-placeholder="searchPlaceholder"
+            v-bind:close-on-select="closeOnSelect"
             clear-on-close
         > </vue-next-select>
 

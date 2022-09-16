@@ -459,6 +459,10 @@ declare const _default: {
                 type: BooleanConstructor;
                 default: boolean;
             };
+            closeOnSelect: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
             readonly: {
                 type: BooleanConstructor;
                 default: boolean;

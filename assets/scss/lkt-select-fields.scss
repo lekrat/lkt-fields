@@ -1,29 +1,68 @@
 @use "lkt-fields-config";
 @use "mixins/mixins";
+@use "node_modules/lkt-theme/lkt-theme";
 
-@mixin generate() {
-  .lkt-field-select {
-    display: flex;
-    flex-direction: column-reverse;
-    position: relative;
-    color: lkt-fields-config.$font-color-label;
-
-    input {
-      height: lkt-fields-config.get-height-one();
-    }
-
+@mixin __generateColor($color, $contrast) {
+  &.is-select {
     .vue-select {
-      @include mixins.getInputStyles();
-
-      + label {
-        @include mixins.getLabelStyles();
-      }
+      background: $contrast;
+      border-color: $color;
     }
 
     &:hover {
       .vue-select {
-        box-shadow: inset 0 1px 2px rgba(lkt-fields-config.$hover-color, .07);
-        border: 1px solid lkt-fields-config.$hover-color;
+        box-shadow: inset 0 1px 2px rgba($color, .07);
+      }
+    }
+  }
+}
+
+@mixin generate() {
+  .lkt-field {
+    &.is-select {
+      display: flex;
+      flex-direction: column-reverse;
+      position: relative;
+      color: lkt-fields-config.$font-color-label;
+
+      input {
+        height: lkt-fields-config.get-height-one();
+      }
+
+      .vue-select {
+        @include mixins.getInputStyles();
+
+        + label {
+          @include mixins.getLabelStyles();
+        }
+      }
+
+      .vue-dropdown {
+        z-index: 9;
+      }
+    }
+
+    @if (lkt-theme.$primary-color) {
+      &--primary {
+        @include __generateColor(lkt-theme.$primary-color, lkt-theme.$primary-color-contrast);
+      }
+    }
+
+    @if (lkt-theme.$success-color) {
+      &--success {
+        @include __generateColor(lkt-theme.$success-color, lkt-theme.$success-color-contrast);
+      }
+    }
+
+    @if (lkt-theme.$warning-color) {
+      &--warning {
+        @include __generateColor(lkt-theme.$warning-color, lkt-theme.$warning-color-contrast);
+      }
+    }
+
+    @if (lkt-theme.$danger-color) {
+      &--danger {
+        @include __generateColor(lkt-theme.$danger-color, lkt-theme.$danger-color-contrast);
       }
     }
   }

@@ -17,6 +17,7 @@ export const SelectFieldMixin = {
         name: {type: String, default: generateRandomString(16)},
         valid: {type: [Boolean, Function], default: false,},
         disabled: {type: Boolean, default: false,},
+        closeOnSelect: {type: Boolean, default: false,},
         readonly: {type: Boolean, default: false,},
         emptyLabel: {type: Boolean, default: false,},
         options: {type: Array, default: (): Array<IOption> => []},

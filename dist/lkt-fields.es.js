@@ -1,11 +1,11 @@
 import Ct from "@vuepic/vue-datepicker";
 import pe from "vue-next-select";
-import { openBlock as k, createElementBlock as z, normalizeClass as $, renderSlot as N, withDirectives as D, createElementVNode as W, vModelCheckbox as fe, createCommentVNode as L, resolveComponent as F, vModelText as H, createBlock as G, vModelDynamic as ce, Fragment as zt, renderList as Lt, vModelRadio as Et, createVNode as ge } from "vue";
+import { openBlock as k, createElementBlock as z, normalizeClass as P, renderSlot as N, withDirectives as D, createElementVNode as W, vModelCheckbox as fe, createCommentVNode as L, resolveComponent as F, vModelText as H, createBlock as G, vModelDynamic as ce, Fragment as zt, renderList as Lt, vModelRadio as Et, createVNode as ge } from "vue";
 import { isUndefined as V, rmArrayValue as ne, isObject as It } from "lkt-tools";
 import { existsHTTPResource as Rt } from "lkt-http";
 import me from "suneditor";
 import Tt from "katex";
-function P(e = 10) {
+function $(e = 10) {
   let t = "";
   const i = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", n = i.length;
   for (let l = 0; l < e; l++)
@@ -30,7 +30,7 @@ const Q = {
     placeholder: { type: String, default: "" },
     label: { type: String, default: "" },
     state: { type: String, default: "" },
-    name: { type: String, default: P(16) },
+    name: { type: String, default: $(16) },
     valid: { type: [Boolean, Function], default: !1 },
     disabled: { type: Boolean, default: !1 },
     readonly: { type: Boolean, default: !1 },
@@ -38,7 +38,7 @@ const Q = {
   },
   data() {
     return {
-      Identifier: P(16),
+      Identifier: $(16),
       originalValue: this.modelValue
     };
   },
@@ -88,7 +88,7 @@ const Q = {
 }, At = ["data-labeled"], Nt = ["name", "id", "disabled", "readonly", "placeholder", "value"], Mt = ["for", "innerHTML"];
 function Dt(e, t, i, n, l, o) {
   return k(), z("div", {
-    class: $(["is-check", e.classes]),
+    class: P(["is-check", e.classes]),
     "data-labeled": e.canRenderLabelHtml
   }, [
     N(e.$slots, "prefix"),
@@ -119,7 +119,7 @@ const Ot = /* @__PURE__ */ U(Bt, [["render", Dt]]), Ut = {
 }, Vt = ["data-labeled"], Ft = ["name", "id", "disabled", "readonly", "placeholder"], Ht = ["for", "innerHTML"];
 function Pt(e, t, i, n, l, o) {
   return k(), z("div", {
-    class: $(["is-switch", e.classes]),
+    class: P(["is-switch", e.classes]),
     "data-labeled": e.canRenderLabelHtml
   }, [
     N(e.$slots, "prefix"),
@@ -337,7 +337,7 @@ const q = /* @__PURE__ */ U(oi, [["render", bi]]), J = {
     placeholder: { type: String, default: "" },
     label: { type: String, default: "" },
     state: { type: String, default: "" },
-    name: { type: String, default: P(16) },
+    name: { type: String, default: $(16) },
     valid: { type: [Boolean, Function], default: !1 },
     disabled: { type: Boolean, default: !1 },
     readonly: { type: Boolean, default: !1 },
@@ -345,7 +345,7 @@ const q = /* @__PURE__ */ U(oi, [["render", bi]]), J = {
   },
   data() {
     return {
-      Identifier: P(16),
+      Identifier: $(16),
       originalValue: this.modelValue,
       value: this.modelValue
     };
@@ -417,7 +417,7 @@ const q = /* @__PURE__ */ U(oi, [["render", bi]]), J = {
 function Si(e, t, i, n, l, o) {
   const s = F("lkt-field-state");
   return k(), z("div", {
-    class: $(["is-text", e.classes]),
+    class: P(["is-text", e.classes]),
     "data-show-ui": e.showInfoUi,
     "data-labeled": e.canRenderLabelHtml
   }, [
@@ -494,7 +494,7 @@ const xi = /* @__PURE__ */ U(_i, [["render", Si]]), Ci = {
 function Ri(e, t, i, n, l, o) {
   const s = F("lkt-field-state");
   return k(), z("div", {
-    class: $(["is-textarea", e.classes]),
+    class: P(["is-textarea", e.classes]),
     "data-show-ui": e.showInfoUi,
     "data-labeled": e.canRenderLabelHtml
   }, [
@@ -557,7 +557,7 @@ const Ti = /* @__PURE__ */ U(Ci, [["render", Ri]]), Bi = {
 function Oi(e, t, i, n, l, o) {
   const s = F("lkt-field-state");
   return k(), z("div", {
-    class: $(["is-email", e.classes]),
+    class: P(["is-email", e.classes]),
     "data-show-ui": e.showInfoUi,
     "data-labeled": e.canRenderLabelHtml
   }, [
@@ -622,7 +622,7 @@ const Ui = /* @__PURE__ */ U(Bi, [["render", Oi]]), Vi = {
 function Gi(e, t, i, n, l, o) {
   const s = F("lkt-field-state");
   return k(), z("div", {
-    class: $(["is-tel", e.classes]),
+    class: P(["is-tel", e.classes]),
     "data-show-ui": e.showInfoUi,
     "data-labeled": e.canRenderLabelHtml
   }, [
@@ -682,7 +682,7 @@ const qi = /* @__PURE__ */ U(Vi, [["render", Gi]]), Ce = {
     placeholder: { type: String, default: "" },
     label: { type: String, default: "" },
     state: { type: String, default: "" },
-    name: { type: String, default: P(16) },
+    name: { type: String, default: $(16) },
     invalid: { type: Boolean, default: !1 },
     disabled: { type: Boolean, default: !1 },
     readonly: { type: Boolean, default: !1 },
@@ -692,7 +692,7 @@ const qi = /* @__PURE__ */ U(Vi, [["render", Gi]]), Ce = {
   data() {
     return {
       Value: this.modelValue,
-      Identifier: P(16),
+      Identifier: $(16),
       canEmit: !1,
       originalValue: this.value
     };
@@ -893,7 +893,7 @@ const Zi = /* @__PURE__ */ U(ji, [["render", Ji]]), Qi = {
 function on(e, t, i, n, l, o) {
   const s = F("lkt-field-state");
   return k(), z("div", {
-    class: $(["is-password", e.classes]),
+    class: P(["is-password", e.classes]),
     "data-show-ui": e.showInfoUi,
     "data-labeled": e.canRenderLabelHtml
   }, [
@@ -1083,7 +1083,7 @@ const fn = /* @__PURE__ */ U(rn, [["render", pn]]), gn = {
     placeholder: { type: String, default: "" },
     label: { type: String, default: "" },
     state: { type: String, default: "" },
-    name: { type: String, default: P(16) },
+    name: { type: String, default: $(16) },
     valid: { type: [Boolean, Function], default: !1 },
     disabled: { type: Boolean, default: !1 },
     readonly: { type: Boolean, default: !1 },
@@ -1091,7 +1091,7 @@ const fn = /* @__PURE__ */ U(rn, [["render", pn]]), gn = {
   },
   data() {
     return {
-      Identifier: P(16),
+      Identifier: $(16),
       originalValue: this.modelValue,
       value: this.modelValue
     };
@@ -1148,7 +1148,7 @@ const fn = /* @__PURE__ */ U(rn, [["render", pn]]), gn = {
 function vn(e, t, i, n, l, o) {
   const s = F("Datepicker"), a = F("lkt-field-state");
   return k(), z("div", {
-    class: $(["is-date", e.classes]),
+    class: P(["is-date", e.classes]),
     "data-show-ui": e.showInfoUi,
     "data-labeled": e.canRenderLabelHtml
   }, [
@@ -1214,9 +1214,10 @@ const yn = /* @__PURE__ */ U(mn, [["render", vn]]), wn = {
     placeholder: { type: String, default: "" },
     label: { type: String, default: "" },
     state: { type: String, default: "" },
-    name: { type: String, default: P(16) },
+    name: { type: String, default: $(16) },
     valid: { type: [Boolean, Function], default: !1 },
     disabled: { type: Boolean, default: !1 },
+    closeOnSelect: { type: Boolean, default: !1 },
     readonly: { type: Boolean, default: !1 },
     emptyLabel: { type: Boolean, default: !1 },
     options: { type: Array, default: () => [] },
@@ -1233,7 +1234,7 @@ const yn = /* @__PURE__ */ U(mn, [["render", vn]]), wn = {
   },
   data() {
     return {
-      Identifier: P(16),
+      Identifier: $(16),
       originalValue: this.modelValue,
       value: this.modelValue,
       Options: re(X(this.options, this.optionParser, this.select2Compatibility), this.disabledOptions),
@@ -1350,19 +1351,13 @@ const yn = /* @__PURE__ */ U(mn, [["render", vn]]), wn = {
   name: "LktFieldSelect",
   components: { lktFieldState: q, VueNextSelect: pe },
   mixins: [wn, j]
-}, Sn = ["data-state", "data-multiple", "data-show-ui", "data-error", "data-disabled", "data-changed", "data-empty", "data-filled"], xn = ["for", "innerHTML"];
+}, Sn = ["data-show-ui", "data-labeled"], xn = ["for", "innerHTML"];
 function Cn(e, t, i, n, l, o) {
   const s = F("vue-next-select"), a = F("lkt-field-state");
   return k(), z("div", {
-    class: "lkt-field-select",
-    "data-state": e.state,
-    "data-multiple": e.multiple,
+    class: P(["is-select", e.classes]),
     "data-show-ui": e.showInfoUi,
-    "data-error": !e.isValid,
-    "data-disabled": e.disabled,
-    "data-changed": e.changed,
-    "data-empty": e.isEmpty,
-    "data-filled": !e.isEmpty
+    "data-labeled": e.canRenderLabelHtml
   }, [
     N(e.$slots, "prefix"),
     ge(s, {
@@ -1375,10 +1370,12 @@ function Cn(e, t, i, n, l, o) {
       searchable: e.isSearchable,
       multiple: e.multiple,
       loading: e.loading,
+      disabled: e.disabled,
       "onSearch:input": e.handleInput,
       "search-placeholder": e.searchPlaceholder,
+      "close-on-select": e.closeOnSelect,
       "clear-on-close": ""
-    }, null, 8, ["modelValue", "options", "visible-options", "searchable", "multiple", "loading", "onSearch:input", "search-placeholder"]),
+    }, null, 8, ["modelValue", "options", "visible-options", "searchable", "multiple", "loading", "disabled", "onSearch:input", "search-placeholder", "close-on-select"]),
     e.canRenderLabelSlot ? N(e.$slots, "label", { key: 0 }) : L("", !0),
     e.canRenderLabelHtml ? (k(), z("label", {
       key: 1,
@@ -1407,7 +1404,7 @@ function Cn(e, t, i, n, l, o) {
       "show-reset": e.showReset && !e.disabled,
       onClickUi: e.onClickUi
     }, null, 8, ["show-add", "show-error", "show-info", "show-log", "show-warn", "text-add", "text-error", "text-info", "text-log", "text-warn", "show-mandatory", "text-mandatory", "show-open", "text-open", "show-link", "text-link", "text-reset", "show-reset", "onClickUi"])) : L("", !0)
-  ], 8, Sn);
+  ], 10, Sn);
 }
 const zn = /* @__PURE__ */ U(kn, [["render", Cn]]), Ln = {
   name: "blockquote",
@@ -8288,7 +8285,7 @@ const yt = vt.exports, Xn = { ckb: Ve, da: He, de: $e, en: ae, es: je, fr: Ye, h
 function il(e, t, i, n, l, o) {
   const s = F("lkt-field-state");
   return k(), z("div", {
-    class: $(["is-editor", e.classes]),
+    class: P(["is-editor", e.classes]),
     "data-show-ui": e.showInfoUi,
     "data-labeled": e.canRenderLabelHtml
   }, [
@@ -8352,7 +8349,7 @@ const nl = /* @__PURE__ */ U(Zn, [["render", il]]), ll = {
 function rl(e, t, i, n, l, o) {
   const s = F("lkt-field-state");
   return k(), z("div", {
-    class: $(["is-editor", e.classes]),
+    class: P(["is-editor", e.classes]),
     "data-show-ui": e.showInfoUi,
     "data-labeled": e.canRenderLabelHtml
   }, [
