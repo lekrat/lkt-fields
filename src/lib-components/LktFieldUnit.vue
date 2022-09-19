@@ -61,7 +61,6 @@
 <script lang="ts">
 import {LktAbstractFieldMixin} from "../mixins/LktAbstractFieldMixin";
 import {LktFieldStateMixin} from "../mixins/LktFieldStateMixin";
-import {isUndefined} from "lkt-tools";
 import lktFieldState from "../components/LktFieldState.vue";
 
 export default {
@@ -83,13 +82,13 @@ export default {
     },
     computed: {
         Min(){
-            if (!isUndefined(this.min)) {
+            if (typeof this.min !== 'undefined') {
                 return parseInt(this.min);
             }
             return false;
         },
         Max(){
-            if (!isUndefined(this.max)) {
+            if (typeof this.max !== 'undefined') {
                 return parseInt(this.max);
             }
             return false;

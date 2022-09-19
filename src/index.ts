@@ -38,7 +38,6 @@ import LktFieldKatex from "./lib-components/LktFieldKatex.vue";
 /**
  * Additional imports
  */
-import {isObject, isUndefined} from "lkt-tools";
 import {Settings} from "./settings/Settings";
 import {DEFAULT_PLUGIN_OPTIONS} from "./constants";
 import {App} from "vue";
@@ -64,35 +63,35 @@ const LktFields = {
             .component('lkt-field-katex', LktFieldKatex)
         ;
 
-        if (isObject(options)) {
-            if (!isUndefined(options.noOptionsMessage)) {
+        if (typeof options === 'object') {
+            if (typeof options.noOptionsMessage !== 'undefined') {
                 Settings.NO_OPTIONS_MESSAGE = options.noOptionsMessage;
             }
-            if (!isUndefined(options.showPasswordMessage)) {
+            if (typeof options.showPasswordMessage !== 'undefined') {
                 Settings.SHOW_PASSWORD_MESSAGE = options.showPasswordMessage;
             }
-            if (!isUndefined(options.isMandatoryMessage)) {
+            if (typeof options.isMandatoryMessage !== 'undefined') {
                 Settings.IS_MANDATORY_MESSAGE = options.isMandatoryMessage;
             }
-            if (!isUndefined(options.todayRangeText)) {
+            if (typeof options.todayRangeText !== 'undefined') {
                 Settings.TODAY_RANGE_TEXT = options.todayRangeText;
             }
-            if (!isUndefined(options.thisMonthRangeText)) {
+            if (typeof options.thisMonthRangeText !== 'undefined') {
                 Settings.THIS_MONTH_RANGE_TEXT = options.thisMonthRangeText;
             }
-            if (!isUndefined(options.lastMonthRangeText)) {
+            if (typeof options.lastMonthRangeText !== 'undefined') {
                 Settings.LAST_MONTH_RANGE_TEXT = options.lastMonthRangeText;
             }
-            if (!isUndefined(options.thisYearRangeText)) {
+            if (typeof options.thisYearRangeText !== 'undefined') {
                 Settings.THIS_YEAR_RANGE_TEXT = options.thisYearRangeText;
             }
-            if (!isUndefined(options.followLinkMessage)) {
+            if (typeof options.followLinkMessage !== 'undefined') {
                 Settings.FOLLOW_LINK_MESSAGE = options.followLinkMessage;
             }
-            if (!isUndefined(options.openMessage)) {
+            if (typeof options.openMessage !== 'undefined') {
                 Settings.OPEN_MESSAGE = options.openMessage;
             }
-            if (!isUndefined(options.resetMessage)) {
+            if (typeof options.resetMessage !== 'undefined') {
                 Settings.RESET_MESSAGE = options.resetMessage;
             }
         }
