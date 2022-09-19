@@ -14,6 +14,7 @@
             v-bind:visible-options="visibleOptions"
             v-bind:searchable="isSearchable"
             v-bind:multiple="multiple"
+            v-bind:taggable="multiple"
             v-bind:loading="loading"
             v-bind:disabled="disabled"
             v-on:search:input="handleInput"

@@ -11,6 +11,10 @@ export const FieldClassesMixin = {
                 r.push('is-changed');
             }
 
+            if (this.multiple) {
+                r.push('is-multiple');
+            }
+
             r.push(this.isValid ? 'is-valid' : 'is-error');
             r.push(!!this.modelValue ? 'is-filled' : 'is-empty');
 

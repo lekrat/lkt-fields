@@ -124,7 +124,7 @@ export declare const SelectFieldMixin: {
     };
     methods: {
         buildVisibleOptions(): void;
-        handleInput(inputEvent: InputEvent): Promise<any>;
+        handleInput(inputEvent: InputEvent): Promise<void>;
         getDropdownOptionSelector(option: any, highlightOption?: number, i?: number): {
             'is-highlight': boolean;
             'is-selected': boolean;

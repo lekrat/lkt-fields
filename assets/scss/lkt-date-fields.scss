@@ -60,6 +60,12 @@
         @include __generateColor(lkt-theme.$danger-color, lkt-theme.$danger-color-contrast);
       }
     }
+
+    @if (lkt-theme.$info-color) {
+      &--danger {
+        @include __generateColor(lkt-theme.$info-color, lkt-theme.$info-color-contrast);
+      }
+    }
   }
 }
 

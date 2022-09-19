@@ -2,7 +2,7 @@ import {generateRandomString} from "lkt-string-tools";
 import {slotProvided} from "lkt-vue-tools";
 import {getNoOptionsMessage} from "../functions/settings-functions";
 import {defaultOptionFormatter, defaultOptionParser, mapDisabledOptions, mapOptions} from "../functions/functions";
-import {existsHTTPResource} from "lkt-http";
+import {existsHTTPResource, httpCall} from "lkt-http";
 import {LktObject} from "lkt-ts-interfaces";
 import {FieldClassesMixin} from "./styling/FieldClassesMixin";
 
@@ -139,7 +139,7 @@ export const SelectFieldMixin = {
 
                 console.log('searchOptions', this.searchOptions, opts);
                 console.log('$http', this.$http);
-                return this.$http(this.resource, opts).then( (r: any) => {
+                return httpCall(this.resource, opts).then( (r: any) => {
                     this.apiOptions = mapDisabledOptions(mapOptions(r.data.results, this.optionParser, this.select2Compatibility), this.disabledOptions);
 
                     // this.visibleOptions = [].concat(this.Options, this.apiOptions);
