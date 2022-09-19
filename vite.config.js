@@ -20,7 +20,7 @@ export default {
         outDir,
         minify: true,
         rollupOptions: {
-            external: ['vue', '@vuepic/vue-datepicker', 'vue-next-select', 'suneditor', 'katex', 'lkt-http', 'lkt-tools'],
+            external: ['vue', '@vuepic/vue-datepicker', 'vue-next-select', 'suneditor', 'katex', 'lkt-http', 'lkt-tools', 'lkt-string-tools', 'lkt-vue-tools', 'lkt-control-tools', 'lkt-events'],
             output: {
                 globals: {
                     vue: 'Vue',
