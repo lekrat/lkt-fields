@@ -83,6 +83,10 @@ export declare const SelectFieldMixin: {
             type: StringConstructor;
             default: () => null;
         };
+        searchStringResourceParam: {
+            type: StringConstructor;
+            default: string;
+        };
         searchOptions: {
             type: (ObjectConstructor | FunctionConstructor)[];
             default: () => null;
@@ -109,6 +113,10 @@ export declare const SelectFieldMixin: {
     watch: {
         modelValue(v: string): void;
         value(v: string): void;
+        searchOptions: {
+            handler(): void;
+            deep: boolean;
+        };
         options: {
             handler(): void;
             deep: boolean;

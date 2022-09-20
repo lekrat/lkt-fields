@@ -507,6 +507,10 @@ declare const _default: {
                 type: StringConstructor;
                 default: () => null;
             };
+            searchStringResourceParam: {
+                type: StringConstructor;
+                default: string;
+            };
             searchOptions: {
                 type: (ObjectConstructor | FunctionConstructor)[];
                 default: () => null;
@@ -533,6 +537,10 @@ declare const _default: {
         watch: {
             modelValue(v: string): void;
             value(v: string): void;
+            searchOptions: {
+                handler(): void;
+                deep: boolean;
+            };
             options: {
                 handler(): void;
                 deep: boolean;

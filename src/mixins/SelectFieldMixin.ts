@@ -5,6 +5,7 @@ import {defaultOptionFormatter, defaultOptionParser, mapDisabledOptions, mapOpti
 import {existsHTTPResource, httpCall} from "lkt-http";
 import {LktObject} from "lkt-ts-interfaces";
 import {FieldClassesMixin} from "./styling/FieldClassesMixin";
+import {SearchOptionsValue} from "../value-objects/SearchOptionsValue";
 
 export const SelectFieldMixin = {
     emits: ['update:modelValue'],
@@ -29,21 +30,25 @@ export const SelectFieldMixin = {
         optionParser: {type: Function, default: defaultOptionParser},
         select2Compatibility: {type: Boolean, default: false},
         resource: {type: String, default: (): null => null},
+        searchStringResourceParam: {type: String, default: 'query'},
         searchOptions: {type: [Object, Function], default: (): null => null},
         searchPlaceholder: {type: String, default: ''},
     },
     data(): LktObject {
+        const searchOptionsValue = new SearchOptionsValue(this.searchOptions);
         return {
             Identifier: generateRandomString(16),
             originalValue: this.modelValue,
             value: this.modelValue,
             Options: mapDisabledOptions(mapOptions(this.options, this.optionParser, this.select2Compatibility), this.disabledOptions),
             loading: false,
+            updatedModelValue: false,
             latestTimestamp: Date.now(),
             visibleOptions: [],
             apiOptions: [],
             optionsHaystack: [],
             searchString: '',
+            searchOptionsValue
         }
     },
     computed: {
@@ -95,6 +100,14 @@ export const SelectFieldMixin = {
         value(v: string) {
             console.log('updated value', v, this.value);
             this.$emit('update:modelValue', v)
+            this.updatedModelValue = true;
+            this.$nextTick(() => {this.updatedModelValue = false;})
+        },
+        searchOptions: {
+            handler() {
+                const searchOptionsValue = new SearchOptionsValue(this.searchOptions);
+                this.searchOptionsValue = searchOptionsValue;
+            }, deep: true
         },
         options: {
             handler() {
@@ -123,46 +136,39 @@ export const SelectFieldMixin = {
             }
 
             this.visibleOptions = this.optionsHaystack.filter((z: IOption) => {
-                return z.label.indexOf(this.searchString) !== -1;
+                return z.label.toLowerCase().indexOf(this.searchString) !== -1;
             });
         },
         async handleInput(inputEvent: InputEvent) {
+            if (this.updatedModelValue) {
+                return ;
+            }
             const target = inputEvent.target as HTMLInputElement | null;
-            this.searchString = target?.value;
+            const searchString = target?.value;
             console.log('searchString', this.searchString);
 
             if (this.isRemoteSearch) {
                 console.log('resource', this.resource);
 
-                const opts = typeof this.searchOptions === 'function'
-                    ? this.searchOptions() : (typeof this.searchOptions === 'object' ? this.searchOptions :  {})
+                const opts = this.searchOptionsValue.getOptions();
 
-                console.log('searchOptions', this.searchOptions, opts);
-                console.log('$http', this.$http);
-                return httpCall(this.resource, opts).then( (r: any) => {
-                    this.apiOptions = mapDisabledOptions(mapOptions(r.data.results, this.optionParser, this.select2Compatibility), this.disabledOptions);
+                if (this.searchStringResourceParam) {
+                    opts[this.searchStringResourceParam] = this.searchString;
+                }
+
+                console.log('searchOptions', opts);
+                return httpCall(this.resource, opts).then( (results: any) => {
+                    console.log('rrrrrr:', results);
+                    this.searchString = searchString;
+                    this.apiOptions = mapDisabledOptions(mapOptions(results, this.optionParser, this.select2Compatibility), this.disabledOptions);
 
                     // this.visibleOptions = [].concat(this.Options, this.apiOptions);
                     console.log('visibleOptions', this.visibleOptions);
+                    this.buildVisibleOptions();
                 });
             }
 
             this.buildVisibleOptions();
-
-            // const timestamp = (this.latestTimestamp = Date.now())
-            // const target = inputEvent.target as HTMLInputElement | null
-            //
-            // if (target?.value === '') {
-            //     this.visibleOptions = [...this.modelValue]
-            //     return
-            // }
-            //
-            // this.loading = true
-            // await new Promise(resolve => setTimeout(resolve, 500))
-            // // if (timestamp === this.latestTimestamp) {
-            // //     this.visibleOptions = this.userNames.filter(name => name.includes(target?.value!))
-            // // }
-            // this.loading = false
         },
         getDropdownOptionSelector(option: any, highlightOption: number = -1, i: number = -1) {
             let r = {'is-highlight': highlightOption == i, 'is-selected': option.selected === true};
