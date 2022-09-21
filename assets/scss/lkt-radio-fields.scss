@@ -1,0 +1,159 @@
+@use "lkt-fields-config";
+@use "mixins/mixins";
+@use "node_modules/lkt-theme/lkt-theme";
+
+@mixin __generateColor($color, $contrast) {
+  &.is-radio {
+    input[type="radio"] {
+
+      &:focus ~ label:before {
+        border: 2px solid lighten(#000000, 50%);
+      }
+
+      &:focus:checked ~ label:before {
+        border: 2px solid darken($color, 15%);
+      }
+
+      &:checked ~ label:before {
+        color: $contrast;
+        background: $color;
+        border: 2px solid $color;
+      }
+    }
+  }
+}
+
+@mixin radioInput($color) {
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+
+    &:focus ~ label:before {
+      border: 2px solid lighten(#000000, 50%);
+    }
+
+    &:focus:checked ~ label:before {
+      border: 2px solid darken($color, 15%);
+    }
+
+    &:checked ~ label:before {
+      color: #ffffff;
+      background: $color;
+      border: 2px solid $color;
+    }
+  }
+
+  label:before {
+    content: '';
+    display: inline-block;
+    border-radius: 100%;
+    position: absolute;
+    left: 0;
+    top: -2px;
+    width:  1rem;
+    height: 1rem;
+    background-color: lighten(#000000, 65%);
+    border: 2px solid lighten(#000000, 65%);
+    pointer-events: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+}
+
+@mixin generate() {
+
+  @if lkt-theme.$primary-transition == false {
+    $transition: lkt-theme.$primary-transition !global;
+  }
+
+  .lkt-field {
+    &.is-radio {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      align-items: flex-start;
+
+      gap: 10px;
+      color: lkt-fields-config.$font-color-label;
+      @include radioInput(#ff0000);
+
+      input {
+        display: inline-flex;
+        min-height: lkt-fields-config.get-height-one();
+      }
+
+      input {
+        + label {
+          @include mixins.getLabelStyles();
+          padding-left: 27px;
+        }
+      }
+
+
+      input {
+
+        @if lkt-theme.$focus-color {
+          &:focus {
+            outline: 0;
+            border-color: lkt-theme.$focus-color;
+            box-shadow: 0 0 0 2px lkt-theme.$focus-color;
+          }
+        }
+
+        @if lkt-theme.$disabled-color {
+          &[disabled],
+          &[readonly] {
+            box-shadow: none;
+            border-color: lkt-theme.$disabled-color;
+            background-color: lkt-theme.$disabled-color-contrast !important;
+          }
+        }
+      }
+
+      .lkt-field__option {
+        position: relative;
+        width: 100%;
+      }
+    }
+
+    @if (lkt-theme.$primary-color) {
+      &--primary {
+        @include __generateColor(lkt-theme.$primary-color, lkt-theme.$primary-color-contrast);
+      }
+    }
+
+    @if (lkt-theme.$success-color) {
+      &--success {
+        @include __generateColor(lkt-theme.$success-color, lkt-theme.$success-color-contrast);
+      }
+    }
+
+    @if (lkt-theme.$warning-color) {
+      &--warning {
+        @include __generateColor(lkt-theme.$warning-color, lkt-theme.$warning-color-contrast);
+      }
+    }
+
+    @if (lkt-theme.$danger-color) {
+      &--danger {
+        @include __generateColor(lkt-theme.$danger-color, lkt-theme.$danger-color-contrast);
+      }
+    }
+
+    @if (lkt-theme.$info-color) {
+      &--danger {
+        @include __generateColor(lkt-theme.$info-color, lkt-theme.$info-color-contrast);
+      }
+    }
+  }
+}
+
+

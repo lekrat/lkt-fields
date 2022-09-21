@@ -12,7 +12,7 @@ export declare const LktAbstractFieldMixin: {
             type: StringConstructor;
             default: string;
         };
-        state: {
+        palette: {
             type: StringConstructor;
             default: string;
         };

@@ -83,7 +83,7 @@ export declare const DateFieldMixin: {
             type: StringConstructor;
             default: string;
         };
-        state: {
+        palette: {
             type: StringConstructor;
             default: string;
         };

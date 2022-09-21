@@ -1,10 +1,16 @@
 declare const _default: {
     name: string;
-    mixins: ({
+    mixins: {
+        emits: string[];
+        mixins: {
+            computed: {
+                classes(): string;
+            };
+        }[];
         props: {
             modelValue: {
-                type: (ObjectConstructor | StringConstructor | BooleanConstructor | NumberConstructor | DateConstructor | ArrayConstructor)[];
-                default: () => undefined;
+                type: (StringConstructor | NumberConstructor | ArrayConstructor)[];
+                default: string;
             };
             placeholder: {
                 type: StringConstructor;
@@ -14,7 +20,7 @@ declare const _default: {
                 type: StringConstructor;
                 default: string;
             };
-            state: {
+            palette: {
                 type: StringConstructor;
                 default: string;
             };
@@ -22,11 +28,15 @@ declare const _default: {
                 type: StringConstructor;
                 default: string;
             };
-            invalid: {
-                type: BooleanConstructor;
+            valid: {
+                type: (FunctionConstructor | BooleanConstructor)[];
                 default: boolean;
             };
             disabled: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
+            closeOnSelect: {
                 type: BooleanConstructor;
                 default: boolean;
             };
@@ -34,89 +44,43 @@ declare const _default: {
                 type: BooleanConstructor;
                 default: boolean;
             };
-            canReset: {
-                type: BooleanConstructor;
-                default: boolean;
-            };
             emptyLabel: {
                 type: BooleanConstructor;
                 default: boolean;
             };
-        };
-        data(): object;
-        computed: {
-            changed(): boolean;
-            canRenderLabelSlot(): boolean;
-            canRenderLabelHtml(): boolean;
-        };
-        methods: {
-            setIsDisabled(status?: boolean): any;
-            isDisabled(): any;
-            reset(): void;
-            getValue(): any;
-            onKeyUp($event: any): void;
-            onKeyDown($event: any): void;
-            onFocus($event: any): void;
-            onBlur($event: any): void;
-            onClick($event: any): void;
-        };
-        watch: {
-            value(v: any): void;
-            Value(v: any): void;
-        };
-        mounted(): void;
-    } | {
-        props: {
             options: {
                 type: ArrayConstructor;
                 default: () => IOption[];
             };
-            multiple: {
-                type: BooleanConstructor;
-                default: boolean;
-            };
-            canTag: {
-                type: BooleanConstructor;
-                default: boolean;
-            };
-            noOptionsMessage: {
-                type: StringConstructor;
-                default: string;
-            };
-            optionFormatter: {
-                type: FunctionConstructor;
-                default: (option?: any) => any;
-            };
-            optionParser: {
-                type: FunctionConstructor;
-                default: (option?: any, i?: number) => any;
-            };
-            select2Compatibility: {
-                type: BooleanConstructor;
-                default: boolean;
+            disabledOptions: {
+                type: ArrayConstructor;
+                default: () => any[];
             };
         };
-        data(): any;
+        data(): import("lkt-ts-interfaces").LktObject;
         computed: {
-            renderSelectedOption: {
-                cache: boolean;
-                get(): any;
-            };
+            isValid(): any;
+            changed(): boolean;
+            canRenderLabelSlot(): boolean;
+            canRenderLabelHtml(): boolean;
         };
         watch: {
+            modelValue(v: string): void;
+            value(v: string): void;
             options: {
                 handler(): void;
                 deep: boolean;
             };
         };
         methods: {
-            getDropdownOptionSelector(option: any, highlightOption?: number, i?: number): {
-                'is-highlight': boolean;
-                'is-selected': boolean;
-            };
-            renderOption(option: any): any;
+            renderOption(option: import("../types/Option").Option): any;
+            focus(): void;
+            setIsDisabled(status?: boolean): any;
+            isDisabled(): any;
+            reset(): void;
+            getValue(): any;
         };
-    })[];
+    }[];
     props: {
         value: {
             type: StringConstructor;

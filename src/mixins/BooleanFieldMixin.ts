@@ -10,7 +10,7 @@ export const BooleanFieldMixin = {
         modelValue: {type: Boolean, default: false},
         placeholder: {type: String, default: ''},
         label: {type: String, default: ''},
-        state: {type: String, default: ''},
+        palette: {type: String, default: ''},
         name: {type: String, default: generateRandomString(16)},
         valid: {type: [Boolean, Function], default: false,},
         disabled: {type: Boolean, default: false,},
@@ -21,6 +21,7 @@ export const BooleanFieldMixin = {
         return {
             Identifier: generateRandomString(16),
             originalValue: this.modelValue,
+            Value: this.modelValue,
         }
     },
     computed: {
@@ -48,7 +49,12 @@ export const BooleanFieldMixin = {
     },
     watch: {
         modelValue(v: string) {
-            this.$refs.input.value = v ? 'true' : 'false';
+            if (this.$refs.input) {
+                this.$refs.input.value = v ? 'true' : 'false';
+            }
+            this.Value = v;
+        },
+        Value(v: string) {
             this.$emit('update:modelValue', v)
         }
     },

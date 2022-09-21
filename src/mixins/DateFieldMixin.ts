@@ -26,7 +26,7 @@ export const DateFieldMixin = {
         maxDate: {type: [Date, String], default: (): null => null},
         placeholder: {type: String, default: ''},
         label: {type: String, default: ''},
-        state: {type: String, default: ''},
+        palette: {type: String, default: ''},
         name: {type: String, default: generateRandomString(16)},
         valid: {type: [Boolean, Function], default: false,},
         disabled: {type: Boolean, default: false,},
@@ -69,10 +69,8 @@ export const DateFieldMixin = {
     watch: {
         modelValue(v: any) {
             this.value = v;
-            console.log('Updated modelValue', v);
         },
         value(v: any) {
-            console.log('Updated value', v);
             this.$emit('update:modelValue', v)
         }
     },

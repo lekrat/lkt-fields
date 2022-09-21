@@ -118,7 +118,7 @@ export declare const EditorFieldMixin: {
                 type: StringConstructor;
                 default: string;
             };
-            state: {
+            palette: {
                 type: StringConstructor;
                 default: string;
             };

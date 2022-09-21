@@ -1,5 +1,6 @@
 import { LktObject } from "lkt-ts-interfaces";
-export declare const SelectFieldMixin: {
+import { Option } from "../types/Option";
+export declare const RadioFieldMixin: {
     emits: string[];
     mixins: {
         computed: {
@@ -55,45 +56,10 @@ export declare const SelectFieldMixin: {
             type: ArrayConstructor;
             default: () => Array<any>;
         };
-        multiple: {
-            type: BooleanConstructor;
-            default: boolean;
-        };
-        canTag: {
-            type: BooleanConstructor;
-            default: boolean;
-        };
-        noOptionsMessage: {
-            type: StringConstructor;
-            default: string;
-        };
-        resource: {
-            type: StringConstructor;
-            default: () => null;
-        };
-        searchStringResourceParam: {
-            type: StringConstructor;
-            default: string;
-        };
-        searchOptions: {
-            type: (ObjectConstructor | FunctionConstructor)[];
-            default: () => null;
-        };
-        searchPlaceholder: {
-            type: StringConstructor;
-            default: string;
-        };
     };
     data(): LktObject;
     computed: {
-        isSearchable(): boolean;
-        isRemoteSearch(): boolean;
-        renderSelectedOption: {
-            cache: boolean;
-            get(): any;
-        };
         isValid(): any;
-        isEmpty(): boolean;
         changed(): boolean;
         canRenderLabelSlot(): boolean;
         canRenderLabelHtml(): boolean;
@@ -101,30 +67,17 @@ export declare const SelectFieldMixin: {
     watch: {
         modelValue(v: string): void;
         value(v: string): void;
-        searchOptions: {
-            handler(): void;
-            deep: boolean;
-        };
         options: {
             handler(): void;
             deep: boolean;
         };
     };
     methods: {
-        buildVisibleOptions(): void;
-        resetSearch(): void;
-        handleFocus(): Promise<void>;
-        handleInput(inputEvent: InputEvent): Promise<void>;
-        getDropdownOptionSelector(option: any, highlightOption?: number, i?: number): {
-            'is-highlight': boolean;
-            'is-selected': boolean;
-        };
-        renderOption(option: any): any;
+        renderOption(option: Option): any;
         focus(): void;
         setIsDisabled(status?: boolean): any;
         isDisabled(): any;
         reset(): void;
         getValue(): any;
     };
-    mounted(): void;
 };

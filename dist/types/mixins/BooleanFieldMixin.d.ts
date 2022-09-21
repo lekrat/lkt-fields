@@ -19,7 +19,7 @@ export declare const BooleanFieldMixin: {
             type: StringConstructor;
             default: string;
         };
-        state: {
+        palette: {
             type: StringConstructor;
             default: string;
         };
@@ -53,6 +53,7 @@ export declare const BooleanFieldMixin: {
     };
     watch: {
         modelValue(v: string): void;
+        Value(v: string): void;
     };
     methods: {
         focus(): void;

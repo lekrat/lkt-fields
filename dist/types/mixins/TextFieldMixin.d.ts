@@ -19,7 +19,7 @@ export declare const TextFieldMixin: {
             type: StringConstructor;
             default: string;
         };
-        state: {
+        palette: {
             type: StringConstructor;
             default: string;
         };

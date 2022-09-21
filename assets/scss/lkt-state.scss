@@ -1,0 +1,120 @@
+@use "lkt-fields-config";
+
+@mixin generate() {
+  .lkt-field__state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: lkt-fields-config.get-height-one();
+    gap: 5px;
+
+    .lkt-field__add-icon {
+      &:before {
+        content: '\002B';
+      }
+    }
+
+    .lkt-field__info-icon {
+      &:before {
+        content: '\2139';
+      }
+    }
+
+    .lkt-field__show-password-icon {
+      &:before {
+        content: '\1F441';
+      }
+    }
+
+    .lkt-field__mandatory-icon {
+      &:before {
+        content: '\002A';
+      }
+    }
+
+    .lkt-field__warn-icon {
+      &:before {
+        content: '\26A0';
+      }
+    }
+
+    .lkt-field__error-icon {
+      &:before {
+        content: '\274C';
+      }
+    }
+
+    .lkt-field__log-icon {
+      &:before {
+        content: '\003F';
+      }
+    }
+
+    .lkt-field__reset-icon {
+      &:before {
+        content: '\00d7';
+      }
+    }
+
+    .lkt-field__open-icon {
+      &:before {
+        content: '\21F1';
+        transform: rotate(90deg);
+        display: block;
+      }
+    }
+
+    .lkt-field__link-icon {
+      &:before {
+        content: '\21B5';
+        transform: rotate(180deg);
+        display: block;
+        margin-top: -5px;
+      }
+    }
+
+    .lkt-field__add-icon,
+    .lkt-field__open-icon,
+    .lkt-field__show-password-icon,
+    .lkt-field__link-icon,
+    .lkt-field__mandatory-icon,
+    .lkt-field__info-icon,
+    .lkt-field__warn-icon,
+    .lkt-field__error-icon,
+    .lkt-field__reset-icon,
+    .lkt-field__undo-icon,
+    .lkt-field__log-icon {
+      font-family: arial;
+      font-style: normal;
+      font-size: 16px;
+      cursor: help;
+      width: 16px;
+      text-align: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lkt-field__add-icon,
+    .lkt-field__open-icon {
+      cursor: pointer;
+    }
+
+    .lkt-field__link-icon {
+      cursor: alias;
+    }
+  }
+
+  .lkt-field {
+    &.is-textarea,
+    &.is-select.is-multiple {
+      .lkt-field__state {
+        height: lkt-fields-config.get-height-two();
+        align-items: flex-start;
+      }
+    }
+  }
+}

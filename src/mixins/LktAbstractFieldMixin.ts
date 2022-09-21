@@ -6,7 +6,7 @@ export const LktAbstractFieldMixin = {
         modelValue: {type: [String, Number, Object, Array, Date, Boolean], default: (): undefined => { return undefined; }},
         placeholder: {type: String, default: ''},
         label: {type: String, default: ''},
-        state: {type: String, default: ''},
+        palette: {type: String, default: ''},
         name: {type: String, default: generateRandomString(16)},
         invalid: { type: Boolean, default: false, },
         disabled: { type: Boolean, default: false, },
@@ -79,11 +79,9 @@ export const LktAbstractFieldMixin = {
     },
     watch: {
         value(v: any) {
-            console.log('Updated value', v);
             this.Value = v;
         },
         Value(v: any) {
-            console.log('Updated Value', v, this.canEmit);
             if (this.canEmit === true) {
                 this.$emit('input', v);
                 this.$emit('change', v);

@@ -1,0 +1,85 @@
+@use "assets/scss/lkt-text-fields";
+@use "assets/scss/lkt-check-fields";
+@use "assets/scss/lkt-date-fields";
+@use "assets/scss/lkt-editor-fields";
+@use "assets/scss/lkt-radio-fields";
+@use "assets/scss/lkt-select-fields";
+@use "assets/scss/lkt-switch-fields";
+@use "assets/scss/lkt-state";
+
+@use "assets/scss/lkt-fields-config";
+
+@mixin configure($opts: ()) {
+  @include lkt-fields-config.configure($opts);
+}
+
+
+@mixin generate($opts: ()) {
+  $check: true;
+  $date: true;
+  $editor: true;
+  $radio: true;
+  $select: true;
+  $switch: true;
+  $text: true;
+
+
+  @if map-get($opts, check) {
+    $check: map-get($opts, check) !global;
+  }
+
+  @if map-get($opts, date) {
+    $date: map-get($opts, date) !global;
+  }
+
+  @if map-get($opts, editor) {
+    $editor: map-get($opts, editor) !global;
+  }
+
+  @if map-get($opts, radio) {
+    $radio: map-get($opts, radio) !global;
+  }
+
+  @if map-get($opts, select) {
+    $select: map-get($opts, select) !global;
+  }
+
+  @if map-get($opts, switch) {
+    $switch: map-get($opts, switch) !global;
+  }
+
+  @if map-get($opts, text) {
+    $text: map-get($opts, text) !global;
+  }
+
+  @include lkt-state.generate();
+
+
+  @if $text != false {
+    @include lkt-text-fields.generate();
+  }
+
+  @if $check != false {
+    @include lkt-check-fields.generate();
+  }
+
+  @if $date != false {
+    @include lkt-date-fields.generate();
+  }
+
+  @if $editor != false {
+    @include lkt-editor-fields.generate();
+  }
+
+  @if $radio != false {
+    @include lkt-radio-fields.generate();
+  }
+
+  @if $select != false {
+    @include lkt-select-fields.generate();
+  }
+
+  @if $switch != false {
+    @include lkt-switch-fields.generate();
+  }
+}

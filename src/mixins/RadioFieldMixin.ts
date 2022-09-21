@@ -1,28 +1,37 @@
 import {generateRandomString} from "lkt-string-tools";
-import {LktObject} from "lkt-ts-interfaces";
 import {slotProvided} from "lkt-vue-tools";
-import {emitBlur, emitClick, emitFocus, emitKeyDown, emitKeyUp} from "../functions/vm-functions";
+import {LktObject} from "lkt-ts-interfaces";
 import {FieldClassesMixin} from "./styling/FieldClassesMixin";
+import {OptionsValue} from "../value-objects/OptionsValue";
+import {Option} from "../types/Option";
 
-export const TextFieldMixin = {
-    emits: ['update:modelValue', 'keyup', 'keydown', 'focus', 'blur', 'click'],
+export const RadioFieldMixin = {
+    emits: ['update:modelValue'],
     mixins: [FieldClassesMixin],
     props: {
-        modelValue: {type: String, default: ''},
+        modelValue: {type: [String, Number, Array], default: ''},
         placeholder: {type: String, default: ''},
         label: {type: String, default: ''},
         palette: {type: String, default: ''},
         name: {type: String, default: generateRandomString(16)},
-        valid: { type: [Boolean, Function], default: false, },
-        disabled: { type: Boolean, default: false, },
-        readonly: { type: Boolean, default: false, },
-        emptyLabel: { type: Boolean, default: false, },
+        valid: {type: [Boolean, Function], default: false,},
+        disabled: {type: Boolean, default: false,},
+        closeOnSelect: {type: Boolean, default: false,},
+        readonly: {type: Boolean, default: false,},
+        emptyLabel: {type: Boolean, default: false,},
+        options: {type: Array, default: (): Array<IOption> => []},
+        disabledOptions: {type: Array, default: (): Array<any> => []},
     },
     data(): LktObject {
+        const optionsValue = new OptionsValue(this.options);
         return {
             Identifier: generateRandomString(16),
             originalValue: this.modelValue,
             value: this.modelValue,
+            loading: false,
+            updatedModelValue: false,
+            latestTimestamp: Date.now(),
+            optionsValue
         }
     },
     computed: {
@@ -31,9 +40,6 @@ export const TextFieldMixin = {
                 return this.valid();
             }
             return this.valid;
-        },
-        isEmpty() {
-            return !this.modelValue;
         },
         changed() {
             return this.value !== this.originalValue;
@@ -57,9 +63,21 @@ export const TextFieldMixin = {
         },
         value(v: string) {
             this.$emit('update:modelValue', v)
-        }
+            this.updatedModelValue = true;
+            this.$nextTick(() => {this.updatedModelValue = false;})
+        },
+        options: {
+            handler() {
+                const optionsValue = new OptionsValue(this.options);
+                this.optionsValue = optionsValue;
+            }, deep: true
+        },
     },
     methods: {
+        renderOption(option: Option) {
+            return typeof this.optionFormatter === 'function' ? this.optionFormatter(option) : option.label;
+        },
+
         focus() {
             this.$nextTick(() => {
                 this.$refs.input.focus();
@@ -77,29 +95,8 @@ export const TextFieldMixin = {
             this.modelValue = this.originalValue;
         },
 
-        getValue(){
+        getValue() {
             return this.modelValue;
         },
-
-        onKeyUp($event: any) {
-            emitKeyUp(this, $event, this.name, {value: this.Value});
-        },
-
-        onKeyDown($event: any) {
-            emitKeyDown(this, $event, this.name, {value: this.Value});
-        },
-
-        onFocus($event: any) {
-            emitFocus(this, $event, this.name, {value: this.Value});
-        },
-
-        onBlur($event: any) {
-            emitBlur(this, $event, this.name, {value: this.Value});
-        },
-
-        onClick($event: any) {
-            emitClick(this, $event, this.name, {value: this.Value});
-        }
-
     },
 }

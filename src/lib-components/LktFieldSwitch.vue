@@ -4,8 +4,9 @@
          v-bind:data-labeled="canRenderLabelHtml"
     >
         <slot name="prefix"></slot>
-        <input v-model="modelValue"
+        <input v-model="Value"
                type="checkbox"
+               ref="input"
                v-bind:name="name"
                v-bind:id="Identifier"
                v-bind:disabled="disabled"

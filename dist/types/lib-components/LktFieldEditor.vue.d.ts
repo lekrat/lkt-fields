@@ -3,6 +3,7 @@ declare const _default: {
     components: {
         LktFieldState: {
             name: string;
+            emits: string[];
             mixins: {
                 props: {
                     showAdd: {
@@ -214,7 +215,7 @@ declare const _default: {
                     type: StringConstructor;
                     default: string;
                 };
-                state: {
+                palette: {
                     type: StringConstructor;
                     default: string;
                 };

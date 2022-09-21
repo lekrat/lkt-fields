@@ -17,7 +17,9 @@
             v-bind:taggable="multiple"
             v-bind:loading="loading"
             v-bind:disabled="disabled"
+            v-on:focus="handleFocus"
             v-on:search:input="handleInput"
+            v-on:update:modelValue="resetSearch"
             v-bind:search-placeholder="searchPlaceholder"
             v-bind:close-on-select="closeOnSelect"
             clear-on-close

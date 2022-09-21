@@ -1,11 +1,11 @@
 import {generateRandomString} from "lkt-string-tools";
 import {slotProvided} from "lkt-vue-tools";
 import {getNoOptionsMessage} from "../functions/settings-functions";
-import {defaultOptionFormatter, defaultOptionParser, mapDisabledOptions, mapOptions} from "../functions/functions";
 import {existsHTTPResource, httpCall} from "lkt-http";
 import {LktObject} from "lkt-ts-interfaces";
 import {FieldClassesMixin} from "./styling/FieldClassesMixin";
 import {SearchOptionsValue} from "../value-objects/SearchOptionsValue";
+import {OptionsValue} from "../value-objects/OptionsValue";
 
 export const SelectFieldMixin = {
     emits: ['update:modelValue'],
@@ -14,7 +14,7 @@ export const SelectFieldMixin = {
         modelValue: {type: [String, Number, Array], default: ''},
         placeholder: {type: String, default: ''},
         label: {type: String, default: ''},
-        state: {type: String, default: ''},
+        palette: {type: String, default: ''},
         name: {type: String, default: generateRandomString(16)},
         valid: {type: [Boolean, Function], default: false,},
         disabled: {type: Boolean, default: false,},
@@ -26,9 +26,6 @@ export const SelectFieldMixin = {
         multiple: {type: Boolean, default: false},
         canTag: {type: Boolean, default: false},
         noOptionsMessage: {type: String, default: getNoOptionsMessage()},
-        optionFormatter: {type: Function, default: defaultOptionFormatter},
-        optionParser: {type: Function, default: defaultOptionParser},
-        select2Compatibility: {type: Boolean, default: false},
         resource: {type: String, default: (): null => null},
         searchStringResourceParam: {type: String, default: 'query'},
         searchOptions: {type: [Object, Function], default: (): null => null},
@@ -36,19 +33,19 @@ export const SelectFieldMixin = {
     },
     data(): LktObject {
         const searchOptionsValue = new SearchOptionsValue(this.searchOptions);
+        const optionsValue = new OptionsValue(this.options);
         return {
             Identifier: generateRandomString(16),
             originalValue: this.modelValue,
             value: this.modelValue,
-            Options: mapDisabledOptions(mapOptions(this.options, this.optionParser, this.select2Compatibility), this.disabledOptions),
             loading: false,
             updatedModelValue: false,
             latestTimestamp: Date.now(),
             visibleOptions: [],
-            apiOptions: [],
             optionsHaystack: [],
             searchString: '',
-            searchOptionsValue
+            searchOptionsValue,
+            optionsValue
         }
     },
     computed: {
@@ -95,10 +92,8 @@ export const SelectFieldMixin = {
     watch: {
         modelValue(v: string) {
             this.value = v;
-            console.log('updated modelValue', v, this.modelValue);
         },
         value(v: string) {
-            console.log('updated value', v, this.value);
             this.$emit('update:modelValue', v)
             this.updatedModelValue = true;
             this.$nextTick(() => {this.updatedModelValue = false;})
@@ -111,64 +106,45 @@ export const SelectFieldMixin = {
         },
         options: {
             handler() {
-                this.Options = mapDisabledOptions(mapOptions(this.options, this.optionParser, this.select2Compatibility), this.disabledOptions);
+                const optionsValue = new OptionsValue(this.options);
+                this.optionsValue = optionsValue;
             }, deep: true
         },
-        Options: {
-            handler() {
-                console.log('Options watcher', this.visibleOptions);
-                this.buildVisibleOptions();
-            }, deep: true
-        },
-        apiOptions: {
-            handler() {
-                console.log('visibleOptions watcher', this.visibleOptions);
-                this.buildVisibleOptions();
-            }, deep: true
-        }
     },
     methods: {
         buildVisibleOptions() {
-            if (this.isRemoteSearch) {
-                this.optionsHaystack = [].concat(this.Options, this.apiOptions);
-            } else {
-                this.optionsHaystack = [].concat(this.Options);
-            }
-
-            this.visibleOptions = this.optionsHaystack.filter((z: IOption) => {
-                return z.label.toLowerCase().indexOf(this.searchString) !== -1;
-            });
+            this.optionsHaystack = this.optionsValue.all();
+            this.visibleOptions = this.optionsValue.filter(this.searchString);
         },
-        async handleInput(inputEvent: InputEvent) {
-            if (this.updatedModelValue) {
-                return ;
-            }
-            const target = inputEvent.target as HTMLInputElement | null;
-            const searchString = target?.value;
-            console.log('searchString', this.searchString);
-
+        resetSearch () {
+            this.searchString = '';
+            this.buildVisibleOptions();
+        },
+        handleFocus() {
             if (this.isRemoteSearch) {
-                console.log('resource', this.resource);
-
                 const opts = this.searchOptionsValue.getOptions();
 
                 if (this.searchStringResourceParam) {
                     opts[this.searchStringResourceParam] = this.searchString;
                 }
 
-                console.log('searchOptions', opts);
                 return httpCall(this.resource, opts).then( (results: any) => {
-                    console.log('rrrrrr:', results);
-                    this.searchString = searchString;
-                    this.apiOptions = mapDisabledOptions(mapOptions(results, this.optionParser, this.select2Compatibility), this.disabledOptions);
-
-                    // this.visibleOptions = [].concat(this.Options, this.apiOptions);
-                    console.log('visibleOptions', this.visibleOptions);
+                    this.optionsValue.receiveOptions(results);
                     this.buildVisibleOptions();
                 });
-            }
 
-            this.buildVisibleOptions();
+            } else {
+                this.buildVisibleOptions();
+            }
+        },
+        async handleInput(inputEvent: InputEvent) {
+            if (this.updatedModelValue) {
+                return ;
+            }
+            const target = inputEvent.target as HTMLInputElement | null;
+            this.searchString = target?.value;
+
+            await this.handleFocus();
         },
         getDropdownOptionSelector(option: any, highlightOption: number = -1, i: number = -1) {
             let r = {'is-highlight': highlightOption == i, 'is-selected': option.selected === true};

@@ -3,6 +3,7 @@ declare const _default: {
     components: {
         lktFieldState: {
             name: string;
+            emits: string[];
             mixins: {
                 props: {
                     showAdd: {
@@ -443,7 +444,7 @@ declare const _default: {
                 type: StringConstructor;
                 default: string;
             };
-            state: {
+            palette: {
                 type: StringConstructor;
                 default: string;
             };
@@ -491,18 +492,6 @@ declare const _default: {
                 type: StringConstructor;
                 default: string;
             };
-            optionFormatter: {
-                type: FunctionConstructor;
-                default: (option?: any) => any;
-            };
-            optionParser: {
-                type: FunctionConstructor;
-                default: (option?: any, i?: number) => any;
-            };
-            select2Compatibility: {
-                type: BooleanConstructor;
-                default: boolean;
-            };
             resource: {
                 type: StringConstructor;
                 default: () => null;
@@ -545,17 +534,11 @@ declare const _default: {
                 handler(): void;
                 deep: boolean;
             };
-            Options: {
-                handler(): void;
-                deep: boolean;
-            };
-            apiOptions: {
-                handler(): void;
-                deep: boolean;
-            };
         };
         methods: {
             buildVisibleOptions(): void;
+            resetSearch(): void;
+            handleFocus(): Promise<void>;
             handleInput(inputEvent: InputEvent): Promise<void>;
             getDropdownOptionSelector(option: any, highlightOption?: number, i?: number): {
                 'is-highlight': boolean;

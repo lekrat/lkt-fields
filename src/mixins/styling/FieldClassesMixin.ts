@@ -3,8 +3,8 @@ export const FieldClassesMixin = {
         classes() {
             const r = ['lkt-field'];
 
-            if (this.state) {
-                r.push(`lkt-field--${this.state}`);
+            if (this.palette) {
+                r.push(`lkt-field--${this.palette}`);
             }
 
             if (this.changed) {

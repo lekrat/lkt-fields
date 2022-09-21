@@ -1,5 +1,6 @@
 declare const _default: {
     name: string;
+    emits: string[];
     mixins: {
         props: {
             showAdd: {
