@@ -1,5 +1,7 @@
 import {LktStateUIMixin} from "./LktStateUIMixin";
 import {emitClickUI} from "../functions/vm-functions";
+import {LktEvent} from "lkt-events/dist/types/classes/LktEvent";
+import {StateKey} from "../types/StateKey";
 
 export const LktFieldStateMixin = {
 
@@ -9,18 +11,19 @@ export const LktFieldStateMixin = {
         /**
          *
          * @param $event
-         * @param key
+         * @param event
          */
-        onClickUi($event: any, key: string){
-            if (key === 'reset') {
+        onClickUi($event: any, event: LktEvent){
+            const id: StateKey = event.id;
+            if (id === 'reset') {
                 this.reset();
                 return;
             }
-            if (key === 'show-password' && this.hasOwnProperty('visiblePassword')) {
+            if (id === 'password' && 'visiblePassword' in this) {
                 this.visiblePassword = !this.visiblePassword;
                 return;
             }
-            emitClickUI(this, $event, key, {field: this});
+            emitClickUI(this, $event, event.id, {field: this});
         }
     }
 };

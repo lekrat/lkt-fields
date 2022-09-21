@@ -1,28 +1,32 @@
-import kt from "@vuepic/vue-datepicker";
-import fe from "vue-next-select";
-import { generateRandomString as V } from "lkt-string-tools";
-import { slotProvided as Z } from "lkt-vue-tools";
-import { openBlock as k, createElementBlock as L, normalizeClass as P, renderSlot as N, withDirectives as D, createElementVNode as j, vModelCheckbox as ge, createCommentVNode as z, resolveComponent as F, vModelText as H, createBlock as $, vModelDynamic as ue, Fragment as St, renderList as xt, vModelRadio as Ct, createVNode as me } from "vue";
-import { createLktEvent as Y } from "lkt-events";
-import { existsHTTPResource as Lt, httpCall as zt } from "lkt-http";
-import be from "suneditor";
-import Et from "katex";
-const X = {
+import Ct from "@vuepic/vue-datepicker";
+import be from "vue-next-select";
+import { generateRandomString as F } from "lkt-string-tools";
+import { slotProvided as ee } from "lkt-vue-tools";
+import { openBlock as S, createElementBlock as z, normalizeClass as O, renderSlot as A, withDirectives as D, createElementVNode as q, vModelCheckbox as _e, createCommentVNode as E, Fragment as ve, renderList as ye, resolveComponent as H, vModelText as P, createBlock as $, vModelDynamic as he, vModelRadio as zt, createVNode as ke } from "vue";
+import { createLktEvent as K } from "lkt-events";
+import { existsHTTPResource as Lt, httpCall as Et } from "lkt-http";
+import we from "suneditor";
+import It from "katex";
+const J = {
   computed: {
     classes() {
       const e = ["lkt-field"];
-      return this.palette && e.push(`lkt-field--${this.palette}`), this.changed && e.push("is-changed"), this.multiple && e.push("is-multiple"), e.push(this.isValid ? "is-valid" : "is-error"), e.push(this.modelValue ? "is-filled" : "is-empty"), e.join(" ");
+      if (this.palette && e.push(`lkt-field--${this.palette}`), this.changed && e.push("is-changed"), "multiple" in this && this.multiple && e.push("is-multiple"), "disabled" in this && this.disabled && e.push("is-disabled"), "stateConfigValue" in this) {
+        const t = this.stateConfigValue.amountEnabled();
+        t > 0 && (e.push("has-icons"), e.push(`has-icons-${t}`));
+      }
+      return e.push(this.isValid ? "is-valid" : "is-error"), e.push(this.modelValue ? "is-filled" : "is-empty"), e.join(" ");
     }
   }
-}, _e = {
+}, Se = {
   emits: ["update:modelValue"],
-  mixins: [X],
+  mixins: [J],
   props: {
     modelValue: { type: Boolean, default: !1 },
     placeholder: { type: String, default: "" },
     label: { type: String, default: "" },
     palette: { type: String, default: "" },
-    name: { type: String, default: V(16) },
+    name: { type: String, default: F(16) },
     valid: { type: [Boolean, Function], default: !1 },
     disabled: { type: Boolean, default: !1 },
     readonly: { type: Boolean, default: !1 },
@@ -30,7 +34,7 @@ const X = {
   },
   data() {
     return {
-      Identifier: V(16),
+      Identifier: F(16),
       originalValue: this.modelValue,
       Value: this.modelValue
     };
@@ -43,7 +47,7 @@ const X = {
       return this.Value !== this.originalValue;
     },
     canRenderLabelSlot() {
-      return Z(this, "label");
+      return ee(this, "label");
     },
     canRenderLabelHtml() {
       return this.canRenderLabelSlot ? !1 : !this.label && this.emptyLabel ? !0 : !!this.label;
@@ -75,21 +79,21 @@ const X = {
   }
 }, U = (e, t) => {
   const i = e.__vccOpts || e;
-  for (const [n, l] of t)
-    i[n] = l;
+  for (const [l, n] of t)
+    i[l] = n;
   return i;
-}, It = {
+}, Tt = {
   name: "LktFieldCheck",
-  mixins: [_e]
-}, Rt = ["data-labeled"], Tt = ["name", "id", "disabled", "readonly", "placeholder", "value"], Bt = ["for", "innerHTML"];
-function At(e, t, i, n, l, o) {
-  return k(), L("div", {
-    class: P(["is-check", e.classes]),
+  mixins: [Se]
+}, Rt = ["data-labeled"], Bt = ["name", "id", "disabled", "readonly", "placeholder", "value"], Nt = ["for", "innerHTML"];
+function At(e, t, i, l, n, s) {
+  return S(), z("div", {
+    class: O(["is-check", e.classes]),
     "data-labeled": e.canRenderLabelHtml
   }, [
-    N(e.$slots, "prefix"),
-    D(j("input", {
-      "onUpdate:modelValue": t[0] || (t[0] = (s) => e.Value = s),
+    A(e.$slots, "prefix"),
+    D(q("input", {
+      "onUpdate:modelValue": t[0] || (t[0] = (o) => e.Value = o),
       type: "checkbox",
       ref: "input",
       name: e.name,
@@ -98,29 +102,29 @@ function At(e, t, i, n, l, o) {
       readonly: e.readonly,
       placeholder: e.placeholder,
       value: e.Value ? "true" : "false"
-    }, null, 8, Tt), [
-      [ge, e.Value]
+    }, null, 8, Bt), [
+      [_e, e.Value]
     ]),
-    e.canRenderLabelSlot ? N(e.$slots, "label", { key: 0 }) : z("", !0),
-    e.canRenderLabelHtml ? (k(), L("label", {
+    e.canRenderLabelSlot ? A(e.$slots, "label", { key: 0 }) : E("", !0),
+    e.canRenderLabelHtml ? (S(), z("label", {
       key: 1,
       for: e.Identifier,
       innerHTML: e.label
-    }, null, 8, Bt)) : z("", !0)
+    }, null, 8, Nt)) : E("", !0)
   ], 10, Rt);
 }
-const Nt = /* @__PURE__ */ U(It, [["render", At]]), Mt = {
+const Mt = /* @__PURE__ */ U(Tt, [["render", At]]), Dt = {
   name: "LktFieldSwitch",
-  mixins: [_e]
-}, Dt = ["data-labeled"], Ot = ["name", "id", "disabled", "readonly", "placeholder"], Ut = ["for", "innerHTML"];
-function Vt(e, t, i, n, l, o) {
-  return k(), L("div", {
-    class: P(["is-switch", e.classes]),
+  mixins: [Se]
+}, Vt = ["data-labeled"], Ut = ["name", "id", "disabled", "readonly", "placeholder"], Ot = ["for", "innerHTML"];
+function Ft(e, t, i, l, n, s) {
+  return S(), z("div", {
+    class: O(["is-switch", e.classes]),
     "data-labeled": e.canRenderLabelHtml
   }, [
-    N(e.$slots, "prefix"),
-    D(j("input", {
-      "onUpdate:modelValue": t[0] || (t[0] = (s) => e.Value = s),
+    A(e.$slots, "prefix"),
+    D(q("input", {
+      "onUpdate:modelValue": t[0] || (t[0] = (o) => e.Value = o),
       type: "checkbox",
       ref: "input",
       name: e.name,
@@ -128,220 +132,127 @@ function Vt(e, t, i, n, l, o) {
       disabled: e.disabled,
       readonly: e.readonly,
       placeholder: e.placeholder
-    }, null, 8, Ot), [
-      [ge, e.Value]
+    }, null, 8, Ut), [
+      [_e, e.Value]
     ]),
-    e.canRenderLabelSlot ? N(e.$slots, "label", { key: 0 }) : z("", !0),
-    e.canRenderLabelHtml ? (k(), L("label", {
+    e.canRenderLabelSlot ? A(e.$slots, "label", { key: 0 }) : E("", !0),
+    e.canRenderLabelHtml ? (S(), z("label", {
       key: 1,
       for: e.Identifier,
       innerHTML: e.label
-    }, null, 8, Ut)) : z("", !0)
-  ], 10, Dt);
+    }, null, 8, Ot)) : E("", !0)
+  ], 10, Vt);
 }
-const Ft = /* @__PURE__ */ U(Mt, [["render", Vt]]);
-class R {
-}
-R.SHOW_PASSWORD_MESSAGE = "";
-R.IS_MANDATORY_MESSAGE = "";
-R.FOLLOW_LINK_MESSAGE = "";
-R.OPEN_MESSAGE = "";
-R.RESET_MESSAGE = "";
-R.NO_OPTIONS_MESSAGE = "";
-R.TODAY_RANGE_TEXT = "";
-R.THIS_MONTH_RANGE_TEXT = "";
-R.LAST_MONTH_RANGE_TEXT = "";
-R.THIS_YEAR_RANGE_TEXT = "";
-const Ht = {
-  showAdd: { type: Boolean, default: !1 },
-  showLink: { type: Boolean, default: !1 },
-  showOpen: { type: Boolean, default: !1 },
-  showInfo: { type: Boolean, default: !1 },
-  showPassword: { type: Boolean, default: !1 },
-  showMandatory: { type: Boolean, default: !1 },
-  showError: { type: Boolean, default: !1 },
-  showWarn: { type: Boolean, default: !1 },
-  showLog: { type: Boolean, default: !1 },
-  showReset: { type: Boolean, default: !1 },
-  textAdd: { type: String, default: "" },
-  textInfo: { type: String, default: "More info" },
-  textPassword: { type: String, default: R.SHOW_PASSWORD_MESSAGE },
-  textMandatory: { type: String, default: R.IS_MANDATORY_MESSAGE },
-  textError: { type: String, default: "" },
-  textWarn: { type: String, default: "" },
-  textLog: { type: String, default: "" },
-  textLink: { type: String, default: R.FOLLOW_LINK_MESSAGE },
-  textOpen: { type: String, default: R.OPEN_MESSAGE },
-  textReset: { type: String, default: R.RESET_MESSAGE }
-}, Pt = "Show password", $t = "This is mandatory", Gt = "Follow link", qt = "Show details", jt = "Reset", Wt = "No results. Try typing some text.", Yt = "Today", Xt = "This month", Kt = "Last month", Jt = "This year", Zt = {
-  noOptionsMessage: Wt,
-  showPasswordMessage: Pt,
-  isMandatoryMessage: $t,
-  followLinkMessage: Gt,
-  openMessage: qt,
-  resetMessage: jt,
-  todayRangeText: Yt,
-  thisMonthRangeText: Xt,
-  lastMonthRangeText: Kt,
-  thisYearRangeText: Jt
-}, Qt = [
-  ["undo", "redo"],
-  ["font", "fontSize", "formatBlock"],
-  ["paragraphStyle", "blockquote"],
-  ["bold", "underline", "italic", "strike", "subscript", "superscript"],
-  ["fontColor", "hiliteColor", "textStyle"],
-  ["removeFormat"],
-  "/",
-  ["outdent", "indent"],
-  ["align", "horizontalRule", "list", "lineHeight"],
-  ["table", "link"],
-  ["fullScreen", "showBlocks", "codeView"],
-  ["preview", "print"],
-  ["template"]
-], ei = [
-  ["undo", "redo"],
-  ["font", "fontSize", "formatBlock"],
-  ["paragraphStyle", "blockquote"],
-  ["bold", "underline", "italic", "strike", "subscript", "superscript"],
-  ["fontColor", "hiliteColor", "textStyle"],
-  ["removeFormat"],
-  "/",
-  ["outdent", "indent"],
-  ["align", "horizontalRule", "list", "lineHeight"],
-  ["table", "link", "math"],
-  ["fullScreen", "showBlocks", "codeView"],
-  ["preview", "print"],
-  ["template"]
-], ve = (e, t, i, n = {}) => {
-  e.$emit("click-ui", t, Y(i, n));
-}, ye = (e, t, i, n = {}) => {
-  e.$emit("keyup", t, Y(i, n));
-}, we = (e, t, i, n = {}) => {
-  e.$emit("keydown", t, Y(i, n));
-}, ke = (e, t, i, n = {}) => {
-  e.$emit("focus", t, Y(i, n));
-}, Se = (e, t, i, n = {}) => {
-  e.$emit("blur", t, Y(i, n));
-}, xe = (e, t, i, n = {}) => {
-  e.$emit("click", t, Y(i, n));
-}, Ce = {
-  props: Ht,
+const Ht = /* @__PURE__ */ U(Dt, [["render", Ft]]), ue = (e, t, i, l = {}) => {
+  e.$emit("click-ui", t, K(i, l));
+}, xe = (e, t, i, l = {}) => {
+  e.$emit("keyup", t, K(i, l));
+}, Ce = (e, t, i, l = {}) => {
+  e.$emit("keydown", t, K(i, l));
+}, ze = (e, t, i, l = {}) => {
+  e.$emit("focus", t, K(i, l));
+}, Le = (e, t, i, l = {}) => {
+  e.$emit("blur", t, K(i, l));
+}, Ee = (e, t, i, l = {}) => {
+  e.$emit("click", t, K(i, l));
+}, Pt = {
+  methods: {
+    onUIStatusClick(e, t, i = {}) {
+      ue(this, e, t, i);
+    }
+  }
+}, j = {
+  mixins: [Pt],
+  methods: {
+    onClickUi(e, t) {
+      const i = t.id;
+      if (i === "reset") {
+        this.reset();
+        return;
+      }
+      if (i === "password" && "visiblePassword" in this) {
+        this.visiblePassword = !this.visiblePassword;
+        return;
+      }
+      ue(this, e, t.id, { field: this });
+    }
+  }
+}, $t = {
+  name: "lktFieldState",
+  emits: ["click-ui"],
+  props: {
+    stateConfigValue: { type: Object, default: () => ({}) },
+    stateTextsValue: { type: Object, default: () => ({}) }
+  },
   computed: {
-    showInfoUi() {
-      return this.showAdd || this.showMandatory || this.showOpen || this.showInfo || this.showError || this.showLog || this.showWarn || this.showLink || this.showReset || this.showPassword;
+    enabledIcons() {
+      return this.stateConfigValue.enabled();
     }
   },
   methods: {
     onUIStatusClick(e, t, i = {}) {
-      ve(this, e, t, i);
+      ue(this, e, t, i);
     }
   }
-}, q = {
-  mixins: [Ce],
-  methods: {
-    onClickUi(e, t) {
-      if (t === "reset") {
-        this.reset();
-        return;
-      }
-      if (t === "show-password" && this.hasOwnProperty("visiblePassword")) {
-        this.visiblePassword = !this.visiblePassword;
-        return;
-      }
-      ve(this, e, t, { field: this });
-    }
-  }
-}, ti = {
-  name: "lktFieldState",
-  emits: ["click-ui"],
-  mixins: [Ce]
-}, ii = { class: "lkt-field__state" }, ni = ["title"], li = ["title"], oi = ["title"], si = ["title"], ai = ["title"], ri = ["title"], ui = ["title"], di = ["title"], ci = ["title"], hi = ["title"];
-function pi(e, t, i, n, l, o) {
-  return k(), L("div", ii, [
-    e.showAdd ? (k(), L("i", {
-      key: 0,
-      class: "lkt-field__add-icon",
-      title: e.textAdd,
-      onClick: t[0] || (t[0] = (s) => e.onUIStatusClick(s, "add"))
-    }, null, 8, ni)) : z("", !0),
-    e.showOpen ? (k(), L("i", {
-      key: 1,
-      class: "lkt-field__open-icon",
-      title: e.textOpen,
-      onClick: t[1] || (t[1] = (s) => e.onUIStatusClick(s, "open"))
-    }, null, 8, li)) : z("", !0),
-    e.showLink ? (k(), L("i", {
-      key: 2,
-      class: "lkt-field__link-icon",
-      title: e.textLink,
-      onClick: t[2] || (t[2] = (s) => e.onUIStatusClick(s, "link"))
-    }, null, 8, oi)) : z("", !0),
-    e.showInfo ? (k(), L("i", {
-      key: 3,
-      class: "lkt-field__info-icon",
-      title: e.textInfo,
-      onClick: t[3] || (t[3] = (s) => e.onUIStatusClick(s, "info"))
-    }, null, 8, si)) : z("", !0),
-    e.showPassword ? (k(), L("i", {
-      key: 4,
-      class: "lkt-field__show-password-icon",
-      title: e.textPassword,
-      onClick: t[4] || (t[4] = (s) => e.onUIStatusClick(s, "show-password"))
-    }, null, 8, ai)) : z("", !0),
-    e.showLog ? (k(), L("i", {
-      key: 5,
-      class: "lkt-field__log-icon",
-      title: e.textLog,
-      onClick: t[5] || (t[5] = (s) => e.onUIStatusClick(s, "log"))
-    }, null, 8, ri)) : z("", !0),
-    e.showWarn ? (k(), L("i", {
-      key: 6,
-      class: "lkt-field__warn-icon",
-      title: e.textWarn,
-      onClick: t[6] || (t[6] = (s) => e.onUIStatusClick(s, "warn"))
-    }, null, 8, ui)) : z("", !0),
-    e.showError ? (k(), L("i", {
-      key: 7,
-      class: "lkt-field__error-icon",
-      title: e.textError,
-      onClick: t[7] || (t[7] = (s) => e.onUIStatusClick(s, "error"))
-    }, null, 8, di)) : z("", !0),
-    e.showMandatory ? (k(), L("i", {
-      key: 8,
-      class: "lkt-field__mandatory-icon",
-      title: e.textMandatory,
-      onClick: t[8] || (t[8] = (s) => e.onUIStatusClick(s, "mandatory"))
-    }, null, 8, ci)) : z("", !0),
-    e.showReset ? (k(), L("i", {
-      key: 9,
-      class: "lkt-field__reset-icon",
-      title: e.textReset,
-      onClick: t[9] || (t[9] = (s) => e.onUIStatusClick(s, "reset"))
-    }, null, 8, hi)) : z("", !0)
+}, Gt = { class: "lkt-field__state" }, jt = ["title", "onClick"];
+function qt(e, t, i, l, n, s) {
+  return S(), z("div", Gt, [
+    (S(!0), z(ve, null, ye(s.enabledIcons, (o) => (S(), z("i", {
+      class: O("lkt-field__" + o + "-icon"),
+      title: i.stateTextsValue.text(o),
+      onClick: (a) => s.onUIStatusClick(a, o)
+    }, null, 10, jt))), 256))
   ]);
 }
-const G = /* @__PURE__ */ U(ti, [["render", pi]]), K = {
-  emits: ["update:modelValue", "keyup", "keydown", "focus", "blur", "click"],
-  mixins: [X],
+const G = /* @__PURE__ */ U($t, [["render", qt]]);
+class W {
+  constructor(t, i) {
+    t || (t = {}), this.value = t, i || (i = !1), this.disabled = i;
+  }
+  enabled() {
+    return Object.keys(this.value).filter((i) => i === "reset" && this.disabled ? !1 : this.value[i] === !0);
+  }
+  amountEnabled() {
+    return this.enabled().length;
+  }
+}
+class Y {
+  constructor(t) {
+    t || (t = {}), this.value = t;
+  }
+  text(t) {
+    return this.value[t];
+  }
+}
+const Z = {
+  emits: ["update:modelValue", "keyup", "keydown", "focus", "blur", "click", "click-ui"],
+  mixins: [J],
   props: {
     modelValue: { type: String, default: "" },
     placeholder: { type: String, default: "" },
     label: { type: String, default: "" },
     palette: { type: String, default: "" },
-    name: { type: String, default: V(16) },
+    name: { type: String, default: F(16) },
     valid: { type: [Boolean, Function], default: !1 },
     disabled: { type: Boolean, default: !1 },
     readonly: { type: Boolean, default: !1 },
-    emptyLabel: { type: Boolean, default: !1 }
+    emptyLabel: { type: Boolean, default: !1 },
+    stateConfig: { type: Object, default: () => ({}) },
+    stateTexts: { type: Object, default: () => ({}) }
   },
   data() {
     return {
-      Identifier: V(16),
+      Identifier: F(16),
       originalValue: this.modelValue,
-      value: this.modelValue
+      value: this.modelValue,
+      stateConfigValue: new W(this.stateConfig, this.disabled || this.readonly),
+      stateTextValue: new Y(this.stateTexts)
     };
   },
   computed: {
+    showInfoUi() {
+      return this.stateConfigValue.amountEnabled() > 0;
+    },
     isValid() {
       return typeof this.valid == "function" ? this.valid() : this.valid;
     },
@@ -352,7 +263,7 @@ const G = /* @__PURE__ */ U(ti, [["render", pi]]), K = {
       return this.value !== this.originalValue;
     },
     canRenderLabelSlot() {
-      return Z(this, "label");
+      return ee(this, "label");
     },
     canRenderLabelHtml() {
       return this.canRenderLabelSlot ? !1 : !this.label && this.emptyLabel ? !0 : !!this.label;
@@ -364,6 +275,18 @@ const G = /* @__PURE__ */ U(ti, [["render", pi]]), K = {
     },
     value(e) {
       this.$emit("update:modelValue", e);
+    },
+    stateConfig: {
+      handler() {
+        this.stateConfigValue = new W(this.stateConfig, this.disabled || this.readonly);
+      },
+      deep: !0
+    },
+    stateTexts: {
+      handler() {
+        this.stateTextValue = new Y(this.stateTexts);
+      },
+      deep: !0
     }
   },
   methods: {
@@ -379,41 +302,41 @@ const G = /* @__PURE__ */ U(ti, [["render", pi]]), K = {
       return this.disabled;
     },
     reset() {
-      this.modelValue = this.originalValue;
+      this.value = this.originalValue;
     },
     getValue() {
       return this.modelValue;
     },
     onKeyUp(e) {
-      ye(this, e, this.name, { value: this.Value });
+      xe(this, e, this.name, { value: this.Value });
     },
     onKeyDown(e) {
-      we(this, e, this.name, { value: this.Value });
+      Ce(this, e, this.name, { value: this.Value });
     },
     onFocus(e) {
-      ke(this, e, this.name, { value: this.Value });
+      ze(this, e, this.name, { value: this.Value });
     },
     onBlur(e) {
-      Se(this, e, this.name, { value: this.Value });
+      Le(this, e, this.name, { value: this.Value });
     },
     onClick(e) {
-      xe(this, e, this.name, { value: this.Value });
+      Ee(this, e, this.name, { value: this.Value });
     }
   }
-}, fi = {
+}, Wt = {
   name: "LktFieldText",
   components: { lktFieldState: G },
-  mixins: [K, q]
-}, gi = ["data-show-ui", "data-labeled"], mi = ["name", "id", "disabled", "readonly", "placeholder"], bi = ["name", "id", "disabled", "readonly"], _i = ["for", "innerHTML"];
-function vi(e, t, i, n, l, o) {
-  const s = F("lkt-field-state");
-  return k(), L("div", {
-    class: P(["is-text", e.classes]),
+  mixins: [Z, j]
+}, Yt = ["data-show-ui", "data-labeled"], Xt = ["name", "id", "disabled", "readonly", "placeholder"], Kt = ["name", "id", "disabled", "readonly"], Jt = ["for", "innerHTML"];
+function Zt(e, t, i, l, n, s) {
+  const o = H("lkt-field-state");
+  return S(), z("div", {
+    class: O(["is-text", e.classes]),
     "data-show-ui": e.showInfoUi,
     "data-labeled": e.canRenderLabelHtml
   }, [
-    N(e.$slots, "prefix"),
-    e.placeholder ? D((k(), L("input", {
+    A(e.$slots, "prefix"),
+    e.placeholder ? D((S(), z("input", {
       key: 0,
       "onUpdate:modelValue": t[0] || (t[0] = (a) => e.value = a),
       ref: "input",
@@ -428,9 +351,9 @@ function vi(e, t, i, n, l, o) {
       onFocus: t[3] || (t[3] = (...a) => e.onFocus && e.onFocus(...a)),
       onBlur: t[4] || (t[4] = (...a) => e.onBlur && e.onBlur(...a)),
       onClick: t[5] || (t[5] = (...a) => e.onClick && e.onClick(...a))
-    }, null, 40, mi)), [
-      [H, e.value]
-    ]) : D((k(), L("input", {
+    }, null, 40, Xt)), [
+      [P, e.value]
+    ]) : D((S(), z("input", {
       key: 1,
       "onUpdate:modelValue": t[6] || (t[6] = (a) => e.value = a),
       ref: "input",
@@ -444,53 +367,37 @@ function vi(e, t, i, n, l, o) {
       onFocus: t[9] || (t[9] = (...a) => e.onFocus && e.onFocus(...a)),
       onBlur: t[10] || (t[10] = (...a) => e.onBlur && e.onBlur(...a)),
       onClick: t[11] || (t[11] = (...a) => e.onClick && e.onClick(...a))
-    }, null, 40, bi)), [
-      [H, e.value]
+    }, null, 40, Kt)), [
+      [P, e.value]
     ]),
-    e.canRenderLabelSlot ? N(e.$slots, "label", { key: 2 }) : z("", !0),
-    e.canRenderLabelHtml ? (k(), L("label", {
+    e.canRenderLabelSlot ? A(e.$slots, "label", { key: 2 }) : E("", !0),
+    e.canRenderLabelHtml ? (S(), z("label", {
       key: 3,
       for: e.Identifier,
       innerHTML: e.label
-    }, null, 8, _i)) : z("", !0),
-    e.showInfoUi ? (k(), $(s, {
+    }, null, 8, Jt)) : E("", !0),
+    e.showInfoUi ? (S(), $(o, {
       key: 4,
-      "show-add": e.showAdd,
-      "show-error": e.showError,
-      "show-info": e.showInfo,
-      "show-log": e.showLog,
-      "show-warn": e.showWarn,
-      "text-add": e.textAdd,
-      "text-error": e.textError,
-      "text-info": e.textInfo,
-      "text-log": e.textLog,
-      "text-warn": e.textWarn,
-      "show-mandatory": e.showMandatory,
-      "text-mandatory": e.textMandatory,
-      "show-open": e.showOpen,
-      "text-open": e.textOpen,
-      "show-link": e.showLink,
-      "text-link": e.textLink,
-      "text-reset": e.textReset,
-      "show-reset": e.showReset && !e.disabled,
+      "state-config-value": e.stateConfigValue,
+      "state-texts-value": e.stateTextValue,
       onClickUi: e.onClickUi
-    }, null, 8, ["show-add", "show-error", "show-info", "show-log", "show-warn", "text-add", "text-error", "text-info", "text-log", "text-warn", "show-mandatory", "text-mandatory", "show-open", "text-open", "show-link", "text-link", "text-reset", "show-reset", "onClickUi"])) : z("", !0)
-  ], 10, gi);
+    }, null, 8, ["state-config-value", "state-texts-value", "onClickUi"])) : E("", !0)
+  ], 10, Yt);
 }
-const yi = /* @__PURE__ */ U(fi, [["render", vi]]), wi = {
+const Qt = /* @__PURE__ */ U(Wt, [["render", Zt]]), ei = {
   name: "LktFieldTextArea",
   components: { lktFieldState: G },
-  mixins: [K, q]
-}, ki = ["data-show-ui", "data-labeled"], Si = ["name", "id", "disabled", "readonly", "placeholder"], xi = ["name", "id", "disabled", "readonly"], Ci = ["for", "innerHTML"];
-function Li(e, t, i, n, l, o) {
-  const s = F("lkt-field-state");
-  return k(), L("div", {
-    class: P(["is-textarea", e.classes]),
+  mixins: [Z, j]
+}, ti = ["data-show-ui", "data-labeled"], ii = ["name", "id", "disabled", "readonly", "placeholder"], li = ["name", "id", "disabled", "readonly"], ni = ["for", "innerHTML"];
+function si(e, t, i, l, n, s) {
+  const o = H("lkt-field-state");
+  return S(), z("div", {
+    class: O(["is-textarea", e.classes]),
     "data-show-ui": e.showInfoUi,
     "data-labeled": e.canRenderLabelHtml
   }, [
-    N(e.$slots, "prefix"),
-    e.placeholder ? D((k(), L("textarea", {
+    A(e.$slots, "prefix"),
+    e.placeholder ? D((S(), z("textarea", {
       key: 0,
       "onUpdate:modelValue": t[0] || (t[0] = (a) => e.value = a),
       name: e.name,
@@ -498,62 +405,46 @@ function Li(e, t, i, n, l, o) {
       disabled: e.disabled,
       readonly: e.readonly,
       placeholder: e.placeholder
-    }, null, 8, Si)), [
-      [H, e.value]
-    ]) : D((k(), L("textarea", {
+    }, null, 8, ii)), [
+      [P, e.value]
+    ]) : D((S(), z("textarea", {
       key: 1,
       "onUpdate:modelValue": t[1] || (t[1] = (a) => e.value = a),
       name: e.name,
       id: e.Identifier,
       disabled: e.disabled,
       readonly: e.readonly
-    }, null, 8, xi)), [
-      [H, e.value]
+    }, null, 8, li)), [
+      [P, e.value]
     ]),
-    e.canRenderLabelSlot ? N(e.$slots, "label", { key: 2 }) : z("", !0),
-    e.canRenderLabelHtml ? (k(), L("label", {
+    e.canRenderLabelSlot ? A(e.$slots, "label", { key: 2 }) : E("", !0),
+    e.canRenderLabelHtml ? (S(), z("label", {
       key: 3,
       for: e.Identifier,
       innerHTML: e.label
-    }, null, 8, Ci)) : z("", !0),
-    e.showInfoUi ? (k(), $(s, {
+    }, null, 8, ni)) : E("", !0),
+    e.showInfoUi ? (S(), $(o, {
       key: 4,
-      "show-add": e.showAdd,
-      "show-error": e.showError,
-      "show-info": e.showInfo,
-      "show-log": e.showLog,
-      "show-warn": e.showWarn,
-      "text-add": e.textAdd,
-      "text-error": e.textError,
-      "text-info": e.textInfo,
-      "text-log": e.textLog,
-      "text-warn": e.textWarn,
-      "show-mandatory": e.showMandatory,
-      "text-mandatory": e.textMandatory,
-      "show-open": e.showOpen,
-      "text-open": e.textOpen,
-      "show-link": e.showLink,
-      "text-link": e.textLink,
-      "text-reset": e.textReset,
-      "show-reset": e.showReset && !e.disabled,
+      "state-config-value": e.stateConfigValue,
+      "state-texts-value": e.stateTextValue,
       onClickUi: e.onClickUi
-    }, null, 8, ["show-add", "show-error", "show-info", "show-log", "show-warn", "text-add", "text-error", "text-info", "text-log", "text-warn", "show-mandatory", "text-mandatory", "show-open", "text-open", "show-link", "text-link", "text-reset", "show-reset", "onClickUi"])) : z("", !0)
-  ], 10, ki);
+    }, null, 8, ["state-config-value", "state-texts-value", "onClickUi"])) : E("", !0)
+  ], 10, ti);
 }
-const zi = /* @__PURE__ */ U(wi, [["render", Li]]), Ei = {
+const oi = /* @__PURE__ */ U(ei, [["render", si]]), ai = {
   name: "LktFieldEmail",
   components: { lktFieldState: G },
-  mixins: [K, q]
-}, Ii = ["data-show-ui", "data-labeled"], Ri = ["name", "id", "disabled", "readonly", "placeholder"], Ti = ["name", "id", "disabled", "readonly"], Bi = ["for", "innerHTML"];
-function Ai(e, t, i, n, l, o) {
-  const s = F("lkt-field-state");
-  return k(), L("div", {
-    class: P(["is-email", e.classes]),
+  mixins: [Z, j]
+}, ri = ["data-show-ui", "data-labeled"], ui = ["name", "id", "disabled", "readonly", "placeholder"], di = ["name", "id", "disabled", "readonly"], ci = ["for", "innerHTML"];
+function hi(e, t, i, l, n, s) {
+  const o = H("lkt-field-state");
+  return S(), z("div", {
+    class: O(["is-email", e.classes]),
     "data-show-ui": e.showInfoUi,
     "data-labeled": e.canRenderLabelHtml
   }, [
-    N(e.$slots, "prefix"),
-    e.placeholder ? D((k(), L("input", {
+    A(e.$slots, "prefix"),
+    e.placeholder ? D((S(), z("input", {
       key: 0,
       "onUpdate:modelValue": t[0] || (t[0] = (a) => e.value = a),
       type: "email",
@@ -562,9 +453,9 @@ function Ai(e, t, i, n, l, o) {
       disabled: e.disabled,
       readonly: e.readonly,
       placeholder: e.placeholder
-    }, null, 8, Ri)), [
-      [H, e.value]
-    ]) : D((k(), L("input", {
+    }, null, 8, ui)), [
+      [P, e.value]
+    ]) : D((S(), z("input", {
       key: 1,
       "onUpdate:modelValue": t[1] || (t[1] = (a) => e.value = a),
       type: "email",
@@ -572,53 +463,37 @@ function Ai(e, t, i, n, l, o) {
       id: e.Identifier,
       disabled: e.disabled,
       readonly: e.readonly
-    }, null, 8, Ti)), [
-      [H, e.value]
+    }, null, 8, di)), [
+      [P, e.value]
     ]),
-    e.canRenderLabelSlot ? N(e.$slots, "label", { key: 2 }) : z("", !0),
-    e.canRenderLabelHtml ? (k(), L("label", {
+    e.canRenderLabelSlot ? A(e.$slots, "label", { key: 2 }) : E("", !0),
+    e.canRenderLabelHtml ? (S(), z("label", {
       key: 3,
       for: e.Identifier,
       innerHTML: e.label
-    }, null, 8, Bi)) : z("", !0),
-    e.showInfoUi ? (k(), $(s, {
+    }, null, 8, ci)) : E("", !0),
+    e.showInfoUi ? (S(), $(o, {
       key: 4,
-      "show-add": e.showAdd,
-      "show-error": e.showError,
-      "show-info": e.showInfo,
-      "show-log": e.showLog,
-      "show-warn": e.showWarn,
-      "text-add": e.textAdd,
-      "text-error": e.textError,
-      "text-info": e.textInfo,
-      "text-log": e.textLog,
-      "text-warn": e.textWarn,
-      "show-mandatory": e.showMandatory,
-      "text-mandatory": e.textMandatory,
-      "show-open": e.showOpen,
-      "text-open": e.textOpen,
-      "show-link": e.showLink,
-      "text-link": e.textLink,
-      "text-reset": e.textReset,
-      "show-reset": e.showReset && !e.disabled,
+      "state-config-value": e.stateConfigValue,
+      "state-texts-value": e.stateTextValue,
       onClickUi: e.onClickUi
-    }, null, 8, ["show-add", "show-error", "show-info", "show-log", "show-warn", "text-add", "text-error", "text-info", "text-log", "text-warn", "show-mandatory", "text-mandatory", "show-open", "text-open", "show-link", "text-link", "text-reset", "show-reset", "onClickUi"])) : z("", !0)
-  ], 10, Ii);
+    }, null, 8, ["state-config-value", "state-texts-value", "onClickUi"])) : E("", !0)
+  ], 10, ri);
 }
-const Ni = /* @__PURE__ */ U(Ei, [["render", Ai]]), Mi = {
+const pi = /* @__PURE__ */ U(ai, [["render", hi]]), fi = {
   name: "LktFieldTel",
   components: { lktFieldState: G },
-  mixins: [K, q]
-}, Di = ["data-show-ui", "data-labeled"], Oi = ["name", "id", "disabled", "readonly", "placeholder"], Ui = ["name", "id", "disabled", "readonly"], Vi = ["for", "innerHTML"];
-function Fi(e, t, i, n, l, o) {
-  const s = F("lkt-field-state");
-  return k(), L("div", {
-    class: P(["is-tel", e.classes]),
+  mixins: [Z, j]
+}, gi = ["data-show-ui", "data-labeled"], mi = ["name", "id", "disabled", "readonly", "placeholder"], bi = ["name", "id", "disabled", "readonly"], _i = ["for", "innerHTML"];
+function vi(e, t, i, l, n, s) {
+  const o = H("lkt-field-state");
+  return S(), z("div", {
+    class: O(["is-tel", e.classes]),
     "data-show-ui": e.showInfoUi,
     "data-labeled": e.canRenderLabelHtml
   }, [
-    N(e.$slots, "prefix"),
-    e.placeholder ? D((k(), L("input", {
+    A(e.$slots, "prefix"),
+    e.placeholder ? D((S(), z("input", {
       key: 0,
       "onUpdate:modelValue": t[0] || (t[0] = (a) => e.value = a),
       type: "tel",
@@ -627,9 +502,9 @@ function Fi(e, t, i, n, l, o) {
       disabled: e.disabled,
       readonly: e.readonly,
       placeholder: e.placeholder
-    }, null, 8, Oi)), [
-      [H, e.value]
-    ]) : D((k(), L("input", {
+    }, null, 8, mi)), [
+      [P, e.value]
+    ]) : D((S(), z("input", {
       key: 1,
       "onUpdate:modelValue": t[1] || (t[1] = (a) => e.value = a),
       type: "tel",
@@ -637,43 +512,31 @@ function Fi(e, t, i, n, l, o) {
       id: e.Identifier,
       disabled: e.disabled,
       readonly: e.readonly
-    }, null, 8, Ui)), [
-      [H, e.value]
+    }, null, 8, bi)), [
+      [P, e.value]
     ]),
-    e.canRenderLabelSlot ? N(e.$slots, "label", { key: 2 }) : z("", !0),
-    e.canRenderLabelHtml ? (k(), L("label", {
+    e.canRenderLabelSlot ? A(e.$slots, "label", { key: 2 }) : E("", !0),
+    e.canRenderLabelHtml ? (S(), z("label", {
       key: 3,
       for: e.Identifier,
       innerHTML: e.label
-    }, null, 8, Vi)) : z("", !0),
-    e.showInfoUi ? (k(), $(s, {
+    }, null, 8, _i)) : E("", !0),
+    e.showInfoUi ? (S(), $(o, {
       key: 4,
-      "show-error": e.showError,
-      "show-info": e.showInfo,
-      "show-log": e.showLog,
-      "show-warn": e.showWarn,
-      "text-error": e.textError,
-      "text-info": e.textInfo,
-      "text-log": e.textLog,
-      "text-warn": e.textWarn,
-      "show-open": e.showOpen,
-      "text-open": e.textOpen,
-      "show-link": e.showLink,
-      "text-link": e.textLink,
-      "text-reset": e.textReset,
-      "show-reset": e.showReset && !e.disabled,
+      "state-config-value": e.stateConfigValue,
+      "state-texts-value": e.stateTextValue,
       onClickUi: e.onClickUi
-    }, null, 8, ["show-error", "show-info", "show-log", "show-warn", "text-error", "text-info", "text-log", "text-warn", "show-open", "text-open", "show-link", "text-link", "text-reset", "show-reset", "onClickUi"])) : z("", !0)
-  ], 10, Di);
+    }, null, 8, ["state-config-value", "state-texts-value", "onClickUi"])) : E("", !0)
+  ], 10, gi);
 }
-const Hi = /* @__PURE__ */ U(Mi, [["render", Fi]]), Pi = {
+const yi = /* @__PURE__ */ U(fi, [["render", vi]]), ki = {
   props: {
     modelValue: { type: [String, Number, Object, Array, Date, Boolean], default: () => {
     } },
     placeholder: { type: String, default: "" },
     label: { type: String, default: "" },
     palette: { type: String, default: "" },
-    name: { type: String, default: V(16) },
+    name: { type: String, default: F(16) },
     invalid: { type: Boolean, default: !1 },
     disabled: { type: Boolean, default: !1 },
     readonly: { type: Boolean, default: !1 },
@@ -683,7 +546,7 @@ const Hi = /* @__PURE__ */ U(Mi, [["render", Fi]]), Pi = {
   data() {
     return {
       Value: this.modelValue,
-      Identifier: V(16),
+      Identifier: F(16),
       canEmit: !1,
       originalValue: this.value
     };
@@ -713,19 +576,19 @@ const Hi = /* @__PURE__ */ U(Mi, [["render", Fi]]), Pi = {
       return this.Value;
     },
     onKeyUp(e) {
-      ye(this, e, this.name, { value: this.Value });
+      xe(this, e, this.name, { value: this.Value });
     },
     onKeyDown(e) {
-      we(this, e, this.name, { value: this.Value });
+      Ce(this, e, this.name, { value: this.Value });
     },
     onFocus(e) {
-      ke(this, e, this.name, { value: this.Value });
+      ze(this, e, this.name, { value: this.Value });
     },
     onBlur(e) {
-      Se(this, e, this.name, { value: this.Value });
+      Le(this, e, this.name, { value: this.Value });
     },
     onClick(e) {
-      xe(this, e, this.name, { value: this.Value });
+      Ee(this, e, this.name, { value: this.Value });
     }
   },
   watch: {
@@ -739,10 +602,10 @@ const Hi = /* @__PURE__ */ U(Mi, [["render", Fi]]), Pi = {
   mounted() {
     this.canEmit = !0;
   }
-}, $i = {
+}, wi = {
   name: "LktFieldUnit",
   components: { lktFieldState: G },
-  mixins: [Pi, q],
+  mixins: [ki, j],
   props: {
     value: { type: [Number, String], default: "" },
     min: { type: [Number, void 0], default: void 0 },
@@ -794,82 +657,66 @@ const Hi = /* @__PURE__ */ U(Mi, [["render", Fi]]), Pi = {
       return this.min !== !1 && e < this.min ? (e = this.min, t = !0) : this.max !== !1 && e > this.max && (e = this.max, t = !0), t === !0 ? (this.Value = e, !0) : !1;
     }
   }
-}, Gi = ["data-state", "data-show-ui", "data-error", "data-disabled", "data-changed", "data-empty", "data-filled", "data-ranged"], qi = ["id", "name", "disabled", "readonly", "min", "max"], ji = ["name", "id", "disabled", "readonly", "min", "max", "step", "placeholder"], Wi = ["for", "innerHTML"];
-function Yi(e, t, i, n, l, o) {
-  const s = F("lkt-field-state");
-  return k(), L("div", {
+}, Si = ["data-state", "data-show-ui", "data-error", "data-disabled", "data-changed", "data-empty", "data-filled", "data-ranged"], xi = ["id", "name", "disabled", "readonly", "min", "max"], Ci = ["name", "id", "disabled", "readonly", "min", "max", "step", "placeholder"], zi = ["for", "innerHTML"];
+function Li(e, t, i, l, n, s) {
+  const o = H("lkt-field-state");
+  return S(), z("div", {
     class: "lkt-field-unit",
     "data-state": e.state,
     "data-show-ui": e.showInfoUi,
     "data-error": e.invalid,
     "data-disabled": e.disabled,
     "data-changed": e.changed,
-    "data-empty": !l.Value,
-    "data-filled": !!l.Value,
+    "data-empty": !n.Value,
+    "data-filled": !!n.Value,
     "data-ranged": i.addRange
   }, [
-    i.addRange ? D((k(), L("input", {
+    i.addRange ? D((S(), z("input", {
       key: 0,
       type: "range",
       id: e.Identifier + "Points",
       name: e.name + "Points",
-      "onUpdate:modelValue": t[0] || (t[0] = (a) => l.Value = a),
+      "onUpdate:modelValue": t[0] || (t[0] = (a) => n.Value = a),
       disabled: e.disabled,
       readonly: e.readonly,
-      min: o.Min,
-      max: o.Max
-    }, null, 8, qi)), [
-      [H, l.Value]
-    ]) : z("", !0),
-    N(e.$slots, "prefix"),
-    D(j("input", {
-      "onUpdate:modelValue": t[1] || (t[1] = (a) => l.Value = a),
+      min: s.Min,
+      max: s.Max
+    }, null, 8, xi)), [
+      [P, n.Value]
+    ]) : E("", !0),
+    A(e.$slots, "prefix"),
+    D(q("input", {
+      "onUpdate:modelValue": t[1] || (t[1] = (a) => n.Value = a),
       type: "number",
       name: e.name,
       id: e.Identifier,
       disabled: e.disabled,
       readonly: e.readonly,
-      min: o.Min,
-      max: o.Max,
+      min: s.Min,
+      max: s.Max,
       step: i.step,
       placeholder: e.placeholder
-    }, null, 8, ji), [
-      [H, l.Value]
+    }, null, 8, Ci), [
+      [P, n.Value]
     ]),
-    e.canRenderLabelSlot ? N(e.$slots, "label", { key: 1 }) : z("", !0),
-    e.canRenderLabelHtml ? (k(), L("label", {
+    e.canRenderLabelSlot ? A(e.$slots, "label", { key: 1 }) : E("", !0),
+    e.canRenderLabelHtml ? (S(), z("label", {
       key: 2,
       for: e.Identifier,
       innerHTML: e.label
-    }, null, 8, Wi)) : z("", !0),
-    e.showInfoUi ? (k(), $(s, {
+    }, null, 8, zi)) : E("", !0),
+    e.showInfoUi ? (S(), $(o, {
       key: 3,
-      "show-add": e.showAdd,
-      "show-error": e.showError,
-      "show-info": e.showInfo,
-      "show-log": e.showLog,
-      "show-warn": e.showWarn,
-      "text-add": e.textAdd,
-      "text-error": e.textError,
-      "text-info": e.textInfo,
-      "text-log": e.textLog,
-      "text-warn": e.textWarn,
-      "show-mandatory": e.showMandatory,
-      "text-mandatory": e.textMandatory,
-      "show-open": e.showOpen,
-      "text-open": e.textOpen,
-      "show-link": e.showLink,
-      "text-link": e.textLink,
-      "text-reset": e.textReset,
-      "show-reset": e.showReset && !e.disabled,
+      "state-config-value": e.stateConfigValue,
+      "state-texts-value": e.stateTextValue,
       onClickUi: e.onClickUi
-    }, null, 8, ["show-add", "show-error", "show-info", "show-log", "show-warn", "text-add", "text-error", "text-info", "text-log", "text-warn", "show-mandatory", "text-mandatory", "show-open", "text-open", "show-link", "text-link", "text-reset", "show-reset", "onClickUi"])) : z("", !0)
-  ], 8, Gi);
+    }, null, 8, ["state-config-value", "state-texts-value", "onClickUi"])) : E("", !0)
+  ], 8, Si);
 }
-const Xi = /* @__PURE__ */ U($i, [["render", Yi]]), Ki = {
+const Ei = /* @__PURE__ */ U(wi, [["render", Li]]), Ii = {
   name: "LktFieldPassword",
   components: { lktFieldState: G },
-  mixins: [K, q],
+  mixins: [Z, j],
   data() {
     return {
       visiblePassword: !1
@@ -880,71 +727,53 @@ const Xi = /* @__PURE__ */ U($i, [["render", Yi]]), Ki = {
       return this.visiblePassword ? "text" : "password";
     }
   }
-}, Ji = ["data-show-ui", "data-labeled"], Zi = ["type", "name", "id", "disabled", "readonly", "placeholder"], Qi = ["type", "name", "id", "disabled", "readonly"], en = ["for", "innerHTML"];
-function tn(e, t, i, n, l, o) {
-  const s = F("lkt-field-state");
-  return k(), L("div", {
-    class: P(["is-password", e.classes]),
+}, Ti = ["data-show-ui", "data-labeled"], Ri = ["type", "name", "id", "disabled", "readonly", "placeholder"], Bi = ["type", "name", "id", "disabled", "readonly"], Ni = ["for", "innerHTML"];
+function Ai(e, t, i, l, n, s) {
+  const o = H("lkt-field-state");
+  return S(), z("div", {
+    class: O(["is-password", e.classes]),
     "data-show-ui": e.showInfoUi,
     "data-labeled": e.canRenderLabelHtml
   }, [
-    N(e.$slots, "prefix"),
-    e.placeholder ? D((k(), L("input", {
+    A(e.$slots, "prefix"),
+    e.placeholder ? D((S(), z("input", {
       key: 0,
       "onUpdate:modelValue": t[0] || (t[0] = (a) => e.value = a),
-      type: o.inputType,
+      type: s.inputType,
       name: e.name,
       id: e.Identifier,
       disabled: e.disabled,
       readonly: e.readonly,
       placeholder: e.placeholder
-    }, null, 8, Zi)), [
-      [ue, e.value]
-    ]) : D((k(), L("input", {
+    }, null, 8, Ri)), [
+      [he, e.value]
+    ]) : D((S(), z("input", {
       key: 1,
       "onUpdate:modelValue": t[1] || (t[1] = (a) => e.value = a),
-      type: o.inputType,
+      type: s.inputType,
       name: e.name,
       id: e.Identifier,
       disabled: e.disabled,
       readonly: e.readonly
-    }, null, 8, Qi)), [
-      [ue, e.value]
+    }, null, 8, Bi)), [
+      [he, e.value]
     ]),
-    e.canRenderLabelSlot ? N(e.$slots, "label", { key: 2 }) : z("", !0),
-    e.canRenderLabelHtml ? (k(), L("label", {
+    e.canRenderLabelSlot ? A(e.$slots, "label", { key: 2 }) : E("", !0),
+    e.canRenderLabelHtml ? (S(), z("label", {
       key: 3,
       for: e.Identifier,
       innerHTML: e.label
-    }, null, 8, en)) : z("", !0),
-    e.showInfoUi ? (k(), $(s, {
+    }, null, 8, Ni)) : E("", !0),
+    e.showInfoUi ? (S(), $(o, {
       key: 4,
-      "show-add": e.showAdd,
-      "show-password": e.showPassword && e.value.length > 0,
-      "show-error": e.showError,
-      "show-info": e.showInfo,
-      "show-log": e.showLog,
-      "show-warn": e.showWarn,
-      "text-add": e.textAdd,
-      "text-error": e.textError,
-      "text-info": e.textInfo,
-      "text-log": e.textLog,
-      "text-warn": e.textWarn,
-      "show-mandatory": e.showMandatory,
-      "text-mandatory": e.textMandatory,
-      "show-open": e.showOpen,
-      "text-open": e.textOpen,
-      "show-link": e.showLink,
-      "text-link": e.textLink,
-      "text-reset": e.textReset,
-      "text-password": e.textPassword,
-      "show-reset": e.showReset && !e.disabled,
+      "state-config-value": e.stateConfigValue,
+      "state-texts-value": e.stateTextValue,
       onClickUi: e.onClickUi
-    }, null, 8, ["show-add", "show-password", "show-error", "show-info", "show-log", "show-warn", "text-add", "text-error", "text-info", "text-log", "text-warn", "show-mandatory", "text-mandatory", "show-open", "text-open", "show-link", "text-link", "text-reset", "text-password", "show-reset", "onClickUi"])) : z("", !0)
-  ], 10, Ji);
+    }, null, 8, ["state-config-value", "state-texts-value", "onClickUi"])) : E("", !0)
+  ], 10, Ti);
 }
-const nn = /* @__PURE__ */ U(Ki, [["render", tn]]);
-class ne {
+const Mi = /* @__PURE__ */ U(Ii, [["render", Ai]]);
+class se {
   constructor(t = []) {
     this.value = [...t];
   }
@@ -955,25 +784,25 @@ class ne {
     if (t === "")
       return this.value;
     const i = t.toLowerCase();
-    return this.value.filter((n) => n.label.toLowerCase().indexOf(i) !== -1);
+    return this.value.filter((l) => l.label.toLowerCase().indexOf(i) !== -1);
   }
   receiveOptions(t) {
-    const i = /* @__PURE__ */ new Set(), n = [...this.value, ...t], l = [];
-    n.forEach((o) => {
-      let s = [o.value, o.label].join("-");
-      i.has(s) || (l.push(o), i.add(s));
-    }), this.value = l;
+    const i = /* @__PURE__ */ new Set(), l = [...this.value, ...t], n = [];
+    l.forEach((s) => {
+      let o = [s.value, s.label].join("-");
+      i.has(o) || (n.push(s), i.add(o));
+    }), this.value = n;
   }
 }
-const ln = {
+const Di = {
   emits: ["update:modelValue"],
-  mixins: [X],
+  mixins: [J],
   props: {
     modelValue: { type: [String, Number, Array], default: "" },
     placeholder: { type: String, default: "" },
     label: { type: String, default: "" },
     palette: { type: String, default: "" },
-    name: { type: String, default: V(16) },
+    name: { type: String, default: F(16) },
     valid: { type: [Boolean, Function], default: !1 },
     disabled: { type: Boolean, default: !1 },
     closeOnSelect: { type: Boolean, default: !1 },
@@ -983,9 +812,9 @@ const ln = {
     disabledOptions: { type: Array, default: () => [] }
   },
   data() {
-    const e = new ne(this.options);
+    const e = new se(this.options);
     return {
-      Identifier: V(16),
+      Identifier: F(16),
       originalValue: this.modelValue,
       value: this.modelValue,
       loading: !1,
@@ -1002,7 +831,7 @@ const ln = {
       return this.value !== this.originalValue;
     },
     canRenderLabelSlot() {
-      return Z(this, "label");
+      return ee(this, "label");
     },
     canRenderLabelHtml() {
       return this.canRenderLabelSlot ? !1 : !this.label && this.emptyLabel ? !0 : !!this.label;
@@ -1019,7 +848,7 @@ const ln = {
     },
     options: {
       handler() {
-        const e = new ne(this.options);
+        const e = new se(this.options);
         this.optionsValue = e;
       },
       deep: !0
@@ -1047,21 +876,21 @@ const ln = {
       return this.modelValue;
     }
   }
-}, on = {
+}, Vi = {
   name: "LktFieldRadio",
-  mixins: [ln],
+  mixins: [Di],
   props: {
     value: { type: String, default: "" }
   }
-}, sn = ["data-labeled"], an = { class: "lkt-field__option" }, rn = ["name", "id", "disabled", "readonly", "placeholder", "value", "checked"], un = ["for", "innerHTML"];
-function dn(e, t, i, n, l, o) {
-  return k(), L("div", {
-    class: P(["is-radio", e.classes]),
+}, Ui = ["data-labeled"], Oi = { class: "lkt-field__option" }, Fi = ["name", "id", "disabled", "readonly", "placeholder", "value", "checked"], Hi = ["for", "innerHTML"];
+function Pi(e, t, i, l, n, s) {
+  return S(), z("div", {
+    class: O(["is-radio", e.classes]),
     "data-labeled": e.canRenderLabelHtml
   }, [
-    N(e.$slots, "prefix"),
-    (k(!0), L(St, null, xt(e.optionsValue.all(), (s, a) => (k(), L("div", an, [
-      D(j("input", {
+    A(e.$slots, "prefix"),
+    (S(!0), z(ve, null, ye(e.optionsValue.all(), (o, a) => (S(), z("div", Oi, [
+      D(q("input", {
         type: "radio",
         "onUpdate:modelValue": t[0] || (t[0] = (r) => e.Value = r),
         name: e.name,
@@ -1069,21 +898,21 @@ function dn(e, t, i, n, l, o) {
         disabled: e.disabled,
         readonly: e.readonly,
         placeholder: e.placeholder,
-        value: s.value,
-        checked: s.value === e.Value
-      }, null, 8, rn), [
-        [Ct, e.Value]
+        value: o.value,
+        checked: o.value === e.Value
+      }, null, 8, Fi), [
+        [zt, e.Value]
       ]),
-      j("label", {
+      q("label", {
         for: e.Identifier + a,
-        innerHTML: s.label
-      }, null, 8, un)
+        innerHTML: o.label
+      }, null, 8, Hi)
     ]))), 256))
-  ], 10, sn);
+  ], 10, Ui);
 }
-const cn = /* @__PURE__ */ U(on, [["render", dn]]), hn = {
-  emits: ["update:modelValue"],
-  mixins: [X],
+const $i = /* @__PURE__ */ U(Vi, [["render", Pi]]), Gi = {
+  emits: ["update:modelValue", "click-ui"],
+  mixins: [J],
   props: {
     modelValue: { type: [String, Date], default: "" },
     disabledDates: { type: Array, default: () => [] },
@@ -1105,7 +934,7 @@ const cn = /* @__PURE__ */ U(on, [["render", dn]]), hn = {
     placeholder: { type: String, default: "" },
     label: { type: String, default: "" },
     palette: { type: String, default: "" },
-    name: { type: String, default: V(16) },
+    name: { type: String, default: F(16) },
     valid: { type: [Boolean, Function], default: !1 },
     disabled: { type: Boolean, default: !1 },
     readonly: { type: Boolean, default: !1 },
@@ -1113,12 +942,17 @@ const cn = /* @__PURE__ */ U(on, [["render", dn]]), hn = {
   },
   data() {
     return {
-      Identifier: V(16),
+      Identifier: F(16),
       originalValue: this.modelValue,
-      value: this.modelValue
+      value: this.modelValue,
+      stateConfigValue: new W(this.stateConfig, this.disabled || this.readonly),
+      stateTextValue: new Y(this.stateTexts)
     };
   },
   computed: {
+    showInfoUi() {
+      return this.stateConfigValue.amountEnabled() > 0;
+    },
     isValid() {
       return typeof this.valid == "function" ? this.valid() : this.valid;
     },
@@ -1129,7 +963,7 @@ const cn = /* @__PURE__ */ U(on, [["render", dn]]), hn = {
       return this.value !== this.originalValue;
     },
     canRenderLabelSlot() {
-      return Z(this, "label");
+      return ee(this, "label");
     },
     canRenderLabelHtml() {
       return this.canRenderLabelSlot ? !1 : !this.label && this.emptyLabel ? !0 : !!this.label;
@@ -1141,6 +975,18 @@ const cn = /* @__PURE__ */ U(on, [["render", dn]]), hn = {
     },
     value(e) {
       this.$emit("update:modelValue", e);
+    },
+    stateConfig: {
+      handler() {
+        this.stateConfigValue = new W(this.stateConfig, this.disabled || this.readonly);
+      },
+      deep: !0
+    },
+    stateTexts: {
+      handler() {
+        this.stateTextValue = new Y(this.stateTexts);
+      },
+      deep: !0
     }
   },
   methods: {
@@ -1156,26 +1002,26 @@ const cn = /* @__PURE__ */ U(on, [["render", dn]]), hn = {
       return this.disabled;
     },
     reset() {
-      this.modelValue = this.originalValue;
+      this.value = this.originalValue;
     },
     getValue() {
       return this.modelValue;
     }
   }
-}, pn = {
+}, ji = {
   name: "LktFieldDate",
   components: { lktFieldState: G },
-  mixins: [hn, q]
-}, fn = ["data-show-ui", "data-labeled"], gn = ["for", "innerHTML"];
-function mn(e, t, i, n, l, o) {
-  const s = F("Datepicker"), a = F("lkt-field-state");
-  return k(), L("div", {
-    class: P(["is-date", e.classes]),
+  mixins: [Gi, j]
+}, qi = ["data-show-ui", "data-labeled"], Wi = ["for", "innerHTML"];
+function Yi(e, t, i, l, n, s) {
+  const o = H("Datepicker"), a = H("lkt-field-state");
+  return S(), z("div", {
+    class: O(["is-date", e.classes]),
     "data-show-ui": e.showInfoUi,
     "data-labeled": e.canRenderLabelHtml
   }, [
-    N(e.$slots, "prefix"),
-    me(s, {
+    A(e.$slots, "prefix"),
+    ke(o, {
       modelValue: e.value,
       "onUpdate:modelValue": t[0] || (t[0] = (r) => e.value = r),
       uid: e.Identifier,
@@ -1198,38 +1044,35 @@ function mn(e, t, i, n, l, o) {
       "max-date": e.maxDate,
       "prevent-min-max-navigation": e.preventMinMaxNavigation
     }, null, 8, ["modelValue", "uid", "disabled", "name", "range", "auto-range", "multi-calendars", "month-picker", "time-picker", "inline", "multi-dates", "flow", "utc", "week-picker", "year-picker", "preset-ranges", "disabled-dates", "min-date", "max-date", "prevent-min-max-navigation"]),
-    e.canRenderLabelSlot ? N(e.$slots, "label", { key: 0 }) : z("", !0),
-    e.canRenderLabelHtml ? (k(), L("label", {
+    e.canRenderLabelSlot ? A(e.$slots, "label", { key: 0 }) : E("", !0),
+    e.canRenderLabelHtml ? (S(), z("label", {
       key: 1,
       for: e.Identifier,
       innerHTML: e.label
-    }, null, 8, gn)) : z("", !0),
-    e.showInfoUi ? (k(), $(a, {
+    }, null, 8, Wi)) : E("", !0),
+    e.showInfoUi ? (S(), $(a, {
       key: 2,
-      "show-add": e.showAdd,
-      "show-error": e.showError,
-      "show-info": e.showInfo,
-      "show-log": e.showLog,
-      "show-warn": e.showWarn,
-      "text-add": e.textAdd,
-      "text-error": e.textError,
-      "text-info": e.textInfo,
-      "text-log": e.textLog,
-      "text-warn": e.textWarn,
-      "show-mandatory": e.showMandatory,
-      "text-mandatory": e.textMandatory,
-      "show-open": e.showOpen,
-      "text-open": e.textOpen,
-      "show-link": e.showLink,
-      "text-link": e.textLink,
-      "text-reset": e.textReset,
-      "show-reset": e.showReset && !e.disabled,
+      "state-config-value": e.stateConfigValue,
+      "state-texts-value": e.stateTextValue,
       onClickUi: e.onClickUi
-    }, null, 8, ["show-add", "show-error", "show-info", "show-log", "show-warn", "text-add", "text-error", "text-info", "text-log", "text-warn", "show-mandatory", "text-mandatory", "show-open", "text-open", "show-link", "text-link", "text-reset", "show-reset", "onClickUi"])) : z("", !0)
-  ], 10, fn);
+    }, null, 8, ["state-config-value", "state-texts-value", "onClickUi"])) : E("", !0)
+  ], 10, qi);
 }
-const bn = /* @__PURE__ */ U(pn, [["render", mn]]), _n = () => R.NO_OPTIONS_MESSAGE;
-class de {
+const Xi = /* @__PURE__ */ U(ji, [["render", Yi]]);
+class N {
+}
+N.SHOW_PASSWORD_MESSAGE = "";
+N.IS_MANDATORY_MESSAGE = "";
+N.FOLLOW_LINK_MESSAGE = "";
+N.OPEN_MESSAGE = "";
+N.RESET_MESSAGE = "";
+N.NO_OPTIONS_MESSAGE = "";
+N.TODAY_RANGE_TEXT = "";
+N.THIS_MONTH_RANGE_TEXT = "";
+N.LAST_MONTH_RANGE_TEXT = "";
+N.THIS_YEAR_RANGE_TEXT = "";
+const Ki = () => N.NO_OPTIONS_MESSAGE;
+class pe {
   constructor(t) {
     if (typeof t != "function" && typeof t != "object")
       throw new Error("searchOptions must be an object or a function returning an object");
@@ -1241,31 +1084,31 @@ class de {
     return typeof this.value == "function" ? this.value() : this.value;
   }
 }
-var vn = (e, t, i) => new Promise((n, l) => {
-  var o = (r) => {
+var Ji = (e, t, i) => new Promise((l, n) => {
+  var s = (r) => {
     try {
       a(i.next(r));
     } catch (u) {
-      l(u);
+      n(u);
     }
-  }, s = (r) => {
+  }, o = (r) => {
     try {
       a(i.throw(r));
     } catch (u) {
-      l(u);
+      n(u);
     }
-  }, a = (r) => r.done ? n(r.value) : Promise.resolve(r.value).then(o, s);
+  }, a = (r) => r.done ? l(r.value) : Promise.resolve(r.value).then(s, o);
   a((i = i.apply(e, t)).next());
 });
-const yn = {
-  emits: ["update:modelValue"],
-  mixins: [X],
+const Zi = {
+  emits: ["update:modelValue", "click-ui"],
+  mixins: [J],
   props: {
     modelValue: { type: [String, Number, Array], default: "" },
     placeholder: { type: String, default: "" },
     label: { type: String, default: "" },
     palette: { type: String, default: "" },
-    name: { type: String, default: V(16) },
+    name: { type: String, default: F(16) },
     valid: { type: [Boolean, Function], default: !1 },
     disabled: { type: Boolean, default: !1 },
     closeOnSelect: { type: Boolean, default: !1 },
@@ -1275,16 +1118,16 @@ const yn = {
     disabledOptions: { type: Array, default: () => [] },
     multiple: { type: Boolean, default: !1 },
     canTag: { type: Boolean, default: !1 },
-    noOptionsMessage: { type: String, default: _n() },
+    noOptionsMessage: { type: String, default: Ki() },
     resource: { type: String, default: () => null },
     searchStringResourceParam: { type: String, default: "query" },
     searchOptions: { type: [Object, Function], default: () => null },
     searchPlaceholder: { type: String, default: "" }
   },
   data() {
-    const e = new de(this.searchOptions), t = new ne(this.options);
+    const e = new pe(this.searchOptions), t = new se(this.options);
     return {
-      Identifier: V(16),
+      Identifier: F(16),
       originalValue: this.modelValue,
       value: this.modelValue,
       loading: !1,
@@ -1294,10 +1137,15 @@ const yn = {
       optionsHaystack: [],
       searchString: "",
       searchOptionsValue: e,
-      optionsValue: t
+      optionsValue: t,
+      stateConfigValue: new W(this.stateConfig, this.disabled || this.readonly),
+      stateTextValue: new Y(this.stateTexts)
     };
   },
   computed: {
+    showInfoUi() {
+      return this.stateConfigValue.amountEnabled() > 0;
+    },
     isSearchable() {
       return !0;
     },
@@ -1321,7 +1169,7 @@ const yn = {
       return this.value !== this.originalValue;
     },
     canRenderLabelSlot() {
-      return Z(this, "label");
+      return ee(this, "label");
     },
     canRenderLabelHtml() {
       return this.canRenderLabelSlot ? !1 : !this.label && this.emptyLabel ? !0 : !!this.label;
@@ -1338,15 +1186,27 @@ const yn = {
     },
     searchOptions: {
       handler() {
-        const e = new de(this.searchOptions);
+        const e = new pe(this.searchOptions);
         this.searchOptionsValue = e;
       },
       deep: !0
     },
     options: {
       handler() {
-        const e = new ne(this.options);
+        const e = new se(this.options);
         this.optionsValue = e;
+      },
+      deep: !0
+    },
+    stateConfig: {
+      handler() {
+        this.stateConfigValue = new W(this.stateConfig, this.disabled || this.readonly);
+      },
+      deep: !0
+    },
+    stateTexts: {
+      handler() {
+        this.stateTextValue = new Y(this.stateTexts);
       },
       deep: !0
     }
@@ -1361,14 +1221,14 @@ const yn = {
     handleFocus() {
       if (this.isRemoteSearch) {
         const e = this.searchOptionsValue.getOptions();
-        return this.searchStringResourceParam && (e[this.searchStringResourceParam] = this.searchString), zt(this.resource, e).then((t) => {
+        return this.searchStringResourceParam && (e[this.searchStringResourceParam] = this.searchString), Et(this.resource, e).then((t) => {
           this.optionsValue.receiveOptions(t), this.buildVisibleOptions();
         });
       } else
         this.buildVisibleOptions();
     },
     handleInput(e) {
-      return vn(this, null, function* () {
+      return Ji(this, null, function* () {
         if (this.updatedModelValue)
           return;
         const t = e.target;
@@ -1376,10 +1236,10 @@ const yn = {
       });
     },
     getDropdownOptionSelector(e, t = -1, i = -1) {
-      let n = { "is-highlight": t == i, "is-selected": e.selected === !0 };
-      return e.selector && e.selector.split(" ").forEach((o) => {
-        n[o] = !0;
-      }), n;
+      let l = { "is-highlight": t == i, "is-selected": e.selected === !0 };
+      return e.selector && e.selector.split(" ").forEach((s) => {
+        l[s] = !0;
+      }), l;
     },
     renderOption(e) {
       return typeof this.optionFormatter == "function" ? this.optionFormatter(e) : e.label;
@@ -1396,7 +1256,7 @@ const yn = {
       return this.disabled;
     },
     reset() {
-      this.modelValue = this.originalValue;
+      this.value = this.originalValue;
     },
     getValue() {
       return this.modelValue;
@@ -1405,20 +1265,20 @@ const yn = {
   mounted() {
     this.buildVisibleOptions();
   }
-}, wn = {
+}, Qi = {
   name: "LktFieldSelect",
-  components: { lktFieldState: G, VueNextSelect: fe },
-  mixins: [yn, q]
-}, kn = ["data-show-ui", "data-labeled"], Sn = ["for", "innerHTML"];
-function xn(e, t, i, n, l, o) {
-  const s = F("vue-next-select"), a = F("lkt-field-state");
-  return k(), L("div", {
-    class: P(["is-select", e.classes]),
+  components: { lktFieldState: G, VueNextSelect: be },
+  mixins: [Zi, j]
+}, el = ["data-show-ui", "data-labeled"], tl = ["for", "innerHTML"];
+function il(e, t, i, l, n, s) {
+  const o = H("vue-next-select"), a = H("lkt-field-state");
+  return S(), z("div", {
+    class: O(["is-select", e.classes]),
     "data-show-ui": e.showInfoUi,
     "data-labeled": e.canRenderLabelHtml
   }, [
-    N(e.$slots, "prefix"),
-    me(s, {
+    A(e.$slots, "prefix"),
+    ke(o, {
       modelValue: e.value,
       "onUpdate:modelValue": [
         t[0] || (t[0] = (r) => e.value = r),
@@ -1439,37 +1299,21 @@ function xn(e, t, i, n, l, o) {
       "close-on-select": e.closeOnSelect,
       "clear-on-close": ""
     }, null, 8, ["modelValue", "options", "visible-options", "searchable", "multiple", "taggable", "loading", "disabled", "onFocus", "onSearch:input", "onUpdate:modelValue", "search-placeholder", "close-on-select"]),
-    e.canRenderLabelSlot ? N(e.$slots, "label", { key: 0 }) : z("", !0),
-    e.canRenderLabelHtml ? (k(), L("label", {
+    e.canRenderLabelSlot ? A(e.$slots, "label", { key: 0 }) : E("", !0),
+    e.canRenderLabelHtml ? (S(), z("label", {
       key: 1,
       for: e.Identifier,
       innerHTML: e.label
-    }, null, 8, Sn)) : z("", !0),
-    e.showInfoUi ? (k(), $(a, {
+    }, null, 8, tl)) : E("", !0),
+    e.showInfoUi ? (S(), $(a, {
       key: 2,
-      "show-add": e.showAdd,
-      "show-error": e.showError,
-      "show-info": e.showInfo,
-      "show-log": e.showLog,
-      "show-warn": e.showWarn,
-      "text-add": e.textAdd,
-      "text-error": e.textError,
-      "text-info": e.textInfo,
-      "text-log": e.textLog,
-      "text-warn": e.textWarn,
-      "show-mandatory": e.showMandatory,
-      "text-mandatory": e.textMandatory,
-      "show-open": e.showOpen,
-      "text-open": e.textOpen,
-      "show-link": e.showLink,
-      "text-link": e.textLink,
-      "text-reset": e.textReset,
-      "show-reset": e.showReset && !e.disabled,
+      "state-config-value": e.stateConfigValue,
+      "state-texts-value": e.stateTextValue,
       onClickUi: e.onClickUi
-    }, null, 8, ["show-add", "show-error", "show-info", "show-log", "show-warn", "text-add", "text-error", "text-info", "text-log", "text-warn", "show-mandatory", "text-mandatory", "show-open", "text-open", "show-link", "text-link", "text-reset", "show-reset", "onClickUi"])) : z("", !0)
-  ], 10, kn);
+    }, null, 8, ["state-config-value", "state-texts-value", "onClickUi"])) : E("", !0)
+  ], 10, el);
 }
-const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
+const ll = /* @__PURE__ */ U(Qi, [["render", il]]), nl = {
   name: "blockquote",
   display: "command",
   add: function(e, t) {
@@ -1490,12 +1334,12 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
     const e = this.util.getParentElement(this.getSelectionNode(), "blockquote");
     e ? this.detachRangeFormatElement(e, null, null, !1, !1) : this.applyRangeFormatElement(this.context.blockquote.tag.cloneNode(!1));
   }
-}, zn = {
+}, sl = {
   name: "align",
   display: "submenu",
   add: function(e, t) {
-    const i = e.icons, n = e.context;
-    n.align = {
+    const i = e.icons, l = e.context;
+    l.align = {
       targetButton: t,
       _itemMenu: null,
       _alignList: null,
@@ -1508,32 +1352,32 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
         center: i.align_center
       }
     };
-    let l = this.setSubmenu(e), o = n.align._itemMenu = l.querySelector("ul");
-    o.addEventListener("click", this.pickup.bind(e)), n.align._alignList = o.querySelectorAll("li button"), e.initMenuTarget(this.name, t, l), l = null, o = null;
+    let n = this.setSubmenu(e), s = l.align._itemMenu = n.querySelector("ul");
+    s.addEventListener("click", this.pickup.bind(e)), l.align._alignList = s.querySelectorAll("li button"), e.initMenuTarget(this.name, t, n), n = null, s = null;
   },
   setSubmenu: function(e) {
-    const t = e.lang, i = e.icons, n = e.util.createElement("DIV"), l = e.options.alignItems;
-    let o = "";
-    for (let s = 0, a, r; s < l.length; s++)
-      a = l[s], r = t.toolbar["align" + a.charAt(0).toUpperCase() + a.slice(1)], o += '<li><button type="button" class="se-btn-list se-btn-align" data-value="' + a + '" title="' + r + '" aria-label="' + r + '"><span class="se-list-icon">' + i["align_" + a] + "</span>" + r + "</button></li>";
-    return n.className = "se-submenu se-list-layer se-list-align", n.innerHTML = '<div class="se-list-inner"><ul class="se-list-basic">' + o + "</ul></div>", n;
+    const t = e.lang, i = e.icons, l = e.util.createElement("DIV"), n = e.options.alignItems;
+    let s = "";
+    for (let o = 0, a, r; o < n.length; o++)
+      a = n[o], r = t.toolbar["align" + a.charAt(0).toUpperCase() + a.slice(1)], s += '<li><button type="button" class="se-btn-list se-btn-align" data-value="' + a + '" title="' + r + '" aria-label="' + r + '"><span class="se-list-icon">' + i["align_" + a] + "</span>" + r + "</button></li>";
+    return l.className = "se-submenu se-list-layer se-list-align", l.innerHTML = '<div class="se-list-inner"><ul class="se-list-basic">' + s + "</ul></div>", l;
   },
   active: function(e) {
-    const t = this.context.align, i = t.targetButton, n = i.firstElementChild;
+    const t = this.context.align, i = t.targetButton, l = i.firstElementChild;
     if (!e)
-      this.util.changeElement(n, t.icons[t.defaultDir]), i.removeAttribute("data-focus");
+      this.util.changeElement(l, t.icons[t.defaultDir]), i.removeAttribute("data-focus");
     else if (this.util.isFormatElement(e)) {
-      const l = e.style.textAlign;
-      if (l)
-        return this.util.changeElement(n, t.icons[l] || t.icons[t.defaultDir]), i.setAttribute("data-focus", l), !0;
+      const n = e.style.textAlign;
+      if (n)
+        return this.util.changeElement(l, t.icons[n] || t.icons[t.defaultDir]), i.setAttribute("data-focus", n), !0;
     }
     return !1;
   },
   on: function() {
     const e = this.context.align, t = e._alignList, i = e.targetButton.getAttribute("data-focus") || e.defaultDir;
     if (i !== e.currentAlign) {
-      for (let n = 0, l = t.length; n < l; n++)
-        i === t[n].getAttribute("data-value") ? this.util.addClass(t[n], "active") : this.util.removeClass(t[n], "active");
+      for (let l = 0, n = t.length; l < n; l++)
+        i === t[l].getAttribute("data-value") ? this.util.addClass(t[l], "active") : this.util.removeClass(t[l], "active");
       e.currentAlign = i;
     }
   },
@@ -1542,10 +1386,10 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
     if (!this.context.align || this.context.align.defaultDir === e)
       return;
     this.context.align.defaultDir = e;
-    let t = this.context.align._itemMenu, i = t.querySelector('[data-value="left"]'), n = t.querySelector('[data-value="right"]');
-    if (i && n) {
-      const l = i.parentElement, o = n.parentElement;
-      l.appendChild(n), o.appendChild(i);
+    let t = this.context.align._itemMenu, i = t.querySelector('[data-value="left"]'), l = t.querySelector('[data-value="right"]');
+    if (i && l) {
+      const n = i.parentElement, s = l.parentElement;
+      n.appendChild(l), s.appendChild(i);
     }
   },
   pickup: function(e) {
@@ -1555,12 +1399,12 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
       i = t.getAttribute("data-value"), t = t.parentNode;
     if (!i)
       return;
-    const n = this.context.align.defaultDir, l = this.getSelectedElements();
-    for (let o = 0, s = l.length; o < s; o++)
-      this.util.setStyle(l[o], "textAlign", i === n ? "" : i);
+    const l = this.context.align.defaultDir, n = this.getSelectedElements();
+    for (let s = 0, o = n.length; s < o; s++)
+      this.util.setStyle(n[s], "textAlign", i === l ? "" : i);
     this.effectNode = null, this.submenuOff(), this.focus(), this.history.push(!1);
   }
-}, En = {
+}, ol = {
   name: "font",
   display: "submenu",
   add: function(e, t) {
@@ -1571,35 +1415,35 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
       _fontList: null,
       currentFont: ""
     };
-    let n = this.setSubmenu(e);
-    n.querySelector(".se-list-inner").addEventListener("click", this.pickup.bind(e)), i.font._fontList = n.querySelectorAll("ul li button"), e.initMenuTarget(this.name, t, n), n = null;
+    let l = this.setSubmenu(e);
+    l.querySelector(".se-list-inner").addEventListener("click", this.pickup.bind(e)), i.font._fontList = l.querySelectorAll("ul li button"), e.initMenuTarget(this.name, t, l), l = null;
   },
   setSubmenu: function(e) {
     const t = e.lang, i = e.util.createElement("DIV");
     i.className = "se-submenu se-list-layer se-list-font-family";
-    let n, l, o, s, a = e.options.font, r = '<div class="se-list-inner"><ul class="se-list-basic"><li><button type="button" class="default_value se-btn-list" title="' + t.toolbar.default + '" aria-label="' + t.toolbar.default + '">(' + t.toolbar.default + ")</button></li>";
-    for (o = 0, s = a.length; o < s; o++)
-      n = a[o], l = n.split(",")[0], r += '<li><button type="button" class="se-btn-list" data-value="' + n + '" data-txt="' + l + '" title="' + l + '" aria-label="' + l + '" style="font-family:' + n + ';">' + l + "</button></li>";
+    let l, n, s, o, a = e.options.font, r = '<div class="se-list-inner"><ul class="se-list-basic"><li><button type="button" class="default_value se-btn-list" title="' + t.toolbar.default + '" aria-label="' + t.toolbar.default + '">(' + t.toolbar.default + ")</button></li>";
+    for (s = 0, o = a.length; s < o; s++)
+      l = a[s], n = l.split(",")[0], r += '<li><button type="button" class="se-btn-list" data-value="' + l + '" data-txt="' + n + '" title="' + n + '" aria-label="' + n + '" style="font-family:' + l + ';">' + n + "</button></li>";
     return r += "</ul></div>", i.innerHTML = r, i;
   },
   active: function(e) {
     const t = this.context.font.targetText, i = this.context.font.targetTooltip;
     if (e) {
       if (e.style && e.style.fontFamily.length > 0) {
-        const n = e.style.fontFamily.replace(/["']/g, "");
-        return this.util.changeTxt(t, n), this.util.changeTxt(i, this.lang.toolbar.font + " (" + n + ")"), !0;
+        const l = e.style.fontFamily.replace(/["']/g, "");
+        return this.util.changeTxt(t, l), this.util.changeTxt(i, this.lang.toolbar.font + " (" + l + ")"), !0;
       }
     } else {
-      const n = this.hasFocus ? this.wwComputedStyle.fontFamily : this.lang.toolbar.font;
-      this.util.changeTxt(t, n), this.util.changeTxt(i, this.hasFocus ? this.lang.toolbar.font + (n ? " (" + n + ")" : "") : n);
+      const l = this.hasFocus ? this.wwComputedStyle.fontFamily : this.lang.toolbar.font;
+      this.util.changeTxt(t, l), this.util.changeTxt(i, this.hasFocus ? this.lang.toolbar.font + (l ? " (" + l + ")" : "") : l);
     }
     return !1;
   },
   on: function() {
     const e = this.context.font, t = e._fontList, i = e.targetText.textContent;
     if (i !== e.currentFont) {
-      for (let n = 0, l = t.length; n < l; n++)
-        i === t[n].getAttribute("data-value") ? this.util.addClass(t[n], "active") : this.util.removeClass(t[n], "active");
+      for (let l = 0, n = t.length; l < n; l++)
+        i === t[l].getAttribute("data-value") ? this.util.addClass(t[l], "active") : this.util.removeClass(t[l], "active");
       e.currentFont = i;
     }
   },
@@ -1615,7 +1459,7 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
       this.nodeChange(null, ["font-family"], ["span"], !0);
     this.submenuOff();
   }
-}, In = {
+}, al = {
   name: "fontSize",
   display: "submenu",
   add: function(e, t) {
@@ -1625,17 +1469,17 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
       _sizeList: null,
       currentSize: ""
     };
-    let n = this.setSubmenu(e), l = n.querySelector("ul");
-    l.addEventListener("click", this.pickup.bind(e)), i.fontSize._sizeList = l.querySelectorAll("li button"), e.initMenuTarget(this.name, t, n), n = null, l = null;
+    let l = this.setSubmenu(e), n = l.querySelector("ul");
+    n.addEventListener("click", this.pickup.bind(e)), i.fontSize._sizeList = n.querySelectorAll("li button"), e.initMenuTarget(this.name, t, l), l = null, n = null;
   },
   setSubmenu: function(e) {
-    const t = e.options, i = e.lang, n = e.util.createElement("DIV");
-    n.className = "se-submenu se-list-layer se-list-font-size";
-    const l = t.fontSize ? t.fontSize : [8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72];
-    let o = '<div class="se-list-inner"><ul class="se-list-basic"><li><button type="button" class="default_value se-btn-list" title="' + i.toolbar.default + '" aria-label="' + i.toolbar.default + '">(' + i.toolbar.default + ")</button></li>";
-    for (let s = 0, a = t.fontSizeUnit, r = l.length, u; s < r; s++)
-      u = l[s], o += '<li><button type="button" class="se-btn-list" data-value="' + u + a + '" title="' + u + a + '" aria-label="' + u + a + '" style="font-size:' + u + a + ';">' + u + "</button></li>";
-    return o += "</ul></div>", n.innerHTML = o, n;
+    const t = e.options, i = e.lang, l = e.util.createElement("DIV");
+    l.className = "se-submenu se-list-layer se-list-font-size";
+    const n = t.fontSize ? t.fontSize : [8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72];
+    let s = '<div class="se-list-inner"><ul class="se-list-basic"><li><button type="button" class="default_value se-btn-list" title="' + i.toolbar.default + '" aria-label="' + i.toolbar.default + '">(' + i.toolbar.default + ")</button></li>";
+    for (let o = 0, a = t.fontSizeUnit, r = n.length, u; o < r; o++)
+      u = n[o], s += '<li><button type="button" class="se-btn-list" data-value="' + u + a + '" title="' + u + a + '" aria-label="' + u + a + '" style="font-size:' + u + a + ';">' + u + "</button></li>";
+    return s += "</ul></div>", l.innerHTML = s, l;
   },
   active: function(e) {
     if (!e)
@@ -1647,8 +1491,8 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
   on: function() {
     const e = this.context.fontSize, t = e._sizeList, i = e.targetText.textContent;
     if (i !== e.currentSize) {
-      for (let n = 0, l = t.length; n < l; n++)
-        i === t[n].getAttribute("data-value") ? this.util.addClass(t[n], "active") : this.util.removeClass(t[n], "active");
+      for (let l = 0, n = t.length; l < n; l++)
+        i === t[l].getAttribute("data-value") ? this.util.addClass(t[l], "active") : this.util.removeClass(t[l], "active");
       e.currentSize = i;
     }
   },
@@ -1664,7 +1508,7 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
       this.nodeChange(null, ["font-size"], ["span"], !0);
     this.submenuOff();
   }
-}, Le = {
+}, Ie = {
   name: "colorPicker",
   add: function(e) {
     const t = e.context;
@@ -1678,7 +1522,7 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
     }, t.colorPicker.colorListHTML = this.createColorList(e, this._makeColorList);
   },
   createColorList: function(e, t) {
-    const i = e.options, n = e.lang, l = !i.colorList || i.colorList.length === 0 ? [
+    const i = e.options, l = e.lang, n = !i.colorList || i.colorList.length === 0 ? [
       "#ff0000",
       "#ff5e00",
       "#ffe400",
@@ -1734,27 +1578,27 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
       "#660058",
       "#222222"
     ] : i.colorList;
-    let o = [], s = '<div class="se-list-inner">';
-    for (let a = 0, r = l.length, u; a < r; a++)
-      u = l[a], u && (typeof u == "string" && (o.push(u), a < r - 1) || (o.length > 0 && (s += '<div class="se-selector-color">' + t(o) + "</div>", o = []), typeof u == "object" && (s += '<div class="se-selector-color">' + t(u) + "</div>")));
-    return s += '<form class="se-form-group"><input type="text" maxlength="9" class="_se_color_picker_input se-color-input"/><button type="submit" class="se-btn-primary _se_color_picker_submit" title="' + n.dialogBox.submitButton + '" aria-label="' + n.dialogBox.submitButton + '">' + e.icons.checked + '</button><button type="button" class="se-btn _se_color_picker_remove" title="' + n.toolbar.removeFormat + '" aria-label="' + n.toolbar.removeFormat + '">' + e.icons.erase + "</button></form></div>", s;
+    let s = [], o = '<div class="se-list-inner">';
+    for (let a = 0, r = n.length, u; a < r; a++)
+      u = n[a], u && (typeof u == "string" && (s.push(u), a < r - 1) || (s.length > 0 && (o += '<div class="se-selector-color">' + t(s) + "</div>", s = []), typeof u == "object" && (o += '<div class="se-selector-color">' + t(u) + "</div>")));
+    return o += '<form class="se-form-group"><input type="text" maxlength="9" class="_se_color_picker_input se-color-input"/><button type="submit" class="se-btn-primary _se_color_picker_submit" title="' + l.dialogBox.submitButton + '" aria-label="' + l.dialogBox.submitButton + '">' + e.icons.checked + '</button><button type="button" class="se-btn _se_color_picker_remove" title="' + l.toolbar.removeFormat + '" aria-label="' + l.toolbar.removeFormat + '">' + e.icons.erase + "</button></form></div>", o;
   },
   _makeColorList: function(e) {
     let t = "";
     t += '<ul class="se-color-pallet">';
-    for (let i = 0, n = e.length, l; i < n; i++)
-      l = e[i], typeof l == "string" && (t += '<li><button type="button" data-value="' + l + '" title="' + l + '" aria-label="' + l + '" style="background-color:' + l + ';"></button></li>');
+    for (let i = 0, l = e.length, n; i < l; i++)
+      n = e[i], typeof n == "string" && (t += '<li><button type="button" data-value="' + n + '" title="' + n + '" aria-label="' + n + '" style="background-color:' + n + ';"></button></li>');
     return t += "</ul>", t;
   },
   init: function(e, t) {
     const i = this.plugins.colorPicker;
-    let n = t || i.getColorInNode.call(this, e) || this.context.colorPicker._defaultColor;
-    n = i.isHexColor(n) ? n : i.rgb2hex(n) || n;
-    const l = this.context.colorPicker._colorList;
-    if (l)
-      for (let o = 0, s = l.length; o < s; o++)
-        n.toLowerCase() === l[o].getAttribute("data-value").toLowerCase() ? this.util.addClass(l[o], "active") : this.util.removeClass(l[o], "active");
-    i.setInputText.call(this, i.colorName2hex.call(this, n));
+    let l = t || i.getColorInNode.call(this, e) || this.context.colorPicker._defaultColor;
+    l = i.isHexColor(l) ? l : i.rgb2hex(l) || l;
+    const n = this.context.colorPicker._colorList;
+    if (n)
+      for (let s = 0, o = n.length; s < o; s++)
+        l.toLowerCase() === n[s].getAttribute("data-value").toLowerCase() ? this.util.addClass(n[s], "active") : this.util.removeClass(n[s], "active");
+    i.setInputText.call(this, i.colorName2hex.call(this, l));
   },
   setCurrentColor: function(e) {
     this.context.colorPicker._currentColor = e, this.context.colorPicker._colorInput.style.borderColor = e;
@@ -1781,24 +1625,24 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
       return e;
     var t = this.util.createElement("div");
     t.style.display = "none", t.style.color = e;
-    var i = this._w.getComputedStyle(this._d.body.appendChild(t)).color.match(/\d+/g).map(function(n) {
-      return parseInt(n, 10);
+    var i = this._w.getComputedStyle(this._d.body.appendChild(t)).color.match(/\d+/g).map(function(l) {
+      return parseInt(l, 10);
     });
     return this.util.removeItem(t), i.length >= 3 ? "#" + ((1 << 24) + (i[0] << 16) + (i[1] << 8) + i[2]).toString(16).substr(1) : !1;
   }
-}, Rn = {
+}, rl = {
   name: "fontColor",
   display: "submenu",
   add: function(e, t) {
-    e.addModule([Le]);
+    e.addModule([Ie]);
     const i = e.context;
     i.fontColor = {
       previewEl: null,
       colorInput: null,
       colorList: null
     };
-    let n = this.setSubmenu(e);
-    i.fontColor.colorInput = n.querySelector("._se_color_picker_input"), i.fontColor.colorInput.addEventListener("keyup", this.onChangeInput.bind(e)), n.querySelector("._se_color_picker_submit").addEventListener("click", this.submit.bind(e)), n.querySelector("._se_color_picker_remove").addEventListener("click", this.remove.bind(e)), n.addEventListener("click", this.pickup.bind(e)), i.fontColor.colorList = n.querySelectorAll("li button"), e.initMenuTarget(this.name, t, n), n = null;
+    let l = this.setSubmenu(e);
+    i.fontColor.colorInput = l.querySelector("._se_color_picker_input"), i.fontColor.colorInput.addEventListener("keyup", this.onChangeInput.bind(e)), l.querySelector("._se_color_picker_submit").addEventListener("click", this.submit.bind(e)), l.querySelector("._se_color_picker_remove").addEventListener("click", this.remove.bind(e)), l.addEventListener("click", this.pickup.bind(e)), i.fontColor.colorList = l.querySelectorAll("li button"), e.initMenuTarget(this.name, t, l), l = null;
   },
   setSubmenu: function(e) {
     const t = e.context.colorPicker.colorListHTML, i = e.util.createElement("DIV");
@@ -1828,19 +1672,19 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
     const t = this.util.createElement("SPAN");
     t.style.color = e, this.nodeChange(t, ["color"], null, null), this.submenuOff();
   }
-}, Tn = {
+}, ul = {
   name: "hiliteColor",
   display: "submenu",
   add: function(e, t) {
-    e.addModule([Le]);
+    e.addModule([Ie]);
     const i = e.context;
     i.hiliteColor = {
       previewEl: null,
       colorInput: null,
       colorList: null
     };
-    let n = this.setSubmenu(e);
-    i.hiliteColor.colorInput = n.querySelector("._se_color_picker_input"), i.hiliteColor.colorInput.addEventListener("keyup", this.onChangeInput.bind(e)), n.querySelector("._se_color_picker_submit").addEventListener("click", this.submit.bind(e)), n.querySelector("._se_color_picker_remove").addEventListener("click", this.remove.bind(e)), n.addEventListener("click", this.pickup.bind(e)), i.hiliteColor.colorList = n.querySelectorAll("li button"), e.initMenuTarget(this.name, t, n), n = null;
+    let l = this.setSubmenu(e);
+    i.hiliteColor.colorInput = l.querySelector("._se_color_picker_input"), i.hiliteColor.colorInput.addEventListener("keyup", this.onChangeInput.bind(e)), l.querySelector("._se_color_picker_submit").addEventListener("click", this.submit.bind(e)), l.querySelector("._se_color_picker_remove").addEventListener("click", this.remove.bind(e)), l.addEventListener("click", this.pickup.bind(e)), i.hiliteColor.colorList = l.querySelectorAll("li button"), e.initMenuTarget(this.name, t, l), l = null;
   },
   setSubmenu: function(e) {
     const t = e.context.colorPicker.colorListHTML, i = e.util.createElement("DIV");
@@ -1870,7 +1714,7 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
     const t = this.util.createElement("SPAN");
     t.style.backgroundColor = e, this.nodeChange(t, ["background-color"], null, null), this.submenuOff();
   }
-}, Bn = {
+}, dl = {
   name: "horizontalRule",
   display: "submenu",
   add: function(e, t) {
@@ -1881,11 +1725,11 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
     i.querySelector("ul").addEventListener("click", this.horizontalRulePick.bind(e)), e.initMenuTarget(this.name, t, i), i = null;
   },
   setSubmenu: function(e) {
-    const t = e.lang, i = e.util.createElement("DIV"), n = e.options.hrItems || [{ name: t.toolbar.hr_solid, class: "__se__solid" }, { name: t.toolbar.hr_dashed, class: "__se__dashed" }, { name: t.toolbar.hr_dotted, class: "__se__dotted" }];
-    let l = "";
-    for (let o = 0, s = n.length; o < s; o++)
-      l += '<li><button type="button" class="se-btn-list btn_line" data-command="horizontalRule" data-value="' + n[o].class + '" title="' + n[o].name + '" aria-label="' + n[o].name + '"><hr' + (n[o].class ? ' class="' + n[o].class + '"' : "") + (n[o].style ? ' style="' + n[o].style + '"' : "") + "/></button></li>";
-    return i.className = "se-submenu se-list-layer se-list-line", i.innerHTML = '<div class="se-list-inner"><ul class="se-list-basic">' + l + "</ul></div>", i;
+    const t = e.lang, i = e.util.createElement("DIV"), l = e.options.hrItems || [{ name: t.toolbar.hr_solid, class: "__se__solid" }, { name: t.toolbar.hr_dashed, class: "__se__dashed" }, { name: t.toolbar.hr_dotted, class: "__se__dotted" }];
+    let n = "";
+    for (let s = 0, o = l.length; s < o; s++)
+      n += '<li><button type="button" class="se-btn-list btn_line" data-command="horizontalRule" data-value="' + l[s].class + '" title="' + l[s].name + '" aria-label="' + l[s].name + '"><hr' + (l[s].class ? ' class="' + l[s].class + '"' : "") + (l[s].style ? ' style="' + l[s].style + '"' : "") + "/></button></li>";
+    return i.className = "se-submenu se-list-layer se-list-line", i.innerHTML = '<div class="se-list-inner"><ul class="se-list-basic">' + n + "</ul></div>", i;
   },
   active: function(e) {
     if (!e)
@@ -1904,10 +1748,10 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
       t = t.parentNode, i = t.getAttribute("data-command");
     if (!i)
       return;
-    const n = this.plugins.horizontalRule.appendHr.call(this, t.firstElementChild);
-    n && (this.setRange(n, 0, n, 0), this.submenuOff());
+    const l = this.plugins.horizontalRule.appendHr.call(this, t.firstElementChild);
+    l && (this.setRange(l, 0, l, 0), this.submenuOff());
   }
-}, An = {
+}, cl = {
   name: "list",
   display: "submenu",
   add: function(e, t) {
@@ -1921,106 +1765,106 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
         number: e.icons.list_number
       }
     };
-    let n = this.setSubmenu(e), l = n.querySelector("ul");
-    l.addEventListener("click", this.pickup.bind(e)), i.list._list = l.querySelectorAll("li button"), e.initMenuTarget(this.name, t, n), n = null, l = null;
+    let l = this.setSubmenu(e), n = l.querySelector("ul");
+    n.addEventListener("click", this.pickup.bind(e)), i.list._list = n.querySelectorAll("li button"), e.initMenuTarget(this.name, t, l), l = null, n = null;
   },
   setSubmenu: function(e) {
     const t = e.lang, i = e.util.createElement("DIV");
     return i.className = "se-submenu se-list-layer", i.innerHTML = '<div class="se-list-inner"><ul class="se-list-basic"><li><button type="button" class="se-btn-list se-tooltip" data-command="OL" title="' + t.toolbar.orderList + '" aria-label="' + t.toolbar.orderList + '">' + e.icons.list_number + '</button></li><li><button type="button" class="se-btn-list se-tooltip" data-command="UL" title="' + t.toolbar.unorderList + '" aria-label="' + t.toolbar.unorderList + '">' + e.icons.list_bullets + "</button></li></ul></div>", i;
   },
   active: function(e) {
-    const t = this.context.list.targetButton, i = t.firstElementChild, n = this.util;
-    if (n.isList(e)) {
-      const l = e.nodeName;
-      return t.setAttribute("data-focus", l), n.addClass(t, "active"), /UL/i.test(l) ? n.changeElement(i, this.context.list.icons.bullets) : n.changeElement(i, this.context.list.icons.number), !0;
+    const t = this.context.list.targetButton, i = t.firstElementChild, l = this.util;
+    if (l.isList(e)) {
+      const n = e.nodeName;
+      return t.setAttribute("data-focus", n), l.addClass(t, "active"), /UL/i.test(n) ? l.changeElement(i, this.context.list.icons.bullets) : l.changeElement(i, this.context.list.icons.number), !0;
     } else
-      t.removeAttribute("data-focus"), n.changeElement(i, this.context.list.icons.number), n.removeClass(t, "active");
+      t.removeAttribute("data-focus"), l.changeElement(i, this.context.list.icons.number), l.removeClass(t, "active");
     return !1;
   },
   on: function() {
     const e = this.context.list, t = e._list, i = e.targetButton.getAttribute("data-focus") || "";
     if (i !== e.currentList) {
-      for (let n = 0, l = t.length; n < l; n++)
-        i === t[n].getAttribute("data-command") ? this.util.addClass(t[n], "active") : this.util.removeClass(t[n], "active");
+      for (let l = 0, n = t.length; l < n; l++)
+        i === t[l].getAttribute("data-command") ? this.util.addClass(t[l], "active") : this.util.removeClass(t[l], "active");
       e.currentList = i;
     }
   },
   editList: function(e, t, i) {
-    let n = this.getRange(), l = t || this.getSelectedElementsAndComponents(!1);
-    if (l.length === 0 && (t || (n = this.getRange_addLine(n, null), l = this.getSelectedElementsAndComponents(!1), l.length === 0)))
+    let l = this.getRange(), n = t || this.getSelectedElementsAndComponents(!1);
+    if (n.length === 0 && (t || (l = this.getRange_addLine(l, null), n = this.getSelectedElementsAndComponents(!1), n.length === 0)))
       return;
-    const o = this.util;
-    o.sortByDepth(l, !0);
-    let s = l[0], a = l[l.length - 1], r = (o.isListCell(s) || o.isComponent(s)) && !s.previousElementSibling ? s.parentNode.previousElementSibling : s.previousElementSibling, u = (o.isListCell(a) || o.isComponent(a)) && !a.nextElementSibling ? a.parentNode.nextElementSibling : a.nextElementSibling;
+    const s = this.util;
+    s.sortByDepth(n, !0);
+    let o = n[0], a = n[n.length - 1], r = (s.isListCell(o) || s.isComponent(o)) && !o.previousElementSibling ? o.parentNode.previousElementSibling : o.previousElementSibling, u = (s.isListCell(a) || s.isComponent(a)) && !a.nextElementSibling ? a.parentNode.nextElementSibling : a.nextElementSibling;
     const d = {
-      sc: n.startContainer,
-      so: n.startContainer === n.endContainer && o.onlyZeroWidthSpace(n.startContainer) && n.startOffset === 0 && n.endOffset === 1 ? n.endOffset : n.startOffset,
-      ec: n.endContainer,
-      eo: n.endOffset
+      sc: l.startContainer,
+      so: l.startContainer === l.endContainer && s.onlyZeroWidthSpace(l.startContainer) && l.startOffset === 0 && l.endOffset === 1 ? l.endOffset : l.startOffset,
+      ec: l.endContainer,
+      eo: l.endOffset
     };
     let f = !0;
-    for (let h = 0, g = l.length; h < g; h++)
-      if (!o.isList(o.getRangeFormatElement(l[h], function(p) {
-        return this.getRangeFormatElement(p) && p !== l[h];
-      }.bind(o)))) {
+    for (let h = 0, g = n.length; h < g; h++)
+      if (!s.isList(s.getRangeFormatElement(n[h], function(p) {
+        return this.getRangeFormatElement(p) && p !== n[h];
+      }.bind(s)))) {
         f = !1;
         break;
       }
-    if (f && (!r || s.tagName !== r.tagName || e !== r.tagName.toUpperCase()) && (!u || a.tagName !== u.tagName || e !== u.tagName.toUpperCase())) {
+    if (f && (!r || o.tagName !== r.tagName || e !== r.tagName.toUpperCase()) && (!u || a.tagName !== u.tagName || e !== u.tagName.toUpperCase())) {
       if (i) {
-        for (let c = 0, _ = l.length; c < _; c++)
+        for (let c = 0, _ = n.length; c < _; c++)
           for (let v = c - 1; v >= 0; v--)
-            if (l[v].contains(l[c])) {
-              l.splice(c, 1), c--, _--;
+            if (n[v].contains(n[c])) {
+              n.splice(c, 1), c--, _--;
               break;
             }
       }
-      const h = o.getRangeFormatElement(s), g = h && h.tagName === e;
+      const h = s.getRangeFormatElement(o), g = h && h.tagName === e;
       let p, b;
       const m = function(c) {
         return !this.isComponent(c);
-      }.bind(o);
-      g || (b = o.createElement(e));
-      for (let c = 0, _ = l.length, v, y; c < _; c++)
-        y = o.getRangeFormatElement(l[c], m), !(!y || !o.isList(y)) && (v ? v !== y ? (i && o.isListCell(y.parentNode) ? this.plugins.list._detachNested.call(this, p.f) : this.detachRangeFormatElement(p.f[0].parentNode, p.f, b, !1, !0), y = l[c].parentNode, g || (b = o.createElement(e)), v = y, p = { r: v, f: [o.getParentElement(l[c], "LI")] }) : p.f.push(o.getParentElement(l[c], "LI")) : (v = y, p = { r: v, f: [o.getParentElement(l[c], "LI")] }), c === _ - 1 && (i && o.isListCell(y.parentNode) ? this.plugins.list._detachNested.call(this, p.f) : this.detachRangeFormatElement(p.f[0].parentNode, p.f, b, !1, !0)));
+      }.bind(s);
+      g || (b = s.createElement(e));
+      for (let c = 0, _ = n.length, v, y; c < _; c++)
+        y = s.getRangeFormatElement(n[c], m), !(!y || !s.isList(y)) && (v ? v !== y ? (i && s.isListCell(y.parentNode) ? this.plugins.list._detachNested.call(this, p.f) : this.detachRangeFormatElement(p.f[0].parentNode, p.f, b, !1, !0), y = n[c].parentNode, g || (b = s.createElement(e)), v = y, p = { r: v, f: [s.getParentElement(n[c], "LI")] }) : p.f.push(s.getParentElement(n[c], "LI")) : (v = y, p = { r: v, f: [s.getParentElement(n[c], "LI")] }), c === _ - 1 && (i && s.isListCell(y.parentNode) ? this.plugins.list._detachNested.call(this, p.f) : this.detachRangeFormatElement(p.f[0].parentNode, p.f, b, !1, !0)));
     } else {
       const h = r && r.parentNode, g = u && u.parentNode;
-      r = h && !o.isWysiwygDiv(h) && h.nodeName === e ? h : r, u = g && !o.isWysiwygDiv(g) && g.nodeName === e ? g : u;
+      r = h && !s.isWysiwygDiv(h) && h.nodeName === e ? h : r, u = g && !s.isWysiwygDiv(g) && g.nodeName === e ? g : u;
       const p = r && r.tagName === e, b = u && u.tagName === e;
-      let m = p ? r : o.createElement(e), c = null, _ = null, v = null;
-      const y = function(w) {
-        return !this.isComponent(w) && !this.isList(w);
-      }.bind(o);
-      for (let w = 0, x = l.length, S, E, B, A, C, I, T, O, te; w < x; w++) {
-        if (E = l[w], E.childNodes.length === 0 && !o._isIgnoreNodeChange(E)) {
-          o.removeItem(E);
+      let m = p ? r : s.createElement(e), c = null, _ = null, v = null;
+      const y = function(k) {
+        return !this.isComponent(k) && !this.isList(k);
+      }.bind(s);
+      for (let k = 0, x = n.length, w, L, R, B, C, I, T, V, le; k < x; k++) {
+        if (L = n[k], L.childNodes.length === 0 && !s._isIgnoreNodeChange(L)) {
+          s.removeItem(L);
           continue;
         }
-        if (A = l[w + 1], C = E.parentNode, I = A ? A.parentNode : null, B = o.isListCell(E), te = o.isRangeFormatElement(C) ? C : null, T = B && !o.isWysiwygDiv(C) ? C.parentNode : C, O = B && !o.isWysiwygDiv(C) ? !A || o.isListCell(T) ? C : C.nextSibling : E.nextSibling, S = o.createElement("LI"), o.copyFormatAttributes(S, E), w === 0 && d.sc === E && (d.sc = S), w === x - 1 && d.ec === E && (d.ec = S), o.isComponent(E)) {
-          const J = /^HR$/i.test(E.nodeName);
-          J || (S.innerHTML = "<br>"), S.innerHTML += E.outerHTML, J && (S.innerHTML += "<br>");
+        if (B = n[k + 1], C = L.parentNode, I = B ? B.parentNode : null, R = s.isListCell(L), le = s.isRangeFormatElement(C) ? C : null, T = R && !s.isWysiwygDiv(C) ? C.parentNode : C, V = R && !s.isWysiwygDiv(C) ? !B || s.isListCell(T) ? C : C.nextSibling : L.nextSibling, w = s.createElement("LI"), s.copyFormatAttributes(w, L), k === 0 && d.sc === L && (d.sc = w), k === x - 1 && d.ec === L && (d.ec = w), s.isComponent(L)) {
+          const Q = /^HR$/i.test(L.nodeName);
+          Q || (w.innerHTML = "<br>"), w.innerHTML += L.outerHTML, Q && (w.innerHTML += "<br>");
         } else {
-          const J = E.childNodes;
-          for (; J[0]; )
-            S.appendChild(J[0]);
+          const Q = L.childNodes;
+          for (; Q[0]; )
+            w.appendChild(Q[0]);
         }
-        m.appendChild(S), (!A || T !== I || o.isRangeFormatElement(O)) && (c || (c = m), (!p || !A || T !== I) && !(A && o.isList(I) && I === C) && m.parentNode !== T && T.insertBefore(m, O)), o.removeItem(E), p && _ === null && (_ = m.children.length - 1), A && (o.getRangeFormatElement(I, y) !== o.getRangeFormatElement(C, y) || o.isList(I) && o.isList(C) && o.getElementDepth(I) !== o.getElementDepth(C)) && (m = o.createElement(e)), te && te.children.length === 0 && o.removeItem(te);
+        m.appendChild(w), (!B || T !== I || s.isRangeFormatElement(V)) && (c || (c = m), (!p || !B || T !== I) && !(B && s.isList(I) && I === C) && m.parentNode !== T && T.insertBefore(m, V)), s.removeItem(L), p && _ === null && (_ = m.children.length - 1), B && (s.getRangeFormatElement(I, y) !== s.getRangeFormatElement(C, y) || s.isList(I) && s.isList(C) && s.getElementDepth(I) !== s.getElementDepth(C)) && (m = s.createElement(e)), le && le.children.length === 0 && s.removeItem(le);
       }
-      _ && (c = c.children[_]), b && (v = m.children.length - 1, m.innerHTML += u.innerHTML, m.children[v], o.removeItem(u));
+      _ && (c = c.children[_]), b && (v = m.children.length - 1, m.innerHTML += u.innerHTML, m.children[v], s.removeItem(u));
     }
     return this.effectNode = null, d;
   },
   _detachNested: function(e) {
-    const t = e[0], i = e[e.length - 1], n = i.nextElementSibling, l = t.parentNode, o = l.parentNode.nextElementSibling, s = l.parentNode.parentNode;
+    const t = e[0], i = e[e.length - 1], l = i.nextElementSibling, n = t.parentNode, s = n.parentNode.nextElementSibling, o = n.parentNode.parentNode;
     for (let r = 0, u = e.length; r < u; r++)
-      s.insertBefore(e[r], o);
-    if (n && l.children.length > 0) {
-      const r = l.cloneNode(!1), u = l.childNodes, d = this.util.getPositionIndex(n);
+      o.insertBefore(e[r], s);
+    if (l && n.children.length > 0) {
+      const r = n.cloneNode(!1), u = n.childNodes, d = this.util.getPositionIndex(l);
       for (; u[d]; )
         r.appendChild(u[d]);
       i.appendChild(r);
     }
-    l.children.length === 0 && this.util.removeItem(l), this.util.mergeSameTags(s);
+    n.children.length === 0 && this.util.removeItem(n), this.util.mergeSameTags(o);
     const a = this.util.getEdgeChildNodes(t, i);
     return {
       cc: t.parentNode,
@@ -2029,8 +1873,8 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
     };
   },
   editInsideList: function(e, t) {
-    t = t || this.getSelectedElements().filter(function(s) {
-      return this.isListCell(s);
+    t = t || this.getSelectedElements().filter(function(o) {
+      return this.isListCell(o);
     }.bind(this.util));
     const i = t.length;
     if (i === 0 || !e && !this.util.isListCell(t[0].previousElementSibling) && !this.util.isListCell(t[i - 1].nextElementSibling))
@@ -2040,47 +1884,47 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
         ec: t[i - 1],
         eo: 1
       };
-    let n = t[0].parentNode, l = t[i - 1], o = null;
+    let l = t[0].parentNode, n = t[i - 1], s = null;
     if (e) {
-      if (n !== l.parentNode && this.util.isList(l.parentNode.parentNode) && l.nextElementSibling)
-        for (l = l.nextElementSibling; l; )
-          t.push(l), l = l.nextElementSibling;
-      o = this.plugins.list.editList.call(this, n.nodeName.toUpperCase(), t, !0);
+      if (l !== n.parentNode && this.util.isList(n.parentNode.parentNode) && n.nextElementSibling)
+        for (n = n.nextElementSibling; n; )
+          t.push(n), n = n.nextElementSibling;
+      s = this.plugins.list.editList.call(this, l.nodeName.toUpperCase(), t, !0);
     } else {
-      let s = this.util.createElement(n.nodeName), a = t[0].previousElementSibling, r = l.nextElementSibling;
-      const u = { s: null, e: null, sl: n, el: n };
+      let o = this.util.createElement(l.nodeName), a = t[0].previousElementSibling, r = n.nextElementSibling;
+      const u = { s: null, e: null, sl: l, el: l };
       for (let h = 0, g = i, p; h < g; h++)
-        p = t[h], p.parentNode !== n && (this.plugins.list._insiedList.call(this, n, s, a, r, u), n = p.parentNode, s = this.util.createElement(n.nodeName)), a = p.previousElementSibling, r = p.nextElementSibling, s.appendChild(p);
-      this.plugins.list._insiedList.call(this, n, s, a, r, u);
+        p = t[h], p.parentNode !== l && (this.plugins.list._insiedList.call(this, l, o, a, r, u), l = p.parentNode, o = this.util.createElement(l.nodeName)), a = p.previousElementSibling, r = p.nextElementSibling, o.appendChild(p);
+      this.plugins.list._insiedList.call(this, l, o, a, r, u);
       const d = this.util.getNodeFromPath(u.s, u.sl), f = this.util.getNodeFromPath(u.e, u.el);
-      o = {
+      s = {
         sc: d,
         so: 0,
         ec: f,
         eo: f.textContent.length
       };
     }
-    return o;
+    return s;
   },
-  _insiedList: function(e, t, i, n, l) {
-    let o = !1;
+  _insiedList: function(e, t, i, l, n) {
+    let s = !1;
     if (i && t.tagName === i.tagName) {
-      const s = t.children;
-      for (; s[0]; )
-        i.appendChild(s[0]);
-      t = i, o = !0;
+      const o = t.children;
+      for (; o[0]; )
+        i.appendChild(o[0]);
+      t = i, s = !0;
     }
-    if (n && t.tagName === n.tagName) {
-      const s = n.children;
-      for (; s[0]; )
-        t.appendChild(s[0]);
-      const a = n.nextElementSibling;
-      n.parentNode.removeChild(n), n = a;
+    if (l && t.tagName === l.tagName) {
+      const o = l.children;
+      for (; o[0]; )
+        t.appendChild(o[0]);
+      const a = l.nextElementSibling;
+      l.parentNode.removeChild(l), l = a;
     }
-    if (!o) {
-      this.util.isListCell(i) && (e = i, n = null), e.insertBefore(t, n), l.s || (l.s = this.util.getNodePath(t.firstElementChild.firstChild, e, null), l.sl = e);
-      const s = e.contains(l.sl) ? this.util.getNodePath(l.sl, e) : null;
-      l.e = this.util.getNodePath(t.lastElementChild.firstChild, e, null), l.el = e, this.util.mergeSameTags(e, [l.s, l.e, s], !1), this.util.mergeNestedTags(e), s && (l.sl = this.util.getNodeFromPath(s, e));
+    if (!s) {
+      this.util.isListCell(i) && (e = i, l = null), e.insertBefore(t, l), n.s || (n.s = this.util.getNodePath(t.firstElementChild.firstChild, e, null), n.sl = e);
+      const o = e.contains(n.sl) ? this.util.getNodePath(n.sl, e) : null;
+      n.e = this.util.getNodePath(t.lastElementChild.firstChild, e, null), n.el = e, this.util.mergeSameTags(e, [n.s, n.e, o], !1), this.util.mergeNestedTags(e), o && (n.sl = this.util.getNodeFromPath(o, e));
     }
     return t;
   },
@@ -2091,15 +1935,15 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
       i = t.getAttribute("data-command"), t = t.parentNode;
     if (!i)
       return;
-    const n = this.plugins.list.editList.call(this, i, null, !1);
-    n && this.setRange(n.sc, n.so, n.ec, n.eo), this.submenuOff(), this.history.push(!1);
+    const l = this.plugins.list.editList.call(this, i, null, !1);
+    l && this.setRange(l.sc, l.so, l.ec, l.eo), this.submenuOff(), this.history.push(!1);
   }
-}, Nn = {
+}, hl = {
   name: "table",
   display: "submenu",
   add: function(e, t) {
     const i = e.context;
-    let n = i.table = {
+    let l = i.table = {
       _element: null,
       _tdElement: null,
       _trElement: null,
@@ -2128,50 +1972,50 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
         expansion: e.icons.expansion,
         reduction: e.icons.reduction
       }
-    }, l = this.setSubmenu(e), o = l.querySelector(".se-controller-table-picker");
-    n.tableHighlight = l.querySelector(".se-table-size-highlighted"), n.tableUnHighlight = l.querySelector(".se-table-size-unhighlighted"), n.tableDisplay = l.querySelector(".se-table-size-display"), e.options.rtl && (n.tableHighlight.style.left = 10 * 18 - 13 + "px");
-    let s = this.setController_table(e);
-    n.tableController = s, n.resizeButton = s.querySelector("._se_table_resize"), n.resizeText = s.querySelector("._se_table_resize > span > span"), n.columnFixedButton = s.querySelector("._se_table_fixed_column"), n.headerButton = s.querySelector("._se_table_header");
-    let a = this.setController_tableEditor(e, n.cellControllerTop);
-    n.resizeDiv = a, n.splitMenu = a.querySelector(".se-btn-group-sub"), n.mergeButton = a.querySelector("._se_table_merge_button"), n.splitButton = a.querySelector("._se_table_split_button"), n.insertRowAboveButton = a.querySelector("._se_table_insert_row_a"), n.insertRowBelowButton = a.querySelector("._se_table_insert_row_b"), o.addEventListener("mousemove", this.onMouseMove_tablePicker.bind(e, n)), o.addEventListener("click", this.appendTable.bind(e)), a.addEventListener("click", this.onClick_tableController.bind(e)), s.addEventListener("click", this.onClick_tableController.bind(e)), e.initMenuTarget(this.name, t, l), i.element.relative.appendChild(a), i.element.relative.appendChild(s), l = null, o = null, a = null, s = null, n = null;
+    }, n = this.setSubmenu(e), s = n.querySelector(".se-controller-table-picker");
+    l.tableHighlight = n.querySelector(".se-table-size-highlighted"), l.tableUnHighlight = n.querySelector(".se-table-size-unhighlighted"), l.tableDisplay = n.querySelector(".se-table-size-display"), e.options.rtl && (l.tableHighlight.style.left = 10 * 18 - 13 + "px");
+    let o = this.setController_table(e);
+    l.tableController = o, l.resizeButton = o.querySelector("._se_table_resize"), l.resizeText = o.querySelector("._se_table_resize > span > span"), l.columnFixedButton = o.querySelector("._se_table_fixed_column"), l.headerButton = o.querySelector("._se_table_header");
+    let a = this.setController_tableEditor(e, l.cellControllerTop);
+    l.resizeDiv = a, l.splitMenu = a.querySelector(".se-btn-group-sub"), l.mergeButton = a.querySelector("._se_table_merge_button"), l.splitButton = a.querySelector("._se_table_split_button"), l.insertRowAboveButton = a.querySelector("._se_table_insert_row_a"), l.insertRowBelowButton = a.querySelector("._se_table_insert_row_b"), s.addEventListener("mousemove", this.onMouseMove_tablePicker.bind(e, l)), s.addEventListener("click", this.appendTable.bind(e)), a.addEventListener("click", this.onClick_tableController.bind(e)), o.addEventListener("click", this.onClick_tableController.bind(e)), e.initMenuTarget(this.name, t, n), i.element.relative.appendChild(a), i.element.relative.appendChild(o), n = null, s = null, a = null, o = null, l = null;
   },
   setSubmenu: function(e) {
     const t = e.util.createElement("DIV");
     return t.className = "se-submenu se-selector-table", t.innerHTML = '<div class="se-table-size"><div class="se-table-size-picker se-controller-table-picker"></div><div class="se-table-size-highlighted"></div><div class="se-table-size-unhighlighted"></div></div><div class="se-table-size-display">1 x 1</div>', t;
   },
   setController_table: function(e) {
-    const t = e.lang, i = e.icons, n = e.util.createElement("DIV");
-    return n.className = "se-controller se-controller-table", n.innerHTML = '<div><div class="se-btn-group"><button type="button" data-command="resize" class="se-btn se-tooltip _se_table_resize">' + i.expansion + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + t.controller.maxSize + '</span></span></button><button type="button" data-command="layout" class="se-btn se-tooltip _se_table_fixed_column">' + i.fixed_column_width + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + t.controller.fixedColumnWidth + '</span></span></button><button type="button" data-command="header" class="se-btn se-tooltip _se_table_header">' + i.table_header + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + t.controller.tableHeader + '</span></span></button><button type="button" data-command="remove" class="se-btn se-tooltip">' + i.delete + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + t.controller.remove + "</span></span></button></div></div>", n;
+    const t = e.lang, i = e.icons, l = e.util.createElement("DIV");
+    return l.className = "se-controller se-controller-table", l.innerHTML = '<div><div class="se-btn-group"><button type="button" data-command="resize" class="se-btn se-tooltip _se_table_resize">' + i.expansion + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + t.controller.maxSize + '</span></span></button><button type="button" data-command="layout" class="se-btn se-tooltip _se_table_fixed_column">' + i.fixed_column_width + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + t.controller.fixedColumnWidth + '</span></span></button><button type="button" data-command="header" class="se-btn se-tooltip _se_table_header">' + i.table_header + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + t.controller.tableHeader + '</span></span></button><button type="button" data-command="remove" class="se-btn se-tooltip">' + i.delete + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + t.controller.remove + "</span></span></button></div></div>", l;
   },
   setController_tableEditor: function(e, t) {
-    const i = e.lang, n = e.icons, l = e.util.createElement("DIV");
-    return l.className = "se-controller se-controller-table-cell", l.innerHTML = (t ? "" : '<div class="se-arrow se-arrow-up"></div>') + '<div class="se-btn-group"><button type="button" data-command="insert" data-value="row" data-option="up" class="se-btn se-tooltip _se_table_insert_row_a">' + n.insert_row_above + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + i.controller.insertRowAbove + '</span></span></button><button type="button" data-command="insert" data-value="row" data-option="down" class="se-btn se-tooltip _se_table_insert_row_b">' + n.insert_row_below + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + i.controller.insertRowBelow + '</span></span></button><button type="button" data-command="delete" data-value="row" class="se-btn se-tooltip">' + n.delete_row + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + i.controller.deleteRow + '</span></span></button><button type="button" data-command="merge" class="_se_table_merge_button se-btn se-tooltip" disabled>' + n.merge_cell + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + i.controller.mergeCells + '</span></span></button></div><div class="se-btn-group" style="padding-top: 0;"><button type="button" data-command="insert" data-value="cell" data-option="left" class="se-btn se-tooltip">' + n.insert_column_left + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + i.controller.insertColumnBefore + '</span></span></button><button type="button" data-command="insert" data-value="cell" data-option="right" class="se-btn se-tooltip">' + n.insert_column_right + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + i.controller.insertColumnAfter + '</span></span></button><button type="button" data-command="delete" data-value="cell" class="se-btn se-tooltip">' + n.delete_column + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + i.controller.deleteColumn + '</span></span></button><button type="button" data-command="onsplit" class="_se_table_split_button se-btn se-tooltip">' + n.split_cell + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + i.controller.splitCells + '</span></span></button><div class="se-btn-group-sub sun-editor-common se-list-layer se-table-split"><div class="se-list-inner"><ul class="se-list-basic"><li class="se-btn-list" data-command="split" data-value="vertical" style="line-height:32px;" title="' + i.controller.VerticalSplit + '" aria-label="' + i.controller.VerticalSplit + '">' + i.controller.VerticalSplit + '</li><li class="se-btn-list" data-command="split" data-value="horizontal" style="line-height:32px;" title="' + i.controller.HorizontalSplit + '" aria-label="' + i.controller.HorizontalSplit + '">' + i.controller.HorizontalSplit + "</li></ul></div></div></div>", l;
+    const i = e.lang, l = e.icons, n = e.util.createElement("DIV");
+    return n.className = "se-controller se-controller-table-cell", n.innerHTML = (t ? "" : '<div class="se-arrow se-arrow-up"></div>') + '<div class="se-btn-group"><button type="button" data-command="insert" data-value="row" data-option="up" class="se-btn se-tooltip _se_table_insert_row_a">' + l.insert_row_above + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + i.controller.insertRowAbove + '</span></span></button><button type="button" data-command="insert" data-value="row" data-option="down" class="se-btn se-tooltip _se_table_insert_row_b">' + l.insert_row_below + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + i.controller.insertRowBelow + '</span></span></button><button type="button" data-command="delete" data-value="row" class="se-btn se-tooltip">' + l.delete_row + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + i.controller.deleteRow + '</span></span></button><button type="button" data-command="merge" class="_se_table_merge_button se-btn se-tooltip" disabled>' + l.merge_cell + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + i.controller.mergeCells + '</span></span></button></div><div class="se-btn-group" style="padding-top: 0;"><button type="button" data-command="insert" data-value="cell" data-option="left" class="se-btn se-tooltip">' + l.insert_column_left + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + i.controller.insertColumnBefore + '</span></span></button><button type="button" data-command="insert" data-value="cell" data-option="right" class="se-btn se-tooltip">' + l.insert_column_right + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + i.controller.insertColumnAfter + '</span></span></button><button type="button" data-command="delete" data-value="cell" class="se-btn se-tooltip">' + l.delete_column + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + i.controller.deleteColumn + '</span></span></button><button type="button" data-command="onsplit" class="_se_table_split_button se-btn se-tooltip">' + l.split_cell + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + i.controller.splitCells + '</span></span></button><div class="se-btn-group-sub sun-editor-common se-list-layer se-table-split"><div class="se-list-inner"><ul class="se-list-basic"><li class="se-btn-list" data-command="split" data-value="vertical" style="line-height:32px;" title="' + i.controller.VerticalSplit + '" aria-label="' + i.controller.VerticalSplit + '">' + i.controller.VerticalSplit + '</li><li class="se-btn-list" data-command="split" data-value="horizontal" style="line-height:32px;" title="' + i.controller.HorizontalSplit + '" aria-label="' + i.controller.HorizontalSplit + '">' + i.controller.HorizontalSplit + "</li></ul></div></div></div>", n;
   },
   appendTable: function() {
     const e = this.util.createElement("TABLE"), t = this.plugins.table.createCells, i = this.context.table._tableXY[0];
-    let n = this.context.table._tableXY[1], l = "<tbody>";
-    for (; n > 0; )
-      l += "<tr>" + t.call(this, "td", i) + "</tr>", --n;
-    if (l += "</tbody>", e.innerHTML = l, this.insertComponent(e, !1, !0, !1)) {
-      const s = e.querySelector("td div");
-      this.setRange(s, 0, s, 0), this.plugins.table.reset_table_picker.call(this);
+    let l = this.context.table._tableXY[1], n = "<tbody>";
+    for (; l > 0; )
+      n += "<tr>" + t.call(this, "td", i) + "</tr>", --l;
+    if (n += "</tbody>", e.innerHTML = n, this.insertComponent(e, !1, !0, !1)) {
+      const o = e.querySelector("td div");
+      this.setRange(o, 0, o, 0), this.plugins.table.reset_table_picker.call(this);
     }
   },
   createCells: function(e, t, i) {
     if (e = e.toLowerCase(), i) {
-      const n = this.util.createElement(e);
-      return n.innerHTML = "<div><br></div>", n;
+      const l = this.util.createElement(e);
+      return l.innerHTML = "<div><br></div>", l;
     } else {
-      let n = "";
+      let l = "";
       for (; t > 0; )
-        n += "<" + e + "><div><br></div></" + e + ">", t--;
-      return n;
+        l += "<" + e + "><div><br></div></" + e + ">", t--;
+      return l;
     }
   },
   onMouseMove_tablePicker: function(e, t) {
     t.stopPropagation();
-    let i = this._w.Math.ceil(t.offsetX / 18), n = this._w.Math.ceil(t.offsetY / 18);
-    i = i < 1 ? 1 : i, n = n < 1 ? 1 : n, e._rtl && (e.tableHighlight.style.left = i * 18 - 13 + "px", i = 11 - i), e.tableHighlight.style.width = i + "em", e.tableHighlight.style.height = n + "em", this.util.changeTxt(e.tableDisplay, i + " x " + n), e._tableXY = [i, n];
+    let i = this._w.Math.ceil(t.offsetX / 18), l = this._w.Math.ceil(t.offsetY / 18);
+    i = i < 1 ? 1 : i, l = l < 1 ? 1 : l, e._rtl && (e.tableHighlight.style.left = i * 18 - 13 + "px", i = 11 - i), e.tableHighlight.style.width = i + "em", e.tableHighlight.style.height = l + "em", this.util.changeTxt(e.tableDisplay, i + " x " + l), e._tableXY = [i, l];
   },
   reset_table_picker: function() {
     if (!this.context.table.tableHighlight)
@@ -2183,8 +2027,8 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
     const e = this.context.table, t = this.plugins.table;
     if (t._removeEvents.call(this), t._selectedTable) {
       const i = t._selectedTable.querySelectorAll(".se-table-selected-cell");
-      for (let n = 0, l = i.length; n < l; n++)
-        this.util.removeClass(i[n], "se-table-selected-cell");
+      for (let l = 0, n = i.length; l < n; l++)
+        this.util.removeClass(i[l], "se-table-selected-cell");
     }
     t._toggleEditor.call(this, !0), e._element = null, e._tdElement = null, e._trElement = null, e._trElements = null, e._tableXY = [], e._maxWidth = !0, e._fixedColumn = !1, e._physical_cellCnt = 0, e._logical_cellCnt = 0, e._rowCnt = 0, e._rowIndex = 0, e._physical_cellIndex = 0, e._logical_cellIndex = 0, e._current_colSpan = 0, e._current_rowSpan = 0, t._shift = !1, t._selectedCells = null, t._selectedTable = null, t._ref = null, t._fixedCell = null, t._selectedCell = null, t._fixedCellName = null;
   },
@@ -2194,34 +2038,34 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
       this.controllersOff(), this.util.removeClass(e, "se-table-selected-cell");
       return;
     }
-    const n = i._element || this.plugins.table._selectedTable || this.util.getParentElement(e, "TABLE");
-    i._maxWidth = this.util.hasClass(n, "se-table-size-100") || n.style.width === "100%" || !n.style.width && !this.util.hasClass(n, "se-table-size-auto"), i._fixedColumn = this.util.hasClass(n, "se-table-layout-fixed") || n.style.tableLayout === "fixed", t.setTableStyle.call(this, i._maxWidth ? "width|column" : "width"), t.setPositionControllerTop.call(this, n), t.setPositionControllerDiv.call(this, e, t._shift), t._shift || this.controllersOn(i.resizeDiv, i.tableController, t.init.bind(this), e, "table");
+    const l = i._element || this.plugins.table._selectedTable || this.util.getParentElement(e, "TABLE");
+    i._maxWidth = this.util.hasClass(l, "se-table-size-100") || l.style.width === "100%" || !l.style.width && !this.util.hasClass(l, "se-table-size-auto"), i._fixedColumn = this.util.hasClass(l, "se-table-layout-fixed") || l.style.tableLayout === "fixed", t.setTableStyle.call(this, i._maxWidth ? "width|column" : "width"), t.setPositionControllerTop.call(this, l), t.setPositionControllerDiv.call(this, e, t._shift), t._shift || this.controllersOn(i.resizeDiv, i.tableController, t.init.bind(this), e, "table");
   },
   setPositionControllerTop: function(e) {
     this.setControllerPosition(this.context.table.tableController, e, "top", { left: 0, top: 0 });
   },
   setPositionControllerDiv: function(e, t) {
-    const i = this.context.table, n = i.resizeDiv;
-    this.plugins.table.setCellInfo.call(this, e, t), i.cellControllerTop ? this.setControllerPosition(n, i._element, "top", { left: i.tableController.offsetWidth, top: 0 }) : this.setControllerPosition(n, e, "bottom", { left: 0, top: 0 });
+    const i = this.context.table, l = i.resizeDiv;
+    this.plugins.table.setCellInfo.call(this, e, t), i.cellControllerTop ? this.setControllerPosition(l, i._element, "top", { left: i.tableController.offsetWidth, top: 0 }) : this.setControllerPosition(l, e, "bottom", { left: 0, top: 0 });
   },
   setCellInfo: function(e, t) {
-    const i = this.context.table, n = i._element = this.plugins.table._selectedTable || this.util.getParentElement(e, "TABLE");
-    if (/THEAD/i.test(n.firstElementChild.nodeName) ? this.util.addClass(i.headerButton, "active") : this.util.removeClass(i.headerButton, "active"), t || i._physical_cellCnt === 0) {
+    const i = this.context.table, l = i._element = this.plugins.table._selectedTable || this.util.getParentElement(e, "TABLE");
+    if (/THEAD/i.test(l.firstElementChild.nodeName) ? this.util.addClass(i.headerButton, "active") : this.util.removeClass(i.headerButton, "active"), t || i._physical_cellCnt === 0) {
       i._tdElement !== e && (i._tdElement = e, i._trElement = e.parentNode);
-      const l = i._trElements = n.rows, o = e.cellIndex;
-      let s = 0;
-      for (let d = 0, f = l[0].cells, h = l[0].cells.length; d < h; d++)
-        s += f[d].colSpan;
+      const n = i._trElements = l.rows, s = e.cellIndex;
+      let o = 0;
+      for (let d = 0, f = n[0].cells, h = n[0].cells.length; d < h; d++)
+        o += f[d].colSpan;
       const a = i._rowIndex = i._trElement.rowIndex;
-      i._rowCnt = l.length, i._physical_cellCnt = i._trElement.cells.length, i._logical_cellCnt = s, i._physical_cellIndex = o, i._current_colSpan = i._tdElement.colSpan - 1, i._current_rowSpan - i._trElement.cells[o].rowSpan - 1;
+      i._rowCnt = n.length, i._physical_cellCnt = i._trElement.cells.length, i._logical_cellCnt = o, i._physical_cellIndex = s, i._current_colSpan = i._tdElement.colSpan - 1, i._current_rowSpan - i._trElement.cells[s].rowSpan - 1;
       let r = [], u = [];
       for (let d = 0, f, h; d <= a; d++) {
-        f = l[d].cells, h = 0;
+        f = n[d].cells, h = 0;
         for (let g = 0, p = f.length, b, m, c, _; g < p; g++) {
           if (b = f[g], m = b.colSpan - 1, c = b.rowSpan - 1, _ = g + h, u.length > 0)
             for (let v = 0, y; v < u.length; v++)
               y = u[v], !(y.row > d) && (_ >= y.index ? (h += y.cs, _ += y.cs, y.rs -= 1, y.row = d + 1, y.rs < 1 && (u.splice(v, 1), v--)) : g === p - 1 && (y.rs -= 1, y.row = d + 1, y.rs < 1 && (u.splice(v, 1), v--)));
-          if (d === a && g === o) {
+          if (d === a && g === s) {
             i._logical_cellIndex = _;
             break;
           }
@@ -2240,23 +2084,23 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
     }
   },
   editTable: function(e, t) {
-    const i = this.plugins.table, n = this.context.table, l = n._element, o = e === "row";
-    if (o) {
-      const s = n._trElement.parentNode;
-      if (/^THEAD$/i.test(s.nodeName)) {
+    const i = this.plugins.table, l = this.context.table, n = l._element, s = e === "row";
+    if (s) {
+      const o = l._trElement.parentNode;
+      if (/^THEAD$/i.test(o.nodeName)) {
         if (t === "up")
           return;
-        if (!s.nextElementSibling || !/^TBODY$/i.test(s.nextElementSibling.nodeName)) {
-          l.innerHTML += "<tbody><tr>" + i.createCells.call(this, "td", n._logical_cellCnt, !1) + "</tr></tbody>";
+        if (!o.nextElementSibling || !/^TBODY$/i.test(o.nextElementSibling.nodeName)) {
+          n.innerHTML += "<tbody><tr>" + i.createCells.call(this, "td", l._logical_cellCnt, !1) + "</tr></tbody>";
           return;
         }
       }
     }
     if (i._ref) {
-      const s = n._tdElement, a = i._selectedCells;
-      if (o)
+      const o = l._tdElement, a = i._selectedCells;
+      if (s)
         if (t)
-          i.setCellInfo.call(this, t === "up" ? a[0] : a[a.length - 1], !0), i.editRow.call(this, t, s);
+          i.setCellInfo.call(this, t === "up" ? a[0] : a[a.length - 1], !0), i.editRow.call(this, t, o);
         else {
           let r = a[0].parentNode;
           const u = [a[0]];
@@ -2274,7 +2118,7 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
               u = a[d];
               break;
             }
-          i.setCellInfo.call(this, t === "left" ? a[0] : u || a[0], !0), i.editCell.call(this, t, s);
+          i.setCellInfo.call(this, t === "left" ? a[0] : u || a[0], !0), i.editCell.call(this, t, o);
         } else {
           const u = [a[0]];
           for (let d = 1, f = a.length, h; d < f && (h = a[d], r === h.parentNode); d++)
@@ -2285,28 +2129,28 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
       }
       t || i.init.call(this);
     } else
-      i[o ? "editRow" : "editCell"].call(this, t);
+      i[s ? "editRow" : "editCell"].call(this, t);
     if (!t) {
-      const s = l.children;
-      for (let a = 0; a < s.length; a++)
-        s[a].children.length === 0 && (this.util.removeItem(s[a]), a--);
-      l.children.length === 0 && this.util.removeItem(l);
+      const o = n.children;
+      for (let a = 0; a < o.length; a++)
+        o[a].children.length === 0 && (this.util.removeItem(o[a]), a--);
+      n.children.length === 0 && this.util.removeItem(n);
     }
   },
   editRow: function(e, t) {
-    const i = this.context.table, n = !e, l = e === "up", o = i._rowIndex, s = n || l ? o : o + i._current_rowSpan + 1, a = n ? -1 : 1, r = i._trElements;
+    const i = this.context.table, l = !e, n = e === "up", s = i._rowIndex, o = l || n ? s : s + i._current_rowSpan + 1, a = l ? -1 : 1, r = i._trElements;
     let u = i._logical_cellCnt;
-    for (let d = 0, f = o + (n ? -1 : 0), h; d <= f; d++) {
+    for (let d = 0, f = s + (l ? -1 : 0), h; d <= f; d++) {
       if (h = r[d].cells, h.length === 0)
         return;
       for (let g = 0, p = h.length, b, m; g < p; g++)
-        b = h[g].rowSpan, m = h[g].colSpan, !(b < 2 && m < 2) && b + d > s && s > d && (h[g].rowSpan = b + a, u -= m);
+        b = h[g].rowSpan, m = h[g].colSpan, !(b < 2 && m < 2) && b + d > o && o > d && (h[g].rowSpan = b + a, u -= m);
     }
-    if (n) {
-      const d = r[o + 1];
+    if (l) {
+      const d = r[s + 1];
       if (d) {
         const f = [];
-        let h = r[o].cells, g = 0;
+        let h = r[s].cells, g = 0;
         for (let p = 0, b = h.length, m, c; p < b; p++)
           m = h[p], c = p + g, g += m.colSpan - 1, m.rowSpan > 1 && (m.rowSpan -= 1, f.push({ cell: m.cloneNode(!1), index: c }));
         if (f.length > 0) {
@@ -2321,45 +2165,45 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
           }
         }
       }
-      i._element.deleteRow(s);
+      i._element.deleteRow(o);
     } else {
-      const d = i._element.insertRow(s);
+      const d = i._element.insertRow(o);
       d.innerHTML = this.plugins.table.createCells.call(this, "td", u, !1);
     }
-    n ? this.controllersOff() : this.plugins.table.setPositionControllerDiv.call(this, t || i._tdElement, !0);
+    l ? this.controllersOff() : this.plugins.table.setPositionControllerDiv.call(this, t || i._tdElement, !0);
   },
   editCell: function(e, t) {
-    const i = this.context.table, n = this.util, l = !e, o = e === "left", s = i._current_colSpan, a = l || o ? i._logical_cellIndex : i._logical_cellIndex + s + 1, r = i._trElements;
+    const i = this.context.table, l = this.util, n = !e, s = e === "left", o = i._current_colSpan, a = n || s ? i._logical_cellIndex : i._logical_cellIndex + o + 1, r = i._trElements;
     let u = [], d = [], f = 0;
     const h = [], g = [];
-    for (let p = 0, b = i._rowCnt, m, c, _, v, y, w; p < b; p++) {
-      m = r[p], c = a, y = !1, _ = m.cells, w = 0;
-      for (let x = 0, S, E = _.length, B, A, C; x < E && (S = _[x], !!S); x++)
-        if (B = S.rowSpan - 1, A = S.colSpan - 1, l) {
-          if (C = x + w, d.length > 0) {
+    for (let p = 0, b = i._rowCnt, m, c, _, v, y, k; p < b; p++) {
+      m = r[p], c = a, y = !1, _ = m.cells, k = 0;
+      for (let x = 0, w, L = _.length, R, B, C; x < L && (w = _[x], !!w); x++)
+        if (R = w.rowSpan - 1, B = w.colSpan - 1, n) {
+          if (C = x + k, d.length > 0) {
             const I = !_[x + 1];
-            for (let T = 0, O; T < d.length; T++)
-              O = d[T], !(O.row > p) && (C >= O.index ? (w += O.cs, C = x + w, O.rs -= 1, O.row = p + 1, O.rs < 1 && (d.splice(T, 1), T--)) : I && (O.rs -= 1, O.row = p + 1, O.rs < 1 && (d.splice(T, 1), T--)));
+            for (let T = 0, V; T < d.length; T++)
+              V = d[T], !(V.row > p) && (C >= V.index ? (k += V.cs, C = x + k, V.rs -= 1, V.row = p + 1, V.rs < 1 && (d.splice(T, 1), T--)) : I && (V.rs -= 1, V.row = p + 1, V.rs < 1 && (d.splice(T, 1), T--)));
           }
-          B > 0 && u.push({
-            rs: B,
-            cs: A + 1,
+          R > 0 && u.push({
+            rs: R,
+            cs: B + 1,
             index: C,
             row: -1
-          }), C >= c && C + A <= c + s ? h.push(S) : C <= c + s && C + A >= c ? S.colSpan -= n.getOverlapRangeAtIndex(a, a + s, C, C + A) : B > 0 && (C < c || C + A > c + s) && g.push({
-            cell: S,
+          }), C >= c && C + B <= c + o ? h.push(w) : C <= c + o && C + B >= c ? w.colSpan -= l.getOverlapRangeAtIndex(a, a + o, C, C + B) : R > 0 && (C < c || C + B > c + o) && g.push({
+            cell: w,
             i: p,
-            rs: p + B
-          }), w += A;
+            rs: p + R
+          }), k += B;
         } else {
           if (x >= c)
             break;
-          if (A > 0) {
-            if (f < 1 && A + x >= c) {
-              S.colSpan += 1, c = null, f = B + 1;
+          if (B > 0) {
+            if (f < 1 && B + x >= c) {
+              w.colSpan += 1, c = null, f = R + 1;
               break;
             }
-            c -= A;
+            c -= B;
           }
           if (!y) {
             for (let I = 0, T; I < d.length; I++)
@@ -2367,9 +2211,9 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
             y = !0;
           }
         }
-      if (d = d.concat(u).sort(function(x, S) {
-        return x.index - S.index;
-      }), u = [], !l) {
+      if (d = d.concat(u).sort(function(x, w) {
+        return x.index - w.index;
+      }), u = [], !n) {
         if (f > 0) {
           f -= 1;
           continue;
@@ -2377,12 +2221,12 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
         c !== null && _.length > 0 && (v = this.plugins.table.createCells.call(this, _[0].nodeName, 0, !0), v = m.insertBefore(v, _[c]));
       }
     }
-    if (l) {
+    if (n) {
       let p, b;
       for (let m = 0, c = h.length, _; m < c; m++)
-        _ = h[m].parentNode, n.removeItem(h[m]), _.cells.length === 0 && (p || (p = n.getArrayIndex(r, _)), b = n.getArrayIndex(r, _), n.removeItem(_));
+        _ = h[m].parentNode, l.removeItem(h[m]), _.cells.length === 0 && (p || (p = l.getArrayIndex(r, _)), b = l.getArrayIndex(r, _), l.removeItem(_));
       for (let m = 0, c = g.length, _; m < c; m++)
-        _ = g[m], _.cell.rowSpan = n.getOverlapRangeAtIndex(p, b, _.i, _.rs);
+        _ = g[m], _.cell.rowSpan = l.getOverlapRangeAtIndex(p, b, _.i, _.rs);
       this.controllersOff();
     } else
       this.plugins.table.setPositionControllerDiv.call(this, t || i._tdElement, !0);
@@ -2394,25 +2238,25 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
     }.bind(this), this.addDocEvent("click", this.plugins.table._closeSplitMenu);
   },
   splitCells: function(e) {
-    const t = this.util, i = e === "vertical", n = this.context.table, l = n._tdElement, o = n._trElements, s = n._trElement, a = n._logical_cellIndex, r = n._rowIndex, u = this.plugins.table.createCells.call(this, l.nodeName, 0, !0);
+    const t = this.util, i = e === "vertical", l = this.context.table, n = l._tdElement, s = l._trElements, o = l._trElement, a = l._logical_cellIndex, r = l._rowIndex, u = this.plugins.table.createCells.call(this, n.nodeName, 0, !0);
     if (i) {
-      const d = l.colSpan;
-      if (u.rowSpan = l.rowSpan, d > 1)
-        u.colSpan = this._w.Math.floor(d / 2), l.colSpan = d - u.colSpan, s.insertBefore(u, l.nextElementSibling);
+      const d = n.colSpan;
+      if (u.rowSpan = n.rowSpan, d > 1)
+        u.colSpan = this._w.Math.floor(d / 2), n.colSpan = d - u.colSpan, o.insertBefore(u, n.nextElementSibling);
       else {
         let f = [], h = [];
-        for (let g = 0, p = n._rowCnt, b, m; g < p; g++) {
-          b = o[g].cells, m = 0;
-          for (let c = 0, _ = b.length, v, y, w, x; c < _; c++) {
-            if (v = b[c], y = v.colSpan - 1, w = v.rowSpan - 1, x = c + m, h.length > 0)
-              for (let S = 0, E; S < h.length; S++)
-                E = h[S], !(E.row > g) && (x >= E.index ? (m += E.cs, x += E.cs, E.rs -= 1, E.row = g + 1, E.rs < 1 && (h.splice(S, 1), S--)) : c === _ - 1 && (E.rs -= 1, E.row = g + 1, E.rs < 1 && (h.splice(S, 1), S--)));
-            if (x <= a && w > 0 && f.push({
+        for (let g = 0, p = l._rowCnt, b, m; g < p; g++) {
+          b = s[g].cells, m = 0;
+          for (let c = 0, _ = b.length, v, y, k, x; c < _; c++) {
+            if (v = b[c], y = v.colSpan - 1, k = v.rowSpan - 1, x = c + m, h.length > 0)
+              for (let w = 0, L; w < h.length; w++)
+                L = h[w], !(L.row > g) && (x >= L.index ? (m += L.cs, x += L.cs, L.rs -= 1, L.row = g + 1, L.rs < 1 && (h.splice(w, 1), w--)) : c === _ - 1 && (L.rs -= 1, L.row = g + 1, L.rs < 1 && (h.splice(w, 1), w--)));
+            if (x <= a && k > 0 && f.push({
               index: x,
               cs: y + 1,
-              rs: w,
+              rs: k,
               row: -1
-            }), v !== l && x <= a && x + y >= a + d - 1) {
+            }), v !== n && x <= a && x + y >= a + d - 1) {
               v.colSpan += 1;
               break;
             }
@@ -2424,87 +2268,87 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
             return c.index - _.index;
           }), f = [];
         }
-        s.insertBefore(u, l.nextElementSibling);
+        o.insertBefore(u, n.nextElementSibling);
       }
     } else {
-      const d = l.rowSpan;
-      if (u.colSpan = l.colSpan, d > 1) {
+      const d = n.rowSpan;
+      if (u.colSpan = n.colSpan, d > 1) {
         u.rowSpan = this._w.Math.floor(d / 2);
-        const f = d - u.rowSpan, h = [], g = t.getArrayIndex(o, s) + f;
+        const f = d - u.rowSpan, h = [], g = t.getArrayIndex(s, o) + f;
         for (let c = 0, _, v; c < g; c++) {
-          _ = o[c].cells, v = 0;
-          for (let y = 0, w = _.length, x, S, E; y < w && (E = y + v, !(E >= a)); y++)
-            x = _[y], S = x.rowSpan - 1, S > 0 && S + c >= g && E < a && h.push({
-              index: E,
+          _ = s[c].cells, v = 0;
+          for (let y = 0, k = _.length, x, w, L; y < k && (L = y + v, !(L >= a)); y++)
+            x = _[y], w = x.rowSpan - 1, w > 0 && w + c >= g && L < a && h.push({
+              index: L,
               cs: x.colSpan
             }), v += x.colSpan - 1;
         }
-        const p = o[g], b = p.cells;
+        const p = s[g], b = p.cells;
         let m = h.shift();
-        for (let c = 0, _ = b.length, v = 0, y, w, x, S; c < _; c++) {
-          if (x = c + v, y = b[c], w = y.colSpan - 1, S = x + w + 1, m && S >= m.index && (v += m.cs, S += m.cs, m = h.shift()), S >= a || c === _ - 1) {
+        for (let c = 0, _ = b.length, v = 0, y, k, x, w; c < _; c++) {
+          if (x = c + v, y = b[c], k = y.colSpan - 1, w = x + k + 1, m && w >= m.index && (v += m.cs, w += m.cs, m = h.shift()), w >= a || c === _ - 1) {
             p.insertBefore(u, y.nextElementSibling);
             break;
           }
-          v += w;
+          v += k;
         }
-        l.rowSpan = f;
+        n.rowSpan = f;
       } else {
-        u.rowSpan = l.rowSpan;
+        u.rowSpan = n.rowSpan;
         const f = t.createElement("TR");
         f.appendChild(u);
         for (let p = 0, b; p < r; p++) {
-          if (b = o[p].cells, b.length === 0)
+          if (b = s[p].cells, b.length === 0)
             return;
           for (let m = 0, c = b.length; m < c; m++)
             p + b[m].rowSpan - 1 >= r && (b[m].rowSpan += 1);
         }
-        const h = n._physical_cellIndex, g = s.cells;
+        const h = l._physical_cellIndex, g = o.cells;
         for (let p = 0, b = g.length; p < b; p++)
           p !== h && (g[p].rowSpan += 1);
-        s.parentNode.insertBefore(f, s.nextElementSibling);
+        o.parentNode.insertBefore(f, o.nextElementSibling);
       }
     }
-    this.focusEdge(l), this.plugins.table.setPositionControllerDiv.call(this, l, !0);
+    this.focusEdge(n), this.plugins.table.setPositionControllerDiv.call(this, n, !0);
   },
   mergeCells: function() {
-    const e = this.plugins.table, t = this.context.table, i = this.util, n = e._ref, l = e._selectedCells, o = l[0];
-    let s = null, a = null, r = n.ce - n.cs + 1, u = n.re - n.rs + 1, d = "", f = null;
-    for (let h = 1, g = l.length, p, b; h < g; h++) {
-      p = l[h], f !== p.parentNode && (f = p.parentNode), b = p.children;
+    const e = this.plugins.table, t = this.context.table, i = this.util, l = e._ref, n = e._selectedCells, s = n[0];
+    let o = null, a = null, r = l.ce - l.cs + 1, u = l.re - l.rs + 1, d = "", f = null;
+    for (let h = 1, g = n.length, p, b; h < g; h++) {
+      p = n[h], f !== p.parentNode && (f = p.parentNode), b = p.children;
       for (let m = 0, c = b.length; m < c; m++)
         i.isFormatElement(b[m]) && i.onlyZeroWidthSpace(b[m].textContent) && i.removeItem(b[m]);
-      d += p.innerHTML, i.removeItem(p), f.cells.length === 0 && (s ? a = f : s = f, u -= 1);
+      d += p.innerHTML, i.removeItem(p), f.cells.length === 0 && (o ? a = f : o = f, u -= 1);
     }
-    if (s) {
-      const h = t._trElements, g = i.getArrayIndex(h, s), p = i.getArrayIndex(h, a || s), b = [];
+    if (o) {
+      const h = t._trElements, g = i.getArrayIndex(h, o), p = i.getArrayIndex(h, a || o), b = [];
       for (let m = 0, c; m <= p; m++) {
         if (c = h[m].cells, c.length === 0) {
           b.push(h[m]);
           continue;
         }
-        for (let _ = 0, v = c.length, y, w; _ < v; _++)
-          y = c[_], w = y.rowSpan - 1, w > 0 && m + w >= g && (y.rowSpan -= i.getOverlapRangeAtIndex(g, p, m, m + w));
+        for (let _ = 0, v = c.length, y, k; _ < v; _++)
+          y = c[_], k = y.rowSpan - 1, k > 0 && m + k >= g && (y.rowSpan -= i.getOverlapRangeAtIndex(g, p, m, m + k));
       }
       for (let m = 0, c = b.length; m < c; m++)
         i.removeItem(b[m]);
     }
-    o.innerHTML += d, o.colSpan = r, o.rowSpan = u, this.controllersOff(), e.setActiveButton.call(this, !0, !1), e.call_controller_tableEdit.call(this, o), i.addClass(o, "se-table-selected-cell"), this.focusEdge(o);
+    s.innerHTML += d, s.colSpan = r, s.rowSpan = u, this.controllersOff(), e.setActiveButton.call(this, !0, !1), e.call_controller_tableEdit.call(this, s), i.addClass(s, "se-table-selected-cell"), this.focusEdge(s);
   },
   toggleHeader: function() {
-    const e = this.util, t = this.context.table.headerButton, i = e.hasClass(t, "active"), n = this.context.table._element;
+    const e = this.util, t = this.context.table.headerButton, i = e.hasClass(t, "active"), l = this.context.table._element;
     if (i)
-      e.removeItem(n.querySelector("thead"));
+      e.removeItem(l.querySelector("thead"));
     else {
-      const l = e.createElement("THEAD");
-      l.innerHTML = "<tr>" + this.plugins.table.createCells.call(this, "th", this.context.table._logical_cellCnt, !1) + "</tr>", n.insertBefore(l, n.firstElementChild);
+      const n = e.createElement("THEAD");
+      n.innerHTML = "<tr>" + this.plugins.table.createCells.call(this, "th", this.context.table._logical_cellCnt, !1) + "</tr>", l.insertBefore(n, l.firstElementChild);
     }
     e.toggleClass(t, "active"), /TH/i.test(this.context.table._tdElement.nodeName) ? this.controllersOff() : this.plugins.table.setPositionControllerDiv.call(this, this.context.table._tdElement, !1);
   },
   setTableStyle: function(e) {
     const t = this.context.table, i = t._element;
-    let n, l, o, s;
-    e.indexOf("width") > -1 && (n = t.resizeButton.firstElementChild, l = t.resizeText, t._maxWidth ? (o = t.icons.reduction, s = t.minText, t.columnFixedButton.style.display = "block", this.util.removeClass(i, "se-table-size-auto"), this.util.addClass(i, "se-table-size-100")) : (o = t.icons.expansion, s = t.maxText, t.columnFixedButton.style.display = "none", this.util.removeClass(i, "se-table-size-100"), this.util.addClass(i, "se-table-size-auto")), this.util.changeElement(n, o), this.util.changeTxt(l, s)), e.indexOf("column") > -1 && (t._fixedColumn ? (this.util.removeClass(i, "se-table-layout-auto"), this.util.addClass(i, "se-table-layout-fixed"), this.util.addClass(t.columnFixedButton, "active")) : (this.util.removeClass(i, "se-table-layout-fixed"), this.util.addClass(i, "se-table-layout-auto"), this.util.removeClass(t.columnFixedButton, "active")));
+    let l, n, s, o;
+    e.indexOf("width") > -1 && (l = t.resizeButton.firstElementChild, n = t.resizeText, t._maxWidth ? (s = t.icons.reduction, o = t.minText, t.columnFixedButton.style.display = "block", this.util.removeClass(i, "se-table-size-auto"), this.util.addClass(i, "se-table-size-100")) : (s = t.icons.expansion, o = t.maxText, t.columnFixedButton.style.display = "none", this.util.removeClass(i, "se-table-size-100"), this.util.addClass(i, "se-table-size-auto")), this.util.changeElement(l, s), this.util.changeTxt(n, o)), e.indexOf("column") > -1 && (t._fixedColumn ? (this.util.removeClass(i, "se-table-layout-auto"), this.util.addClass(i, "se-table-layout-fixed"), this.util.addClass(t.columnFixedButton, "active")) : (this.util.removeClass(i, "se-table-layout-fixed"), this.util.addClass(i, "se-table-layout-auto"), this.util.removeClass(t.columnFixedButton, "active")));
   },
   setActiveButton: function(e, t) {
     const i = this.context.table;
@@ -2541,31 +2385,31 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
     !i || i === t._selectedCell || t._fixedCellName !== i.nodeName || t._selectedTable !== this.util.getParentElement(i, "TABLE") || (t._selectedCell = i, t._setMultiCells.call(this, t._fixedCell, i));
   },
   _setMultiCells: function(e, t) {
-    const i = this.plugins.table, n = i._selectedTable.rows, l = this.util, o = i._selectedTable.querySelectorAll(".se-table-selected-cell");
-    for (let d = 0, f = o.length; d < f; d++)
-      l.removeClass(o[d], "se-table-selected-cell");
-    if (e === t && (l.addClass(e, "se-table-selected-cell"), !i._shift))
+    const i = this.plugins.table, l = i._selectedTable.rows, n = this.util, s = i._selectedTable.querySelectorAll(".se-table-selected-cell");
+    for (let d = 0, f = s.length; d < f; d++)
+      n.removeClass(s[d], "se-table-selected-cell");
+    if (e === t && (n.addClass(e, "se-table-selected-cell"), !i._shift))
       return;
-    let s = !0, a = [], r = [];
+    let o = !0, a = [], r = [];
     const u = i._ref = { _i: 0, cs: null, ce: null, rs: null, re: null };
-    for (let d = 0, f = n.length, h, g; d < f; d++) {
-      h = n[d].cells, g = 0;
+    for (let d = 0, f = l.length, h, g; d < f; d++) {
+      h = l[d].cells, g = 0;
       for (let p = 0, b = h.length, m, c, _, v; p < b; p++) {
         if (m = h[p], _ = m.colSpan - 1, v = m.rowSpan - 1, c = p + g, a.length > 0)
-          for (let y = 0, w; y < a.length; y++)
-            w = a[y], !(w.row > d) && (c >= w.index ? (g += w.cs, c += w.cs, w.rs -= 1, w.row = d + 1, w.rs < 1 && (a.splice(y, 1), y--)) : p === b - 1 && (w.rs -= 1, w.row = d + 1, w.rs < 1 && (a.splice(y, 1), y--)));
-        if (s) {
+          for (let y = 0, k; y < a.length; y++)
+            k = a[y], !(k.row > d) && (c >= k.index ? (g += k.cs, c += k.cs, k.rs -= 1, k.row = d + 1, k.rs < 1 && (a.splice(y, 1), y--)) : p === b - 1 && (k.rs -= 1, k.row = d + 1, k.rs < 1 && (a.splice(y, 1), y--)));
+        if (o) {
           if ((m === e || m === t) && (u.cs = u.cs !== null && u.cs < c ? u.cs : c, u.ce = u.ce !== null && u.ce > c + _ ? u.ce : c + _, u.rs = u.rs !== null && u.rs < d ? u.rs : d, u.re = u.re !== null && u.re > d + v ? u.re : d + v, u._i += 1), u._i === 2) {
-            s = !1, a = [], r = [], d = -1;
+            o = !1, a = [], r = [], d = -1;
             break;
           }
-        } else if (l.getOverlapRangeAtIndex(u.cs, u.ce, c, c + _) && l.getOverlapRangeAtIndex(u.rs, u.re, d, d + v)) {
-          const y = u.cs < c ? u.cs : c, w = u.ce > c + _ ? u.ce : c + _, x = u.rs < d ? u.rs : d, S = u.re > d + v ? u.re : d + v;
-          if (u.cs !== y || u.ce !== w || u.rs !== x || u.re !== S) {
-            u.cs = y, u.ce = w, u.rs = x, u.re = S, d = -1, a = [], r = [];
+        } else if (n.getOverlapRangeAtIndex(u.cs, u.ce, c, c + _) && n.getOverlapRangeAtIndex(u.rs, u.re, d, d + v)) {
+          const y = u.cs < c ? u.cs : c, k = u.ce > c + _ ? u.ce : c + _, x = u.rs < d ? u.rs : d, w = u.re > d + v ? u.re : d + v;
+          if (u.cs !== y || u.ce !== k || u.rs !== x || u.re !== w) {
+            u.cs = y, u.ce = k, u.rs = x, u.re = w, d = -1, a = [], r = [];
             break;
           }
-          l.addClass(m, "se-table-selected-cell");
+          n.addClass(m, "se-table-selected-cell");
         }
         v > 0 && r.push({
           index: c,
@@ -2587,9 +2431,9 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
   onTableCellMultiSelect: function(e, t) {
     const i = this.plugins.table;
     i._removeEvents.call(this), this.controllersOff(), i._shift = t, i._fixedCell = e, i._fixedCellName = e.nodeName, i._selectedTable = this.util.getParentElement(e, "TABLE");
-    const n = i._selectedTable.querySelectorAll(".se-table-selected-cell");
-    for (let l = 0, o = n.length; l < o; l++)
-      this.util.removeClass(n[l], "se-table-selected-cell");
+    const l = i._selectedTable.querySelectorAll(".se-table-selected-cell");
+    for (let n = 0, s = l.length; n < s; n++)
+      this.util.removeClass(l[n], "se-table-selected-cell");
     this.util.addClass(e, "se-table-selected-cell"), i._bindOnSelect = i._onCellMultiSelect.bind(this), i._bindOffSelect = i._offCellMultiSelect.bind(this), t ? (i._bindOffShift = function() {
       this.controllersOn(this.context.table.resizeDiv, this.context.table.tableController, this.plugins.table.init.bind(this), e, "table"), i._ref || this.controllersOff();
     }.bind(this), this._wd.addEventListener("keyup", i._bindOffShift, !1), this._wd.addEventListener("mousedown", i._bindOnSelect, !1)) : this._wd.addEventListener("mousemove", i._bindOnSelect, !1), this._wd.addEventListener("mouseup", i._bindOffSelect, !1), i._initBind = i.init.bind(this), this._wd.addEventListener("touchmove", i._initBind, !1);
@@ -2599,43 +2443,43 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
     const t = e.target.getAttribute("data-command") ? e.target : e.target.parentNode;
     if (t.getAttribute("disabled"))
       return;
-    const i = t.getAttribute("data-command"), n = t.getAttribute("data-value"), l = t.getAttribute("data-option"), o = this.plugins.table;
-    if (typeof o._closeSplitMenu == "function" && (o._closeSplitMenu(), i === "onsplit") || !i)
+    const i = t.getAttribute("data-command"), l = t.getAttribute("data-value"), n = t.getAttribute("data-option"), s = this.plugins.table;
+    if (typeof s._closeSplitMenu == "function" && (s._closeSplitMenu(), i === "onsplit") || !i)
       return;
     e.preventDefault();
-    const s = this.context.table;
+    const o = this.context.table;
     switch (i) {
       case "insert":
       case "delete":
-        o.editTable.call(this, n, l);
+        s.editTable.call(this, l, n);
         break;
       case "header":
-        o.toggleHeader.call(this);
+        s.toggleHeader.call(this);
         break;
       case "onsplit":
-        o.openSplitMenu.call(this);
+        s.openSplitMenu.call(this);
         break;
       case "split":
-        o.splitCells.call(this, n);
+        s.splitCells.call(this, l);
         break;
       case "merge":
-        o.mergeCells.call(this);
+        s.mergeCells.call(this);
         break;
       case "resize":
-        s._maxWidth = !s._maxWidth, o.setTableStyle.call(this, "width"), o.setPositionControllerTop.call(this, s._element), o.setPositionControllerDiv.call(this, s._tdElement, o._shift);
+        o._maxWidth = !o._maxWidth, s.setTableStyle.call(this, "width"), s.setPositionControllerTop.call(this, o._element), s.setPositionControllerDiv.call(this, o._tdElement, s._shift);
         break;
       case "layout":
-        s._fixedColumn = !s._fixedColumn, o.setTableStyle.call(this, "column"), o.setPositionControllerTop.call(this, s._element), o.setPositionControllerDiv.call(this, s._tdElement, o._shift);
+        o._fixedColumn = !o._fixedColumn, s.setTableStyle.call(this, "column"), s.setPositionControllerTop.call(this, o._element), s.setPositionControllerDiv.call(this, o._tdElement, s._shift);
         break;
       case "remove":
-        const a = s._element.parentNode;
-        this.util.removeItem(s._element), this.controllersOff(), a !== this.context.element.wysiwyg && this.util.removeItemAllParents(a, function(r) {
+        const a = o._element.parentNode;
+        this.util.removeItem(o._element), this.controllersOff(), a !== this.context.element.wysiwyg && this.util.removeItemAllParents(a, function(r) {
           return r.childNodes.length === 0;
         }, null), this.focus();
     }
     this.history.push(!1);
   }
-}, Mn = {
+}, pl = {
   name: "formatBlock",
   display: "submenu",
   add: function(e, t) {
@@ -2646,17 +2490,17 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
       _formatList: null,
       currentFormat: ""
     };
-    let n = this.setSubmenu(e);
-    n.querySelector("ul").addEventListener("click", this.pickUp.bind(e)), i.formatBlock._formatList = n.querySelectorAll("li button"), e.initMenuTarget(this.name, t, n), n = null;
+    let l = this.setSubmenu(e);
+    l.querySelector("ul").addEventListener("click", this.pickUp.bind(e)), i.formatBlock._formatList = l.querySelectorAll("li button"), e.initMenuTarget(this.name, t, l), l = null;
   },
   setSubmenu: function(e) {
-    const t = e.options, i = e.lang.toolbar, n = e.util.createElement("DIV");
-    n.className = "se-submenu se-list-layer se-list-format";
-    const l = ["p", "div", "blockquote", "pre", "h1", "h2", "h3", "h4", "h5", "h6"], o = !t.formats || t.formats.length === 0 ? l : t.formats;
-    let s = '<div class="se-list-inner"><ul class="se-list-basic">';
-    for (let a = 0, r = o.length, u, d, f, h, g, p, b; a < r; a++)
-      u = o[a], typeof u == "string" && l.indexOf(u) > -1 ? (d = u.toLowerCase(), f = d === "blockquote" ? "range" : d === "pre" ? "free" : "replace", g = /^h/.test(d) ? d.match(/\d+/)[0] : "", h = i["tag_" + (g ? "h" : d)] + g, b = "", p = "") : (d = u.tag.toLowerCase(), f = u.command, h = u.name || d, b = u.class, p = b ? ' class="' + b + '"' : ""), s += '<li><button type="button" class="se-btn-list" data-command="' + f + '" data-value="' + d + '" data-class="' + b + '" title="' + h + '" aria-label="' + h + '"><' + d + p + ">" + h + "</" + d + "></button></li>";
-    return s += "</ul></div>", n.innerHTML = s, n;
+    const t = e.options, i = e.lang.toolbar, l = e.util.createElement("DIV");
+    l.className = "se-submenu se-list-layer se-list-format";
+    const n = ["p", "div", "blockquote", "pre", "h1", "h2", "h3", "h4", "h5", "h6"], s = !t.formats || t.formats.length === 0 ? n : t.formats;
+    let o = '<div class="se-list-inner"><ul class="se-list-basic">';
+    for (let a = 0, r = s.length, u, d, f, h, g, p, b; a < r; a++)
+      u = s[a], typeof u == "string" && n.indexOf(u) > -1 ? (d = u.toLowerCase(), f = d === "blockquote" ? "range" : d === "pre" ? "free" : "replace", g = /^h/.test(d) ? d.match(/\d+/)[0] : "", h = i["tag_" + (g ? "h" : d)] + g, b = "", p = "") : (d = u.tag.toLowerCase(), f = u.command, h = u.name || d, b = u.class, p = b ? ' class="' + b + '"' : ""), o += '<li><button type="button" class="se-btn-list" data-command="' + f + '" data-value="' + d + '" data-class="' + b + '" title="' + h + '" aria-label="' + h + '"><' + d + p + ">" + h + "</" + d + "></button></li>";
+    return o += "</ul></div>", l.innerHTML = o, l;
   },
   active: function(e) {
     let t = this.lang.toolbar.formats;
@@ -2664,66 +2508,66 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
     if (!e)
       this.util.changeTxt(i, t);
     else if (this.util.isFormatElement(e)) {
-      const l = this.context.formatBlock._formatList, o = e.nodeName.toLowerCase(), s = (e.className.match(/(\s|^)__se__format__[^\s]+/) || [""])[0].trim();
-      for (let a = 0, r = l.length, u; a < r; a++)
-        if (u = l[a], o === u.getAttribute("data-value") && s === u.getAttribute("data-class")) {
+      const n = this.context.formatBlock._formatList, s = e.nodeName.toLowerCase(), o = (e.className.match(/(\s|^)__se__format__[^\s]+/) || [""])[0].trim();
+      for (let a = 0, r = n.length, u; a < r; a++)
+        if (u = n[a], s === u.getAttribute("data-value") && o === u.getAttribute("data-class")) {
           t = u.title;
           break;
         }
-      return this.util.changeTxt(i, t), i.setAttribute("data-value", o), i.setAttribute("data-class", s), !0;
+      return this.util.changeTxt(i, t), i.setAttribute("data-value", s), i.setAttribute("data-class", o), !0;
     }
     return !1;
   },
   on: function() {
-    const e = this.context.formatBlock, t = e._formatList, i = e.targetText, n = (i.getAttribute("data-value") || "") + (i.getAttribute("data-class") || "");
-    if (n !== e.currentFormat) {
-      for (let l = 0, o = t.length, s; l < o; l++)
-        s = t[l], n === s.getAttribute("data-value") + s.getAttribute("data-class") ? this.util.addClass(s, "active") : this.util.removeClass(s, "active");
-      e.currentFormat = n;
+    const e = this.context.formatBlock, t = e._formatList, i = e.targetText, l = (i.getAttribute("data-value") || "") + (i.getAttribute("data-class") || "");
+    if (l !== e.currentFormat) {
+      for (let n = 0, s = t.length, o; n < s; n++)
+        o = t[n], l === o.getAttribute("data-value") + o.getAttribute("data-class") ? this.util.addClass(o, "active") : this.util.removeClass(o, "active");
+      e.currentFormat = l;
     }
   },
   pickUp: function(e) {
     e.preventDefault(), e.stopPropagation();
-    let t = e.target, i = null, n = null, l = null, o = "";
+    let t = e.target, i = null, l = null, n = null, s = "";
     for (; !i && !/UL/i.test(t.tagName); ) {
-      if (i = t.getAttribute("data-command"), n = t.getAttribute("data-value"), o = t.getAttribute("data-class"), i) {
-        l = t.firstChild;
+      if (i = t.getAttribute("data-command"), l = t.getAttribute("data-value"), s = t.getAttribute("data-class"), i) {
+        n = t.firstChild;
         break;
       }
       t = t.parentNode;
     }
     if (!!i) {
       if (i === "range") {
-        const s = l.cloneNode(!1);
-        this.applyRangeFormatElement(s);
+        const o = n.cloneNode(!1);
+        this.applyRangeFormatElement(o);
       } else {
-        let s = this.getRange(), a = this.getSelectedElementsAndComponents(!1);
-        if (a.length === 0 && (s = this.getRange_addLine(s, null), a = this.getSelectedElementsAndComponents(!1), a.length === 0))
+        let o = this.getRange(), a = this.getSelectedElementsAndComponents(!1);
+        if (a.length === 0 && (o = this.getRange_addLine(o, null), a = this.getSelectedElementsAndComponents(!1), a.length === 0))
           return;
-        const r = s.startOffset, u = s.endOffset, d = this.util;
+        const r = o.startOffset, u = o.endOffset, d = this.util;
         let f = a[0], h = a[a.length - 1];
-        const g = d.getNodePath(s.startContainer, f, null, null), p = d.getNodePath(s.endContainer, h, null, null), b = this.detachList(a, !1);
+        const g = d.getNodePath(o.startContainer, f, null, null), p = d.getNodePath(o.endContainer, h, null, null), b = this.detachList(a, !1);
         b.sc && (f = b.sc), b.ec && (h = b.ec), this.setRange(d.getNodeFromPath(g, f), r, d.getNodeFromPath(p, h), u);
         const m = this.getSelectedElementsAndComponents(!1);
         if (i === "free") {
           const c = m.length - 1;
-          let _ = m[c].parentNode, v = l.cloneNode(!1);
+          let _ = m[c].parentNode, v = n.cloneNode(!1);
           const y = v;
-          for (let w = c, x, S, E, B, A, C, I = !0; w >= 0; w--)
-            if (x = m[w], x !== (m[w + 1] ? m[w + 1].parentNode : null)) {
-              if (C = d.isComponent(x), S = C ? "" : x.innerHTML.replace(/(?!>)\s+(?=<)|\n/g, " "), E = d.getParentElement(x, function(T) {
+          for (let k = c, x, w, L, R, B, C, I = !0; k >= 0; k--)
+            if (x = m[k], x !== (m[k + 1] ? m[k + 1].parentNode : null)) {
+              if (C = d.isComponent(x), w = C ? "" : x.innerHTML.replace(/(?!>)\s+(?=<)|\n/g, " "), L = d.getParentElement(x, function(T) {
                 return T.parentNode === _;
-              }), (_ !== x.parentNode || C) && (d.isFormatElement(_) ? (_.parentNode.insertBefore(v, _.nextSibling), _ = _.parentNode) : (_.insertBefore(v, E ? E.nextSibling : null), _ = x.parentNode), B = v.nextSibling, B && v.nodeName === B.nodeName && d.isSameAttributes(v, B) && (v.innerHTML += "<BR>" + B.innerHTML, d.removeItem(B)), v = l.cloneNode(!1), I = !0), A = v.innerHTML, v.innerHTML = (I || !S || !A || /<br>$/i.test(S) ? S : S + "<BR>") + A, w === 0) {
-                _.insertBefore(v, x), B = x.nextSibling, B && v.nodeName === B.nodeName && d.isSameAttributes(v, B) && (v.innerHTML += "<BR>" + B.innerHTML, d.removeItem(B));
+              }), (_ !== x.parentNode || C) && (d.isFormatElement(_) ? (_.parentNode.insertBefore(v, _.nextSibling), _ = _.parentNode) : (_.insertBefore(v, L ? L.nextSibling : null), _ = x.parentNode), R = v.nextSibling, R && v.nodeName === R.nodeName && d.isSameAttributes(v, R) && (v.innerHTML += "<BR>" + R.innerHTML, d.removeItem(R)), v = n.cloneNode(!1), I = !0), B = v.innerHTML, v.innerHTML = (I || !w || !B || /<br>$/i.test(w) ? w : w + "<BR>") + B, k === 0) {
+                _.insertBefore(v, x), R = x.nextSibling, R && v.nodeName === R.nodeName && d.isSameAttributes(v, R) && (v.innerHTML += "<BR>" + R.innerHTML, d.removeItem(R));
                 const T = v.previousSibling;
                 T && v.nodeName === T.nodeName && d.isSameAttributes(v, T) && (T.innerHTML += "<BR>" + v.innerHTML, d.removeItem(v));
               }
-              C || d.removeItem(x), S && (I = !1);
+              C || d.removeItem(x), w && (I = !1);
             }
           this.setRange(y, 0, y, 0);
         } else {
           for (let c = 0, _ = m.length, v, y; c < _; c++)
-            v = m[c], (v.nodeName.toLowerCase() !== n.toLowerCase() || (v.className.match(/(\s|^)__se__format__[^\s]+/) || [""])[0].trim() !== o) && !d.isComponent(v) && (y = l.cloneNode(!1), d.copyFormatAttributes(y, v), y.innerHTML = v.innerHTML, v.parentNode.replaceChild(y, v)), c === 0 && (f = y || v), c === _ - 1 && (h = y || v), y = null;
+            v = m[c], (v.nodeName.toLowerCase() !== l.toLowerCase() || (v.className.match(/(\s|^)__se__format__[^\s]+/) || [""])[0].trim() !== s) && !d.isComponent(v) && (y = n.cloneNode(!1), d.copyFormatAttributes(y, v), y.innerHTML = v.innerHTML, v.parentNode.replaceChild(y, v)), c === 0 && (f = y || v), c === _ - 1 && (h = y || v), y = null;
           this.setRange(d.getNodeFromPath(g, f), r, d.getNodeFromPath(p, h), u);
         }
         this.history.push(!1);
@@ -2731,7 +2575,7 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
       this.submenuOff();
     }
   }
-}, Dn = {
+}, fl = {
   name: "lineHeight",
   display: "submenu",
   add: function(e, t) {
@@ -2740,29 +2584,29 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
       _sizeList: null,
       currentSize: -1
     };
-    let n = this.setSubmenu(e), l = n.querySelector("ul");
-    l.addEventListener("click", this.pickup.bind(e)), i.lineHeight._sizeList = l.querySelectorAll("li button"), e.initMenuTarget(this.name, t, n), n = null, l = null;
+    let l = this.setSubmenu(e), n = l.querySelector("ul");
+    n.addEventListener("click", this.pickup.bind(e)), i.lineHeight._sizeList = n.querySelectorAll("li button"), e.initMenuTarget(this.name, t, l), l = null, n = null;
   },
   setSubmenu: function(e) {
-    const t = e.options, i = e.lang, n = e.util.createElement("DIV");
-    n.className = "se-submenu se-list-layer";
-    const l = t.lineHeights ? t.lineHeights : [
+    const t = e.options, i = e.lang, l = e.util.createElement("DIV");
+    l.className = "se-submenu se-list-layer";
+    const n = t.lineHeights ? t.lineHeights : [
       { text: "1", value: 1 },
       { text: "1.15", value: 1.15 },
       { text: "1.5", value: 1.5 },
       { text: "2", value: 2 }
     ];
-    let o = '<div class="se-list-inner"><ul class="se-list-basic"><li><button type="button" class="default_value se-btn-list" title="' + i.toolbar.default + '" aria-label="' + i.toolbar.default + '">(' + i.toolbar.default + ")</button></li>";
-    for (let s = 0, a = l.length, r; s < a; s++)
-      r = l[s], o += '<li><button type="button" class="se-btn-list" data-value="' + r.value + '" title="' + r.text + '" aria-label="' + r.text + '">' + r.text + "</button></li>";
-    return o += "</ul></div>", n.innerHTML = o, n;
+    let s = '<div class="se-list-inner"><ul class="se-list-basic"><li><button type="button" class="default_value se-btn-list" title="' + i.toolbar.default + '" aria-label="' + i.toolbar.default + '">(' + i.toolbar.default + ")</button></li>";
+    for (let o = 0, a = n.length, r; o < a; o++)
+      r = n[o], s += '<li><button type="button" class="se-btn-list" data-value="' + r.value + '" title="' + r.text + '" aria-label="' + r.text + '">' + r.text + "</button></li>";
+    return s += "</ul></div>", l.innerHTML = s, l;
   },
   on: function() {
-    const e = this.context.lineHeight, t = e._sizeList, i = this.util.getFormatElement(this.getSelectionNode()), n = i ? i.style.lineHeight + "" : "";
-    if (n !== e.currentSize) {
-      for (let l = 0, o = t.length; l < o; l++)
-        n === t[l].getAttribute("data-value") ? this.util.addClass(t[l], "active") : this.util.removeClass(t[l], "active");
-      e.currentSize = n;
+    const e = this.context.lineHeight, t = e._sizeList, i = this.util.getFormatElement(this.getSelectionNode()), l = i ? i.style.lineHeight + "" : "";
+    if (l !== e.currentSize) {
+      for (let n = 0, s = t.length; n < s; n++)
+        l === t[n].getAttribute("data-value") ? this.util.addClass(t[n], "active") : this.util.removeClass(t[n], "active");
+      e.currentSize = l;
     }
   },
   pickup: function(e) {
@@ -2770,11 +2614,11 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
       return !1;
     e.preventDefault(), e.stopPropagation();
     const t = e.target.getAttribute("data-value") || "", i = this.getSelectedElements();
-    for (let n = 0, l = i.length; n < l; n++)
-      i[n].style.lineHeight = t;
+    for (let l = 0, n = i.length; l < n; l++)
+      i[l].style.lineHeight = t;
     this.submenuOff(), this.history.push(!1);
   }
-}, On = {
+}, gl = {
   name: "template",
   display: "submenu",
   add: function(e, t) {
@@ -2782,8 +2626,8 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
     i.template = {
       selectedIndex: -1
     };
-    let n = this.setSubmenu(e);
-    n.querySelector("ul").addEventListener("click", this.pickup.bind(e)), e.initMenuTarget(this.name, t, n), n = null;
+    let l = this.setSubmenu(e);
+    l.querySelector("ul").addEventListener("click", this.pickup.bind(e)), e.initMenuTarget(this.name, t, l), l = null;
   },
   setSubmenu: function(e) {
     const t = e.options.templates;
@@ -2791,10 +2635,10 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
       throw Error('[SUNEDITOR.plugins.template.fail] To use the "template" plugin, please define the "templates" option.');
     const i = e.util.createElement("DIV");
     i.className = "se-list-layer";
-    let n = '<div class="se-submenu se-list-inner"><ul class="se-list-basic">';
-    for (let l = 0, o = t.length, s; l < o; l++)
-      s = t[l], n += '<li><button type="button" class="se-btn-list" data-value="' + l + '" title="' + s.name + '" aria-label="' + s.name + '">' + s.name + "</button></li>";
-    return n += "</ul></div>", i.innerHTML = n, i;
+    let l = '<div class="se-submenu se-list-inner"><ul class="se-list-basic">';
+    for (let n = 0, s = t.length, o; n < s; n++)
+      o = t[n], l += '<li><button type="button" class="se-btn-list" data-value="' + n + '" title="' + o.name + '" aria-label="' + o.name + '">' + o.name + "</button></li>";
+    return l += "</ul></div>", i.innerHTML = l, i;
   },
   pickup: function(e) {
     if (!/^BUTTON$/i.test(e.target.tagName))
@@ -2807,7 +2651,7 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
       throw this.submenuOff(), Error('[SUNEDITOR.template.fail] cause : "templates[i].html not found"');
     this.submenuOff();
   }
-}, Un = {
+}, ml = {
   name: "paragraphStyle",
   display: "submenu",
   add: function(e, t) {
@@ -2815,45 +2659,45 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
     i.paragraphStyle = {
       _classList: null
     };
-    let n = this.setSubmenu(e);
-    n.querySelector("ul").addEventListener("click", this.pickUp.bind(e)), i.paragraphStyle._classList = n.querySelectorAll("li button"), e.initMenuTarget(this.name, t, n), n = null;
+    let l = this.setSubmenu(e);
+    l.querySelector("ul").addEventListener("click", this.pickUp.bind(e)), i.paragraphStyle._classList = l.querySelectorAll("li button"), e.initMenuTarget(this.name, t, l), l = null;
   },
   setSubmenu: function(e) {
     const t = e.options, i = e.util.createElement("DIV");
     i.className = "se-submenu se-list-layer se-list-format";
-    const n = e.lang.menu, l = {
+    const l = e.lang.menu, n = {
       spaced: {
-        name: n.spaced,
+        name: l.spaced,
         class: "__se__p-spaced",
         _class: ""
       },
       bordered: {
-        name: n.bordered,
+        name: l.bordered,
         class: "__se__p-bordered",
         _class: ""
       },
       neon: {
-        name: n.neon,
+        name: l.neon,
         class: "__se__p-neon",
         _class: ""
       }
-    }, o = !t.paragraphStyles || t.paragraphStyles.length === 0 ? ["spaced", "bordered", "neon"] : t.paragraphStyles;
-    let s = '<div class="se-list-inner"><ul class="se-list-basic">';
-    for (let a = 0, r = o.length, u, d, f, h; a < r; a++) {
-      if (u = o[a], typeof u == "string") {
-        const g = l[u.toLowerCase()];
+    }, s = !t.paragraphStyles || t.paragraphStyles.length === 0 ? ["spaced", "bordered", "neon"] : t.paragraphStyles;
+    let o = '<div class="se-list-inner"><ul class="se-list-basic">';
+    for (let a = 0, r = s.length, u, d, f, h; a < r; a++) {
+      if (u = s[a], typeof u == "string") {
+        const g = n[u.toLowerCase()];
         if (!g)
           continue;
         u = g;
       }
-      d = u.name, f = u.class ? ' class="' + u.class + '"' : "", h = u._class, s += '<li><button type="button" class="se-btn-list' + (h ? " " + h : "") + '" data-value="' + u.class + '" title="' + d + '" aria-label="' + d + '"><div' + f + ">" + d + "</div></button></li>";
+      d = u.name, f = u.class ? ' class="' + u.class + '"' : "", h = u._class, o += '<li><button type="button" class="se-btn-list' + (h ? " " + h : "") + '" data-value="' + u.class + '" title="' + d + '" aria-label="' + d + '"><div' + f + ">" + d + "</div></button></li>";
     }
-    return s += "</ul></div>", i.innerHTML = s, i;
+    return o += "</ul></div>", i.innerHTML = o, i;
   },
   on: function() {
     const t = this.context.paragraphStyle._classList, i = this.util.getFormatElement(this.getSelectionNode());
-    for (let n = 0, l = t.length; n < l; n++)
-      this.util.hasClass(i, t[n].getAttribute("data-value")) ? this.util.addClass(t[n], "active") : this.util.removeClass(t[n], "active");
+    for (let l = 0, n = t.length; l < n; l++)
+      this.util.hasClass(i, t[l].getAttribute("data-value")) ? this.util.addClass(t[l], "active") : this.util.removeClass(t[l], "active");
   },
   pickUp: function(e) {
     e.preventDefault(), e.stopPropagation();
@@ -2862,15 +2706,15 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
       t = t.parentNode;
     if (!i)
       return;
-    let n = this.getSelectedElements();
-    if (n.length === 0 && (this.getRange_addLine(this.getRange(), null), n = this.getSelectedElements(), n.length === 0))
+    let l = this.getSelectedElements();
+    if (l.length === 0 && (this.getRange_addLine(this.getRange(), null), l = this.getSelectedElements(), l.length === 0))
       return;
-    const l = this.util.hasClass(t, "active") ? this.util.removeClass.bind(this.util) : this.util.addClass.bind(this.util);
-    for (let o = 0, s = n.length; o < s; o++)
-      l(n[o], i);
+    const n = this.util.hasClass(t, "active") ? this.util.removeClass.bind(this.util) : this.util.addClass.bind(this.util);
+    for (let s = 0, o = l.length; s < o; s++)
+      n(l[s], i);
     this.submenuOff(), this.history.push(!1);
   }
-}, Vn = {
+}, bl = {
   name: "textStyle",
   display: "submenu",
   add: function(e, t) {
@@ -2878,13 +2722,13 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
     i.textStyle = {
       _styleList: null
     };
-    let n = this.setSubmenu(e), l = n.querySelector("ul");
-    l.addEventListener("click", this.pickup.bind(e)), i.textStyle._styleList = n.querySelectorAll("li button"), e.initMenuTarget(this.name, t, n), n = null, l = null;
+    let l = this.setSubmenu(e), n = l.querySelector("ul");
+    n.addEventListener("click", this.pickup.bind(e)), i.textStyle._styleList = l.querySelectorAll("li button"), e.initMenuTarget(this.name, t, l), l = null, n = null;
   },
   setSubmenu: function(e) {
     const t = e.options, i = e.util.createElement("DIV");
     i.className = "se-submenu se-list-layer se-list-format";
-    const n = {
+    const l = {
       code: {
         name: e.lang.menu.code,
         class: "__se__t-code",
@@ -2900,26 +2744,26 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
         class: "__se__t-shadow",
         tag: "span"
       }
-    }, l = t.textStyles ? t.textStyles : e._w.Object.keys(n);
-    let o = '<div class="se-list-inner"><ul class="se-list-basic">';
-    for (let s = 0, a = l.length, r, u, d, f, h, g, p; s < a; s++) {
-      if (r = l[s], f = "", g = "", h = [], typeof r == "string") {
-        const b = n[r.toLowerCase()];
+    }, n = t.textStyles ? t.textStyles : e._w.Object.keys(l);
+    let s = '<div class="se-list-inner"><ul class="se-list-basic">';
+    for (let o = 0, a = n.length, r, u, d, f, h, g, p; o < a; o++) {
+      if (r = n[o], f = "", g = "", h = [], typeof r == "string") {
+        const b = l[r.toLowerCase()];
         if (!b)
           continue;
         r = b;
       }
-      d = r.name, u = r.tag || "span", p = r._class, r.style && (f += ' style="' + r.style + '"', g += r.style.replace(/:[^;]+(;|$)\s*/g, ","), h.push("style")), r.class && (f += ' class="' + r.class + '"', g += "." + r.class.trim().replace(/\s+/g, ",."), h.push("class")), g = g.replace(/,$/, ""), o += '<li><button type="button" class="se-btn-list' + (p ? " " + p : "") + '" data-command="' + u + '" data-value="' + g + '" title="' + d + '" aria-label="' + d + '"><' + u + f + ">" + d + "</" + u + "></button></li>";
+      d = r.name, u = r.tag || "span", p = r._class, r.style && (f += ' style="' + r.style + '"', g += r.style.replace(/:[^;]+(;|$)\s*/g, ","), h.push("style")), r.class && (f += ' class="' + r.class + '"', g += "." + r.class.trim().replace(/\s+/g, ",."), h.push("class")), g = g.replace(/,$/, ""), s += '<li><button type="button" class="se-btn-list' + (p ? " " + p : "") + '" data-command="' + u + '" data-value="' + g + '" title="' + d + '" aria-label="' + d + '"><' + u + f + ">" + d + "</" + u + "></button></li>";
     }
-    return o += "</ul></div>", i.innerHTML = o, i;
+    return s += "</ul></div>", i.innerHTML = s, i;
   },
   on: function() {
-    const e = this.util, i = this.context.textStyle._styleList, n = this.getSelectionNode();
-    for (let l = 0, o = i.length, s, a, r; l < o; l++) {
-      s = i[l], a = s.getAttribute("data-value").split(",");
+    const e = this.util, i = this.context.textStyle._styleList, l = this.getSelectionNode();
+    for (let n = 0, s = i.length, o, a, r; n < s; n++) {
+      o = i[n], a = o.getAttribute("data-value").split(",");
       for (let u = 0, d, f; u < a.length; u++) {
-        for (d = n, r = !1; d && !e.isFormatElement(d) && !e.isComponent(d); ) {
-          if (d.nodeName.toLowerCase() === s.getAttribute("data-command").toLowerCase() && (f = a[u], /^\./.test(f) ? e.hasClass(d, f.replace(/^\./, "")) : !!d.style[f])) {
+        for (d = l, r = !1; d && !e.isFormatElement(d) && !e.isComponent(d); ) {
+          if (d.nodeName.toLowerCase() === o.getAttribute("data-command").toLowerCase() && (f = a[u], /^\./.test(f) ? e.hasClass(d, f.replace(/^\./, "")) : !!d.style[f])) {
             r = !0;
             break;
           }
@@ -2928,75 +2772,75 @@ const Cn = /* @__PURE__ */ U(wn, [["render", xn]]), Ln = {
         if (!r)
           break;
       }
-      r ? e.addClass(s, "active") : e.removeClass(s, "active");
+      r ? e.addClass(o, "active") : e.removeClass(o, "active");
     }
   },
   pickup: function(e) {
     e.preventDefault(), e.stopPropagation();
-    let t = e.target, i = null, n = null;
+    let t = e.target, i = null, l = null;
     for (; !i && !/UL/i.test(t.tagName); ) {
       if (i = t.getAttribute("data-command"), i) {
-        n = t.firstChild;
+        l = t.firstChild;
         break;
       }
       t = t.parentNode;
     }
     if (!i)
       return;
-    const l = n.style.cssText.replace(/:.+(;|$)/g, ",").split(",");
-    l.pop();
-    const o = n.classList;
-    for (let r = 0, u = o.length; r < u; r++)
-      l.push("." + o[r]);
-    const s = this.util.hasClass(t, "active") ? null : n.cloneNode(!1), a = s ? null : [n.nodeName];
-    this.nodeChange(s, l, a, !0), this.submenuOff();
+    const n = l.style.cssText.replace(/:.+(;|$)/g, ",").split(",");
+    n.pop();
+    const s = l.classList;
+    for (let r = 0, u = s.length; r < u; r++)
+      n.push("." + s[r]);
+    const o = this.util.hasClass(t, "active") ? null : l.cloneNode(!1), a = o ? null : [l.nodeName];
+    this.nodeChange(o, n, a, !0), this.submenuOff();
   }
 };
-var M = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : typeof global < "u" ? global : typeof self < "u" ? self : {}, ze = { exports: {} };
+var M = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : typeof global < "u" ? global : typeof self < "u" ? self : {}, Te = { exports: {} };
 (function(e) {
   (function(t, i) {
-    e.exports = t.document ? i(t, !0) : function(n) {
-      if (!n.document)
+    e.exports = t.document ? i(t, !0) : function(l) {
+      if (!l.document)
         throw new Error("SUNEDITOR_MODULES a window with a document");
-      return i(n);
+      return i(l);
     };
   })(typeof window < "u" ? window : M, function(t, i) {
-    const n = {
+    const l = {
       name: "dialog",
-      add: function(l) {
-        const o = l.context;
-        o.dialog = {
+      add: function(n) {
+        const s = n.context;
+        s.dialog = {
           kind: "",
           updateModal: !1,
           _closeSignal: !1
         };
-        let s = l.util.createElement("DIV");
-        s.className = "se-dialog sun-editor-common";
-        let a = l.util.createElement("DIV");
+        let o = n.util.createElement("DIV");
+        o.className = "se-dialog sun-editor-common";
+        let a = n.util.createElement("DIV");
         a.className = "se-dialog-back", a.style.display = "none";
-        let r = l.util.createElement("DIV");
-        r.className = "se-dialog-inner", r.style.display = "none", s.appendChild(a), s.appendChild(r), o.dialog.modalArea = s, o.dialog.back = a, o.dialog.modal = r, o.dialog.modal.addEventListener("mousedown", this._onMouseDown_dialog.bind(l)), o.dialog.modal.addEventListener("click", this._onClick_dialog.bind(l)), o.element.relative.appendChild(s), s = null, a = null, r = null;
+        let r = n.util.createElement("DIV");
+        r.className = "se-dialog-inner", r.style.display = "none", o.appendChild(a), o.appendChild(r), s.dialog.modalArea = o, s.dialog.back = a, s.dialog.modal = r, s.dialog.modal.addEventListener("mousedown", this._onMouseDown_dialog.bind(n)), s.dialog.modal.addEventListener("click", this._onClick_dialog.bind(n)), s.element.relative.appendChild(o), o = null, a = null, r = null;
       },
-      _onMouseDown_dialog: function(l) {
-        /se-dialog-inner/.test(l.target.className) ? this.context.dialog._closeSignal = !0 : this.context.dialog._closeSignal = !1;
+      _onMouseDown_dialog: function(n) {
+        /se-dialog-inner/.test(n.target.className) ? this.context.dialog._closeSignal = !0 : this.context.dialog._closeSignal = !1;
       },
-      _onClick_dialog: function(l) {
-        (/close/.test(l.target.getAttribute("data-command")) || this.context.dialog._closeSignal) && this.plugins.dialog.close.call(this);
+      _onClick_dialog: function(n) {
+        (/close/.test(n.target.getAttribute("data-command")) || this.context.dialog._closeSignal) && this.plugins.dialog.close.call(this);
       },
-      open: function(l, o) {
+      open: function(n, s) {
         if (this.modalForm)
           return !1;
         this.plugins.dialog._bindClose && (this._d.removeEventListener("keydown", this.plugins.dialog._bindClose), this.plugins.dialog._bindClose = null), this.plugins.dialog._bindClose = function(a) {
           !/27/.test(a.keyCode) || this.plugins.dialog.close.call(this);
-        }.bind(this), this._d.addEventListener("keydown", this.plugins.dialog._bindClose), this.context.dialog.updateModal = o, this.options.popupDisplay === "full" ? this.context.dialog.modalArea.style.position = "fixed" : this.context.dialog.modalArea.style.position = "absolute", this.context.dialog.kind = l, this.modalForm = this.context[l].modal;
-        const s = this.context[l].focusElement;
-        typeof this.plugins[l].on == "function" && this.plugins[l].on.call(this, o), this.context.dialog.modalArea.style.display = "block", this.context.dialog.back.style.display = "block", this.context.dialog.modal.style.display = "block", this.modalForm.style.display = "block", s && s.focus();
+        }.bind(this), this._d.addEventListener("keydown", this.plugins.dialog._bindClose), this.context.dialog.updateModal = s, this.options.popupDisplay === "full" ? this.context.dialog.modalArea.style.position = "fixed" : this.context.dialog.modalArea.style.position = "absolute", this.context.dialog.kind = n, this.modalForm = this.context[n].modal;
+        const o = this.context[n].focusElement;
+        typeof this.plugins[n].on == "function" && this.plugins[n].on.call(this, s), this.context.dialog.modalArea.style.display = "block", this.context.dialog.back.style.display = "block", this.context.dialog.modal.style.display = "block", this.modalForm.style.display = "block", o && o.focus();
       },
       _bindClose: null,
       close: function() {
         this.plugins.dialog._bindClose && (this._d.removeEventListener("keydown", this.plugins.dialog._bindClose), this.plugins.dialog._bindClose = null);
-        const l = this.context.dialog.kind;
-        this.modalForm.style.display = "none", this.context.dialog.back.style.display = "none", this.context.dialog.modalArea.style.display = "none", this.context.dialog.updateModal = !1, typeof this.plugins[l].init == "function" && this.plugins[l].init.call(this), this.context.dialog.kind = "", this.modalForm = null, this.focus();
+        const n = this.context.dialog.kind;
+        this.modalForm.style.display = "none", this.context.dialog.back.style.display = "none", this.context.dialog.modalArea.style.display = "none", this.context.dialog.updateModal = !1, typeof this.plugins[n].init == "function" && this.plugins[n].init.call(this), this.context.dialog.kind = "", this.modalForm = null, this.focus();
       }
     };
     return typeof i > "u" && (t.SUNEDITOR_MODULES || Object.defineProperty(t, "SUNEDITOR_MODULES", {
@@ -3008,11 +2852,11 @@ var M = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : ty
       enumerable: !0,
       writable: !1,
       configurable: !1,
-      value: n
-    })), n;
+      value: l
+    })), l;
   });
-})(ze);
-const Q = ze.exports, Fn = {
+})(Te);
+const te = Te.exports, _l = {
   name: "selectMenu",
   add: function(e) {
     e.context.selectMenu = {
@@ -3027,7 +2871,7 @@ const Q = ze.exports, Fn = {
     e.form.innerHTML = "<ul>" + i + "</ul>", e.items = t, e.menus = e.form.querySelectorAll("li");
   },
   initEvent: function(e, t) {
-    const i = t.querySelector(".se-select-list"), n = this.context.selectMenu.caller[e] = {
+    const i = t.querySelector(".se-select-list"), l = this.context.selectMenu.caller[e] = {
       form: i,
       items: [],
       menus: [],
@@ -3036,7 +2880,7 @@ const Q = ze.exports, Fn = {
       clickMethod: null,
       callerName: e
     };
-    i.addEventListener("mousedown", this.plugins.selectMenu.onMousedown_list), i.addEventListener("mousemove", this.plugins.selectMenu.onMouseMove_list.bind(this, n)), i.addEventListener("click", this.plugins.selectMenu.onClick_list.bind(this, n));
+    i.addEventListener("mousedown", this.plugins.selectMenu.onMousedown_list), i.addEventListener("mousemove", this.plugins.selectMenu.onMouseMove_list.bind(this, l)), i.addEventListener("click", this.plugins.selectMenu.onClick_list.bind(this, l));
   },
   onMousedown_list: function(e) {
     e.preventDefault(), e.stopPropagation();
@@ -3052,10 +2896,10 @@ const Q = ze.exports, Fn = {
   },
   moveItem: function(e, t) {
     this.util.removeClass(e.form, "__se_select-menu-mouse-move"), t = e.index + t;
-    const i = e.menus, n = i.length, l = e.index = t >= n ? 0 : t < 0 ? n - 1 : t;
-    for (let o = 0; o < n; o++)
-      o === l ? this.util.addClass(i[o], "active") : this.util.removeClass(i[o], "active");
-    e.item = e.items[l];
+    const i = e.menus, l = i.length, n = e.index = t >= l ? 0 : t < 0 ? l - 1 : t;
+    for (let s = 0; s < l; s++)
+      s === n ? this.util.addClass(i[s], "active") : this.util.removeClass(i[s], "active");
+    e.item = e.items[n];
   },
   getItem: function(e, t) {
     return t = !t || t < 0 ? e.index : t, e.items[t];
@@ -3074,10 +2918,10 @@ const Q = ze.exports, Fn = {
   init: function(e) {
     !e || (e.items = [], e.menus = [], e.index = -1, e.item = null, e.callerName = "", this.context.selectMenu.callerContext = null);
   }
-}, Ee = {
+}, Re = {
   name: "anchor",
   add: function(e) {
-    e.addModule([Fn]), e.context.anchor = {
+    e.addModule([_l]), e.context.anchor = {
       caller: {},
       forms: this.setDialogForm(e),
       host: (e._w.location.origin + e._w.location.pathname).replace(/\/$/, ""),
@@ -3085,18 +2929,18 @@ const Q = ze.exports, Fn = {
     };
   },
   setDialogForm: function(e) {
-    const t = e.lang, i = e.options.linkRel, n = (e.options.linkRelDefault.default || "").split(" "), l = e.icons, o = e.util.createElement("DIV");
-    let s = '<div class="se-dialog-body"><div class="se-dialog-form"><label>' + t.dialogBox.linkBox.url + '</label><div class="se-dialog-form-files"><input class="se-input-form se-input-url" type="text" placeholder="' + (e.options.protocol || "") + '" /><button type="button" class="se-btn se-dialog-files-edge-button _se_bookmark_button" title="' + t.dialogBox.linkBox.bookmark + '" aria-label="' + t.dialogBox.linkBox.bookmark + '">' + l.bookmark + "</button>" + e.plugins.selectMenu.setForm() + '</div><div class="se-anchor-preview-form"><span class="se-svg se-anchor-preview-icon _se_anchor_bookmark_icon">' + l.bookmark + '</span><span class="se-svg se-anchor-preview-icon _se_anchor_download_icon">' + l.download + '</span><pre class="se-link-preview"></pre></div></div><div class="se-dialog-form"><label>' + t.dialogBox.linkBox.text + '</label><input class="se-input-form _se_anchor_text" type="text" /></div><div class="se-dialog-form-footer"><label><input type="checkbox" class="se-dialog-btn-check _se_anchor_check" />&nbsp;' + t.dialogBox.linkBox.newWindowCheck + '</label><label><input type="checkbox" class="se-dialog-btn-check _se_anchor_download" />&nbsp;' + t.dialogBox.linkBox.downloadLinkCheck + "</label>";
+    const t = e.lang, i = e.options.linkRel, l = (e.options.linkRelDefault.default || "").split(" "), n = e.icons, s = e.util.createElement("DIV");
+    let o = '<div class="se-dialog-body"><div class="se-dialog-form"><label>' + t.dialogBox.linkBox.url + '</label><div class="se-dialog-form-files"><input class="se-input-form se-input-url" type="text" placeholder="' + (e.options.protocol || "") + '" /><button type="button" class="se-btn se-dialog-files-edge-button _se_bookmark_button" title="' + t.dialogBox.linkBox.bookmark + '" aria-label="' + t.dialogBox.linkBox.bookmark + '">' + n.bookmark + "</button>" + e.plugins.selectMenu.setForm() + '</div><div class="se-anchor-preview-form"><span class="se-svg se-anchor-preview-icon _se_anchor_bookmark_icon">' + n.bookmark + '</span><span class="se-svg se-anchor-preview-icon _se_anchor_download_icon">' + n.download + '</span><pre class="se-link-preview"></pre></div></div><div class="se-dialog-form"><label>' + t.dialogBox.linkBox.text + '</label><input class="se-input-form _se_anchor_text" type="text" /></div><div class="se-dialog-form-footer"><label><input type="checkbox" class="se-dialog-btn-check _se_anchor_check" />&nbsp;' + t.dialogBox.linkBox.newWindowCheck + '</label><label><input type="checkbox" class="se-dialog-btn-check _se_anchor_download" />&nbsp;' + t.dialogBox.linkBox.downloadLinkCheck + "</label>";
     if (i.length > 0) {
-      s += '<div class="se-anchor-rel"><button type="button" class="se-btn se-btn-select se-anchor-rel-btn">&lt;rel&gt;</button><div class="se-anchor-rel-wrapper"><pre class="se-link-preview se-anchor-rel-preview"></pre></div><div class="se-list-layer"><div class="se-list-inner"><ul class="se-list-basic se-list-checked">';
+      o += '<div class="se-anchor-rel"><button type="button" class="se-btn se-btn-select se-anchor-rel-btn">&lt;rel&gt;</button><div class="se-anchor-rel-wrapper"><pre class="se-link-preview se-anchor-rel-preview"></pre></div><div class="se-list-layer"><div class="se-list-inner"><ul class="se-list-basic se-list-checked">';
       for (let a = 0, r = i.length, u; a < r; a++)
-        u = i[a], s += '<li><button type="button" class="se-btn-list' + (n.indexOf(u) > -1 ? " se-checked" : "") + '" data-command="' + u + '" title="' + u + '" aria-label="' + u + '"><span class="se-svg">' + l.checked + "</span>" + u + "</button></li>";
-      s += "</ul></div></div></div>";
+        u = i[a], o += '<li><button type="button" class="se-btn-list' + (l.indexOf(u) > -1 ? " se-checked" : "") + '" data-command="' + u + '" title="' + u + '" aria-label="' + u + '"><span class="se-svg">' + n.checked + "</span>" + u + "</button></li>";
+      o += "</ul></div></div></div>";
     }
-    return s += "</div></div>", o.innerHTML = s, o;
+    return o += "</div></div>", s.innerHTML = o, s;
   },
   initEvent: function(e, t) {
-    const i = this.plugins.anchor, n = this.context.anchor.caller[e] = {
+    const i = this.plugins.anchor, l = this.context.anchor.caller[e] = {
       modal: t,
       urlInput: null,
       linkDefaultRel: this.options.linkRelDefault,
@@ -3107,9 +2951,9 @@ const Q = ze.exports, Fn = {
       _change: !1,
       callerName: e
     };
-    typeof n.linkDefaultRel.default == "string" && (n.linkDefaultRel.default = n.linkDefaultRel.default.trim()), typeof n.linkDefaultRel.check_new_window == "string" && (n.linkDefaultRel.check_new_window = n.linkDefaultRel.check_new_window.trim()), typeof n.linkDefaultRel.check_bookmark == "string" && (n.linkDefaultRel.check_bookmark = n.linkDefaultRel.check_bookmark.trim()), n.urlInput = t.querySelector(".se-input-url"), n.anchorText = t.querySelector("._se_anchor_text"), n.newWindowCheck = t.querySelector("._se_anchor_check"), n.downloadCheck = t.querySelector("._se_anchor_download"), n.download = t.querySelector("._se_anchor_download_icon"), n.preview = t.querySelector(".se-link-preview"), n.bookmark = t.querySelector("._se_anchor_bookmark_icon"), n.bookmarkButton = t.querySelector("._se_bookmark_button"), this.plugins.selectMenu.initEvent.call(this, e, t);
-    const l = this.context.selectMenu.caller[e];
-    this.options.linkRel.length > 0 && (n.relButton = t.querySelector(".se-anchor-rel-btn"), n.relList = t.querySelector(".se-list-layer"), n.relPreview = t.querySelector(".se-anchor-rel-preview"), n.relButton.addEventListener("click", i.onClick_relButton.bind(this, n)), n.relList.addEventListener("click", i.onClick_relList.bind(this, n))), n.newWindowCheck.addEventListener("change", i.onChange_newWindowCheck.bind(this, n)), n.downloadCheck.addEventListener("change", i.onChange_downloadCheck.bind(this, n)), n.anchorText.addEventListener("input", i.onChangeAnchorText.bind(this, n)), n.urlInput.addEventListener("input", i.onChangeUrlInput.bind(this, n)), n.urlInput.addEventListener("keydown", i.onKeyDownUrlInput.bind(this, l)), n.urlInput.addEventListener("focus", i.onFocusUrlInput.bind(this, n, l)), n.urlInput.addEventListener("blur", i.onBlurUrlInput.bind(this, l)), n.bookmarkButton.addEventListener("click", i.onClick_bookmarkButton.bind(this, n));
+    typeof l.linkDefaultRel.default == "string" && (l.linkDefaultRel.default = l.linkDefaultRel.default.trim()), typeof l.linkDefaultRel.check_new_window == "string" && (l.linkDefaultRel.check_new_window = l.linkDefaultRel.check_new_window.trim()), typeof l.linkDefaultRel.check_bookmark == "string" && (l.linkDefaultRel.check_bookmark = l.linkDefaultRel.check_bookmark.trim()), l.urlInput = t.querySelector(".se-input-url"), l.anchorText = t.querySelector("._se_anchor_text"), l.newWindowCheck = t.querySelector("._se_anchor_check"), l.downloadCheck = t.querySelector("._se_anchor_download"), l.download = t.querySelector("._se_anchor_download_icon"), l.preview = t.querySelector(".se-link-preview"), l.bookmark = t.querySelector("._se_anchor_bookmark_icon"), l.bookmarkButton = t.querySelector("._se_bookmark_button"), this.plugins.selectMenu.initEvent.call(this, e, t);
+    const n = this.context.selectMenu.caller[e];
+    this.options.linkRel.length > 0 && (l.relButton = t.querySelector(".se-anchor-rel-btn"), l.relList = t.querySelector(".se-list-layer"), l.relPreview = t.querySelector(".se-anchor-rel-preview"), l.relButton.addEventListener("click", i.onClick_relButton.bind(this, l)), l.relList.addEventListener("click", i.onClick_relList.bind(this, l))), l.newWindowCheck.addEventListener("change", i.onChange_newWindowCheck.bind(this, l)), l.downloadCheck.addEventListener("change", i.onChange_downloadCheck.bind(this, l)), l.anchorText.addEventListener("input", i.onChangeAnchorText.bind(this, l)), l.urlInput.addEventListener("input", i.onChangeUrlInput.bind(this, l)), l.urlInput.addEventListener("keydown", i.onKeyDownUrlInput.bind(this, n)), l.urlInput.addEventListener("focus", i.onFocusUrlInput.bind(this, l, n)), l.urlInput.addEventListener("blur", i.onBlurUrlInput.bind(this, n)), l.bookmarkButton.addEventListener("click", i.onClick_bookmarkButton.bind(this, l));
   },
   on: function(e, t) {
     const i = this.plugins.anchor;
@@ -3117,8 +2961,8 @@ const Q = ze.exports, Fn = {
       i.init.call(this, e), e.anchorText.value = this.getSelection().toString().trim(), e.newWindowCheck.checked = this.options.linkTargetNewWindow;
     else if (e.linkAnchor) {
       this.context.dialog.updateModal = !0;
-      const n = e.linkAnchor.getAttribute("href");
-      e.linkValue = e.preview.textContent = e.urlInput.value = i.selfPathBookmark.call(this, n) ? n.substr(n.lastIndexOf("#")) : n, e.anchorText.value = e.linkAnchor.textContent || e.linkAnchor.getAttribute("alt"), e.newWindowCheck.checked = !!/_blank/i.test(e.linkAnchor.target), e.downloadCheck.checked = e.linkAnchor.download;
+      const l = e.linkAnchor.getAttribute("href");
+      e.linkValue = e.preview.textContent = e.urlInput.value = i.selfPathBookmark.call(this, l) ? l.substr(l.lastIndexOf("#")) : l, e.anchorText.value = e.linkAnchor.textContent || e.linkAnchor.getAttribute("alt"), e.newWindowCheck.checked = !!/_blank/i.test(e.linkAnchor.target), e.downloadCheck.checked = e.linkAnchor.download;
     }
     this.context.anchor.callerContext = e, i.setRel.call(this, e, t && e.linkAnchor ? e.linkAnchor.rel : e.defaultRel), i.setLinkPreview.call(this, e, e.linkValue), this.plugins.selectMenu.on.call(this, e.callerName, this.plugins.anchor.setHeaderBookmark);
   },
@@ -3131,9 +2975,9 @@ const Q = ze.exports, Fn = {
     if (!t)
       this.plugins.anchor._closeRelMenu && this.plugins.anchor._closeRelMenu();
     else {
-      const i = e.relButton, n = e.relList;
-      this.util.addClass(i, "active"), n.style.visibility = "hidden", n.style.display = "block", this.options.rtl ? n.style.left = i.offsetLeft - n.offsetWidth - 1 + "px" : n.style.left = i.offsetLeft + i.offsetWidth + 1 + "px", n.style.top = i.offsetTop + i.offsetHeight / 2 - n.offsetHeight / 2 + "px", n.style.visibility = "", this.plugins.anchor._closeRelMenu = function(l, o, s) {
-        s && (l.relButton.contains(s.target) || l.relList.contains(s.target)) || (this.util.removeClass(o, "active"), l.relList.style.display = "none", this.modalForm.removeEventListener("click", this.plugins.anchor._closeRelMenu), this.plugins.anchor._closeRelMenu = null);
+      const i = e.relButton, l = e.relList;
+      this.util.addClass(i, "active"), l.style.visibility = "hidden", l.style.display = "block", this.options.rtl ? l.style.left = i.offsetLeft - l.offsetWidth - 1 + "px" : l.style.left = i.offsetLeft + i.offsetWidth + 1 + "px", l.style.top = i.offsetTop + i.offsetHeight / 2 - l.offsetHeight / 2 + "px", l.style.visibility = "", this.plugins.anchor._closeRelMenu = function(n, s, o) {
+        o && (n.relButton.contains(o.target) || n.relList.contains(o.target)) || (this.util.removeClass(s, "active"), n.relList.style.display = "none", this.modalForm.removeEventListener("click", this.plugins.anchor._closeRelMenu), this.plugins.anchor._closeRelMenu = null);
       }.bind(this, e, i), this.modalForm.addEventListener("click", this.plugins.anchor._closeRelMenu);
     }
   },
@@ -3141,32 +2985,32 @@ const Q = ze.exports, Fn = {
     this.plugins.anchor.toggleRelList.call(this, e, !this.util.hasClass(t.target, "active"));
   },
   onClick_relList: function(e, t) {
-    const i = t.target, n = i.getAttribute("data-command");
-    if (!n)
+    const i = t.target, l = i.getAttribute("data-command");
+    if (!l)
       return;
-    const l = e.currentRel, o = this.util.toggleClass(i, "se-checked"), s = l.indexOf(n);
-    o ? s === -1 && l.push(n) : s > -1 && l.splice(s, 1), e.relPreview.title = e.relPreview.textContent = l.join(" ");
+    const n = e.currentRel, s = this.util.toggleClass(i, "se-checked"), o = n.indexOf(l);
+    s ? o === -1 && n.push(l) : o > -1 && n.splice(o, 1), e.relPreview.title = e.relPreview.textContent = n.join(" ");
   },
   setRel: function(e, t) {
-    const i = e.relList, n = e.currentRel = t ? t.split(" ") : [];
+    const i = e.relList, l = e.currentRel = t ? t.split(" ") : [];
     if (!i)
       return;
-    const l = i.querySelectorAll("button");
-    for (let o = 0, s = l.length, a; o < s; o++)
-      a = l[o].getAttribute("data-command"), n.indexOf(a) > -1 ? this.util.addClass(l[o], "se-checked") : this.util.removeClass(l[o], "se-checked");
-    e.relPreview.title = e.relPreview.textContent = n.join(" ");
+    const n = i.querySelectorAll("button");
+    for (let s = 0, o = n.length, a; s < o; s++)
+      a = n[s].getAttribute("data-command"), l.indexOf(a) > -1 ? this.util.addClass(n[s], "se-checked") : this.util.removeClass(n[s], "se-checked");
+    e.relPreview.title = e.relPreview.textContent = l.join(" ");
   },
   createHeaderList: function(e, t, i) {
-    const n = this.util.getListChildren(this.context.element.wysiwyg, function(a) {
+    const l = this.util.getListChildren(this.context.element.wysiwyg, function(a) {
       return /h[1-6]/i.test(a.nodeName);
     });
-    if (n.length === 0)
+    if (l.length === 0)
       return;
-    const l = new this._w.RegExp("^" + i.replace(/^#/, ""), "i"), o = [];
-    let s = "";
-    for (let a = 0, r = n.length, u; a < r; a++)
-      u = n[a], l.test(u.textContent) && (o.push(u), s += '<li class="se-select-item" data-index="' + a + '">' + u.textContent + "</li>");
-    o.length === 0 ? this.plugins.selectMenu.close.call(this, t) : (this.plugins.selectMenu.createList(t, o, s), this.plugins.selectMenu.open.call(this, t, this.plugins.anchor._setMenuListPosition.bind(this, e)));
+    const n = new this._w.RegExp("^" + i.replace(/^#/, ""), "i"), s = [];
+    let o = "";
+    for (let a = 0, r = l.length, u; a < r; a++)
+      u = l[a], n.test(u.textContent) && (s.push(u), o += '<li class="se-select-item" data-index="' + a + '">' + u.textContent + "</li>");
+    s.length === 0 ? this.plugins.selectMenu.close.call(this, t) : (this.plugins.selectMenu.createList(t, s, o), this.plugins.selectMenu.open.call(this, t, this.plugins.anchor._setMenuListPosition.bind(this, e)));
   },
   _setMenuListPosition: function(e, t) {
     t.style.top = e.urlInput.offsetHeight + 1 + "px";
@@ -3203,22 +3047,22 @@ const Q = ze.exports, Fn = {
     this.plugins.selectMenu.close.call(this, e);
   },
   setLinkPreview: function(e, t) {
-    const i = e.preview, n = this.options.linkProtocol, l = this.options.linkNoPrefix, o = /^(mailto\:|tel\:|sms\:|https*\:\/\/|#)/.test(t), s = n ? this._w.RegExp("^" + t.substr(0, n.length)).test(n) : !1;
-    t = e.linkValue = i.textContent = t ? l ? t : n && !o && !s ? n + t : o ? t : /^www\./.test(t) ? "http://" + t : this.context.anchor.host + (/^\//.test(t) ? "" : "/") + t : "", this.plugins.anchor.selfPathBookmark.call(this, t) ? (e.bookmark.style.display = "block", this.util.addClass(e.bookmarkButton, "active")) : (e.bookmark.style.display = "none", this.util.removeClass(e.bookmarkButton, "active")), !this.plugins.anchor.selfPathBookmark.call(this, t) && e.downloadCheck.checked ? e.download.style.display = "block" : e.download.style.display = "none";
+    const i = e.preview, l = this.options.linkProtocol, n = this.options.linkNoPrefix, s = /^(mailto\:|tel\:|sms\:|https*\:\/\/|#)/.test(t), o = l ? this._w.RegExp("^" + t.substr(0, l.length)).test(l) : !1;
+    t = e.linkValue = i.textContent = t ? n ? t : l && !s && !o ? l + t : s ? t : /^www\./.test(t) ? "http://" + t : this.context.anchor.host + (/^\//.test(t) ? "" : "/") + t : "", this.plugins.anchor.selfPathBookmark.call(this, t) ? (e.bookmark.style.display = "block", this.util.addClass(e.bookmarkButton, "active")) : (e.bookmark.style.display = "none", this.util.removeClass(e.bookmarkButton, "active")), !this.plugins.anchor.selfPathBookmark.call(this, t) && e.downloadCheck.checked ? e.download.style.display = "block" : e.download.style.display = "none";
   },
   setCtx: function(e, t) {
     !e || (t.linkAnchor = e, t.linkValue = e.href, t.currentRel = e.rel.split(" "));
   },
-  updateAnchor: function(e, t, i, n, l) {
-    !this.plugins.anchor.selfPathBookmark.call(this, t) && n.downloadCheck.checked ? e.setAttribute("download", i || t) : e.removeAttribute("download"), n.newWindowCheck.checked ? e.target = "_blank" : e.removeAttribute("target");
-    const o = n.currentRel.join(" ");
-    o ? e.rel = o : e.removeAttribute("rel"), e.href = t, e.setAttribute("alt", i), l ? e.children.length === 0 && (e.textContent = "") : e.textContent = i;
+  updateAnchor: function(e, t, i, l, n) {
+    !this.plugins.anchor.selfPathBookmark.call(this, t) && l.downloadCheck.checked ? e.setAttribute("download", i || t) : e.removeAttribute("download"), l.newWindowCheck.checked ? e.target = "_blank" : e.removeAttribute("target");
+    const s = l.currentRel.join(" ");
+    s ? e.rel = s : e.removeAttribute("rel"), e.href = t, e.setAttribute("alt", i), n ? e.children.length === 0 && (e.textContent = "") : e.textContent = i;
   },
   createAnchor: function(e, t) {
     if (e.linkValue.length === 0)
       return null;
-    const i = e.linkValue, n = e.anchorText, l = n.value.length === 0 ? i : n.value, o = e.linkAnchor || this.util.createElement("A");
-    return this.plugins.anchor.updateAnchor.call(this, o, i, l, e, t), e.linkValue = e.preview.textContent = e.urlInput.value = e.anchorText.value = "", o;
+    const i = e.linkValue, l = e.anchorText, n = l.value.length === 0 ? i : l.value, s = e.linkAnchor || this.util.createElement("A");
+    return this.plugins.anchor.updateAnchor.call(this, s, i, n, e, t), e.linkValue = e.preview.textContent = e.urlInput.value = e.anchorText.value = "", s;
   },
   onClick_bookmarkButton: function(e) {
     let t = e.urlInput.value;
@@ -3236,9 +3080,9 @@ const Q = ze.exports, Fn = {
       return i.join(" ");
     if (/^only\:/.test(t))
       return t = t.replace(/^only\:/, "").trim(), e.currentRel = t.split(" "), t;
-    const n = t.split(" ");
-    for (let l = 0, o = n.length, s; l < o; l++)
-      s = i.indexOf(n[l]), s === -1 && i.push(n[l]);
+    const l = t.split(" ");
+    for (let n = 0, s = l.length, o; n < s; n++)
+      o = i.indexOf(l[n]), o === -1 && i.push(l[n]);
     return i.join(" ");
   },
   _relDelete: function(e, t) {
@@ -3251,30 +3095,30 @@ const Q = ze.exports, Fn = {
   init: function(e) {
     e.linkAnchor = null, e.linkValue = e.preview.textContent = e.urlInput.value = "", e.anchorText.value = "", e.newWindowCheck.checked = !1, e.downloadCheck.checked = !1, e._change = !1, this.plugins.anchor.setRel.call(this, e, e.defaultRel), e.relList && this.plugins.anchor.toggleRelList.call(this, e, !1), this.context.anchor.callerContext = null, this.plugins.selectMenu.init.call(this, this.context.selectMenu.callerContext);
   }
-}, Hn = {
+}, vl = {
   name: "link",
   display: "dialog",
   add: function(e) {
-    e.addModule([Q, Ee]);
+    e.addModule([te, Re]);
     const t = e.context, i = t.link = {
       focusElement: null,
       _linkAnchor: null,
       anchorCtx: null
     };
-    let n = this.setDialog(e);
-    i.modal = n;
-    let l = this.setController_LinkButton(e);
-    i.linkController = l, n.querySelector("form").addEventListener("submit", this.submit.bind(e)), l.addEventListener("click", this.onClick_linkController.bind(e)), t.dialog.modal.appendChild(n), t.element.relative.appendChild(l), e.plugins.anchor.initEvent.call(e, "link", n), i.focusElement = t.anchor.caller.link.urlInput, n = null, l = null;
+    let l = this.setDialog(e);
+    i.modal = l;
+    let n = this.setController_LinkButton(e);
+    i.linkController = n, l.querySelector("form").addEventListener("submit", this.submit.bind(e)), n.addEventListener("click", this.onClick_linkController.bind(e)), t.dialog.modal.appendChild(l), t.element.relative.appendChild(n), e.plugins.anchor.initEvent.call(e, "link", l), i.focusElement = t.anchor.caller.link.urlInput, l = null, n = null;
   },
   setDialog: function(e) {
-    const t = e.lang, i = e.util.createElement("DIV"), n = e.icons;
+    const t = e.lang, i = e.util.createElement("DIV"), l = e.icons;
     i.className = "se-dialog-content", i.style.display = "none";
-    let l = '<form><div class="se-dialog-header"><button type="button" data-command="close" class="se-btn se-dialog-close" title="' + t.dialogBox.close + '" aria-label="' + t.dialogBox.close + '">' + n.cancel + '</button><span class="se-modal-title">' + t.dialogBox.linkBox.title + "</span></div>" + e.context.anchor.forms.innerHTML + '<div class="se-dialog-footer"><button type="submit" class="se-btn-primary" title="' + t.dialogBox.submitButton + '" aria-label="' + t.dialogBox.submitButton + '"><span>' + t.dialogBox.submitButton + "</span></button></div></form>";
-    return i.innerHTML = l, i;
+    let n = '<form><div class="se-dialog-header"><button type="button" data-command="close" class="se-btn se-dialog-close" title="' + t.dialogBox.close + '" aria-label="' + t.dialogBox.close + '">' + l.cancel + '</button><span class="se-modal-title">' + t.dialogBox.linkBox.title + "</span></div>" + e.context.anchor.forms.innerHTML + '<div class="se-dialog-footer"><button type="submit" class="se-btn-primary" title="' + t.dialogBox.submitButton + '" aria-label="' + t.dialogBox.submitButton + '"><span>' + t.dialogBox.submitButton + "</span></button></div></form>";
+    return i.innerHTML = n, i;
   },
   setController_LinkButton: function(e) {
-    const t = e.lang, i = e.icons, n = e.util.createElement("DIV");
-    return n.className = "se-controller se-controller-link", n.innerHTML = '<div class="se-arrow se-arrow-up"></div><div class="link-content"><span><a target="_blank" href=""></a>&nbsp;</span><div class="se-btn-group"><button type="button" data-command="update" tabindex="-1" class="se-btn se-tooltip">' + i.edit + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + t.controller.edit + '</span></span></button><button type="button" data-command="unlink" tabindex="-1" class="se-btn se-tooltip">' + i.unlink + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + t.controller.unlink + '</span></span></button><button type="button" data-command="delete" tabindex="-1" class="se-btn se-tooltip">' + i.delete + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + t.controller.remove + "</span></span></button></div></div>", n;
+    const t = e.lang, i = e.icons, l = e.util.createElement("DIV");
+    return l.className = "se-controller se-controller-link", l.innerHTML = '<div class="se-arrow se-arrow-up"></div><div class="link-content"><span><a target="_blank" href=""></a>&nbsp;</span><div class="se-btn-group"><button type="button" data-command="update" tabindex="-1" class="se-btn se-tooltip">' + i.edit + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + t.controller.edit + '</span></span></button><button type="button" data-command="unlink" tabindex="-1" class="se-btn se-tooltip">' + i.unlink + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + t.controller.unlink + '</span></span></button><button type="button" data-command="delete" tabindex="-1" class="se-btn se-tooltip">' + i.delete + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + t.controller.remove + "</span></span></button></div></div>", l;
   },
   open: function() {
     this.plugins.dialog.open.call(this, "link", this.currentControllerName === "link");
@@ -3291,8 +3135,8 @@ const Q = ze.exports, Fn = {
       } else {
         const i = this.getSelectedElements();
         if (i.length > 1) {
-          const n = this.util.createElement(i[0].nodeName);
-          if (n.appendChild(t), !this.insertNode(n, null, !0))
+          const l = this.util.createElement(i[0].nodeName);
+          if (l.appendChild(t), !this.insertNode(l, null, !0))
             return;
         } else if (!this.insertNode(t, null, !0))
           return;
@@ -3325,12 +3169,12 @@ const Q = ze.exports, Fn = {
       if (e.preventDefault(), /update/.test(t))
         this.plugins.dialog.open.call(this, "link", !0);
       else if (/unlink/.test(t)) {
-        const i = this.util.getChildElement(this.context.link._linkAnchor, function(l) {
-          return l.childNodes.length === 0 || l.nodeType === 3;
-        }, !1), n = this.util.getChildElement(this.context.link._linkAnchor, function(l) {
-          return l.childNodes.length === 0 || l.nodeType === 3;
+        const i = this.util.getChildElement(this.context.link._linkAnchor, function(n) {
+          return n.childNodes.length === 0 || n.nodeType === 3;
+        }, !1), l = this.util.getChildElement(this.context.link._linkAnchor, function(n) {
+          return n.childNodes.length === 0 || n.nodeType === 3;
         }, !0);
-        this.setRange(i, 0, n, n.textContent.length), this.nodeChange(null, null, ["A"], !1);
+        this.setRange(i, 0, l, l.textContent.length), this.nodeChange(null, null, ["A"], !1);
       } else
         this.util.removeItem(this.context.link._linkAnchor), this.context.anchor.caller.link.linkAnchor = null, this.focus(), this.history.push(!1);
       this.controllersOff();
@@ -3340,28 +3184,28 @@ const Q = ze.exports, Fn = {
     this.context.link.linkController.style.display = "none", this.plugins.anchor.init.call(this, this.context.anchor.caller.link);
   }
 };
-var Ie = { exports: {} };
+var Be = { exports: {} };
 (function(e) {
   (function(t, i) {
-    e.exports = t.document ? i(t, !0) : function(n) {
-      if (!n.document)
+    e.exports = t.document ? i(t, !0) : function(l) {
+      if (!l.document)
         throw new Error("SUNEDITOR_MODULES a window with a document");
-      return i(n);
+      return i(l);
     };
   })(typeof window < "u" ? window : M, function(t, i) {
-    const n = {
+    const l = {
       name: "component",
-      set_container: function(l, o) {
-        const s = this.util.createElement("DIV");
-        return s.className = "se-component " + o, s.setAttribute("contenteditable", !1), s.appendChild(l), s;
+      set_container: function(n, s) {
+        const o = this.util.createElement("DIV");
+        return o.className = "se-component " + s, o.setAttribute("contenteditable", !1), o.appendChild(n), o;
       },
-      set_cover: function(l) {
-        const o = this.util.createElement("FIGURE");
-        return o.appendChild(l), o;
+      set_cover: function(n) {
+        const s = this.util.createElement("FIGURE");
+        return s.appendChild(n), s;
       },
       create_caption: function() {
-        const l = this.util.createElement("FIGCAPTION");
-        return l.setAttribute("contenteditable", !0), l.innerHTML = "<div>" + this.lang.dialogBox.caption + "</div>", l;
+        const n = this.util.createElement("FIGCAPTION");
+        return n.setAttribute("contenteditable", !0), n.innerHTML = "<div>" + this.lang.dialogBox.caption + "</div>", n;
       }
     };
     return typeof i > "u" && (t.SUNEDITOR_MODULES || Object.defineProperty(t, "SUNEDITOR_MODULES", {
@@ -3373,25 +3217,25 @@ var Ie = { exports: {} };
       enumerable: !0,
       writable: !1,
       configurable: !1,
-      value: n
-    })), n;
+      value: l
+    })), l;
   });
-})(Ie);
-const ae = Ie.exports;
-var Re = { exports: {} };
+})(Be);
+const de = Be.exports;
+var Ne = { exports: {} };
 (function(e) {
   (function(t, i) {
-    e.exports = t.document ? i(t, !0) : function(n) {
-      if (!n.document)
+    e.exports = t.document ? i(t, !0) : function(l) {
+      if (!l.document)
         throw new Error("SUNEDITOR_MODULES a window with a document");
-      return i(n);
+      return i(l);
     };
   })(typeof window < "u" ? window : M, function(t, i) {
-    const n = {
+    const l = {
       name: "resizing",
-      add: function(l) {
-        const o = l.icons, s = l.context;
-        s.resizing = {
+      add: function(n) {
+        const s = n.icons, o = n.context;
+        o.resizing = {
           _resizeClientX: 0,
           _resizeClientY: 0,
           _resize_plugin: "",
@@ -3404,111 +3248,111 @@ var Re = { exports: {} };
           _move_path: null,
           _isChange: !1,
           alignIcons: {
-            basic: o.align_justify,
-            left: o.align_left,
-            right: o.align_right,
-            center: o.align_center
+            basic: s.align_justify,
+            left: s.align_left,
+            right: s.align_right,
+            center: s.align_center
           }
         };
-        let a = this.setController_resize(l);
-        s.resizing.resizeContainer = a, s.resizing.resizeDiv = a.querySelector(".se-modal-resize"), s.resizing.resizeDot = a.querySelector(".se-resize-dot"), s.resizing.resizeDisplay = a.querySelector(".se-resize-display");
-        let r = this.setController_button(l);
-        s.resizing.resizeButton = r;
-        let u = s.resizing.resizeHandles = s.resizing.resizeDot.querySelectorAll("span");
-        s.resizing.resizeButtonGroup = r.querySelector("._se_resizing_btn_group"), s.resizing.rotationButtons = r.querySelectorAll("._se_resizing_btn_group ._se_rotation"), s.resizing.percentageButtons = r.querySelectorAll("._se_resizing_btn_group ._se_percentage"), s.resizing.alignMenu = r.querySelector(".se-resizing-align-list"), s.resizing.alignMenuList = s.resizing.alignMenu.querySelectorAll("button"), s.resizing.alignButton = r.querySelector("._se_resizing_align_button"), s.resizing.autoSizeButton = r.querySelector("._se_resizing_btn_group ._se_auto_size"), s.resizing.captionButton = r.querySelector("._se_resizing_caption_button"), a.addEventListener("mousedown", function(d) {
+        let a = this.setController_resize(n);
+        o.resizing.resizeContainer = a, o.resizing.resizeDiv = a.querySelector(".se-modal-resize"), o.resizing.resizeDot = a.querySelector(".se-resize-dot"), o.resizing.resizeDisplay = a.querySelector(".se-resize-display");
+        let r = this.setController_button(n);
+        o.resizing.resizeButton = r;
+        let u = o.resizing.resizeHandles = o.resizing.resizeDot.querySelectorAll("span");
+        o.resizing.resizeButtonGroup = r.querySelector("._se_resizing_btn_group"), o.resizing.rotationButtons = r.querySelectorAll("._se_resizing_btn_group ._se_rotation"), o.resizing.percentageButtons = r.querySelectorAll("._se_resizing_btn_group ._se_percentage"), o.resizing.alignMenu = r.querySelector(".se-resizing-align-list"), o.resizing.alignMenuList = o.resizing.alignMenu.querySelectorAll("button"), o.resizing.alignButton = r.querySelector("._se_resizing_align_button"), o.resizing.autoSizeButton = r.querySelector("._se_resizing_btn_group ._se_auto_size"), o.resizing.captionButton = r.querySelector("._se_resizing_caption_button"), a.addEventListener("mousedown", function(d) {
           d.preventDefault();
-        }), u[0].addEventListener("mousedown", this.onMouseDown_resize_handle.bind(l)), u[1].addEventListener("mousedown", this.onMouseDown_resize_handle.bind(l)), u[2].addEventListener("mousedown", this.onMouseDown_resize_handle.bind(l)), u[3].addEventListener("mousedown", this.onMouseDown_resize_handle.bind(l)), u[4].addEventListener("mousedown", this.onMouseDown_resize_handle.bind(l)), u[5].addEventListener("mousedown", this.onMouseDown_resize_handle.bind(l)), u[6].addEventListener("mousedown", this.onMouseDown_resize_handle.bind(l)), u[7].addEventListener("mousedown", this.onMouseDown_resize_handle.bind(l)), r.addEventListener("click", this.onClick_resizeButton.bind(l)), s.element.relative.appendChild(a), s.element.relative.appendChild(r), a = null, r = null, u = null;
+        }), u[0].addEventListener("mousedown", this.onMouseDown_resize_handle.bind(n)), u[1].addEventListener("mousedown", this.onMouseDown_resize_handle.bind(n)), u[2].addEventListener("mousedown", this.onMouseDown_resize_handle.bind(n)), u[3].addEventListener("mousedown", this.onMouseDown_resize_handle.bind(n)), u[4].addEventListener("mousedown", this.onMouseDown_resize_handle.bind(n)), u[5].addEventListener("mousedown", this.onMouseDown_resize_handle.bind(n)), u[6].addEventListener("mousedown", this.onMouseDown_resize_handle.bind(n)), u[7].addEventListener("mousedown", this.onMouseDown_resize_handle.bind(n)), r.addEventListener("click", this.onClick_resizeButton.bind(n)), o.element.relative.appendChild(a), o.element.relative.appendChild(r), a = null, r = null, u = null;
       },
-      setController_resize: function(l) {
-        const o = l.util.createElement("DIV");
-        return o.className = "se-controller se-resizing-container", o.style.display = "none", o.innerHTML = '<div class="se-modal-resize"></div><div class="se-resize-dot"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span><span class="lw"></span><span class="th"></span><span class="rw"></span><span class="bh"></span><div class="se-resize-display"></div></div>', o;
+      setController_resize: function(n) {
+        const s = n.util.createElement("DIV");
+        return s.className = "se-controller se-resizing-container", s.style.display = "none", s.innerHTML = '<div class="se-modal-resize"></div><div class="se-resize-dot"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span><span class="lw"></span><span class="th"></span><span class="rw"></span><span class="bh"></span><div class="se-resize-display"></div></div>', s;
       },
-      setController_button: function(l) {
-        const o = l.lang, s = l.icons, a = l.util.createElement("DIV");
-        return a.className = "se-controller se-controller-resizing", a.innerHTML = '<div class="se-arrow se-arrow-up"></div><div class="se-btn-group _se_resizing_btn_group"><button type="button" data-command="percent" data-value="1" class="se-tooltip _se_percentage"><span>100%</span><span class="se-tooltip-inner"><span class="se-tooltip-text">' + o.controller.resize100 + '</span></span></button><button type="button" data-command="percent" data-value="0.75" class="se-tooltip _se_percentage"><span>75%</span><span class="se-tooltip-inner"><span class="se-tooltip-text">' + o.controller.resize75 + '</span></span></button><button type="button" data-command="percent" data-value="0.5" class="se-tooltip _se_percentage"><span>50%</span><span class="se-tooltip-inner"><span class="se-tooltip-text">' + o.controller.resize50 + '</span></span></button><button type="button" data-command="auto" class="se-btn se-tooltip _se_auto_size">' + s.auto_size + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + o.controller.autoSize + '</span></span></button><button type="button" data-command="rotate" data-value="-90" class="se-btn se-tooltip _se_rotation">' + s.rotate_left + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + o.controller.rotateLeft + '</span></span></button><button type="button" data-command="rotate" data-value="90" class="se-btn se-tooltip _se_rotation">' + s.rotate_right + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + o.controller.rotateRight + '</span></span></button></div><div class="se-btn-group" style="padding-top: 0;"><button type="button" data-command="mirror" data-value="h" class="se-btn se-tooltip">' + s.mirror_horizontal + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + o.controller.mirrorHorizontal + '</span></span></button><button type="button" data-command="mirror" data-value="v" class="se-btn se-tooltip">' + s.mirror_vertical + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + o.controller.mirrorVertical + '</span></span></button><button type="button" data-command="onalign" class="se-btn se-tooltip _se_resizing_align_button">' + s.align_justify + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + o.toolbar.align + '</span></span></button><div class="se-btn-group-sub sun-editor-common se-list-layer se-resizing-align-list"><div class="se-list-inner"><ul class="se-list-basic"><li><button type="button" class="se-btn-list se-tooltip" data-command="align" data-value="basic">' + s.align_justify + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + o.dialogBox.basic + '</span></span></button></li><li><button type="button" class="se-btn-list se-tooltip" data-command="align" data-value="left">' + s.align_left + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + o.dialogBox.left + '</span></span></button></li><li><button type="button" class="se-btn-list se-tooltip" data-command="align" data-value="center">' + s.align_center + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + o.dialogBox.center + '</span></span></button></li><li><button type="button" class="se-btn-list se-tooltip" data-command="align" data-value="right">' + s.align_right + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + o.dialogBox.right + '</span></span></button></li></ul></div></div><button type="button" data-command="caption" class="se-btn se-tooltip _se_resizing_caption_button">' + s.caption + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + o.dialogBox.caption + '</span></span></button><button type="button" data-command="revert" class="se-btn se-tooltip">' + s.revert + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + o.dialogBox.revertButton + '</span></span></button><button type="button" data-command="update" class="se-btn se-tooltip">' + s.modify + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + o.controller.edit + '</span></span></button><button type="button" data-command="delete" class="se-btn se-tooltip">' + s.delete + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + o.controller.remove + "</span></span></button></div>", a;
+      setController_button: function(n) {
+        const s = n.lang, o = n.icons, a = n.util.createElement("DIV");
+        return a.className = "se-controller se-controller-resizing", a.innerHTML = '<div class="se-arrow se-arrow-up"></div><div class="se-btn-group _se_resizing_btn_group"><button type="button" data-command="percent" data-value="1" class="se-tooltip _se_percentage"><span>100%</span><span class="se-tooltip-inner"><span class="se-tooltip-text">' + s.controller.resize100 + '</span></span></button><button type="button" data-command="percent" data-value="0.75" class="se-tooltip _se_percentage"><span>75%</span><span class="se-tooltip-inner"><span class="se-tooltip-text">' + s.controller.resize75 + '</span></span></button><button type="button" data-command="percent" data-value="0.5" class="se-tooltip _se_percentage"><span>50%</span><span class="se-tooltip-inner"><span class="se-tooltip-text">' + s.controller.resize50 + '</span></span></button><button type="button" data-command="auto" class="se-btn se-tooltip _se_auto_size">' + o.auto_size + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + s.controller.autoSize + '</span></span></button><button type="button" data-command="rotate" data-value="-90" class="se-btn se-tooltip _se_rotation">' + o.rotate_left + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + s.controller.rotateLeft + '</span></span></button><button type="button" data-command="rotate" data-value="90" class="se-btn se-tooltip _se_rotation">' + o.rotate_right + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + s.controller.rotateRight + '</span></span></button></div><div class="se-btn-group" style="padding-top: 0;"><button type="button" data-command="mirror" data-value="h" class="se-btn se-tooltip">' + o.mirror_horizontal + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + s.controller.mirrorHorizontal + '</span></span></button><button type="button" data-command="mirror" data-value="v" class="se-btn se-tooltip">' + o.mirror_vertical + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + s.controller.mirrorVertical + '</span></span></button><button type="button" data-command="onalign" class="se-btn se-tooltip _se_resizing_align_button">' + o.align_justify + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + s.toolbar.align + '</span></span></button><div class="se-btn-group-sub sun-editor-common se-list-layer se-resizing-align-list"><div class="se-list-inner"><ul class="se-list-basic"><li><button type="button" class="se-btn-list se-tooltip" data-command="align" data-value="basic">' + o.align_justify + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + s.dialogBox.basic + '</span></span></button></li><li><button type="button" class="se-btn-list se-tooltip" data-command="align" data-value="left">' + o.align_left + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + s.dialogBox.left + '</span></span></button></li><li><button type="button" class="se-btn-list se-tooltip" data-command="align" data-value="center">' + o.align_center + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + s.dialogBox.center + '</span></span></button></li><li><button type="button" class="se-btn-list se-tooltip" data-command="align" data-value="right">' + o.align_right + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + s.dialogBox.right + '</span></span></button></li></ul></div></div><button type="button" data-command="caption" class="se-btn se-tooltip _se_resizing_caption_button">' + o.caption + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + s.dialogBox.caption + '</span></span></button><button type="button" data-command="revert" class="se-btn se-tooltip">' + o.revert + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + s.dialogBox.revertButton + '</span></span></button><button type="button" data-command="update" class="se-btn se-tooltip">' + o.modify + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + s.controller.edit + '</span></span></button><button type="button" data-command="delete" class="se-btn se-tooltip">' + o.delete + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + s.controller.remove + "</span></span></button></div>", a;
       },
-      _module_getSizeX: function(l, o, s, a) {
-        return o || (o = l._element), s || (s = l._cover), a || (a = l._container), o ? /%$/.test(o.style.width) ? (a && this.util.getNumber(a.style.width, 2) || 100) + "%" : o.style.width : "";
+      _module_getSizeX: function(n, s, o, a) {
+        return s || (s = n._element), o || (o = n._cover), a || (a = n._container), s ? /%$/.test(s.style.width) ? (a && this.util.getNumber(a.style.width, 2) || 100) + "%" : s.style.width : "";
       },
-      _module_getSizeY: function(l, o, s, a) {
-        return o || (o = l._element), s || (s = l._cover), a || (a = l._container), !a || !s ? o && o.style.height || "" : this.util.getNumber(s.style.paddingBottom, 0) > 0 && !this.context.resizing._rotateVertical ? s.style.height : !/%$/.test(o.style.height) || !/%$/.test(o.style.width) ? o.style.height : (a && this.util.getNumber(a.style.height, 2) || 100) + "%";
+      _module_getSizeY: function(n, s, o, a) {
+        return s || (s = n._element), o || (o = n._cover), a || (a = n._container), !a || !o ? s && s.style.height || "" : this.util.getNumber(o.style.paddingBottom, 0) > 0 && !this.context.resizing._rotateVertical ? o.style.height : !/%$/.test(s.style.height) || !/%$/.test(s.style.width) ? s.style.height : (a && this.util.getNumber(a.style.height, 2) || 100) + "%";
       },
-      _module_setModifyInputSize: function(l, o) {
-        const s = l._onlyPercentage && this.context.resizing._rotateVertical;
-        l.proportion.checked = l._proportionChecked = l._element.getAttribute("data-proportion") !== "false";
-        let a = s ? "" : this.plugins.resizing._module_getSizeX.call(this, l);
-        if (a === l._defaultSizeX && (a = ""), l._onlyPercentage && (a = this.util.getNumber(a, 2)), l.inputX.value = a, o.setInputSize.call(this, "x"), !l._onlyPercentage) {
-          let r = s ? "" : this.plugins.resizing._module_getSizeY.call(this, l);
-          r === l._defaultSizeY && (r = ""), l._onlyPercentage && (r = this.util.getNumber(r, 2)), l.inputY.value = r;
+      _module_setModifyInputSize: function(n, s) {
+        const o = n._onlyPercentage && this.context.resizing._rotateVertical;
+        n.proportion.checked = n._proportionChecked = n._element.getAttribute("data-proportion") !== "false";
+        let a = o ? "" : this.plugins.resizing._module_getSizeX.call(this, n);
+        if (a === n._defaultSizeX && (a = ""), n._onlyPercentage && (a = this.util.getNumber(a, 2)), n.inputX.value = a, s.setInputSize.call(this, "x"), !n._onlyPercentage) {
+          let r = o ? "" : this.plugins.resizing._module_getSizeY.call(this, n);
+          r === n._defaultSizeY && (r = ""), n._onlyPercentage && (r = this.util.getNumber(r, 2)), n.inputY.value = r;
         }
-        l.inputX.disabled = !!s, l.inputY.disabled = !!s, l.proportion.disabled = !!s, o.setRatio.call(this);
+        n.inputX.disabled = !!o, n.inputY.disabled = !!o, n.proportion.disabled = !!o, s.setRatio.call(this);
       },
-      _module_setInputSize: function(l, o) {
-        if (l._onlyPercentage) {
-          o === "x" && l.inputX.value > 100 && (l.inputX.value = 100);
+      _module_setInputSize: function(n, s) {
+        if (n._onlyPercentage) {
+          s === "x" && n.inputX.value > 100 && (n.inputX.value = 100);
           return;
         }
-        if (l.proportion.checked && l._ratio && /\d/.test(l.inputX.value) && /\d/.test(l.inputY.value)) {
-          const s = l.inputX.value.replace(/\d+|\./g, "") || l.sizeUnit, a = l.inputY.value.replace(/\d+|\./g, "") || l.sizeUnit;
-          if (s !== a)
+        if (n.proportion.checked && n._ratio && /\d/.test(n.inputX.value) && /\d/.test(n.inputY.value)) {
+          const o = n.inputX.value.replace(/\d+|\./g, "") || n.sizeUnit, a = n.inputY.value.replace(/\d+|\./g, "") || n.sizeUnit;
+          if (o !== a)
             return;
-          const r = s === "%" ? 2 : 0;
-          o === "x" ? l.inputY.value = this.util.getNumber(l._ratioY * this.util.getNumber(l.inputX.value, r), r) + a : l.inputX.value = this.util.getNumber(l._ratioX * this.util.getNumber(l.inputY.value, r), r) + s;
+          const r = o === "%" ? 2 : 0;
+          s === "x" ? n.inputY.value = this.util.getNumber(n._ratioY * this.util.getNumber(n.inputX.value, r), r) + a : n.inputX.value = this.util.getNumber(n._ratioX * this.util.getNumber(n.inputY.value, r), r) + o;
         }
       },
-      _module_setRatio: function(l) {
-        const o = l.inputX.value, s = l.inputY.value;
-        if (l.proportion.checked && /\d+/.test(o) && /\d+/.test(s)) {
-          const a = o.replace(/\d+|\./g, "") || l.sizeUnit, r = s.replace(/\d+|\./g, "") || l.sizeUnit;
+      _module_setRatio: function(n) {
+        const s = n.inputX.value, o = n.inputY.value;
+        if (n.proportion.checked && /\d+/.test(s) && /\d+/.test(o)) {
+          const a = s.replace(/\d+|\./g, "") || n.sizeUnit, r = o.replace(/\d+|\./g, "") || n.sizeUnit;
           if (a !== r)
-            l._ratio = !1;
-          else if (!l._ratio) {
-            const u = this.util.getNumber(o, 0), d = this.util.getNumber(s, 0);
-            l._ratio = !0, l._ratioX = u / d, l._ratioY = d / u;
+            n._ratio = !1;
+          else if (!n._ratio) {
+            const u = this.util.getNumber(s, 0), d = this.util.getNumber(o, 0);
+            n._ratio = !0, n._ratioX = u / d, n._ratioY = d / u;
           }
         } else
-          l._ratio = !1;
+          n._ratio = !1;
       },
-      _module_sizeRevert: function(l) {
-        l._onlyPercentage ? l.inputX.value = l._origin_w > 100 ? 100 : l._origin_w : (l.inputX.value = l._origin_w, l.inputY.value = l._origin_h);
+      _module_sizeRevert: function(n) {
+        n._onlyPercentage ? n.inputX.value = n._origin_w > 100 ? 100 : n._origin_w : (n.inputX.value = n._origin_w, n.inputY.value = n._origin_h);
       },
-      _module_saveCurrentSize: function(l) {
-        const o = this.plugins.resizing._module_getSizeX.call(this, l), s = this.plugins.resizing._module_getSizeY.call(this, l);
-        l._element.setAttribute("data-size", o + "," + s), l._videoRatio && (l._videoRatio = s);
+      _module_saveCurrentSize: function(n) {
+        const s = this.plugins.resizing._module_getSizeX.call(this, n), o = this.plugins.resizing._module_getSizeY.call(this, n);
+        n._element.setAttribute("data-size", s + "," + o), n._videoRatio && (n._videoRatio = o);
       },
-      call_controller_resize: function(l, o) {
-        const s = this.context.resizing, a = this.context[o];
-        s._resize_plugin = o;
-        const r = s.resizeContainer, u = s.resizeDiv, d = this.util.getOffset(l, this.context.element.wysiwygFrame), f = s._rotateVertical = /^(90|270)$/.test(Math.abs(l.getAttribute("data-rotate")).toString()), h = f ? l.offsetHeight : l.offsetWidth, g = f ? l.offsetWidth : l.offsetHeight, p = d.top, b = d.left - this.context.element.wysiwygFrame.scrollLeft;
+      call_controller_resize: function(n, s) {
+        const o = this.context.resizing, a = this.context[s];
+        o._resize_plugin = s;
+        const r = o.resizeContainer, u = o.resizeDiv, d = this.util.getOffset(n, this.context.element.wysiwygFrame), f = o._rotateVertical = /^(90|270)$/.test(Math.abs(n.getAttribute("data-rotate")).toString()), h = f ? n.offsetHeight : n.offsetWidth, g = f ? n.offsetWidth : n.offsetHeight, p = d.top, b = d.left - this.context.element.wysiwygFrame.scrollLeft;
         r.style.top = p + "px", r.style.left = b + "px", r.style.width = h + "px", r.style.height = g + "px", u.style.top = "0px", u.style.left = "0px", u.style.width = h + "px", u.style.height = g + "px";
-        let m = l.getAttribute("data-align") || "basic";
+        let m = n.getAttribute("data-align") || "basic";
         m = m === "none" ? "basic" : m;
-        const c = this.util.getParentElement(l, this.util.isComponent), _ = this.util.getParentElement(l, "FIGURE"), v = this.plugins.resizing._module_getSizeX.call(this, a, l, _, c) || "auto", y = a._onlyPercentage && o === "image" ? "" : ", " + (this.plugins.resizing._module_getSizeY.call(this, a, l, _, c) || "auto");
-        this.util.changeTxt(s.resizeDisplay, this.lang.dialogBox[m] + " (" + v + y + ")"), s.resizeButtonGroup.style.display = a._resizing ? "" : "none";
-        const w = a._resizing && !a._resizeDotHide && !a._onlyPercentage ? "flex" : "none", x = s.resizeHandles;
+        const c = this.util.getParentElement(n, this.util.isComponent), _ = this.util.getParentElement(n, "FIGURE"), v = this.plugins.resizing._module_getSizeX.call(this, a, n, _, c) || "auto", y = a._onlyPercentage && s === "image" ? "" : ", " + (this.plugins.resizing._module_getSizeY.call(this, a, n, _, c) || "auto");
+        this.util.changeTxt(o.resizeDisplay, this.lang.dialogBox[m] + " (" + v + y + ")"), o.resizeButtonGroup.style.display = a._resizing ? "" : "none";
+        const k = a._resizing && !a._resizeDotHide && !a._onlyPercentage ? "flex" : "none", x = o.resizeHandles;
         for (let C = 0, I = x.length; C < I; C++)
-          x[C].style.display = w;
+          x[C].style.display = k;
         if (a._resizing) {
-          const C = s.rotationButtons;
+          const C = o.rotationButtons;
           C[0].style.display = C[1].style.display = a._rotation ? "" : "none";
         }
         if (a._alignHide)
-          s.alignButton.style.display = "none";
+          o.alignButton.style.display = "none";
         else {
-          s.alignButton.style.display = "";
-          const C = s.alignMenuList;
-          this.util.changeElement(s.alignButton.firstElementChild, s.alignIcons[m]);
+          o.alignButton.style.display = "";
+          const C = o.alignMenuList;
+          this.util.changeElement(o.alignButton.firstElementChild, o.alignIcons[m]);
           for (let I = 0, T = C.length; I < T; I++)
             C[I].getAttribute("data-value") === m ? this.util.addClass(C[I], "on") : this.util.removeClass(C[I], "on");
         }
-        const S = s.percentageButtons, E = /%$/.test(l.style.width) && /%$/.test(c.style.width) ? this.util.getNumber(c.style.width, 0) / 100 + "" : "";
-        for (let C = 0, I = S.length; C < I; C++)
-          S[C].getAttribute("data-value") === E ? this.util.addClass(S[C], "active") : this.util.removeClass(S[C], "active");
-        a._captionShow ? (s.captionButton.style.display = "", this.util.getChildElement(l.parentNode, "figcaption") ? (this.util.addClass(s.captionButton, "active"), a._captionChecked = !0) : (this.util.removeClass(s.captionButton, "active"), a._captionChecked = !1)) : s.captionButton.style.display = "none", r.style.display = "block";
-        const B = { left: 0, top: 50 };
-        this.options.iframe && (B.left -= this.context.element.wysiwygFrame.parentElement.offsetLeft, B.top -= this.context.element.wysiwygFrame.parentElement.offsetTop), this.setControllerPosition(s.resizeButton, r, "bottom", B), this.controllersOn(r, s.resizeButton, this.util.setDisabledButtons.bind(this.util, !1, this.resizingDisabledButtons), l, o), this.util.setDisabledButtons(!0, this.resizingDisabledButtons), s._resize_w = h, s._resize_h = g;
-        const A = (l.getAttribute("origin-size") || "").split(",");
-        return s._origin_w = A[0] || l.naturalWidth, s._origin_h = A[1] || l.naturalHeight, {
+        const w = o.percentageButtons, L = /%$/.test(n.style.width) && /%$/.test(c.style.width) ? this.util.getNumber(c.style.width, 0) / 100 + "" : "";
+        for (let C = 0, I = w.length; C < I; C++)
+          w[C].getAttribute("data-value") === L ? this.util.addClass(w[C], "active") : this.util.removeClass(w[C], "active");
+        a._captionShow ? (o.captionButton.style.display = "", this.util.getChildElement(n.parentNode, "figcaption") ? (this.util.addClass(o.captionButton, "active"), a._captionChecked = !0) : (this.util.removeClass(o.captionButton, "active"), a._captionChecked = !1)) : o.captionButton.style.display = "none", r.style.display = "block";
+        const R = { left: 0, top: 50 };
+        this.options.iframe && (R.left -= this.context.element.wysiwygFrame.parentElement.offsetLeft, R.top -= this.context.element.wysiwygFrame.parentElement.offsetTop), this.setControllerPosition(o.resizeButton, r, "bottom", R), this.controllersOn(r, o.resizeButton, this.util.setDisabledButtons.bind(this.util, !1, this.resizingDisabledButtons), n, s), this.util.setDisabledButtons(!0, this.resizingDisabledButtons), o._resize_w = h, o._resize_h = g;
+        const B = (n.getAttribute("origin-size") || "").split(",");
+        return o._origin_w = B[0] || n.naturalWidth, o._origin_h = B[1] || n.naturalHeight, {
           w: h,
           h: g,
           t: p,
@@ -3517,27 +3361,27 @@ var Re = { exports: {} };
       },
       _closeAlignMenu: null,
       openAlignMenu: function() {
-        const l = this.context.resizing.alignButton;
-        this.util.addClass(l, "on"), this.context.resizing.alignMenu.style.top = l.offsetTop + l.offsetHeight + "px", this.context.resizing.alignMenu.style.left = l.offsetLeft - l.offsetWidth / 2 + "px", this.context.resizing.alignMenu.style.display = "block", this.plugins.resizing._closeAlignMenu = function() {
+        const n = this.context.resizing.alignButton;
+        this.util.addClass(n, "on"), this.context.resizing.alignMenu.style.top = n.offsetTop + n.offsetHeight + "px", this.context.resizing.alignMenu.style.left = n.offsetLeft - n.offsetWidth / 2 + "px", this.context.resizing.alignMenu.style.display = "block", this.plugins.resizing._closeAlignMenu = function() {
           this.util.removeClass(this.context.resizing.alignButton, "on"), this.context.resizing.alignMenu.style.display = "none", this.removeDocEvent("click", this.plugins.resizing._closeAlignMenu), this.plugins.resizing._closeAlignMenu = null;
         }.bind(this), this.addDocEvent("click", this.plugins.resizing._closeAlignMenu);
       },
-      onClick_resizeButton: function(l) {
-        l.stopPropagation();
-        const o = l.target, s = o.getAttribute("data-command") || o.parentNode.getAttribute("data-command");
-        if (!s)
+      onClick_resizeButton: function(n) {
+        n.stopPropagation();
+        const s = n.target, o = s.getAttribute("data-command") || s.parentNode.getAttribute("data-command");
+        if (!o)
           return;
-        const a = o.getAttribute("data-value") || o.parentNode.getAttribute("data-value"), r = this.context.resizing._resize_plugin, u = this.context[r], d = u._element, f = this.plugins[r];
-        if (l.preventDefault(), !(typeof this.plugins.resizing._closeAlignMenu == "function" && (this.plugins.resizing._closeAlignMenu(), s === "onalign"))) {
-          switch (s) {
+        const a = s.getAttribute("data-value") || s.parentNode.getAttribute("data-value"), r = this.context.resizing._resize_plugin, u = this.context[r], d = u._element, f = this.plugins[r];
+        if (n.preventDefault(), !(typeof this.plugins.resizing._closeAlignMenu == "function" && (this.plugins.resizing._closeAlignMenu(), o === "onalign"))) {
+          switch (o) {
             case "auto":
               this.plugins.resizing.resetTransform.call(this, d), f.setAutoSize.call(this), this.selectComponent(d, r);
               break;
             case "percent":
               let h = this.plugins.resizing._module_getSizeY.call(this, u);
               if (this.context.resizing._rotateVertical) {
-                const w = d.getAttribute("data-percentage");
-                w && (h = w.split(",")[1]);
+                const k = d.getAttribute("data-percentage");
+                k && (h = k.split(",")[1]);
               }
               this.plugins.resizing.resetTransform.call(this, d), f.setPercentSize.call(this, a * 100, this.util.getNumber(h, 0) === null || !/%$/.test(h) ? "" : h), this.selectComponent(d, r);
               break;
@@ -3560,10 +3404,10 @@ var Re = { exports: {} };
             case "caption":
               const y = !u._captionChecked;
               if (f.openModify.call(this, !0), u._captionChecked = u.captionCheckEl.checked = y, f.update_image.call(this, !1, !1, !1), y) {
-                const w = this.util.getChildElement(u._caption, function(x) {
+                const k = this.util.getChildElement(u._caption, function(x) {
                   return x.nodeType === 3;
                 });
-                w ? this.setRange(w, 0, w, w.textContent.length) : u._caption.focus(), this.controllersOff();
+                k ? this.setRange(k, 0, k, k.textContent.length) : u._caption.focus(), this.controllersOff();
               } else
                 this.selectComponent(d, r), f.openModify.call(this, !0);
               break;
@@ -3580,78 +3424,78 @@ var Re = { exports: {} };
           this.history.push(!1);
         }
       },
-      resetTransform: function(l) {
-        const o = (l.getAttribute("data-size") || l.getAttribute("data-origin") || "").split(",");
-        this.context.resizing._rotateVertical = !1, l.style.maxWidth = "", l.style.transform = "", l.style.transformOrigin = "", l.setAttribute("data-rotate", ""), l.setAttribute("data-rotateX", ""), l.setAttribute("data-rotateY", ""), this.plugins[this.context.resizing._resize_plugin].setSize.call(this, o[0] ? o[0] : "auto", o[1] ? o[1] : "", !0);
+      resetTransform: function(n) {
+        const s = (n.getAttribute("data-size") || n.getAttribute("data-origin") || "").split(",");
+        this.context.resizing._rotateVertical = !1, n.style.maxWidth = "", n.style.transform = "", n.style.transformOrigin = "", n.setAttribute("data-rotate", ""), n.setAttribute("data-rotateX", ""), n.setAttribute("data-rotateY", ""), this.plugins[this.context.resizing._resize_plugin].setSize.call(this, s[0] ? s[0] : "auto", s[1] ? s[1] : "", !0);
       },
-      setTransformSize: function(l, o, s) {
-        let a = l.getAttribute("data-percentage");
-        const r = this.context.resizing._rotateVertical, u = l.getAttribute("data-rotate") * 1;
+      setTransformSize: function(n, s, o) {
+        let a = n.getAttribute("data-percentage");
+        const r = this.context.resizing._rotateVertical, u = n.getAttribute("data-rotate") * 1;
         let d = "";
         if (a && !r)
           a = a.split(","), a[0] === "auto" && a[1] === "auto" ? this.plugins[this.context.resizing._resize_plugin].setAutoSize.call(this) : this.plugins[this.context.resizing._resize_plugin].setPercentSize.call(this, a[0], a[1]);
         else {
-          const f = this.util.getParentElement(l, "FIGURE"), h = o || l.offsetWidth, g = s || l.offsetHeight, p = (r ? g : h) + "px", b = (r ? h : g) + "px";
+          const f = this.util.getParentElement(n, "FIGURE"), h = s || n.offsetWidth, g = o || n.offsetHeight, p = (r ? g : h) + "px", b = (r ? h : g) + "px";
           if (this.plugins[this.context.resizing._resize_plugin].cancelPercentAttr.call(this), this.plugins[this.context.resizing._resize_plugin].setSize.call(this, h + "px", g + "px", !0), f.style.width = p, f.style.height = this.context[this.context.resizing._resize_plugin]._caption ? "" : b, r) {
             let m = h / 2 + "px " + h / 2 + "px 0", c = g / 2 + "px " + g / 2 + "px 0";
             d = u === 90 || u === -270 ? c : m;
           }
         }
-        l.style.transformOrigin = d, this.plugins.resizing._setTransForm(l, u.toString(), l.getAttribute("data-rotateX") || "", l.getAttribute("data-rotateY") || ""), r ? l.style.maxWidth = "none" : l.style.maxWidth = "", this.plugins.resizing.setCaptionPosition.call(this, l);
+        n.style.transformOrigin = d, this.plugins.resizing._setTransForm(n, u.toString(), n.getAttribute("data-rotateX") || "", n.getAttribute("data-rotateY") || ""), r ? n.style.maxWidth = "none" : n.style.maxWidth = "", this.plugins.resizing.setCaptionPosition.call(this, n);
       },
-      _setTransForm: function(l, o, s, a) {
-        let r = (l.offsetWidth - l.offsetHeight) * (/-/.test(o) ? 1 : -1), u = "";
-        if (/[1-9]/.test(o) && (s || a))
-          switch (u = s ? "Y" : "X", o) {
+      _setTransForm: function(n, s, o, a) {
+        let r = (n.offsetWidth - n.offsetHeight) * (/-/.test(s) ? 1 : -1), u = "";
+        if (/[1-9]/.test(s) && (o || a))
+          switch (u = o ? "Y" : "X", s) {
             case "90":
-              u = s && a ? "X" : a ? u : "";
+              u = o && a ? "X" : a ? u : "";
               break;
             case "270":
-              r *= -1, u = s && a ? "Y" : s ? u : "";
+              r *= -1, u = o && a ? "Y" : o ? u : "";
               break;
             case "-90":
-              u = s && a ? "Y" : s ? u : "";
+              u = o && a ? "Y" : o ? u : "";
               break;
             case "-270":
-              r *= -1, u = s && a ? "X" : a ? u : "";
+              r *= -1, u = o && a ? "X" : a ? u : "";
               break;
             default:
               u = "";
           }
-        o % 180 === 0 && (l.style.maxWidth = ""), l.style.transform = "rotate(" + o + "deg)" + (s ? " rotateX(" + s + "deg)" : "") + (a ? " rotateY(" + a + "deg)" : "") + (u ? " translate" + u + "(" + r + "px)" : "");
+        s % 180 === 0 && (n.style.maxWidth = ""), n.style.transform = "rotate(" + s + "deg)" + (o ? " rotateX(" + o + "deg)" : "") + (a ? " rotateY(" + a + "deg)" : "") + (u ? " translate" + u + "(" + r + "px)" : "");
       },
-      setCaptionPosition: function(l) {
-        const o = this.util.getChildElement(this.util.getParentElement(l, "FIGURE"), "FIGCAPTION");
-        o && (o.style.marginTop = (this.context.resizing._rotateVertical ? l.offsetWidth - l.offsetHeight : 0) + "px");
+      setCaptionPosition: function(n) {
+        const s = this.util.getChildElement(this.util.getParentElement(n, "FIGURE"), "FIGCAPTION");
+        s && (s.style.marginTop = (this.context.resizing._rotateVertical ? n.offsetWidth - n.offsetHeight : 0) + "px");
       },
-      onMouseDown_resize_handle: function(l) {
-        l.stopPropagation(), l.preventDefault();
-        const o = this.context.resizing, s = o._resize_direction = l.target.classList[0];
-        o._resizeClientX = l.clientX, o._resizeClientY = l.clientY, this.context.element.resizeBackground.style.display = "block", o.resizeButton.style.display = "none", o.resizeDiv.style.float = /l/.test(s) ? "right" : /r/.test(s) ? "left" : "none";
+      onMouseDown_resize_handle: function(n) {
+        n.stopPropagation(), n.preventDefault();
+        const s = this.context.resizing, o = s._resize_direction = n.target.classList[0];
+        s._resizeClientX = n.clientX, s._resizeClientY = n.clientY, this.context.element.resizeBackground.style.display = "block", s.resizeButton.style.display = "none", s.resizeDiv.style.float = /l/.test(o) ? "right" : /r/.test(o) ? "left" : "none";
         const a = function(d) {
           if (d.type === "keydown" && d.keyCode !== 27)
             return;
-          const f = o._isChange;
-          o._isChange = !1, this.removeDocEvent("mousemove", r), this.removeDocEvent("mouseup", a), this.removeDocEvent("keydown", a), d.type === "keydown" ? (this.controllersOff(), this.context.element.resizeBackground.style.display = "none", this.plugins[this.context.resizing._resize_plugin].init.call(this)) : (this.plugins.resizing.cancel_controller_resize.call(this, s), f && this.history.push(!1));
-        }.bind(this), r = this.plugins.resizing.resizing_element.bind(this, o, s, this.context[o._resize_plugin]);
+          const f = s._isChange;
+          s._isChange = !1, this.removeDocEvent("mousemove", r), this.removeDocEvent("mouseup", a), this.removeDocEvent("keydown", a), d.type === "keydown" ? (this.controllersOff(), this.context.element.resizeBackground.style.display = "none", this.plugins[this.context.resizing._resize_plugin].init.call(this)) : (this.plugins.resizing.cancel_controller_resize.call(this, o), f && this.history.push(!1));
+        }.bind(this), r = this.plugins.resizing.resizing_element.bind(this, s, o, this.context[s._resize_plugin]);
         this.addDocEvent("mousemove", r), this.addDocEvent("mouseup", a), this.addDocEvent("keydown", a);
       },
-      resizing_element: function(l, o, s, a) {
+      resizing_element: function(n, s, o, a) {
         const r = a.clientX, u = a.clientY;
-        let d = s._element_w, f = s._element_h;
-        const h = s._element_w + (/r/.test(o) ? r - l._resizeClientX : l._resizeClientX - r), g = s._element_h + (/b/.test(o) ? u - l._resizeClientY : l._resizeClientY - u), p = s._element_h / s._element_w * h;
-        /t/.test(o) && (l.resizeDiv.style.top = s._element_h - (/h/.test(o) ? g : p) + "px"), /l/.test(o) && (l.resizeDiv.style.left = s._element_w - h + "px"), /r|l/.test(o) && (l.resizeDiv.style.width = h + "px", d = h), /^(t|b)[^h]$/.test(o) ? (l.resizeDiv.style.height = p + "px", f = p) : /^(t|b)h$/.test(o) && (l.resizeDiv.style.height = g + "px", f = g), l._resize_w = d, l._resize_h = f, this.util.changeTxt(l.resizeDisplay, this._w.Math.round(d) + " x " + this._w.Math.round(f)), l._isChange = !0;
+        let d = o._element_w, f = o._element_h;
+        const h = o._element_w + (/r/.test(s) ? r - n._resizeClientX : n._resizeClientX - r), g = o._element_h + (/b/.test(s) ? u - n._resizeClientY : n._resizeClientY - u), p = o._element_h / o._element_w * h;
+        /t/.test(s) && (n.resizeDiv.style.top = o._element_h - (/h/.test(s) ? g : p) + "px"), /l/.test(s) && (n.resizeDiv.style.left = o._element_w - h + "px"), /r|l/.test(s) && (n.resizeDiv.style.width = h + "px", d = h), /^(t|b)[^h]$/.test(s) ? (n.resizeDiv.style.height = p + "px", f = p) : /^(t|b)h$/.test(s) && (n.resizeDiv.style.height = g + "px", f = g), n._resize_w = d, n._resize_h = f, this.util.changeTxt(n.resizeDisplay, this._w.Math.round(d) + " x " + this._w.Math.round(f)), n._isChange = !0;
       },
-      cancel_controller_resize: function(l) {
-        const o = this.context.resizing._rotateVertical;
+      cancel_controller_resize: function(n) {
+        const s = this.context.resizing._rotateVertical;
         this.controllersOff(), this.context.element.resizeBackground.style.display = "none";
-        let s = this._w.Math.round(o ? this.context.resizing._resize_h : this.context.resizing._resize_w), a = this._w.Math.round(o ? this.context.resizing._resize_w : this.context.resizing._resize_h);
-        if (!o && !/%$/.test(s)) {
+        let o = this._w.Math.round(s ? this.context.resizing._resize_h : this.context.resizing._resize_w), a = this._w.Math.round(s ? this.context.resizing._resize_w : this.context.resizing._resize_h);
+        if (!s && !/%$/.test(o)) {
           const d = this.context.element.wysiwygFrame.clientWidth - 32 - 2;
-          this.util.getNumber(s, 0) > d && (a = this._w.Math.round(a / s * d), s = d);
+          this.util.getNumber(o, 0) > d && (a = this._w.Math.round(a / o * d), o = d);
         }
         const r = this.context.resizing._resize_plugin;
-        this.plugins[r].setSize.call(this, s, a, !1, l), o && this.plugins.resizing.setTransformSize.call(this, this.context[this.context.resizing._resize_plugin]._element, s, a), this.selectComponent(this.context[r]._element, r);
+        this.plugins[r].setSize.call(this, o, a, !1, n), s && this.plugins.resizing.setTransformSize.call(this, this.context[this.context.resizing._resize_plugin]._element, o, a), this.selectComponent(this.context[r]._element, r);
       }
     };
     return typeof i > "u" && (t.SUNEDITOR_MODULES || Object.defineProperty(t, "SUNEDITOR_MODULES", {
@@ -3663,39 +3507,39 @@ var Re = { exports: {} };
       enumerable: !0,
       writable: !1,
       configurable: !1,
-      value: n
-    })), n;
+      value: l
+    })), l;
   });
-})(Re);
-const Te = Re.exports;
-var Be = { exports: {} };
+})(Ne);
+const Ae = Ne.exports;
+var Me = { exports: {} };
 (function(e) {
   (function(t, i) {
-    e.exports = t.document ? i(t, !0) : function(n) {
-      if (!n.document)
+    e.exports = t.document ? i(t, !0) : function(l) {
+      if (!l.document)
         throw new Error("SUNEDITOR_MODULES a window with a document");
-      return i(n);
+      return i(l);
     };
   })(typeof window < "u" ? window : M, function(t, i) {
-    const n = {
+    const l = {
       name: "fileManager",
       _xmlHttp: null,
-      _checkMediaComponent: function(l) {
-        return /IMG/i.test(l) ? !/FIGURE/i.test(l.parentElement.nodeName) || !/FIGURE/i.test(l.parentElement.parentElement.nodeName) : !0;
+      _checkMediaComponent: function(n) {
+        return /IMG/i.test(n) ? !/FIGURE/i.test(n.parentElement.nodeName) || !/FIGURE/i.test(n.parentElement.parentElement.nodeName) : !0;
       },
-      upload: function(l, o, s, a, r) {
+      upload: function(n, s, o, a, r) {
         this.showLoading();
         const u = this.plugins.fileManager, d = u._xmlHttp = this.util.getXMLHttpRequest();
-        if (d.onreadystatechange = u._callBackUpload.bind(this, d, a, r), d.open("post", l, !0), o !== null && typeof o == "object" && this._w.Object.keys(o).length > 0)
-          for (let f in o)
-            d.setRequestHeader(f, o[f]);
-        d.send(s);
+        if (d.onreadystatechange = u._callBackUpload.bind(this, d, a, r), d.open("post", n, !0), s !== null && typeof s == "object" && this._w.Object.keys(s).length > 0)
+          for (let f in s)
+            d.setRequestHeader(f, s[f]);
+        d.send(o);
       },
-      _callBackUpload: function(l, o, s) {
-        if (l.readyState === 4)
-          if (l.status === 200)
+      _callBackUpload: function(n, s, o) {
+        if (n.readyState === 4)
+          if (n.status === 200)
             try {
-              o(l);
+              s(n);
             } catch (a) {
               throw Error('[SUNEDITOR.fileManager.upload.callBack.fail] cause : "' + a.message + '"');
             } finally {
@@ -3703,28 +3547,28 @@ var Be = { exports: {} };
             }
           else {
             this.closeLoading();
-            const a = l.responseText ? JSON.parse(l.responseText) : l;
-            if (typeof s != "function" || s("", a, this)) {
-              const r = "[SUNEDITOR.fileManager.upload.serverException] status: " + l.status + ", response: " + (a.errorMessage || l.responseText);
+            const a = n.responseText ? JSON.parse(n.responseText) : n;
+            if (typeof o != "function" || o("", a, this)) {
+              const r = "[SUNEDITOR.fileManager.upload.serverException] status: " + n.status + ", response: " + (a.errorMessage || n.responseText);
               throw this.functions.noticeOpen(r), Error(r);
             }
           }
       },
-      checkInfo: function(l, o, s, a, r) {
+      checkInfo: function(n, s, o, a, r) {
         let u = [];
-        for (let c = 0, _ = o.length; c < _; c++)
-          u = u.concat([].slice.call(this.context.element.wysiwyg.querySelectorAll(o[c] + ':not([data-se-embed="true"])')));
-        const d = this.plugins.fileManager, f = this.context[l], h = f._infoList, g = d.setInfo.bind(this);
+        for (let c = 0, _ = s.length; c < _; c++)
+          u = u.concat([].slice.call(this.context.element.wysiwyg.querySelectorAll(s[c] + ':not([data-se-embed="true"])')));
+        const d = this.plugins.fileManager, f = this.context[n], h = f._infoList, g = d.setInfo.bind(this);
         if (u.length === h.length)
           if (this._componentsInfoReset) {
             for (let c = 0, _ = u.length; c < _; c++)
-              g(l, u[c], s, null, r);
+              g(n, u[c], o, null, r);
             return;
           } else {
             let c = !1;
             for (let _ = 0, v = h.length, y; _ < v; _++)
-              if (y = h[_], u.filter(function(w) {
-                return y.src === w.src && y.index.toString() === w.getAttribute("data-index");
+              if (y = h[_], u.filter(function(k) {
+                return y.src === k.src && y.index.toString() === k.getAttribute("data-index");
               }).length === 0) {
                 c = !0;
                 break;
@@ -3733,27 +3577,27 @@ var Be = { exports: {} };
               return;
           }
         const p = r ? this.context.resizing._resize_plugin : "";
-        r && (this.context.resizing._resize_plugin = l);
+        r && (this.context.resizing._resize_plugin = n);
         const b = [], m = [];
         for (let c = 0, _ = h.length; c < _; c++)
           m[c] = h[c].index;
         for (let c = 0, _ = u.length, v; c < _; c++)
-          v = u[c], !this.util.getParentElement(v, this.util.isMediaComponent) || !d._checkMediaComponent(v) ? (b.push(f._infoIndex), a(v)) : !v.getAttribute("data-index") || m.indexOf(v.getAttribute("data-index") * 1) < 0 ? (b.push(f._infoIndex), v.removeAttribute("data-index"), g(l, v, s, null, r)) : b.push(v.getAttribute("data-index") * 1);
+          v = u[c], !this.util.getParentElement(v, this.util.isMediaComponent) || !d._checkMediaComponent(v) ? (b.push(f._infoIndex), a(v)) : !v.getAttribute("data-index") || m.indexOf(v.getAttribute("data-index") * 1) < 0 ? (b.push(f._infoIndex), v.removeAttribute("data-index"), g(n, v, o, null, r)) : b.push(v.getAttribute("data-index") * 1);
         for (let c = 0, _; c < h.length; c++)
-          _ = h[c].index, !(b.indexOf(_) > -1) && (h.splice(c, 1), typeof s == "function" && s(null, _, "delete", null, 0, this), c--);
+          _ = h[c].index, !(b.indexOf(_) > -1) && (h.splice(c, 1), typeof o == "function" && o(null, _, "delete", null, 0, this), c--);
         r && (this.context.resizing._resize_plugin = p);
       },
-      setInfo: function(l, o, s, a, r) {
+      setInfo: function(n, s, o, a, r) {
         const u = r ? this.context.resizing._resize_plugin : "";
-        r && (this.context.resizing._resize_plugin = l);
-        const d = this.plugins[l], f = this.context[l], h = f._infoList;
-        let g = o.getAttribute("data-index"), p = null, b = "";
+        r && (this.context.resizing._resize_plugin = n);
+        const d = this.plugins[n], f = this.context[n], h = f._infoList;
+        let g = s.getAttribute("data-index"), p = null, b = "";
         if (a || (a = {
-          name: o.getAttribute("data-file-name") || (typeof o.src == "string" ? o.src.split("/").pop() : ""),
-          size: o.getAttribute("data-file-size") || 0
+          name: s.getAttribute("data-file-name") || (typeof s.src == "string" ? s.src.split("/").pop() : ""),
+          size: s.getAttribute("data-file-size") || 0
         }), !g || this._componentsInfoInit)
-          b = "create", g = f._infoIndex++, o.setAttribute("data-index", g), o.setAttribute("data-file-name", a.name), o.setAttribute("data-file-size", a.size), p = {
-            src: o.src,
+          b = "create", g = f._infoIndex++, s.setAttribute("data-index", g), s.setAttribute("data-file-name", a.name), s.setAttribute("data-file-size", a.size), p = {
+            src: s.src,
             index: g * 1,
             name: a.name,
             size: a.size
@@ -3765,41 +3609,41 @@ var Be = { exports: {} };
               p = h[m];
               break;
             }
-          p || (g = f._infoIndex++, p = { index: g }, h.push(p)), p.src = o.src, p.name = o.getAttribute("data-file-name"), p.size = o.getAttribute("data-file-size") * 1;
+          p || (g = f._infoIndex++, p = { index: g }, h.push(p)), p.src = s.src, p.name = s.getAttribute("data-file-name"), p.size = s.getAttribute("data-file-size") * 1;
         }
-        if (p.element = o, p.delete = d.destroy.bind(this, o), p.select = function(m) {
+        if (p.element = s, p.delete = d.destroy.bind(this, s), p.select = function(m) {
           m.scrollIntoView(!0), this._w.setTimeout(d.select.bind(this, m));
-        }.bind(this, o), r) {
-          if (!o.getAttribute("origin-size") && o.naturalWidth && o.setAttribute("origin-size", o.naturalWidth + "," + o.naturalHeight), !o.getAttribute("data-origin")) {
-            const m = this.util.getParentElement(o, this.util.isMediaComponent), c = this.util.getParentElement(o, "FIGURE"), _ = this.plugins.resizing._module_getSizeX.call(this, f, o, c, m), v = this.plugins.resizing._module_getSizeY.call(this, f, o, c, m);
-            o.setAttribute("data-origin", _ + "," + v), o.setAttribute("data-size", _ + "," + v);
+        }.bind(this, s), r) {
+          if (!s.getAttribute("origin-size") && s.naturalWidth && s.setAttribute("origin-size", s.naturalWidth + "," + s.naturalHeight), !s.getAttribute("data-origin")) {
+            const m = this.util.getParentElement(s, this.util.isMediaComponent), c = this.util.getParentElement(s, "FIGURE"), _ = this.plugins.resizing._module_getSizeX.call(this, f, s, c, m), v = this.plugins.resizing._module_getSizeY.call(this, f, s, c, m);
+            s.setAttribute("data-origin", _ + "," + v), s.setAttribute("data-size", _ + "," + v);
           }
-          if (!o.style.width) {
-            const m = (o.getAttribute("data-size") || o.getAttribute("data-origin") || "").split(",");
-            d.onModifyMode.call(this, o, null), d.applySize.call(this, m[0], m[1]);
+          if (!s.style.width) {
+            const m = (s.getAttribute("data-size") || s.getAttribute("data-origin") || "").split(",");
+            d.onModifyMode.call(this, s, null), d.applySize.call(this, m[0], m[1]);
           }
           this.context.resizing._resize_plugin = u;
         }
-        typeof s == "function" && s(o, g, b, p, --f._uploadFileLength < 0 ? 0 : f._uploadFileLength, this);
+        typeof o == "function" && o(s, g, b, p, --f._uploadFileLength < 0 ? 0 : f._uploadFileLength, this);
       },
-      deleteInfo: function(l, o, s) {
-        if (o >= 0) {
-          const a = this.context[l]._infoList;
+      deleteInfo: function(n, s, o) {
+        if (s >= 0) {
+          const a = this.context[n]._infoList;
           for (let r = 0, u = a.length; r < u; r++)
-            if (o === a[r].index) {
-              a.splice(r, 1), typeof s == "function" && s(null, o, "delete", null, 0, this);
+            if (s === a[r].index) {
+              a.splice(r, 1), typeof o == "function" && o(null, s, "delete", null, 0, this);
               return;
             }
         }
       },
-      resetInfo: function(l, o) {
-        const s = this.context[l];
-        if (typeof o == "function") {
-          const a = s._infoList;
+      resetInfo: function(n, s) {
+        const o = this.context[n];
+        if (typeof s == "function") {
+          const a = o._infoList;
           for (let r = 0, u = a.length; r < u; r++)
-            o(null, a[r].index, "delete", null, 0, this);
+            s(null, a[r].index, "delete", null, 0, this);
         }
-        s._infoList = [], s._infoIndex = 0;
+        o._infoList = [], o._infoIndex = 0;
       }
     };
     return typeof i > "u" && (t.SUNEDITOR_MODULES || Object.defineProperty(t, "SUNEDITOR_MODULES", {
@@ -3811,16 +3655,16 @@ var Be = { exports: {} };
       enumerable: !0,
       writable: !1,
       configurable: !1,
-      value: n
-    })), n;
+      value: l
+    })), l;
   });
-})(Be);
-const re = Be.exports, Pn = {
+})(Me);
+const ce = Me.exports, yl = {
   name: "image",
   display: "dialog",
   add: function(e) {
-    e.addModule([Q, Ee, ae, Te, re]);
-    const t = e.options, i = e.context, n = i.image = {
+    e.addModule([te, Re, de, Ae, ce]);
+    const t = e.options, i = e.context, l = i.image = {
       _infoList: [],
       _infoIndex: 0,
       _uploadFileLength: 0,
@@ -3860,20 +3704,20 @@ const re = Be.exports, Pn = {
       _caption: null,
       captionCheckEl: null
     };
-    let l = this.setDialog(e);
-    n.modal = l, n.imgInputFile = l.querySelector("._se_image_file"), n.imgUrlFile = l.querySelector("._se_image_url"), n.focusElement = n.imgInputFile || n.imgUrlFile, n.altText = l.querySelector("._se_image_alt"), n.captionCheckEl = l.querySelector("._se_image_check_caption"), n.previewSrc = l.querySelector("._se_tab_content_image .se-link-preview"), l.querySelector(".se-dialog-tabs").addEventListener("click", this.openTab.bind(e)), l.querySelector("form").addEventListener("submit", this.submit.bind(e)), n.imgInputFile && l.querySelector(".se-file-remove").addEventListener("click", this._removeSelectedFiles.bind(n.imgInputFile, n.imgUrlFile, n.previewSrc)), n.imgUrlFile && n.imgUrlFile.addEventListener("input", this._onLinkPreview.bind(n.previewSrc, n._v_src, t.linkProtocol)), n.imgInputFile && n.imgUrlFile && n.imgInputFile.addEventListener("change", this._fileInputChange.bind(n));
-    const o = l.querySelector(".__se__gallery");
-    o && o.addEventListener("click", this._openGallery.bind(e)), n.proportion = {}, n.inputX = {}, n.inputY = {}, t.imageResizing && (n.proportion = l.querySelector("._se_image_check_proportion"), n.inputX = l.querySelector("._se_image_size_x"), n.inputY = l.querySelector("._se_image_size_y"), n.inputX.value = t.imageWidth, n.inputY.value = t.imageHeight, n.inputX.addEventListener("keyup", this.setInputSize.bind(e, "x")), n.inputY.addEventListener("keyup", this.setInputSize.bind(e, "y")), n.inputX.addEventListener("change", this.setRatio.bind(e)), n.inputY.addEventListener("change", this.setRatio.bind(e)), n.proportion.addEventListener("change", this.setRatio.bind(e)), l.querySelector(".se-dialog-btn-revert").addEventListener("click", this.sizeRevert.bind(e))), i.dialog.modal.appendChild(l), e.plugins.anchor.initEvent.call(e, "image", l.querySelector("._se_tab_content_url")), n.anchorCtx = e.context.anchor.caller.image, l = null;
+    let n = this.setDialog(e);
+    l.modal = n, l.imgInputFile = n.querySelector("._se_image_file"), l.imgUrlFile = n.querySelector("._se_image_url"), l.focusElement = l.imgInputFile || l.imgUrlFile, l.altText = n.querySelector("._se_image_alt"), l.captionCheckEl = n.querySelector("._se_image_check_caption"), l.previewSrc = n.querySelector("._se_tab_content_image .se-link-preview"), n.querySelector(".se-dialog-tabs").addEventListener("click", this.openTab.bind(e)), n.querySelector("form").addEventListener("submit", this.submit.bind(e)), l.imgInputFile && n.querySelector(".se-file-remove").addEventListener("click", this._removeSelectedFiles.bind(l.imgInputFile, l.imgUrlFile, l.previewSrc)), l.imgUrlFile && l.imgUrlFile.addEventListener("input", this._onLinkPreview.bind(l.previewSrc, l._v_src, t.linkProtocol)), l.imgInputFile && l.imgUrlFile && l.imgInputFile.addEventListener("change", this._fileInputChange.bind(l));
+    const s = n.querySelector(".__se__gallery");
+    s && s.addEventListener("click", this._openGallery.bind(e)), l.proportion = {}, l.inputX = {}, l.inputY = {}, t.imageResizing && (l.proportion = n.querySelector("._se_image_check_proportion"), l.inputX = n.querySelector("._se_image_size_x"), l.inputY = n.querySelector("._se_image_size_y"), l.inputX.value = t.imageWidth, l.inputY.value = t.imageHeight, l.inputX.addEventListener("keyup", this.setInputSize.bind(e, "x")), l.inputY.addEventListener("keyup", this.setInputSize.bind(e, "y")), l.inputX.addEventListener("change", this.setRatio.bind(e)), l.inputY.addEventListener("change", this.setRatio.bind(e)), l.proportion.addEventListener("change", this.setRatio.bind(e)), n.querySelector(".se-dialog-btn-revert").addEventListener("click", this.sizeRevert.bind(e))), i.dialog.modal.appendChild(n), e.plugins.anchor.initEvent.call(e, "image", n.querySelector("._se_tab_content_url")), l.anchorCtx = e.context.anchor.caller.image, n = null;
   },
   setDialog: function(e) {
-    const t = e.options, i = e.lang, n = e.util.createElement("DIV");
-    n.className = "se-dialog-content se-dialog-image", n.style.display = "none";
-    let l = '<div class="se-dialog-header"><button type="button" data-command="close" class="se-btn se-dialog-close" class="close" title="' + i.dialogBox.close + '" aria-label="' + i.dialogBox.close + '">' + e.icons.cancel + '</button><span class="se-modal-title">' + i.dialogBox.imageBox.title + '</span></div><div class="se-dialog-tabs"><button type="button" class="_se_tab_link active" data-tab-link="image">' + i.toolbar.image + '</button><button type="button" class="_se_tab_link" data-tab-link="url">' + i.toolbar.link + '</button></div><form method="post" enctype="multipart/form-data"><div class="_se_tab_content _se_tab_content_image"><div class="se-dialog-body"><div style="border-bottom: 1px dashed #ccc;">';
-    if (t.imageFileInput && (l += '<div class="se-dialog-form"><label>' + i.dialogBox.imageBox.file + '</label><div class="se-dialog-form-files"><input class="se-input-form _se_image_file" type="file" accept="' + t.imageAccept + '"' + (t.imageMultipleFile ? ' multiple="multiple"' : "") + '/><button type="button" class="se-btn se-dialog-files-edge-button se-file-remove" title="' + i.controller.remove + '" aria-label="' + i.controller.remove + '">' + e.icons.cancel + "</button></div></div>"), t.imageUrlInput && (l += '<div class="se-dialog-form"><label>' + i.dialogBox.imageBox.url + '</label><div class="se-dialog-form-files"><input class="se-input-form se-input-url _se_image_url" type="text" />' + (t.imageGalleryUrl && e.plugins.imageGallery ? '<button type="button" class="se-btn se-dialog-files-edge-button __se__gallery" title="' + i.toolbar.imageGallery + '" aria-label="' + i.toolbar.imageGallery + '">' + e.icons.image_gallery + "</button>" : "") + '</div><pre class="se-link-preview"></pre></div>'), l += '</div><div class="se-dialog-form"><label>' + i.dialogBox.imageBox.altText + '</label><input class="se-input-form _se_image_alt" type="text" /></div>', t.imageResizing) {
-      const o = t.imageSizeOnlyPercentage, s = o ? ' style="display: none !important;"' : "", a = t.imageHeightShow ? "" : ' style="display: none !important;"';
-      l += '<div class="se-dialog-form">', o || !t.imageHeightShow ? l += '<div class="se-dialog-size-text"><label class="size-w">' + i.dialogBox.size + "</label></div>" : l += '<div class="se-dialog-size-text"><label class="size-w">' + i.dialogBox.width + '</label><label class="se-dialog-size-x">&nbsp;</label><label class="size-h">' + i.dialogBox.height + "</label></div>", l += '<input class="se-input-control _se_image_size_x" placeholder="auto"' + (o ? ' type="number" min="1"' : 'type="text"') + (o ? ' max="100"' : "") + ' /><label class="se-dialog-size-x"' + a + ">" + (o ? "%" : "x") + '</label><input type="text" class="se-input-control _se_image_size_y" placeholder="auto"' + s + (o ? ' max="100"' : "") + a + "/><label" + s + a + '><input type="checkbox" class="se-dialog-btn-check _se_image_check_proportion" checked/>&nbsp;' + i.dialogBox.proportion + '</label><button type="button" title="' + i.dialogBox.revertButton + '" aria-label="' + i.dialogBox.revertButton + '" class="se-btn se-dialog-btn-revert" style="float: right;">' + e.icons.revert + "</button></div>";
+    const t = e.options, i = e.lang, l = e.util.createElement("DIV");
+    l.className = "se-dialog-content se-dialog-image", l.style.display = "none";
+    let n = '<div class="se-dialog-header"><button type="button" data-command="close" class="se-btn se-dialog-close" class="close" title="' + i.dialogBox.close + '" aria-label="' + i.dialogBox.close + '">' + e.icons.cancel + '</button><span class="se-modal-title">' + i.dialogBox.imageBox.title + '</span></div><div class="se-dialog-tabs"><button type="button" class="_se_tab_link active" data-tab-link="image">' + i.toolbar.image + '</button><button type="button" class="_se_tab_link" data-tab-link="url">' + i.toolbar.link + '</button></div><form method="post" enctype="multipart/form-data"><div class="_se_tab_content _se_tab_content_image"><div class="se-dialog-body"><div style="border-bottom: 1px dashed #ccc;">';
+    if (t.imageFileInput && (n += '<div class="se-dialog-form"><label>' + i.dialogBox.imageBox.file + '</label><div class="se-dialog-form-files"><input class="se-input-form _se_image_file" type="file" accept="' + t.imageAccept + '"' + (t.imageMultipleFile ? ' multiple="multiple"' : "") + '/><button type="button" class="se-btn se-dialog-files-edge-button se-file-remove" title="' + i.controller.remove + '" aria-label="' + i.controller.remove + '">' + e.icons.cancel + "</button></div></div>"), t.imageUrlInput && (n += '<div class="se-dialog-form"><label>' + i.dialogBox.imageBox.url + '</label><div class="se-dialog-form-files"><input class="se-input-form se-input-url _se_image_url" type="text" />' + (t.imageGalleryUrl && e.plugins.imageGallery ? '<button type="button" class="se-btn se-dialog-files-edge-button __se__gallery" title="' + i.toolbar.imageGallery + '" aria-label="' + i.toolbar.imageGallery + '">' + e.icons.image_gallery + "</button>" : "") + '</div><pre class="se-link-preview"></pre></div>'), n += '</div><div class="se-dialog-form"><label>' + i.dialogBox.imageBox.altText + '</label><input class="se-input-form _se_image_alt" type="text" /></div>', t.imageResizing) {
+      const s = t.imageSizeOnlyPercentage, o = s ? ' style="display: none !important;"' : "", a = t.imageHeightShow ? "" : ' style="display: none !important;"';
+      n += '<div class="se-dialog-form">', s || !t.imageHeightShow ? n += '<div class="se-dialog-size-text"><label class="size-w">' + i.dialogBox.size + "</label></div>" : n += '<div class="se-dialog-size-text"><label class="size-w">' + i.dialogBox.width + '</label><label class="se-dialog-size-x">&nbsp;</label><label class="size-h">' + i.dialogBox.height + "</label></div>", n += '<input class="se-input-control _se_image_size_x" placeholder="auto"' + (s ? ' type="number" min="1"' : 'type="text"') + (s ? ' max="100"' : "") + ' /><label class="se-dialog-size-x"' + a + ">" + (s ? "%" : "x") + '</label><input type="text" class="se-input-control _se_image_size_y" placeholder="auto"' + o + (s ? ' max="100"' : "") + a + "/><label" + o + a + '><input type="checkbox" class="se-dialog-btn-check _se_image_check_proportion" checked/>&nbsp;' + i.dialogBox.proportion + '</label><button type="button" title="' + i.dialogBox.revertButton + '" aria-label="' + i.dialogBox.revertButton + '" class="se-btn se-dialog-btn-revert" style="float: right;">' + e.icons.revert + "</button></div>";
     }
-    return l += '<div class="se-dialog-form se-dialog-form-footer"><label><input type="checkbox" class="se-dialog-btn-check _se_image_check_caption" />&nbsp;' + i.dialogBox.caption + '</label></div></div></div><div class="_se_tab_content _se_tab_content_url" style="display: none">' + e.context.anchor.forms.innerHTML + '</div><div class="se-dialog-footer"><div' + (t.imageAlignShow ? "" : ' style="display: none"') + '><label><input type="radio" name="suneditor_image_radio" class="se-dialog-btn-radio" value="none" checked>' + i.dialogBox.basic + '</label><label><input type="radio" name="suneditor_image_radio" class="se-dialog-btn-radio" value="left">' + i.dialogBox.left + '</label><label><input type="radio" name="suneditor_image_radio" class="se-dialog-btn-radio" value="center">' + i.dialogBox.center + '</label><label><input type="radio" name="suneditor_image_radio" class="se-dialog-btn-radio" value="right">' + i.dialogBox.right + '</label></div><button type="submit" class="se-btn-primary" title="' + i.dialogBox.submitButton + '" aria-label="' + i.dialogBox.submitButton + '"><span>' + i.dialogBox.submitButton + "</span></button></div></form>", n.innerHTML = l, n;
+    return n += '<div class="se-dialog-form se-dialog-form-footer"><label><input type="checkbox" class="se-dialog-btn-check _se_image_check_caption" />&nbsp;' + i.dialogBox.caption + '</label></div></div></div><div class="_se_tab_content _se_tab_content_url" style="display: none">' + e.context.anchor.forms.innerHTML + '</div><div class="se-dialog-footer"><div' + (t.imageAlignShow ? "" : ' style="display: none"') + '><label><input type="radio" name="suneditor_image_radio" class="se-dialog-btn-radio" value="none" checked>' + i.dialogBox.basic + '</label><label><input type="radio" name="suneditor_image_radio" class="se-dialog-btn-radio" value="left">' + i.dialogBox.left + '</label><label><input type="radio" name="suneditor_image_radio" class="se-dialog-btn-radio" value="center">' + i.dialogBox.center + '</label><label><input type="radio" name="suneditor_image_radio" class="se-dialog-btn-radio" value="right">' + i.dialogBox.right + '</label></div><button type="submit" class="se-btn-primary" title="' + i.dialogBox.submitButton + '" aria-label="' + i.dialogBox.submitButton + '"><span>' + i.dialogBox.submitButton + "</span></button></div></form>", l.innerHTML = n, l;
   },
   _fileInputChange: function() {
     this.imgInputFile.value ? (this.imgUrlFile.setAttribute("disabled", !0), this.previewSrc.style.textDecoration = "line-through") : (this.imgUrlFile.removeAttribute("disabled"), this.previewSrc.style.textDecoration = "");
@@ -3888,20 +3732,20 @@ const re = Be.exports, Pn = {
     this.altText.value = e.alt, this._v_src._linkValue = this.previewSrc.textContent = this.imgUrlFile.value = e.src, this.imgUrlFile.focus();
   },
   _onLinkPreview: function(e, t, i) {
-    const n = i.target.value.trim();
-    e._linkValue = this.textContent = n ? t && n.indexOf("://") === -1 && n.indexOf("#") !== 0 ? t + n : n.indexOf("://") === -1 ? "/" + n : n : "";
+    const l = i.target.value.trim();
+    e._linkValue = this.textContent = l ? t && l.indexOf("://") === -1 && l.indexOf("#") !== 0 ? t + l : l.indexOf("://") === -1 ? "/" + l : l : "";
   },
   fileTags: ["img"],
   select: function(e) {
     this.plugins.image.onModifyMode.call(this, e, this.plugins.resizing.call_controller_resize.call(this, e, "image"));
   },
   destroy: function(e) {
-    const t = e || this.context.image._element, i = this.util.getParentElement(t, this.util.isMediaComponent) || t, n = t.getAttribute("data-index") * 1;
-    let l = i.previousElementSibling || i.nextElementSibling;
-    const o = i.parentNode;
-    this.util.removeItem(i), this.plugins.image.init.call(this), this.controllersOff(), o !== this.context.element.wysiwyg && this.util.removeItemAllParents(o, function(s) {
-      return s.childNodes.length === 0;
-    }, null), this.focusEdge(l), this.plugins.fileManager.deleteInfo.call(this, "image", n, this.functions.onImageUpload), this.history.push(!1);
+    const t = e || this.context.image._element, i = this.util.getParentElement(t, this.util.isMediaComponent) || t, l = t.getAttribute("data-index") * 1;
+    let n = i.previousElementSibling || i.nextElementSibling;
+    const s = i.parentNode;
+    this.util.removeItem(i), this.plugins.image.init.call(this), this.controllersOff(), s !== this.context.element.wysiwyg && this.util.removeItemAllParents(s, function(o) {
+      return o.childNodes.length === 0;
+    }, null), this.focusEdge(n), this.plugins.fileManager.deleteInfo.call(this, "image", l, this.functions.onImageUpload), this.history.push(!1);
   },
   on: function(e) {
     const t = this.context.image;
@@ -3914,21 +3758,21 @@ const re = Be.exports, Pn = {
     const t = this.context.image.modal, i = e === "init" ? t.querySelector("._se_tab_link") : e.target;
     if (!/^BUTTON$/i.test(i.tagName))
       return !1;
-    const n = i.getAttribute("data-tab-link"), l = "_se_tab_content";
-    let o, s, a;
-    for (s = t.getElementsByClassName(l), o = 0; o < s.length; o++)
-      s[o].style.display = "none";
-    for (a = t.getElementsByClassName("_se_tab_link"), o = 0; o < a.length; o++)
-      this.util.removeClass(a[o], "active");
-    return t.querySelector("." + l + "_" + n).style.display = "block", this.util.addClass(i, "active"), n === "image" && this.context.image.focusElement ? this.context.image.focusElement.focus() : n === "url" && this.context.anchor.caller.image.urlInput.focus(), !1;
+    const l = i.getAttribute("data-tab-link"), n = "_se_tab_content";
+    let s, o, a;
+    for (o = t.getElementsByClassName(n), s = 0; s < o.length; s++)
+      o[s].style.display = "none";
+    for (a = t.getElementsByClassName("_se_tab_link"), s = 0; s < a.length; s++)
+      this.util.removeClass(a[s], "active");
+    return t.querySelector("." + n + "_" + l).style.display = "block", this.util.addClass(i, "active"), l === "image" && this.context.image.focusElement ? this.context.image.focusElement.focus() : l === "url" && this.context.anchor.caller.image.urlInput.focus(), !1;
   },
   submit: function(e) {
     const t = this.context.image, i = this.plugins.image;
     e.preventDefault(), e.stopPropagation(), t._altText = t.altText.value, t._align = t.modal.querySelector('input[name="suneditor_image_radio"]:checked').value, t._captionChecked = t.captionCheckEl.checked, t._resizing && (t._proportionChecked = t.proportion.checked);
     try {
       this.context.dialog.updateModal && i.update_image.call(this, !1, !0, !1), t.imgInputFile && t.imgInputFile.files.length > 0 ? (this.showLoading(), i.submitAction.call(this, this.context.image.imgInputFile.files)) : t.imgUrlFile && t._v_src._linkValue.length > 0 && (this.showLoading(), i.onRender_imgUrl.call(this, t._v_src._linkValue));
-    } catch (n) {
-      throw this.closeLoading(), Error('[SUNEDITOR.image.submit.fail] cause : "' + n.message + '"');
+    } catch (l) {
+      throw this.closeLoading(), Error('[SUNEDITOR.image.submit.fail] cause : "' + l.message + '"');
     } finally {
       this.plugins.dialog.close.call(this);
     }
@@ -3940,33 +3784,33 @@ const re = Be.exports, Pn = {
     let t = 0, i = [];
     for (let a = 0, r = e.length; a < r; a++)
       /image/i.test(e[a].type) && (i.push(e[a]), t += e[a].size);
-    const n = this.options.imageUploadSizeLimit;
-    if (n > 0) {
+    const l = this.options.imageUploadSizeLimit;
+    if (l > 0) {
       let a = 0;
       const r = this.context.image._infoList;
       for (let u = 0, d = r.length; u < d; u++)
         a += r[u].size * 1;
-      if (t + a > n) {
+      if (t + a > l) {
         this.closeLoading();
-        const u = "[SUNEDITOR.imageUpload.fail] Size of uploadable total images: " + n / 1e3 + "KB";
-        (typeof this.functions.onImageUploadError != "function" || this.functions.onImageUploadError(u, { limitSize: n, currentSize: a, uploadSize: t }, this)) && this.functions.noticeOpen(u);
+        const u = "[SUNEDITOR.imageUpload.fail] Size of uploadable total images: " + l / 1e3 + "KB";
+        (typeof this.functions.onImageUploadError != "function" || this.functions.onImageUploadError(u, { limitSize: l, currentSize: a, uploadSize: t }, this)) && this.functions.noticeOpen(u);
         return;
       }
     }
-    const l = this.context.image;
-    l._uploadFileLength = i.length;
-    const s = {
-      anchor: this.plugins.anchor.createAnchor.call(this, l.anchorCtx, !0),
-      inputWidth: l.inputX.value,
-      inputHeight: l.inputY.value,
-      align: l._align,
+    const n = this.context.image;
+    n._uploadFileLength = i.length;
+    const o = {
+      anchor: this.plugins.anchor.createAnchor.call(this, n.anchorCtx, !0),
+      inputWidth: n.inputX.value,
+      inputHeight: n.inputY.value,
+      align: n._align,
       isUpdate: this.context.dialog.updateModal,
-      alt: l._altText,
-      element: l._element
+      alt: n._altText,
+      element: n._element
     };
     if (typeof this.functions.onImageUploadBefore == "function") {
-      const a = this.functions.onImageUploadBefore(i, s, this, function(r) {
-        r && this._w.Array.isArray(r.result) ? this.plugins.image.register.call(this, s, r) : this.plugins.image.upload.call(this, s, r);
+      const a = this.functions.onImageUploadBefore(i, o, this, function(r) {
+        r && this._w.Array.isArray(r.result) ? this.plugins.image.register.call(this, o, r) : this.plugins.image.upload.call(this, o, r);
       }.bind(this));
       if (typeof a > "u")
         return;
@@ -3976,7 +3820,7 @@ const re = Be.exports, Pn = {
       }
       this._w.Array.isArray(a) && a.length > 0 && (i = a);
     }
-    this.plugins.image.upload.call(this, s, i);
+    this.plugins.image.upload.call(this, o, i);
   },
   error: function(e, t) {
     if (this.closeLoading(), typeof this.functions.onImageUploadError != "function" || this.functions.onImageUploadError(e, t, this))
@@ -3991,14 +3835,14 @@ const re = Be.exports, Pn = {
       this.plugins.image.error.call(this, t, null);
       return;
     }
-    const i = this.options.imageUploadUrl, n = this.context.dialog.updateModal ? 1 : t.length;
+    const i = this.options.imageUploadUrl, l = this.context.dialog.updateModal ? 1 : t.length;
     if (typeof i == "string" && i.length > 0) {
-      const l = new FormData();
-      for (let o = 0; o < n; o++)
-        l.append("file-" + o, t[o]);
-      this.plugins.fileManager.upload.call(this, i, this.options.imageUploadHeader, l, this.plugins.image.callBack_imgUpload.bind(this, e), this.functions.onImageUploadError);
+      const n = new FormData();
+      for (let s = 0; s < l; s++)
+        n.append("file-" + s, t[s]);
+      this.plugins.fileManager.upload.call(this, i, this.options.imageUploadHeader, n, this.plugins.image.callBack_imgUpload.bind(this, e), this.functions.onImageUploadError);
     } else
-      this.plugins.image.setup_reader.call(this, t, e.anchor, e.inputWidth, e.inputHeight, e.align, e.alt, n, e.isUpdate);
+      this.plugins.image.setup_reader.call(this, t, e.anchor, e.inputWidth, e.inputHeight, e.align, e.alt, l, e.isUpdate);
   },
   callBack_imgUpload: function(e, t) {
     if (typeof this.functions.imageUploadHandler == "function")
@@ -4010,31 +3854,31 @@ const re = Be.exports, Pn = {
   },
   register: function(e, t) {
     const i = t.result;
-    for (let n = 0, l = i.length, o; n < l; n++)
-      if (o = { name: i[n].name, size: i[n].size }, e.isUpdate) {
-        this.plugins.image.update_src.call(this, i[n].url, e.element, o);
+    for (let l = 0, n = i.length, s; l < n; l++)
+      if (s = { name: i[l].name, size: i[l].size }, e.isUpdate) {
+        this.plugins.image.update_src.call(this, i[l].url, e.element, s);
         break;
       } else
-        this.plugins.image.create_image.call(this, i[n].url, e.anchor, e.inputWidth, e.inputHeight, e.align, o, e.alt);
+        this.plugins.image.create_image.call(this, i[l].url, e.anchor, e.inputWidth, e.inputHeight, e.align, s, e.alt);
     this.closeLoading();
   },
-  setup_reader: function(e, t, i, n, l, o, s, a) {
+  setup_reader: function(e, t, i, l, n, s, o, a) {
     try {
-      this.context.image.base64RenderIndex = s;
-      const r = this._w.FileReader, u = [s];
-      this.context.image.inputX.value = i, this.context.image.inputY.value = n;
-      for (let d = 0, f, h; d < s; d++)
+      this.context.image.base64RenderIndex = o;
+      const r = this._w.FileReader, u = [o];
+      this.context.image.inputX.value = i, this.context.image.inputY.value = l;
+      for (let d = 0, f, h; d < o; d++)
         f = new r(), h = e[d], f.onload = function(g, p, b, m, c) {
-          u[c] = { result: g.result, file: m }, --this.context.image.base64RenderIndex === 0 && (this.plugins.image.onRender_imgBase64.call(this, p, u, b, t, i, n, l, o), this.closeLoading());
+          u[c] = { result: g.result, file: m }, --this.context.image.base64RenderIndex === 0 && (this.plugins.image.onRender_imgBase64.call(this, p, u, b, t, i, l, n, s), this.closeLoading());
         }.bind(this, f, a, this.context.image._element, h, d), f.readAsDataURL(h);
     } catch (r) {
       throw this.closeLoading(), Error('[SUNEDITOR.image.setup_reader.fail] cause : "' + r.message + '"');
     }
   },
-  onRender_imgBase64: function(e, t, i, n, l, o, s, a) {
+  onRender_imgBase64: function(e, t, i, l, n, s, o, a) {
     const r = this.plugins.image.update_src, u = this.plugins.image.create_image;
     for (let d = 0, f = t.length; d < f; d++)
-      e ? (this.context.image._element.setAttribute("data-file-name", t[d].file.name), this.context.image._element.setAttribute("data-file-size", t[d].file.size), r.call(this, t[d].result, i, t[d].file)) : u.call(this, t[d].result, n, l, o, s, t[d].file, a);
+      e ? (this.context.image._element.setAttribute("data-file-name", t[d].file.name), this.context.image._element.setAttribute("data-file-size", t[d].file.size), r.call(this, t[d].result, i, t[d].file)) : u.call(this, t[d].result, l, n, s, o, t[d].file, a);
   },
   onRender_imgUrl: function(e) {
     if (e || (e = this.context.image._v_src._linkValue), !e)
@@ -4063,71 +3907,71 @@ const re = Be.exports, Pn = {
     this.plugins.resizing._module_setRatio.call(this, this.context.image);
   },
   checkFileInfo: function() {
-    const e = this.plugins.image, t = this.context.image, i = function(n) {
-      e.onModifyMode.call(this, n, null), e.openModify.call(this, !0), t.inputX.value = t._origin_w, t.inputY.value = t._origin_h;
-      const l = this.util.getFormatElement(n);
-      l && (t._align = l.style.textAlign || l.style.float), this.util.getParentElement(n, this.util.isAnchor) && !t.anchorCtx.linkValue && (t.anchorCtx.linkValue = " "), e.update_image.call(this, !0, !1, !0), e.init.call(this);
+    const e = this.plugins.image, t = this.context.image, i = function(l) {
+      e.onModifyMode.call(this, l, null), e.openModify.call(this, !0), t.inputX.value = t._origin_w, t.inputY.value = t._origin_h;
+      const n = this.util.getFormatElement(l);
+      n && (t._align = n.style.textAlign || n.style.float), this.util.getParentElement(l, this.util.isAnchor) && !t.anchorCtx.linkValue && (t.anchorCtx.linkValue = " "), e.update_image.call(this, !0, !1, !0), e.init.call(this);
     }.bind(this);
     this.plugins.fileManager.checkInfo.call(this, "image", ["img"], this.functions.onImageUpload, i, !0);
   },
   resetFileInfo: function() {
     this.plugins.fileManager.resetInfo.call(this, "image", this.functions.onImageUpload);
   },
-  create_image: function(e, t, i, n, l, o, s) {
+  create_image: function(e, t, i, l, n, s, o) {
     const a = this.plugins.image, r = this.context.image;
     this.context.resizing._resize_plugin = "image";
     let u = this.util.createElement("IMG");
-    u.src = e, u.alt = s, u.setAttribute("data-rotate", "0"), t = a.onRender_link.call(this, u, t), r._resizing && u.setAttribute("data-proportion", r._proportionChecked);
+    u.src = e, u.alt = o, u.setAttribute("data-rotate", "0"), t = a.onRender_link.call(this, u, t), r._resizing && u.setAttribute("data-proportion", r._proportionChecked);
     const d = this.plugins.component.set_cover.call(this, t), f = this.plugins.component.set_container.call(this, d, "se-image-container");
-    r._captionChecked && (r._caption = this.plugins.component.create_caption.call(this), r._caption.setAttribute("contenteditable", !1), d.appendChild(r._caption)), r._element = u, r._cover = d, r._container = f, a.applySize.call(this, i, n), a.setAlign.call(this, l, u, d, f), u.onload = a._image_create_onload.bind(this, u, r.svgDefaultSize, f), this.insertComponent(f, !0, !0, !0) && this.plugins.fileManager.setInfo.call(this, "image", u, this.functions.onImageUpload, o, !0), this.context.resizing._resize_plugin = "";
+    r._captionChecked && (r._caption = this.plugins.component.create_caption.call(this), r._caption.setAttribute("contenteditable", !1), d.appendChild(r._caption)), r._element = u, r._cover = d, r._container = f, a.applySize.call(this, i, l), a.setAlign.call(this, n, u, d, f), u.onload = a._image_create_onload.bind(this, u, r.svgDefaultSize, f), this.insertComponent(f, !0, !0, !0) && this.plugins.fileManager.setInfo.call(this, "image", u, this.functions.onImageUpload, s, !0), this.context.resizing._resize_plugin = "";
   },
   _image_create_onload: function(e, t, i) {
     if (e.offsetWidth === 0 && this.plugins.image.applySize.call(this, t, ""), this.options.mediaAutoSelect)
       this.selectComponent(e, "image");
     else {
-      const n = this.appendFormatTag(i, null);
-      n && this.setRange(n, 0, n, 0);
+      const l = this.appendFormatTag(i, null);
+      l && this.setRange(l, 0, l, 0);
     }
   },
   update_image: function(e, t, i) {
-    const n = this.context.image;
-    let l = n._element, o = n._cover, s = n._container, a = !1;
-    o === null && (a = !0, l = n._element.cloneNode(!0), o = this.plugins.component.set_cover.call(this, l)), s === null ? (o = o.cloneNode(!0), l = o.querySelector("img"), a = !0, s = this.plugins.component.set_container.call(this, o, "se-image-container")) : a && (s.innerHTML = "", s.appendChild(o), n._cover = o, n._element = l, a = !1);
+    const l = this.context.image;
+    let n = l._element, s = l._cover, o = l._container, a = !1;
+    s === null && (a = !0, n = l._element.cloneNode(!0), s = this.plugins.component.set_cover.call(this, n)), o === null ? (s = s.cloneNode(!0), n = s.querySelector("img"), a = !0, o = this.plugins.component.set_container.call(this, s, "se-image-container")) : a && (o.innerHTML = "", o.appendChild(s), l._cover = s, l._element = n, a = !1);
     let r;
-    const u = this.util.isNumber(n.inputX.value) ? n.inputX.value + n.sizeUnit : n.inputX.value, d = this.util.isNumber(n.inputY.value) ? n.inputY.value + n.sizeUnit : n.inputY.value;
-    /%$/.test(l.style.width) ? r = u !== s.style.width || d !== s.style.height : r = u !== l.style.width || d !== l.style.height, l.alt = n._altText;
+    const u = this.util.isNumber(l.inputX.value) ? l.inputX.value + l.sizeUnit : l.inputX.value, d = this.util.isNumber(l.inputY.value) ? l.inputY.value + l.sizeUnit : l.inputY.value;
+    /%$/.test(n.style.width) ? r = u !== o.style.width || d !== o.style.height : r = u !== n.style.width || d !== n.style.height, n.alt = l._altText;
     let f = !1;
-    n._captionChecked ? n._caption || (n._caption = this.plugins.component.create_caption.call(this), o.appendChild(n._caption), f = !0) : n._caption && (this.util.removeItem(n._caption), n._caption = null, f = !0);
-    const h = this.plugins.anchor.createAnchor.call(this, n.anchorCtx, !0);
+    l._captionChecked ? l._caption || (l._caption = this.plugins.component.create_caption.call(this), s.appendChild(l._caption), f = !0) : l._caption && (this.util.removeItem(l._caption), l._caption = null, f = !0);
+    const h = this.plugins.anchor.createAnchor.call(this, l.anchorCtx, !0);
     if (h)
-      n._linkElement !== h ? (n._linkElement = h.cloneNode(!1), o.insertBefore(this.plugins.image.onRender_link.call(this, l, n._linkElement), n._caption), this.util.removeItem(h)) : n._linkElement.setAttribute("data-image-link", "image");
-    else if (n._linkElement !== null) {
-      const g = l;
-      if (g.setAttribute("data-image-link", ""), o.contains(n._linkElement)) {
+      l._linkElement !== h ? (l._linkElement = h.cloneNode(!1), s.insertBefore(this.plugins.image.onRender_link.call(this, n, l._linkElement), l._caption), this.util.removeItem(h)) : l._linkElement.setAttribute("data-image-link", "image");
+    else if (l._linkElement !== null) {
+      const g = n;
+      if (g.setAttribute("data-image-link", ""), s.contains(l._linkElement)) {
         const p = g.cloneNode(!0);
-        o.removeChild(n._linkElement), o.insertBefore(p, n._caption), n._element = l = p;
+        s.removeChild(l._linkElement), s.insertBefore(p, l._caption), l._element = n = p;
       }
     }
     if (a) {
-      let g = this.util.isRangeFormatElement(n._element.parentNode) || this.util.isWysiwygDiv(n._element.parentNode) ? n._element : /^A$/i.test(n._element.parentNode.nodeName) ? n._element.parentNode : this.util.getFormatElement(n._element) || n._element;
+      let g = this.util.isRangeFormatElement(l._element.parentNode) || this.util.isWysiwygDiv(l._element.parentNode) ? l._element : /^A$/i.test(l._element.parentNode.nodeName) ? l._element.parentNode : this.util.getFormatElement(l._element) || l._element;
       if (this.util.isListCell(g)) {
-        const p = this.util.getParentElement(n._element, function(b) {
+        const p = this.util.getParentElement(l._element, function(b) {
           return b.parentNode === g;
         });
-        g.insertBefore(s, p), this.util.removeItem(n._element), this.util.removeEmptyNode(p, null);
+        g.insertBefore(o, p), this.util.removeItem(l._element), this.util.removeEmptyNode(p, null);
       } else if (this.util.isFormatElement(g)) {
-        const p = this.util.getParentElement(n._element, function(b) {
+        const p = this.util.getParentElement(l._element, function(b) {
           return b.parentNode === g;
         });
-        g = this.util.splitElement(g, p), g.parentNode.insertBefore(s, g), this.util.removeItem(n._element), this.util.removeEmptyNode(g, null), g.children.length === 0 && (g.innerHTML = this.util.htmlRemoveWhiteSpace(g.innerHTML));
+        g = this.util.splitElement(g, p), g.parentNode.insertBefore(o, g), this.util.removeItem(l._element), this.util.removeEmptyNode(g, null), g.children.length === 0 && (g.innerHTML = this.util.htmlRemoveWhiteSpace(g.innerHTML));
       } else if (this.util.isFormatElement(g.parentNode)) {
         const p = g.parentNode;
-        p.parentNode.insertBefore(s, g.previousSibling ? p.nextElementSibling : p), this.util.removeItem(g);
+        p.parentNode.insertBefore(o, g.previousSibling ? p.nextElementSibling : p), this.util.removeItem(g);
       } else
-        g.parentNode.replaceChild(s, g);
-      l = s.querySelector("img"), n._element = l, n._cover = o, n._container = s;
+        g.parentNode.replaceChild(o, g);
+      n = o.querySelector("img"), l._element = n, l._cover = s, l._container = o;
     }
-    (f || !n._onlyPercentage && r) && !e && (/\d+/.test(l.style.height) || this.context.resizing._rotateVertical && n._captionChecked) && (/%$/.test(n.inputX.value) || /%$/.test(n.inputY.value) ? this.plugins.resizing.resetTransform.call(this, l) : this.plugins.resizing.setTransformSize.call(this, l, this.util.getNumber(n.inputX.value, 0), this.util.getNumber(n.inputY.value, 0))), n._resizing && (l.setAttribute("data-proportion", n._proportionChecked), r && this.plugins.image.applySize.call(this)), this.plugins.image.setAlign.call(this, null, l, null, null), e && this.plugins.fileManager.setInfo.call(this, "image", l, this.functions.onImageUpload, null, !0), t && this.selectComponent(l, "image"), i || this.history.push(!1);
+    (f || !l._onlyPercentage && r) && !e && (/\d+/.test(n.style.height) || this.context.resizing._rotateVertical && l._captionChecked) && (/%$/.test(l.inputX.value) || /%$/.test(l.inputY.value) ? this.plugins.resizing.resetTransform.call(this, n) : this.plugins.resizing.setTransformSize.call(this, n, this.util.getNumber(l.inputX.value, 0), this.util.getNumber(l.inputY.value, 0))), l._resizing && (n.setAttribute("data-proportion", l._proportionChecked), r && this.plugins.image.applySize.call(this)), this.plugins.image.setAlign.call(this, null, n, null, null), e && this.plugins.fileManager.setInfo.call(this, "image", n, this.functions.onImageUpload, null, !0), t && this.selectComponent(n, "image"), i || this.history.push(!1);
   },
   update_src: function(e, t, i) {
     t.src = e, this._w.setTimeout(this.plugins.fileManager.setInfo.bind(this, "image", t, this.functions.onImageUpload, i, !0)), this.selectComponent(t, "image");
@@ -4137,8 +3981,8 @@ const re = Be.exports, Pn = {
       return;
     const i = this.context.image;
     i._linkElement = i.anchorCtx.linkAnchor = /^A$/i.test(e.parentNode.nodeName) ? e.parentNode : null, i._element = e, i._cover = this.util.getParentElement(e, "FIGURE"), i._container = this.util.getParentElement(e, this.util.isMediaComponent), i._caption = this.util.getChildElement(i._cover, "FIGCAPTION"), i._align = e.style.float || e.getAttribute("data-align") || "none", e.style.float = "", this.plugins.anchor.setCtx(i._linkElement, i.anchorCtx), t && (i._element_w = t.w, i._element_h = t.h, i._element_t = t.t, i._element_l = t.l);
-    let n = i._element.getAttribute("data-size") || i._element.getAttribute("data-origin"), l, o;
-    n ? (n = n.split(","), l = n[0], o = n[1]) : t && (l = t.w, o = t.h), i._origin_w = l || e.style.width || e.width || "", i._origin_h = o || e.style.height || e.height || "";
+    let l = i._element.getAttribute("data-size") || i._element.getAttribute("data-origin"), n, s;
+    l ? (l = l.split(","), n = l[0], s = l[1]) : t && (n = t.w, s = t.h), i._origin_w = n || e.style.width || e.width || "", i._origin_h = s || e.style.height || e.height || "";
   },
   openModify: function(e) {
     const t = this.context.image;
@@ -4151,9 +3995,9 @@ const re = Be.exports, Pn = {
   sizeRevert: function() {
     this.plugins.resizing._module_sizeRevert.call(this, this.context.image);
   },
-  setSize: function(e, t, i, n) {
-    const l = this.context.image, o = /^(rw|lw)$/.test(n);
-    /^(th|bh)$/.test(n) || (l._element.style.width = this.util.isNumber(e) ? e + l.sizeUnit : e, this.plugins.image.cancelPercentAttr.call(this)), o || (l._element.style.height = this.util.isNumber(t) ? t + l.sizeUnit : /%$/.test(t) ? "" : t), l._align === "center" && this.plugins.image.setAlign.call(this, null, null, null, null), i || l._element.removeAttribute("data-percentage"), this.plugins.resizing._module_saveCurrentSize.call(this, l);
+  setSize: function(e, t, i, l) {
+    const n = this.context.image, s = /^(rw|lw)$/.test(l);
+    /^(th|bh)$/.test(l) || (n._element.style.width = this.util.isNumber(e) ? e + n.sizeUnit : e, this.plugins.image.cancelPercentAttr.call(this)), s || (n._element.style.height = this.util.isNumber(t) ? t + n.sizeUnit : /%$/.test(t) ? "" : t), n._align === "center" && this.plugins.image.setAlign.call(this, null, null, null, null), i || n._element.removeAttribute("data-percentage"), this.plugins.resizing._module_saveCurrentSize.call(this, n);
   },
   setAutoSize: function() {
     const e = this.context.image;
@@ -4162,33 +4006,33 @@ const re = Be.exports, Pn = {
   setOriginSize: function() {
     const e = this.context.image;
     e._element.removeAttribute("data-percentage"), this.plugins.resizing.resetTransform.call(this, e._element), this.plugins.image.cancelPercentAttr.call(this);
-    const t = (e._element.getAttribute("data-origin") || "").split(","), i = t[0], n = t[1];
-    t && (e._onlyPercentage || /%$/.test(i) && (/%$/.test(n) || !/\d/.test(n)) ? this.plugins.image.setPercentSize.call(this, i, n) : this.plugins.image.setSize.call(this, i, n), this.plugins.resizing._module_saveCurrentSize.call(this, e));
+    const t = (e._element.getAttribute("data-origin") || "").split(","), i = t[0], l = t[1];
+    t && (e._onlyPercentage || /%$/.test(i) && (/%$/.test(l) || !/\d/.test(l)) ? this.plugins.image.setPercentSize.call(this, i, l) : this.plugins.image.setSize.call(this, i, l), this.plugins.resizing._module_saveCurrentSize.call(this, e));
   },
   setPercentSize: function(e, t) {
     const i = this.context.image;
     t = !!t && !/%$/.test(t) && !this.util.getNumber(t, 0) ? this.util.isNumber(t) ? t + "%" : t : this.util.isNumber(t) ? t + i.sizeUnit : t || "";
-    const n = /%$/.test(t);
-    i._container.style.width = this.util.isNumber(e) ? e + "%" : e, i._container.style.height = "", i._cover.style.width = "100%", i._cover.style.height = n ? t : "", i._element.style.width = "100%", i._element.style.height = n ? "" : t, i._element.style.maxWidth = "", i._align === "center" && this.plugins.image.setAlign.call(this, null, null, null, null), i._element.setAttribute("data-percentage", e + "," + t), this.plugins.resizing.setCaptionPosition.call(this, i._element), this.plugins.resizing._module_saveCurrentSize.call(this, i);
+    const l = /%$/.test(t);
+    i._container.style.width = this.util.isNumber(e) ? e + "%" : e, i._container.style.height = "", i._cover.style.width = "100%", i._cover.style.height = l ? t : "", i._element.style.width = "100%", i._element.style.height = l ? "" : t, i._element.style.maxWidth = "", i._align === "center" && this.plugins.image.setAlign.call(this, null, null, null, null), i._element.setAttribute("data-percentage", e + "," + t), this.plugins.resizing.setCaptionPosition.call(this, i._element), this.plugins.resizing._module_saveCurrentSize.call(this, i);
   },
   cancelPercentAttr: function() {
     const e = this.context.image;
     e._cover.style.width = "", e._cover.style.height = "", e._container.style.width = "", e._container.style.height = "", this.util.removeClass(e._container, this.context.image._floatClassRegExp), this.util.addClass(e._container, "__se__float-" + e._align), e._align === "center" && this.plugins.image.setAlign.call(this, null, null, null, null);
   },
-  setAlign: function(e, t, i, n) {
-    const l = this.context.image;
-    e || (e = l._align), t || (t = l._element), i || (i = l._cover), n || (n = l._container), e && e !== "none" ? i.style.margin = "auto" : i.style.margin = "0", /%$/.test(t.style.width) && e === "center" ? (n.style.minWidth = "100%", i.style.width = n.style.width) : (n.style.minWidth = "", i.style.width = this.context.resizing._rotateVertical ? t.style.height || t.offsetHeight : !t.style.width || t.style.width === "auto" ? "" : t.style.width || "100%"), this.util.hasClass(n, "__se__float-" + e) || (this.util.removeClass(n, l._floatClassRegExp), this.util.addClass(n, "__se__float-" + e)), t.setAttribute("data-align", e);
+  setAlign: function(e, t, i, l) {
+    const n = this.context.image;
+    e || (e = n._align), t || (t = n._element), i || (i = n._cover), l || (l = n._container), e && e !== "none" ? i.style.margin = "auto" : i.style.margin = "0", /%$/.test(t.style.width) && e === "center" ? (l.style.minWidth = "100%", i.style.width = l.style.width) : (l.style.minWidth = "", i.style.width = this.context.resizing._rotateVertical ? t.style.height || t.offsetHeight : !t.style.width || t.style.width === "auto" ? "" : t.style.width || "100%"), this.util.hasClass(l, "__se__float-" + e) || (this.util.removeClass(l, n._floatClassRegExp), this.util.addClass(l, "__se__float-" + e)), t.setAttribute("data-align", e);
   },
   init: function() {
     const e = this.context.image;
     e.imgInputFile && (e.imgInputFile.value = ""), e.imgUrlFile && (e._v_src._linkValue = e.previewSrc.textContent = e.imgUrlFile.value = ""), e.imgInputFile && e.imgUrlFile && (e.imgUrlFile.removeAttribute("disabled"), e.previewSrc.style.textDecoration = ""), e.altText.value = "", e.modal.querySelector('input[name="suneditor_image_radio"][value="none"]').checked = !0, e.captionCheckEl.checked = !1, e._element = null, this.plugins.image.openTab.call(this, "init"), e._resizing && (e.inputX.value = this.options.imageWidth === e._defaultSizeX ? "" : this.options.imageWidth, e.inputY.value = this.options.imageHeight === e._defaultSizeY ? "" : this.options.imageHeight, e.proportion.checked = !0, e._ratio = !1, e._ratioX = 1, e._ratioY = 1), this.plugins.anchor.init.call(this, e.anchorCtx);
   }
-}, $n = {
+}, kl = {
   name: "video",
   display: "dialog",
   add: function(e) {
-    e.addModule([Q, ae, Te, re]);
-    const t = e.options, i = e.context, n = i.video = {
+    e.addModule([te, de, Ae, ce]);
+    const t = e.options, i = e.context, l = i.video = {
       _infoList: [],
       _infoIndex: 0,
       _uploadFileLength: 0,
@@ -4224,21 +4068,21 @@ const re = Be.exports, Pn = {
       _ratioY: 1,
       _captionShow: !1
     };
-    let l = this.setDialog(e);
-    n.modal = l, n.videoInputFile = l.querySelector("._se_video_file"), n.videoUrlFile = l.querySelector(".se-input-url"), n.focusElement = n.videoUrlFile || n.videoInputFile, n.preview = l.querySelector(".se-link-preview"), l.querySelector("form").addEventListener("submit", this.submit.bind(e)), n.videoInputFile && l.querySelector(".se-dialog-files-edge-button").addEventListener("click", this._removeSelectedFiles.bind(n.videoInputFile, n.videoUrlFile, n.preview)), n.videoInputFile && n.videoUrlFile && n.videoInputFile.addEventListener("change", this._fileInputChange.bind(n)), n.videoUrlFile && n.videoUrlFile.addEventListener("input", this._onLinkPreview.bind(n.preview, n, t.linkProtocol)), n.proportion = {}, n.videoRatioOption = {}, n.inputX = {}, n.inputY = {}, t.videoResizing && (n.proportion = l.querySelector("._se_video_check_proportion"), n.videoRatioOption = l.querySelector(".se-video-ratio"), n.inputX = l.querySelector("._se_video_size_x"), n.inputY = l.querySelector("._se_video_size_y"), n.inputX.value = t.videoWidth, n.inputY.value = t.videoHeight, n.inputX.addEventListener("keyup", this.setInputSize.bind(e, "x")), n.inputY.addEventListener("keyup", this.setInputSize.bind(e, "y")), n.inputX.addEventListener("change", this.setRatio.bind(e)), n.inputY.addEventListener("change", this.setRatio.bind(e)), n.proportion.addEventListener("change", this.setRatio.bind(e)), n.videoRatioOption.addEventListener("change", this.setVideoRatio.bind(e)), l.querySelector(".se-dialog-btn-revert").addEventListener("click", this.sizeRevert.bind(e))), i.dialog.modal.appendChild(l), l = null;
+    let n = this.setDialog(e);
+    l.modal = n, l.videoInputFile = n.querySelector("._se_video_file"), l.videoUrlFile = n.querySelector(".se-input-url"), l.focusElement = l.videoUrlFile || l.videoInputFile, l.preview = n.querySelector(".se-link-preview"), n.querySelector("form").addEventListener("submit", this.submit.bind(e)), l.videoInputFile && n.querySelector(".se-dialog-files-edge-button").addEventListener("click", this._removeSelectedFiles.bind(l.videoInputFile, l.videoUrlFile, l.preview)), l.videoInputFile && l.videoUrlFile && l.videoInputFile.addEventListener("change", this._fileInputChange.bind(l)), l.videoUrlFile && l.videoUrlFile.addEventListener("input", this._onLinkPreview.bind(l.preview, l, t.linkProtocol)), l.proportion = {}, l.videoRatioOption = {}, l.inputX = {}, l.inputY = {}, t.videoResizing && (l.proportion = n.querySelector("._se_video_check_proportion"), l.videoRatioOption = n.querySelector(".se-video-ratio"), l.inputX = n.querySelector("._se_video_size_x"), l.inputY = n.querySelector("._se_video_size_y"), l.inputX.value = t.videoWidth, l.inputY.value = t.videoHeight, l.inputX.addEventListener("keyup", this.setInputSize.bind(e, "x")), l.inputY.addEventListener("keyup", this.setInputSize.bind(e, "y")), l.inputX.addEventListener("change", this.setRatio.bind(e)), l.inputY.addEventListener("change", this.setRatio.bind(e)), l.proportion.addEventListener("change", this.setRatio.bind(e)), l.videoRatioOption.addEventListener("change", this.setVideoRatio.bind(e)), n.querySelector(".se-dialog-btn-revert").addEventListener("click", this.sizeRevert.bind(e))), i.dialog.modal.appendChild(n), n = null;
   },
   setDialog: function(e) {
-    const t = e.options, i = e.lang, n = e.util.createElement("DIV");
-    n.className = "se-dialog-content", n.style.display = "none";
-    let l = '<form method="post" enctype="multipart/form-data"><div class="se-dialog-header"><button type="button" data-command="close" class="se-btn se-dialog-close" title="' + i.dialogBox.close + '" aria-label="' + i.dialogBox.close + '">' + e.icons.cancel + '</button><span class="se-modal-title">' + i.dialogBox.videoBox.title + '</span></div><div class="se-dialog-body">';
-    if (t.videoFileInput && (l += '<div class="se-dialog-form"><label>' + i.dialogBox.videoBox.file + '</label><div class="se-dialog-form-files"><input class="se-input-form _se_video_file" type="file" accept="' + t.videoAccept + '"' + (t.videoMultipleFile ? ' multiple="multiple"' : "") + '/><button type="button" data-command="filesRemove" class="se-btn se-dialog-files-edge-button se-file-remove" title="' + i.controller.remove + '" aria-label="' + i.controller.remove + '">' + e.icons.cancel + "</button></div></div>"), t.videoUrlInput && (l += '<div class="se-dialog-form"><label>' + i.dialogBox.videoBox.url + '</label><input class="se-input-form se-input-url" type="text" /><pre class="se-link-preview"></pre></div>'), t.videoResizing) {
-      const o = t.videoRatioList || [{ name: "16:9", value: 0.5625 }, { name: "4:3", value: 0.75 }, { name: "21:9", value: 0.4285 }], s = t.videoRatio, a = t.videoSizeOnlyPercentage, r = a ? ' style="display: none !important;"' : "", u = t.videoHeightShow ? "" : ' style="display: none !important;"', d = t.videoRatioShow ? "" : ' style="display: none !important;"', f = !a && !t.videoHeightShow && !t.videoRatioShow ? ' style="display: none !important;"' : "";
-      l += '<div class="se-dialog-form"><div class="se-dialog-size-text"><label class="size-w">' + i.dialogBox.width + '</label><label class="se-dialog-size-x">&nbsp;</label><label class="size-h"' + u + ">" + i.dialogBox.height + '</label><label class="size-h"' + d + ">(" + i.dialogBox.ratio + ')</label></div><input class="se-input-control _se_video_size_x" placeholder="100%"' + (a ? ' type="number" min="1"' : 'type="text"') + (a ? ' max="100"' : "") + '/><label class="se-dialog-size-x"' + f + ">" + (a ? "%" : "x") + '</label><input class="se-input-control _se_video_size_y" placeholder="' + t.videoRatio * 100 + '%"' + (a ? ' type="number" min="1"' : 'type="text"') + (a ? ' max="100"' : "") + u + '/><select class="se-input-select se-video-ratio" title="' + i.dialogBox.ratio + '" aria-label="' + i.dialogBox.ratio + '"' + d + ">", u || (l += '<option value=""> - </option>');
-      for (let h = 0, g = o.length; h < g; h++)
-        l += '<option value="' + o[h].value + '"' + (s.toString() === o[h].value.toString() ? " selected" : "") + ">" + o[h].name + "</option>";
-      l += '</select><button type="button" title="' + i.dialogBox.revertButton + '" aria-label="' + i.dialogBox.revertButton + '" class="se-btn se-dialog-btn-revert" style="float: right;">' + e.icons.revert + '</button></div><div class="se-dialog-form se-dialog-form-footer"' + r + f + '><label><input type="checkbox" class="se-dialog-btn-check _se_video_check_proportion" checked/>&nbsp;' + i.dialogBox.proportion + "</label></div>";
+    const t = e.options, i = e.lang, l = e.util.createElement("DIV");
+    l.className = "se-dialog-content", l.style.display = "none";
+    let n = '<form method="post" enctype="multipart/form-data"><div class="se-dialog-header"><button type="button" data-command="close" class="se-btn se-dialog-close" title="' + i.dialogBox.close + '" aria-label="' + i.dialogBox.close + '">' + e.icons.cancel + '</button><span class="se-modal-title">' + i.dialogBox.videoBox.title + '</span></div><div class="se-dialog-body">';
+    if (t.videoFileInput && (n += '<div class="se-dialog-form"><label>' + i.dialogBox.videoBox.file + '</label><div class="se-dialog-form-files"><input class="se-input-form _se_video_file" type="file" accept="' + t.videoAccept + '"' + (t.videoMultipleFile ? ' multiple="multiple"' : "") + '/><button type="button" data-command="filesRemove" class="se-btn se-dialog-files-edge-button se-file-remove" title="' + i.controller.remove + '" aria-label="' + i.controller.remove + '">' + e.icons.cancel + "</button></div></div>"), t.videoUrlInput && (n += '<div class="se-dialog-form"><label>' + i.dialogBox.videoBox.url + '</label><input class="se-input-form se-input-url" type="text" /><pre class="se-link-preview"></pre></div>'), t.videoResizing) {
+      const s = t.videoRatioList || [{ name: "16:9", value: 0.5625 }, { name: "4:3", value: 0.75 }, { name: "21:9", value: 0.4285 }], o = t.videoRatio, a = t.videoSizeOnlyPercentage, r = a ? ' style="display: none !important;"' : "", u = t.videoHeightShow ? "" : ' style="display: none !important;"', d = t.videoRatioShow ? "" : ' style="display: none !important;"', f = !a && !t.videoHeightShow && !t.videoRatioShow ? ' style="display: none !important;"' : "";
+      n += '<div class="se-dialog-form"><div class="se-dialog-size-text"><label class="size-w">' + i.dialogBox.width + '</label><label class="se-dialog-size-x">&nbsp;</label><label class="size-h"' + u + ">" + i.dialogBox.height + '</label><label class="size-h"' + d + ">(" + i.dialogBox.ratio + ')</label></div><input class="se-input-control _se_video_size_x" placeholder="100%"' + (a ? ' type="number" min="1"' : 'type="text"') + (a ? ' max="100"' : "") + '/><label class="se-dialog-size-x"' + f + ">" + (a ? "%" : "x") + '</label><input class="se-input-control _se_video_size_y" placeholder="' + t.videoRatio * 100 + '%"' + (a ? ' type="number" min="1"' : 'type="text"') + (a ? ' max="100"' : "") + u + '/><select class="se-input-select se-video-ratio" title="' + i.dialogBox.ratio + '" aria-label="' + i.dialogBox.ratio + '"' + d + ">", u || (n += '<option value=""> - </option>');
+      for (let h = 0, g = s.length; h < g; h++)
+        n += '<option value="' + s[h].value + '"' + (o.toString() === s[h].value.toString() ? " selected" : "") + ">" + s[h].name + "</option>";
+      n += '</select><button type="button" title="' + i.dialogBox.revertButton + '" aria-label="' + i.dialogBox.revertButton + '" class="se-btn se-dialog-btn-revert" style="float: right;">' + e.icons.revert + '</button></div><div class="se-dialog-form se-dialog-form-footer"' + r + f + '><label><input type="checkbox" class="se-dialog-btn-check _se_video_check_proportion" checked/>&nbsp;' + i.dialogBox.proportion + "</label></div>";
     }
-    return l += '</div><div class="se-dialog-footer"><div' + (t.videoAlignShow ? "" : ' style="display: none"') + '><label><input type="radio" name="suneditor_video_radio" class="se-dialog-btn-radio" value="none" checked>' + i.dialogBox.basic + '</label><label><input type="radio" name="suneditor_video_radio" class="se-dialog-btn-radio" value="left">' + i.dialogBox.left + '</label><label><input type="radio" name="suneditor_video_radio" class="se-dialog-btn-radio" value="center">' + i.dialogBox.center + '</label><label><input type="radio" name="suneditor_video_radio" class="se-dialog-btn-radio" value="right">' + i.dialogBox.right + '</label></div><button type="submit" class="se-btn-primary" title="' + i.dialogBox.submitButton + '" aria-label="' + i.dialogBox.submitButton + '"><span>' + i.dialogBox.submitButton + "</span></button></div></form>", n.innerHTML = l, n;
+    return n += '</div><div class="se-dialog-footer"><div' + (t.videoAlignShow ? "" : ' style="display: none"') + '><label><input type="radio" name="suneditor_video_radio" class="se-dialog-btn-radio" value="none" checked>' + i.dialogBox.basic + '</label><label><input type="radio" name="suneditor_video_radio" class="se-dialog-btn-radio" value="left">' + i.dialogBox.left + '</label><label><input type="radio" name="suneditor_video_radio" class="se-dialog-btn-radio" value="center">' + i.dialogBox.center + '</label><label><input type="radio" name="suneditor_video_radio" class="se-dialog-btn-radio" value="right">' + i.dialogBox.right + '</label></div><button type="submit" class="se-btn-primary" title="' + i.dialogBox.submitButton + '" aria-label="' + i.dialogBox.submitButton + '"><span>' + i.dialogBox.submitButton + "</span></button></div></form>", l.innerHTML = n, l;
   },
   _fileInputChange: function() {
     this.videoInputFile.value ? (this.videoUrlFile.setAttribute("disabled", !0), this.preview.style.textDecoration = "line-through") : (this.videoUrlFile.removeAttribute("disabled"), this.preview.style.textDecoration = "");
@@ -4247,8 +4091,8 @@ const re = Be.exports, Pn = {
     this.value = "", e && (e.removeAttribute("disabled"), t.style.textDecoration = "");
   },
   _onLinkPreview: function(e, t, i) {
-    const n = i.target.value.trim();
-    /^<iframe.*\/iframe>$/.test(n) ? (e._linkValue = n, this.textContent = '<IFrame :src=".."></IFrame>') : e._linkValue = this.textContent = n ? t && n.indexOf("://") === -1 && n.indexOf("#") !== 0 ? t + n : n.indexOf("://") === -1 ? "/" + n : n : "";
+    const l = i.target.value.trim();
+    /^<iframe.*\/iframe>$/.test(l) ? (e._linkValue = l, this.textContent = '<IFrame :src=".."></IFrame>') : e._linkValue = this.textContent = l ? t && l.indexOf("://") === -1 && l.indexOf("#") !== 0 ? t + l : l.indexOf("://") === -1 ? "/" + l : l : "";
   },
   _setTagAttrs: function(e) {
     e.setAttribute("controls", !0);
@@ -4277,12 +4121,12 @@ const re = Be.exports, Pn = {
     this.plugins.video.onModifyMode.call(this, e, this.plugins.resizing.call_controller_resize.call(this, e, "video"));
   },
   destroy: function(e) {
-    const t = e || this.context.video._element, i = this.context.video._container, n = t.getAttribute("data-index") * 1;
-    let l = i.previousElementSibling || i.nextElementSibling;
-    const o = i.parentNode;
-    this.util.removeItem(i), this.plugins.video.init.call(this), this.controllersOff(), o !== this.context.element.wysiwyg && this.util.removeItemAllParents(o, function(s) {
-      return s.childNodes.length === 0;
-    }, null), this.focusEdge(l), this.plugins.fileManager.deleteInfo.call(this, "video", n, this.functions.onVideoUpload), this.history.push(!1);
+    const t = e || this.context.video._element, i = this.context.video._container, l = t.getAttribute("data-index") * 1;
+    let n = i.previousElementSibling || i.nextElementSibling;
+    const s = i.parentNode;
+    this.util.removeItem(i), this.plugins.video.init.call(this), this.controllersOff(), s !== this.context.element.wysiwyg && this.util.removeItemAllParents(s, function(o) {
+      return o.childNodes.length === 0;
+    }, null), this.focusEdge(n), this.plugins.fileManager.deleteInfo.call(this, "video", l, this.functions.onVideoUpload), this.history.push(!1);
   },
   on: function(e) {
     const t = this.context.video;
@@ -4311,8 +4155,8 @@ const re = Be.exports, Pn = {
     e.preventDefault(), e.stopPropagation(), t._align = t.modal.querySelector('input[name="suneditor_video_radio"]:checked').value;
     try {
       t.videoInputFile && t.videoInputFile.files.length > 0 ? (this.showLoading(), i.submitAction.call(this, this.context.video.videoInputFile.files)) : t.videoUrlFile && t._linkValue.length > 0 && (this.showLoading(), i.setup_url.call(this, t._linkValue));
-    } catch (n) {
-      throw this.closeLoading(), Error('[SUNEDITOR.video.submit.fail] cause : "' + n.message + '"');
+    } catch (l) {
+      throw this.closeLoading(), Error('[SUNEDITOR.video.submit.fail] cause : "' + l.message + '"');
     } finally {
       this.plugins.dialog.close.call(this);
     }
@@ -4322,43 +4166,43 @@ const re = Be.exports, Pn = {
     if (e.length === 0)
       return;
     let t = 0, i = [];
-    for (let s = 0, a = e.length; s < a; s++)
-      /video/i.test(e[s].type) && (i.push(e[s]), t += e[s].size);
-    const n = this.options.videoUploadSizeLimit;
-    if (n > 0) {
-      let s = 0;
+    for (let o = 0, a = e.length; o < a; o++)
+      /video/i.test(e[o].type) && (i.push(e[o]), t += e[o].size);
+    const l = this.options.videoUploadSizeLimit;
+    if (l > 0) {
+      let o = 0;
       const a = this.context.video._infoList;
       for (let r = 0, u = a.length; r < u; r++)
-        s += a[r].size * 1;
-      if (t + s > n) {
+        o += a[r].size * 1;
+      if (t + o > l) {
         this.closeLoading();
-        const r = "[SUNEDITOR.videoUpload.fail] Size of uploadable total videos: " + n / 1e3 + "KB";
-        (typeof this.functions.onVideoUploadError != "function" || this.functions.onVideoUploadError(r, { limitSize: n, currentSize: s, uploadSize: t }, this)) && this.functions.noticeOpen(r);
+        const r = "[SUNEDITOR.videoUpload.fail] Size of uploadable total videos: " + l / 1e3 + "KB";
+        (typeof this.functions.onVideoUploadError != "function" || this.functions.onVideoUploadError(r, { limitSize: l, currentSize: o, uploadSize: t }, this)) && this.functions.noticeOpen(r);
         return;
       }
     }
-    const l = this.context.video;
-    l._uploadFileLength = i.length;
-    const o = {
-      inputWidth: l.inputX.value,
-      inputHeight: l.inputY.value,
-      align: l._align,
+    const n = this.context.video;
+    n._uploadFileLength = i.length;
+    const s = {
+      inputWidth: n.inputX.value,
+      inputHeight: n.inputY.value,
+      align: n._align,
       isUpdate: this.context.dialog.updateModal,
-      element: l._element
+      element: n._element
     };
     if (typeof this.functions.onVideoUploadBefore == "function") {
-      const s = this.functions.onVideoUploadBefore(i, o, this, function(a) {
-        a && this._w.Array.isArray(a.result) ? this.plugins.video.register.call(this, o, a) : this.plugins.video.upload.call(this, o, a);
+      const o = this.functions.onVideoUploadBefore(i, s, this, function(a) {
+        a && this._w.Array.isArray(a.result) ? this.plugins.video.register.call(this, s, a) : this.plugins.video.upload.call(this, s, a);
       }.bind(this));
-      if (typeof s > "u")
+      if (typeof o > "u")
         return;
-      if (!s) {
+      if (!o) {
         this.closeLoading();
         return;
       }
-      typeof s == "object" && s.length > 0 && (i = s);
+      typeof o == "object" && o.length > 0 && (i = o);
     }
-    this.plugins.video.upload.call(this, o, i);
+    this.plugins.video.upload.call(this, s, i);
   },
   error: function(e, t) {
     if (this.closeLoading(), typeof this.functions.onVideoUploadError != "function" || this.functions.onVideoUploadError(e, t, this))
@@ -4373,12 +4217,12 @@ const re = Be.exports, Pn = {
       this.plugins.video.error.call(this, t, null);
       return;
     }
-    const i = this.options.videoUploadUrl, n = this.context.dialog.updateModal ? 1 : t.length;
+    const i = this.options.videoUploadUrl, l = this.context.dialog.updateModal ? 1 : t.length;
     if (typeof i == "string" && i.length > 0) {
-      const l = new FormData();
-      for (let o = 0; o < n; o++)
-        l.append("file-" + o, t[o]);
-      this.plugins.fileManager.upload.call(this, i, this.options.videoUploadHeader, l, this.plugins.video.callBack_videoUpload.bind(this, e), this.functions.onVideoUploadError);
+      const n = new FormData();
+      for (let s = 0; s < l; s++)
+        n.append("file-" + s, t[s]);
+      this.plugins.fileManager.upload.call(this, i, this.options.videoUploadHeader, n, this.plugins.video.callBack_videoUpload.bind(this, e), this.functions.onVideoUploadError);
     } else
       throw Error('[SUNEDITOR.videoUpload.fail] cause : There is no "videoUploadUrl" option.');
   },
@@ -4391,9 +4235,9 @@ const re = Be.exports, Pn = {
     }
   },
   register: function(e, t) {
-    const i = t.result, n = this.plugins.video.createVideoTag.call(this);
-    for (let l = 0, o = i.length, s; l < o; l++)
-      s = { name: i[l].name, size: i[l].size }, this.plugins.video.create_video.call(this, e.isUpdate ? e.element : n.cloneNode(!1), i[l].url, e.inputWidth, e.inputHeight, e.align, s, e.isUpdate);
+    const i = t.result, l = this.plugins.video.createVideoTag.call(this);
+    for (let n = 0, s = i.length, o; n < s; n++)
+      o = { name: i[n].name, size: i[n].size }, this.plugins.video.create_video.call(this, e.isUpdate ? e.element : l.cloneNode(!1), i[n].url, e.inputWidth, e.inputHeight, e.align, o, e.isUpdate);
     this.closeLoading();
   },
   setup_url: function(e) {
@@ -4417,11 +4261,11 @@ const re = Be.exports, Pn = {
       this.closeLoading();
     }
   },
-  create_video: function(e, t, i, n, l, o, s) {
+  create_video: function(e, t, i, l, n, s, o) {
     this.context.resizing._resize_plugin = "video";
     const a = this.context.video;
     let r = null, u = null, d = !1;
-    if (s) {
+    if (o) {
       if (e = a._element, e.src !== t) {
         d = !0;
         const b = /youtu\.?be/.test(t), m = /vimeo\.com/.test(t);
@@ -4438,18 +4282,18 @@ const re = Be.exports, Pn = {
     } else
       d = !0, e.src = t, a._element = e, r = this.plugins.component.set_cover.call(this, e), u = this.plugins.component.set_container.call(this, r, "se-video-container");
     a._cover = r, a._container = u;
-    const f = this.plugins.resizing._module_getSizeX.call(this, a) !== (i || a._defaultSizeX) || this.plugins.resizing._module_getSizeY.call(this, a) !== (n || a._videoRatio), h = !s || f;
+    const f = this.plugins.resizing._module_getSizeX.call(this, a) !== (i || a._defaultSizeX) || this.plugins.resizing._module_getSizeY.call(this, a) !== (l || a._videoRatio), h = !o || f;
     a._resizing && (this.context.video._proportionChecked = a.proportion.checked, e.setAttribute("data-proportion", a._proportionChecked));
     let g = !1;
-    h && (g = this.plugins.video.applySize.call(this)), g && l === "center" || this.plugins.video.setAlign.call(this, null, e, r, u);
+    h && (g = this.plugins.video.applySize.call(this)), g && n === "center" || this.plugins.video.setAlign.call(this, null, e, r, u);
     let p = !0;
-    if (s)
+    if (o)
       a._resizing && this.context.resizing._rotateVertical && h && this.plugins.resizing.setTransformSize.call(this, e, null, null);
     else if (p = this.insertComponent(u, !1, !0, !this.options.mediaAutoSelect), !this.options.mediaAutoSelect) {
       const b = this.appendFormatTag(u, null);
       b && this.setRange(b, 0, b, 0);
     }
-    p && (d && this.plugins.fileManager.setInfo.call(this, "video", e, this.functions.onVideoUpload, o, !0), s && (this.selectComponent(e, "video"), this.history.push(!1))), this.context.resizing._resize_plugin = "";
+    p && (d && this.plugins.fileManager.setInfo.call(this, "video", e, this.functions.onVideoUpload, s, !0), o && (this.selectComponent(e, "video"), this.history.push(!1))), this.context.resizing._resize_plugin = "";
   },
   _update_videoCover: function(e) {
     if (!e)
@@ -4457,39 +4301,39 @@ const re = Be.exports, Pn = {
     const t = this.context.video;
     /^video$/i.test(e.nodeName) ? this.plugins.video._setTagAttrs.call(this, e) : this.plugins.video._setIframeAttrs.call(this, e);
     let i = this.util.isRangeFormatElement(e.parentNode) || this.util.isWysiwygDiv(e.parentNode) ? e : this.util.getFormatElement(e) || e;
-    const n = e;
+    const l = e;
     t._element = e = e.cloneNode(!0);
-    const l = t._cover = this.plugins.component.set_cover.call(this, e), o = t._container = this.plugins.component.set_container.call(this, l, "se-video-container");
+    const n = t._cover = this.plugins.component.set_cover.call(this, e), s = t._container = this.plugins.component.set_container.call(this, n, "se-video-container");
     try {
-      const s = i.querySelector("figcaption");
+      const o = i.querySelector("figcaption");
       let a = null;
-      s && (a = this.util.createElement("DIV"), a.innerHTML = s.innerHTML, this.util.removeItem(s));
+      o && (a = this.util.createElement("DIV"), a.innerHTML = o.innerHTML, this.util.removeItem(o));
       const r = (e.getAttribute("data-size") || e.getAttribute("data-origin") || "").split(",");
-      this.plugins.video.applySize.call(this, r[0] || n.style.width || n.width || "", r[1] || n.style.height || n.height || "");
-      const u = this.util.getFormatElement(n);
-      if (u && (t._align = u.style.textAlign || u.style.float), this.plugins.video.setAlign.call(this, null, e, l, o), this.util.isListCell(i)) {
-        const d = this.util.getParentElement(n, function(f) {
+      this.plugins.video.applySize.call(this, r[0] || l.style.width || l.width || "", r[1] || l.style.height || l.height || "");
+      const u = this.util.getFormatElement(l);
+      if (u && (t._align = u.style.textAlign || u.style.float), this.plugins.video.setAlign.call(this, null, e, n, s), this.util.isListCell(i)) {
+        const d = this.util.getParentElement(l, function(f) {
           return f.parentNode === i;
         });
-        i.insertBefore(o, d), this.util.removeItem(n), this.util.removeEmptyNode(d, null);
+        i.insertBefore(s, d), this.util.removeItem(l), this.util.removeEmptyNode(d, null);
       } else if (this.util.isFormatElement(i)) {
-        const d = this.util.getParentElement(n, function(f) {
+        const d = this.util.getParentElement(l, function(f) {
           return f.parentNode === i;
         });
-        i = this.util.splitElement(i, d), i.parentNode.insertBefore(o, i), this.util.removeItem(n), this.util.removeEmptyNode(i, null), i.children.length === 0 && (i.innerHTML = this.util.htmlRemoveWhiteSpace(i.innerHTML));
+        i = this.util.splitElement(i, d), i.parentNode.insertBefore(s, i), this.util.removeItem(l), this.util.removeEmptyNode(i, null), i.children.length === 0 && (i.innerHTML = this.util.htmlRemoveWhiteSpace(i.innerHTML));
       } else
-        i.parentNode.replaceChild(o, i);
-      a && i.parentNode.insertBefore(a, o.nextElementSibling);
-    } catch (s) {
-      console.warn("[SUNEDITOR.video.error] Maybe the video tag is nested.", s);
+        i.parentNode.replaceChild(s, i);
+      a && i.parentNode.insertBefore(a, s.nextElementSibling);
+    } catch (o) {
+      console.warn("[SUNEDITOR.video.error] Maybe the video tag is nested.", o);
     }
     this.plugins.fileManager.setInfo.call(this, "video", e, this.functions.onVideoUpload, null, !0), this.plugins.video.init.call(this);
   },
   onModifyMode: function(e, t) {
     const i = this.context.video;
     i._element = e, i._cover = this.util.getParentElement(e, "FIGURE"), i._container = this.util.getParentElement(e, this.util.isMediaComponent), i._align = e.style.float || e.getAttribute("data-align") || "none", e.style.float = "", t && (i._element_w = t.w, i._element_h = t.h, i._element_t = t.t, i._element_l = t.l);
-    let n = i._element.getAttribute("data-size") || i._element.getAttribute("data-origin"), l, o;
-    n ? (n = n.split(","), l = n[0], o = n[1]) : t && (l = t.w, o = t.h), i._origin_w = l || e.style.width || e.width || "", i._origin_h = o || e.style.height || e.height || "";
+    let l = i._element.getAttribute("data-size") || i._element.getAttribute("data-origin"), n, s;
+    l ? (l = l.split(","), n = l[0], s = l[1]) : t && (n = t.w, s = t.h), i._origin_w = n || e.style.width || e.width || "", i._origin_h = s || e.style.height || e.height || "";
   },
   openModify: function(e) {
     const t = this.context.video;
@@ -4502,10 +4346,10 @@ const re = Be.exports, Pn = {
   },
   setVideoRatioSelect: function(e) {
     let t = !1;
-    const i = this.context.video, n = i.videoRatioOption.options;
+    const i = this.context.video, l = i.videoRatioOption.options;
     /%$/.test(e) || i._onlyPercentage ? e = this.util.getNumber(e, 2) / 100 + "" : (!this.util.isNumber(e) || e * 1 >= 1) && (e = ""), i.inputY.placeholder = "";
-    for (let l = 0, o = n.length; l < o; l++)
-      n[l].value === e ? (t = n[l].selected = !0, i.inputY.placeholder = e ? e * 100 + "%" : "") : n[l].selected = !1;
+    for (let n = 0, s = l.length; n < s; n++)
+      l[n].value === e ? (t = l[n].selected = !0, i.inputY.placeholder = e ? e * 100 + "%" : "") : l[n].selected = !1;
     return t;
   },
   checkFileInfo: function() {
@@ -4521,9 +4365,9 @@ const re = Be.exports, Pn = {
   sizeRevert: function() {
     this.plugins.resizing._module_sizeRevert.call(this, this.context.video);
   },
-  setSize: function(e, t, i, n) {
-    const l = this.context.video, o = /^(rw|lw)$/.test(n), s = /^(th|bh)$/.test(n);
-    s || (e = this.util.getNumber(e, 0)), o || (t = this.util.isNumber(t) ? t + l.sizeUnit : t || ""), e = e ? e + l.sizeUnit : "", s || (l._element.style.width = e), o || (l._cover.style.paddingBottom = l._cover.style.height = t), !s && !/%$/.test(e) && (l._cover.style.width = e, l._container.style.width = ""), !o && !/%$/.test(t) ? l._element.style.height = t : l._element.style.height = "", i || l._element.removeAttribute("data-percentage"), this.plugins.resizing._module_saveCurrentSize.call(this, l);
+  setSize: function(e, t, i, l) {
+    const n = this.context.video, s = /^(rw|lw)$/.test(l), o = /^(th|bh)$/.test(l);
+    o || (e = this.util.getNumber(e, 0)), s || (t = this.util.isNumber(t) ? t + n.sizeUnit : t || ""), e = e ? e + n.sizeUnit : "", o || (n._element.style.width = e), s || (n._cover.style.paddingBottom = n._cover.style.height = t), !o && !/%$/.test(e) && (n._cover.style.width = e, n._container.style.width = ""), !s && !/%$/.test(t) ? n._element.style.height = t : n._element.style.height = "", i || n._element.removeAttribute("data-percentage"), this.plugins.resizing._module_saveCurrentSize.call(this, n);
   },
   setAutoSize: function() {
     this.plugins.video.setPercentSize.call(this, 100, this.context.video._defaultRatio);
@@ -4533,8 +4377,8 @@ const re = Be.exports, Pn = {
     t._element.removeAttribute("data-percentage"), this.plugins.resizing.resetTransform.call(this, t._element), this.plugins.video.cancelPercentAttr.call(this);
     const i = ((e ? t._element.getAttribute("data-size") : "") || t._element.getAttribute("data-origin") || "").split(",");
     if (i) {
-      const n = i[0], l = i[1];
-      t._onlyPercentage || /%$/.test(n) && (/%$/.test(l) || !/\d/.test(l)) ? this.plugins.video.setPercentSize.call(this, n, l) : this.plugins.video.setSize.call(this, n, l), this.plugins.resizing._module_saveCurrentSize.call(this, t);
+      const l = i[0], n = i[1];
+      t._onlyPercentage || /%$/.test(l) && (/%$/.test(n) || !/\d/.test(n)) ? this.plugins.video.setPercentSize.call(this, l, n) : this.plugins.video.setSize.call(this, l, n), this.plugins.resizing._module_saveCurrentSize.call(this, t);
     }
   },
   setPercentSize: function(e, t) {
@@ -4545,19 +4389,19 @@ const re = Be.exports, Pn = {
     const e = this.context.video;
     e._cover.style.width = "", e._cover.style.height = "", e._cover.style.paddingBottom = "", e._container.style.width = "", e._container.style.height = "", this.util.removeClass(e._container, this.context.video._floatClassRegExp), this.util.addClass(e._container, "__se__float-" + e._align), e._align === "center" && this.plugins.video.setAlign.call(this, null, null, null, null);
   },
-  setAlign: function(e, t, i, n) {
-    const l = this.context.video;
-    e || (e = l._align), t || (t = l._element), i || (i = l._cover), n || (n = l._container), e && e !== "none" ? i.style.margin = "auto" : i.style.margin = "0", /%$/.test(t.style.width) && e === "center" ? (n.style.minWidth = "100%", i.style.width = n.style.width, i.style.height = i.style.height, i.style.paddingBottom = /%$/.test(i.style.height) ? this.util.getNumber(this.util.getNumber(i.style.height, 2) / 100 * this.util.getNumber(i.style.width, 2), 2) + "%" : i.style.height) : (n.style.minWidth = "", i.style.width = this.context.resizing._rotateVertical ? t.style.height || t.offsetHeight : t.style.width || "100%", i.style.paddingBottom = i.style.height), this.util.hasClass(n, "__se__float-" + e) || (this.util.removeClass(n, l._floatClassRegExp), this.util.addClass(n, "__se__float-" + e)), t.setAttribute("data-align", e);
+  setAlign: function(e, t, i, l) {
+    const n = this.context.video;
+    e || (e = n._align), t || (t = n._element), i || (i = n._cover), l || (l = n._container), e && e !== "none" ? i.style.margin = "auto" : i.style.margin = "0", /%$/.test(t.style.width) && e === "center" ? (l.style.minWidth = "100%", i.style.width = l.style.width, i.style.height = i.style.height, i.style.paddingBottom = /%$/.test(i.style.height) ? this.util.getNumber(this.util.getNumber(i.style.height, 2) / 100 * this.util.getNumber(i.style.width, 2), 2) + "%" : i.style.height) : (l.style.minWidth = "", i.style.width = this.context.resizing._rotateVertical ? t.style.height || t.offsetHeight : t.style.width || "100%", i.style.paddingBottom = i.style.height), this.util.hasClass(l, "__se__float-" + e) || (this.util.removeClass(l, n._floatClassRegExp), this.util.addClass(l, "__se__float-" + e)), t.setAttribute("data-align", e);
   },
   init: function() {
     const e = this.context.video;
     e.videoInputFile && (e.videoInputFile.value = ""), e.videoUrlFile && (e._linkValue = e.preview.textContent = e.videoUrlFile.value = ""), e.videoInputFile && e.videoUrlFile && (e.videoUrlFile.removeAttribute("disabled"), e.preview.style.textDecoration = ""), e._origin_w = this.options.videoWidth, e._origin_h = this.options.videoHeight, e.modal.querySelector('input[name="suneditor_video_radio"][value="none"]').checked = !0, e._resizing && (e.inputX.value = this.options.videoWidth === e._defaultSizeX ? "" : this.options.videoWidth, e.inputY.value = this.options.videoHeight === e._defaultSizeY ? "" : this.options.videoHeight, e.proportion.checked = !0, e.proportion.disabled = !0, this.plugins.video.setVideoRatioSelect.call(this, e._defaultRatio));
   }
-}, Gn = {
+}, wl = {
   name: "audio",
   display: "dialog",
   add: function(e) {
-    e.addModule([Q, ae, re]);
+    e.addModule([te, de, ce]);
     const t = e.context, i = t.audio = {
       _infoList: [],
       _infoIndex: 0,
@@ -4571,20 +4415,20 @@ const re = Be.exports, Pn = {
       _cover: null,
       _container: null
     };
-    let n = this.setDialog(e);
-    i.modal = n, i.audioInputFile = n.querySelector("._se_audio_files"), i.audioUrlFile = n.querySelector(".se-input-url"), i.focusElement = i.audioInputFile || i.audioUrlFile, i.preview = n.querySelector(".se-link-preview");
-    let l = this.setController(e);
-    i.controller = l, n.querySelector("form").addEventListener("submit", this.submit.bind(e)), i.audioInputFile && n.querySelector(".se-dialog-files-edge-button").addEventListener("click", this._removeSelectedFiles.bind(i.audioInputFile, i.audioUrlFile, i.preview)), i.audioInputFile && i.audioUrlFile && i.audioInputFile.addEventListener("change", this._fileInputChange.bind(i)), l.addEventListener("click", this.onClick_controller.bind(e)), i.audioUrlFile && i.audioUrlFile.addEventListener("input", this._onLinkPreview.bind(i.preview, i, e.options.linkProtocol)), t.dialog.modal.appendChild(n), t.element.relative.appendChild(l), n = null, l = null;
+    let l = this.setDialog(e);
+    i.modal = l, i.audioInputFile = l.querySelector("._se_audio_files"), i.audioUrlFile = l.querySelector(".se-input-url"), i.focusElement = i.audioInputFile || i.audioUrlFile, i.preview = l.querySelector(".se-link-preview");
+    let n = this.setController(e);
+    i.controller = n, l.querySelector("form").addEventListener("submit", this.submit.bind(e)), i.audioInputFile && l.querySelector(".se-dialog-files-edge-button").addEventListener("click", this._removeSelectedFiles.bind(i.audioInputFile, i.audioUrlFile, i.preview)), i.audioInputFile && i.audioUrlFile && i.audioInputFile.addEventListener("change", this._fileInputChange.bind(i)), n.addEventListener("click", this.onClick_controller.bind(e)), i.audioUrlFile && i.audioUrlFile.addEventListener("input", this._onLinkPreview.bind(i.preview, i, e.options.linkProtocol)), t.dialog.modal.appendChild(l), t.element.relative.appendChild(n), l = null, n = null;
   },
   setDialog: function(e) {
-    const t = e.options, i = e.lang, n = e.util.createElement("DIV");
-    n.className = "se-dialog-content", n.style.display = "none";
-    let l = '<form method="post" enctype="multipart/form-data"><div class="se-dialog-header"><button type="button" data-command="close" class="se-btn se-dialog-close" title="' + i.dialogBox.close + '" aria-label="' + i.dialogBox.close + '">' + e.icons.cancel + '</button><span class="se-modal-title">' + i.dialogBox.audioBox.title + '</span></div><div class="se-dialog-body">';
-    return t.audioFileInput && (l += '<div class="se-dialog-form"><label>' + i.dialogBox.audioBox.file + '</label><div class="se-dialog-form-files"><input class="se-input-form _se_audio_files" type="file" accept="' + t.audioAccept + '"' + (t.audioMultipleFile ? ' multiple="multiple"' : "") + '/><button type="button" data-command="filesRemove" class="se-btn se-dialog-files-edge-button se-file-remove" title="' + i.controller.remove + '" aria-label="' + i.controller.remove + '">' + e.icons.cancel + "</button></div></div>"), t.audioUrlInput && (l += '<div class="se-dialog-form"><label>' + i.dialogBox.audioBox.url + '</label><input class="se-input-form se-input-url" type="text" /><pre class="se-link-preview"></pre></div>'), l += '</div><div class="se-dialog-footer"><button type="submit" class="se-btn-primary" title="' + i.dialogBox.submitButton + '" aria-label="' + i.dialogBox.submitButton + '"><span>' + i.dialogBox.submitButton + "</span></button></div></form>", n.innerHTML = l, n;
+    const t = e.options, i = e.lang, l = e.util.createElement("DIV");
+    l.className = "se-dialog-content", l.style.display = "none";
+    let n = '<form method="post" enctype="multipart/form-data"><div class="se-dialog-header"><button type="button" data-command="close" class="se-btn se-dialog-close" title="' + i.dialogBox.close + '" aria-label="' + i.dialogBox.close + '">' + e.icons.cancel + '</button><span class="se-modal-title">' + i.dialogBox.audioBox.title + '</span></div><div class="se-dialog-body">';
+    return t.audioFileInput && (n += '<div class="se-dialog-form"><label>' + i.dialogBox.audioBox.file + '</label><div class="se-dialog-form-files"><input class="se-input-form _se_audio_files" type="file" accept="' + t.audioAccept + '"' + (t.audioMultipleFile ? ' multiple="multiple"' : "") + '/><button type="button" data-command="filesRemove" class="se-btn se-dialog-files-edge-button se-file-remove" title="' + i.controller.remove + '" aria-label="' + i.controller.remove + '">' + e.icons.cancel + "</button></div></div>"), t.audioUrlInput && (n += '<div class="se-dialog-form"><label>' + i.dialogBox.audioBox.url + '</label><input class="se-input-form se-input-url" type="text" /><pre class="se-link-preview"></pre></div>'), n += '</div><div class="se-dialog-footer"><button type="submit" class="se-btn-primary" title="' + i.dialogBox.submitButton + '" aria-label="' + i.dialogBox.submitButton + '"><span>' + i.dialogBox.submitButton + "</span></button></div></form>", l.innerHTML = n, l;
   },
   setController: function(e) {
-    const t = e.lang, i = e.icons, n = e.util.createElement("DIV");
-    return n.className = "se-controller se-controller-link", n.innerHTML = '<div class="se-arrow se-arrow-up"></div><div class="link-content"><div class="se-btn-group"><button type="button" data-command="update" tabindex="-1" class="se-tooltip">' + i.edit + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + t.controller.edit + '</span></span></button><button type="button" data-command="delete" tabindex="-1" class="se-tooltip">' + i.delete + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + t.controller.remove + "</span></span></button></div></div>", n;
+    const t = e.lang, i = e.icons, l = e.util.createElement("DIV");
+    return l.className = "se-controller se-controller-link", l.innerHTML = '<div class="se-arrow se-arrow-up"></div><div class="link-content"><div class="se-btn-group"><button type="button" data-command="update" tabindex="-1" class="se-tooltip">' + i.edit + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + t.controller.edit + '</span></span></button><button type="button" data-command="delete" tabindex="-1" class="se-tooltip">' + i.delete + '<span class="se-tooltip-inner"><span class="se-tooltip-text">' + t.controller.remove + "</span></span></button></div></div>", l;
   },
   _fileInputChange: function() {
     this.audioInputFile.value ? (this.audioUrlFile.setAttribute("disabled", !0), this.preview.style.textDecoration = "line-through") : (this.audioUrlFile.removeAttribute("disabled"), this.preview.style.textDecoration = "");
@@ -4606,8 +4450,8 @@ const re = Be.exports, Pn = {
         !this.util.hasOwn(t, i) || e.setAttribute(i, t[i]);
   },
   _onLinkPreview: function(e, t, i) {
-    const n = i.target.value.trim();
-    e._linkValue = this.textContent = n ? t && n.indexOf("://") === -1 && n.indexOf("#") !== 0 ? t + n : n.indexOf("://") === -1 ? "/" + n : n : "";
+    const l = i.target.value.trim();
+    e._linkValue = this.textContent = l ? t && l.indexOf("://") === -1 && l.indexOf("#") !== 0 ? t + l : l.indexOf("://") === -1 ? "/" + l : l : "";
   },
   fileTags: ["audio"],
   select: function(e) {
@@ -4615,10 +4459,10 @@ const re = Be.exports, Pn = {
   },
   destroy: function(e) {
     e = e || this.context.audio._element;
-    const t = this.util.getParentElement(e, this.util.isComponent) || e, i = e.getAttribute("data-index") * 1, n = t.previousElementSibling || t.nextElementSibling, l = t.parentNode;
-    this.util.removeItem(t), this.plugins.audio.init.call(this), this.controllersOff(), l !== this.context.element.wysiwyg && this.util.removeItemAllParents(l, function(o) {
-      return o.childNodes.length === 0;
-    }, null), this.focusEdge(n), this.plugins.fileManager.deleteInfo.call(this, "audio", i, this.functions.onAudioUpload), this.history.push(!1);
+    const t = this.util.getParentElement(e, this.util.isComponent) || e, i = e.getAttribute("data-index") * 1, l = t.previousElementSibling || t.nextElementSibling, n = t.parentNode;
+    this.util.removeItem(t), this.plugins.audio.init.call(this), this.controllersOff(), n !== this.context.element.wysiwyg && this.util.removeItemAllParents(n, function(s) {
+      return s.childNodes.length === 0;
+    }, null), this.focusEdge(l), this.plugins.fileManager.deleteInfo.call(this, "audio", i, this.functions.onAudioUpload), this.history.push(!1);
   },
   checkFileInfo: function() {
     this.plugins.fileManager.checkInfo.call(this, "audio", ["audio"], this.functions.onAudioUpload, this.plugins.audio.updateCover.bind(this), !1);
@@ -4649,40 +4493,40 @@ const re = Be.exports, Pn = {
     if (e.length === 0)
       return;
     let t = 0, i = [];
-    for (let s = 0, a = e.length; s < a; s++)
-      /audio/i.test(e[s].type) && (i.push(e[s]), t += e[s].size);
-    const n = this.options.audioUploadSizeLimit;
-    if (n > 0) {
-      let s = 0;
+    for (let o = 0, a = e.length; o < a; o++)
+      /audio/i.test(e[o].type) && (i.push(e[o]), t += e[o].size);
+    const l = this.options.audioUploadSizeLimit;
+    if (l > 0) {
+      let o = 0;
       const a = this.context.audio._infoList;
       for (let r = 0, u = a.length; r < u; r++)
-        s += a[r].size * 1;
-      if (t + s > n) {
+        o += a[r].size * 1;
+      if (t + o > l) {
         this.closeLoading();
-        const r = "[SUNEDITOR.audioUpload.fail] Size of uploadable total audios: " + n / 1e3 + "KB";
-        (typeof this.functions.onAudioUploadError != "function" || this.functions.onAudioUploadError(r, { limitSize: n, currentSize: s, uploadSize: t }, this)) && this.functions.noticeOpen(r);
+        const r = "[SUNEDITOR.audioUpload.fail] Size of uploadable total audios: " + l / 1e3 + "KB";
+        (typeof this.functions.onAudioUploadError != "function" || this.functions.onAudioUploadError(r, { limitSize: l, currentSize: o, uploadSize: t }, this)) && this.functions.noticeOpen(r);
         return;
       }
     }
-    const l = this.context.audio;
-    l._uploadFileLength = i.length;
-    const o = {
+    const n = this.context.audio;
+    n._uploadFileLength = i.length;
+    const s = {
       isUpdate: this.context.dialog.updateModal,
-      element: l._element
+      element: n._element
     };
     if (typeof this.functions.onAudioUploadBefore == "function") {
-      const s = this.functions.onAudioUploadBefore(i, o, this, function(a) {
-        a && this._w.Array.isArray(a.result) ? this.plugins.audio.register.call(this, o, a) : this.plugins.audio.upload.call(this, o, a);
+      const o = this.functions.onAudioUploadBefore(i, s, this, function(a) {
+        a && this._w.Array.isArray(a.result) ? this.plugins.audio.register.call(this, s, a) : this.plugins.audio.upload.call(this, s, a);
       }.bind(this));
-      if (typeof s > "u")
+      if (typeof o > "u")
         return;
-      if (!s) {
+      if (!o) {
         this.closeLoading();
         return;
       }
-      typeof s == "object" && s.length > 0 && (i = s);
+      typeof o == "object" && o.length > 0 && (i = o);
     }
-    this.plugins.audio.upload.call(this, o, i);
+    this.plugins.audio.upload.call(this, s, i);
   },
   error: function(e, t) {
     if (this.closeLoading(), typeof this.functions.onAudioUploadError != "function" || this.functions.onAudioUploadError(e, t, this))
@@ -4697,10 +4541,10 @@ const re = Be.exports, Pn = {
       this.plugins.audio.error.call(this, t, null);
       return;
     }
-    const i = this.options.audioUploadUrl, n = this.context.dialog.updateModal ? 1 : t.length, l = new FormData();
-    for (let o = 0; o < n; o++)
-      l.append("file-" + o, t[o]);
-    this.plugins.fileManager.upload.call(this, i, this.options.audioUploadHeader, l, this.plugins.audio.callBack_upload.bind(this, e), this.functions.onAudioUploadError);
+    const i = this.options.audioUploadUrl, l = this.context.dialog.updateModal ? 1 : t.length, n = new FormData();
+    for (let s = 0; s < l; s++)
+      n.append("file-" + s, t[s]);
+    this.plugins.fileManager.upload.call(this, i, this.options.audioUploadHeader, n, this.plugins.audio.callBack_upload.bind(this, e), this.functions.onAudioUploadError);
   },
   callBack_upload: function(e, t) {
     if (typeof this.functions.audioUploadHandler == "function")
@@ -4712,8 +4556,8 @@ const re = Be.exports, Pn = {
   },
   register: function(e, t) {
     const i = t.result;
-    for (let n = 0, l = i.length, o, s; n < l; n++)
-      e.isUpdate ? s = e.element : s = this.plugins.audio._createAudioTag.call(this), o = { name: i[n].name, size: i[n].size }, this.plugins.audio.create_audio.call(this, s, i[n].url, o, e.isUpdate);
+    for (let l = 0, n = i.length, s, o; l < n; l++)
+      e.isUpdate ? o = e.element : o = this.plugins.audio._createAudioTag.call(this), s = { name: i[l].name, size: i[l].size }, this.plugins.audio.create_audio.call(this, o, i[l].url, s, e.isUpdate);
     this.closeLoading();
   },
   setupUrl: function(e) {
@@ -4727,10 +4571,10 @@ const re = Be.exports, Pn = {
       this.closeLoading();
     }
   },
-  create_audio: function(e, t, i, n) {
-    const l = this.context.audio;
-    if (n)
-      if (l._element && (e = l._element), e && e.src !== t)
+  create_audio: function(e, t, i, l) {
+    const n = this.context.audio;
+    if (l)
+      if (n._element && (e = n._element), e && e.src !== t)
         e.src = t, this.selectComponent(e, "audio");
       else {
         this.selectComponent(e, "audio");
@@ -4738,40 +4582,40 @@ const re = Be.exports, Pn = {
       }
     else {
       e.src = t;
-      const o = this.plugins.component.set_cover.call(this, e), s = this.plugins.component.set_container.call(this, o, "");
-      if (!this.insertComponent(s, !1, !0, !this.options.mediaAutoSelect)) {
+      const s = this.plugins.component.set_cover.call(this, e), o = this.plugins.component.set_container.call(this, s, "");
+      if (!this.insertComponent(o, !1, !0, !this.options.mediaAutoSelect)) {
         this.focus();
         return;
       }
       if (!this.options.mediaAutoSelect) {
-        const a = this.appendFormatTag(s, null);
+        const a = this.appendFormatTag(o, null);
         a && this.setRange(a, 0, a, 0);
       }
     }
-    this.plugins.fileManager.setInfo.call(this, "audio", e, this.functions.onAudioUpload, i, !1), n && this.history.push(!1);
+    this.plugins.fileManager.setInfo.call(this, "audio", e, this.functions.onAudioUpload, i, !1), l && this.history.push(!1);
   },
   updateCover: function(e) {
     const t = this.context.audio;
     this.plugins.audio._setTagAttrs.call(this, e);
     let i = this.util.isRangeFormatElement(e.parentNode) || this.util.isWysiwygDiv(e.parentNode) ? e : this.util.getFormatElement(e) || e;
-    const n = e;
+    const l = e;
     t._element = e = e.cloneNode(!1);
-    const l = this.plugins.component.set_cover.call(this, e), o = this.plugins.component.set_container.call(this, l, "se-audio-container");
+    const n = this.plugins.component.set_cover.call(this, e), s = this.plugins.component.set_container.call(this, n, "se-audio-container");
     try {
       if (this.util.isListCell(i)) {
-        const s = this.util.getParentElement(n, function(a) {
+        const o = this.util.getParentElement(l, function(a) {
           return a.parentNode === i;
         });
-        i.insertBefore(o, s), this.util.removeItem(n), this.util.removeEmptyNode(s, null);
+        i.insertBefore(s, o), this.util.removeItem(l), this.util.removeEmptyNode(o, null);
       } else if (this.util.isFormatElement(i)) {
-        const s = this.util.getParentElement(n, function(a) {
+        const o = this.util.getParentElement(l, function(a) {
           return a.parentNode === i;
         });
-        i = this.util.splitElement(i, s), i.parentNode.insertBefore(o, i), this.util.removeItem(n), this.util.removeEmptyNode(i, null), i.children.length === 0 && (i.innerHTML = this.util.htmlRemoveWhiteSpace(i.innerHTML));
+        i = this.util.splitElement(i, o), i.parentNode.insertBefore(s, i), this.util.removeItem(l), this.util.removeEmptyNode(i, null), i.children.length === 0 && (i.innerHTML = this.util.htmlRemoveWhiteSpace(i.innerHTML));
       } else
-        i.parentNode.replaceChild(o, i);
-    } catch (s) {
-      console.warn("[SUNEDITOR.audio.error] Maybe the audio tag is nested.", s);
+        i.parentNode.replaceChild(s, i);
+    } catch (o) {
+      console.warn("[SUNEDITOR.audio.error] Maybe the audio tag is nested.", o);
     }
     this.plugins.fileManager.setInfo.call(this, "audio", e, this.functions.onAudioUpload, null, !1), this.plugins.audio.init.call(this);
   },
@@ -4800,11 +4644,11 @@ const re = Be.exports, Pn = {
     const e = this.context.audio;
     e.audioInputFile && (e.audioInputFile.value = ""), e.audioUrlFile && (e._linkValue = e.preview.textContent = e.audioUrlFile.value = ""), e.audioInputFile && e.audioUrlFile && (e.audioUrlFile.removeAttribute("disabled"), e.preview.style.textDecoration = ""), e._element = null;
   }
-}, qn = {
+}, Sl = {
   name: "math",
   display: "dialog",
   add: function(e) {
-    e.addModule([Q]);
+    e.addModule([te]);
     const t = e.context;
     t.math = {
       focusElement: null,
@@ -4814,20 +4658,20 @@ const re = Be.exports, Pn = {
       _mathExp: null
     };
     let i = this.setDialog(e);
-    t.math.modal = i, t.math.focusElement = i.querySelector(".se-math-exp"), t.math.previewElement = i.querySelector(".se-math-preview"), t.math.fontSizeElement = i.querySelector(".se-math-size"), t.math.focusElement.addEventListener(e.util.isIE ? "textinput" : "input", this._renderMathExp.bind(e, t.math), !1), t.math.fontSizeElement.addEventListener("change", function(l) {
-      this.fontSize = l.target.value;
+    t.math.modal = i, t.math.focusElement = i.querySelector(".se-math-exp"), t.math.previewElement = i.querySelector(".se-math-preview"), t.math.fontSizeElement = i.querySelector(".se-math-size"), t.math.focusElement.addEventListener(e.util.isIE ? "textinput" : "input", this._renderMathExp.bind(e, t.math), !1), t.math.fontSizeElement.addEventListener("change", function(n) {
+      this.fontSize = n.target.value;
     }.bind(t.math.previewElement.style), !1);
-    let n = this.setController_MathButton(e);
-    t.math.mathController = n, t.math._mathExp = null, i.querySelector("form").addEventListener("submit", this.submit.bind(e), !1), n.addEventListener("click", this.onClick_mathController.bind(e)), t.math.previewElement.style.fontSize = t.math.defaultFontSize, t.dialog.modal.appendChild(i), t.element.relative.appendChild(n), i = null, n = null;
+    let l = this.setController_MathButton(e);
+    t.math.mathController = l, t.math._mathExp = null, i.querySelector("form").addEventListener("submit", this.submit.bind(e), !1), l.addEventListener("click", this.onClick_mathController.bind(e)), t.math.previewElement.style.fontSize = t.math.defaultFontSize, t.dialog.modal.appendChild(i), t.element.relative.appendChild(l), i = null, l = null;
   },
   setDialog: function(e) {
-    const t = e.lang, i = e.util.createElement("DIV"), n = e.options.mathFontSize;
-    let l = n[0].value;
+    const t = e.lang, i = e.util.createElement("DIV"), l = e.options.mathFontSize;
+    let n = l[0].value;
     i.className = "se-dialog-content", i.style.display = "none";
-    let o = '<form><div class="se-dialog-header"><button type="button" data-command="close" class="se-btn se-dialog-close" title="' + t.dialogBox.close + '" aria-label="' + t.dialogBox.close + '">' + e.icons.cancel + '</button><span class="se-modal-title">' + t.dialogBox.mathBox.title + '</span></div><div class="se-dialog-body"><div class="se-dialog-form"><label>' + t.dialogBox.mathBox.inputLabel + ' (<a href="https://katex.org/docs/supported.html" target="_blank">KaTeX</a>)</label><textarea class="se-input-form se-math-exp" type="text"></textarea></div><div class="se-dialog-form"><label>' + t.dialogBox.mathBox.fontSizeLabel + '</label><select class="se-input-select se-math-size">';
-    for (let s = 0, a = n.length, r; s < a; s++)
-      r = n[s], r.default && (l = r.value), o += '<option value="' + r.value + '"' + (r.default ? " selected" : "") + ">" + r.text + "</option>";
-    return o += '</select></div><div class="se-dialog-form"><label>' + t.dialogBox.mathBox.previewLabel + '</label><p class="se-math-preview"></p></div></div><div class="se-dialog-footer"><button type="submit" class="se-btn-primary" title="' + t.dialogBox.submitButton + '" aria-label="' + t.dialogBox.submitButton + '"><span>' + t.dialogBox.submitButton + "</span></button></div></form>", e.context.math.defaultFontSize = l, i.innerHTML = o, i;
+    let s = '<form><div class="se-dialog-header"><button type="button" data-command="close" class="se-btn se-dialog-close" title="' + t.dialogBox.close + '" aria-label="' + t.dialogBox.close + '">' + e.icons.cancel + '</button><span class="se-modal-title">' + t.dialogBox.mathBox.title + '</span></div><div class="se-dialog-body"><div class="se-dialog-form"><label>' + t.dialogBox.mathBox.inputLabel + ' (<a href="https://katex.org/docs/supported.html" target="_blank">KaTeX</a>)</label><textarea class="se-input-form se-math-exp" type="text"></textarea></div><div class="se-dialog-form"><label>' + t.dialogBox.mathBox.fontSizeLabel + '</label><select class="se-input-select se-math-size">';
+    for (let o = 0, a = l.length, r; o < a; o++)
+      r = l[o], r.default && (n = r.value), s += '<option value="' + r.value + '"' + (r.default ? " selected" : "") + ">" + r.text + "</option>";
+    return s += '</select></div><div class="se-dialog-form"><label>' + t.dialogBox.mathBox.previewLabel + '</label><p class="se-math-preview"></p></div></div><div class="se-dialog-footer"><button type="submit" class="se-btn-primary" title="' + t.dialogBox.submitButton + '" aria-label="' + t.dialogBox.submitButton + '"><span>' + t.dialogBox.submitButton + "</span></button></div></form>", e.context.math.defaultFontSize = n, i.innerHTML = s, i;
   },
   setController_MathButton: function(e) {
     const t = e.lang, i = e.util.createElement("DIV");
@@ -4864,22 +4708,22 @@ const re = Be.exports, Pn = {
     const t = function() {
       if (this.context.math.focusElement.value.trim().length === 0)
         return !1;
-      const i = this.context.math, n = i.focusElement.value, l = i.previewElement.querySelector(".katex");
-      if (!l)
+      const i = this.context.math, l = i.focusElement.value, n = i.previewElement.querySelector(".katex");
+      if (!n)
         return !1;
-      if (l.className = "__se__katex " + l.className, l.setAttribute("contenteditable", !1), l.setAttribute("data-exp", this.util.HTMLEncoder(n)), l.setAttribute("data-font-size", i.fontSizeElement.value), l.style.fontSize = i.fontSizeElement.value, this.context.dialog.updateModal) {
-        const o = this.util.getParentElement(i._mathExp, ".katex");
-        o.parentNode.replaceChild(l, o), this.setRange(l, 0, l, 1);
+      if (n.className = "__se__katex " + n.className, n.setAttribute("contenteditable", !1), n.setAttribute("data-exp", this.util.HTMLEncoder(l)), n.setAttribute("data-font-size", i.fontSizeElement.value), n.style.fontSize = i.fontSizeElement.value, this.context.dialog.updateModal) {
+        const s = this.util.getParentElement(i._mathExp, ".katex");
+        s.parentNode.replaceChild(n, s), this.setRange(n, 0, n, 1);
       } else {
-        const o = this.getSelectedElements();
-        if (o.length > 1) {
-          const a = this.util.createElement(o[0].nodeName);
-          if (a.appendChild(l), !this.insertNode(a, null, !0))
+        const s = this.getSelectedElements();
+        if (s.length > 1) {
+          const a = this.util.createElement(s[0].nodeName);
+          if (a.appendChild(n), !this.insertNode(a, null, !0))
             return !1;
-        } else if (!this.insertNode(l, null, !0))
+        } else if (!this.insertNode(n, null, !0))
           return !1;
-        const s = this.util.createTextNode(this.util.zeroWidthSpace);
-        l.parentNode.insertBefore(s, l.nextSibling), this.setRange(l, 0, l, 1);
+        const o = this.util.createTextNode(this.util.zeroWidthSpace);
+        n.parentNode.insertBefore(o, n.nextSibling), this.setRange(n, 0, n, 1);
       }
       return i.focusElement.value = "", i.fontSizeElement.value = "1em", i.previewElement.style.fontSize = "1em", i.previewElement.innerHTML = "", !0;
     }.bind(this);
@@ -4905,8 +4749,8 @@ const re = Be.exports, Pn = {
     else {
       const t = this.context.math;
       if (t._mathExp) {
-        const i = this.util.HTMLDecoder(t._mathExp.getAttribute("data-exp")), n = t._mathExp.getAttribute("data-font-size") || "1em";
-        this.context.dialog.updateModal = !0, t.focusElement.value = i, t.fontSizeElement.value = n, t.previewElement.innerHTML = this.plugins.math._renderer.call(this, i), t.previewElement.style.fontSize = n;
+        const i = this.util.HTMLDecoder(t._mathExp.getAttribute("data-exp")), l = t._mathExp.getAttribute("data-font-size") || "1em";
+        this.context.dialog.updateModal = !0, t.focusElement.value = i, t.fontSizeElement.value = l, t.previewElement.innerHTML = this.plugins.math._renderer.call(this, i), t.previewElement.style.fontSize = l;
       }
     }
   },
@@ -4925,22 +4769,22 @@ const re = Be.exports, Pn = {
     e.mathController.style.display = "none", e._mathExp = null, e.focusElement.value = "", e.previewElement.innerHTML = "";
   }
 };
-var Ae = { exports: {} };
+var De = { exports: {} };
 (function(e) {
   (function(t, i) {
-    e.exports = t.document ? i(t, !0) : function(n) {
-      if (!n.document)
+    e.exports = t.document ? i(t, !0) : function(l) {
+      if (!l.document)
         throw new Error("SUNEDITOR_MODULES a window with a document");
-      return i(n);
+      return i(l);
     };
   })(typeof window < "u" ? window : M, function(t, i) {
-    const n = {
+    const l = {
       name: "fileBrowser",
       _xmlHttp: null,
       _loading: null,
-      add: function(l) {
-        const o = l.context;
-        o.fileBrowser = {
+      add: function(n) {
+        const s = n.context;
+        s.fileBrowser = {
           _closeSignal: !1,
           area: null,
           header: null,
@@ -4954,38 +4798,38 @@ var Ae = { exports: {} };
           contextPlugin: "",
           columnSize: 4
         };
-        let s = l.util.createElement("DIV");
-        s.className = "se-file-browser sun-editor-common";
-        let a = l.util.createElement("DIV");
+        let o = n.util.createElement("DIV");
+        o.className = "se-file-browser sun-editor-common";
+        let a = n.util.createElement("DIV");
         a.className = "se-file-browser-back";
-        let r = l.util.createElement("DIV");
-        r.className = "se-file-browser-inner", r.innerHTML = this.set_browser(l), s.appendChild(a), s.appendChild(r), this._loading = s.querySelector(".se-loading-box"), o.fileBrowser.area = s, o.fileBrowser.header = r.querySelector(".se-file-browser-header"), o.fileBrowser.titleArea = r.querySelector(".se-file-browser-title"), o.fileBrowser.tagArea = r.querySelector(".se-file-browser-tags"), o.fileBrowser.body = r.querySelector(".se-file-browser-body"), o.fileBrowser.list = r.querySelector(".se-file-browser-list"), o.fileBrowser.tagArea.addEventListener("click", this.onClickTag.bind(l)), o.fileBrowser.list.addEventListener("click", this.onClickFile.bind(l)), r.addEventListener("mousedown", this._onMouseDown_browser.bind(l)), r.addEventListener("click", this._onClick_browser.bind(l)), o.element.relative.appendChild(s), s = null, a = null, r = null;
+        let r = n.util.createElement("DIV");
+        r.className = "se-file-browser-inner", r.innerHTML = this.set_browser(n), o.appendChild(a), o.appendChild(r), this._loading = o.querySelector(".se-loading-box"), s.fileBrowser.area = o, s.fileBrowser.header = r.querySelector(".se-file-browser-header"), s.fileBrowser.titleArea = r.querySelector(".se-file-browser-title"), s.fileBrowser.tagArea = r.querySelector(".se-file-browser-tags"), s.fileBrowser.body = r.querySelector(".se-file-browser-body"), s.fileBrowser.list = r.querySelector(".se-file-browser-list"), s.fileBrowser.tagArea.addEventListener("click", this.onClickTag.bind(n)), s.fileBrowser.list.addEventListener("click", this.onClickFile.bind(n)), r.addEventListener("mousedown", this._onMouseDown_browser.bind(n)), r.addEventListener("click", this._onClick_browser.bind(n)), s.element.relative.appendChild(o), o = null, a = null, r = null;
       },
-      set_browser: function(l) {
-        const o = l.lang;
-        return '<div class="se-file-browser-content"><div class="se-file-browser-header"><button type="button" data-command="close" class="se-btn se-file-browser-close" class="close" title="' + o.dialogBox.close + '" aria-label="' + o.dialogBox.close + '">' + l.icons.cancel + '</button><span class="se-file-browser-title"></span><div class="se-file-browser-tags"></div></div><div class="se-file-browser-body"><div class="se-loading-box sun-editor-common"><div class="se-loading-effect"></div></div><div class="se-file-browser-list"></div></div></div>';
+      set_browser: function(n) {
+        const s = n.lang;
+        return '<div class="se-file-browser-content"><div class="se-file-browser-header"><button type="button" data-command="close" class="se-btn se-file-browser-close" class="close" title="' + s.dialogBox.close + '" aria-label="' + s.dialogBox.close + '">' + n.icons.cancel + '</button><span class="se-file-browser-title"></span><div class="se-file-browser-tags"></div></div><div class="se-file-browser-body"><div class="se-loading-box sun-editor-common"><div class="se-loading-effect"></div></div><div class="se-file-browser-list"></div></div></div>';
       },
-      _onMouseDown_browser: function(l) {
-        /se-file-browser-inner/.test(l.target.className) ? this.context.fileBrowser._closeSignal = !0 : this.context.fileBrowser._closeSignal = !1;
+      _onMouseDown_browser: function(n) {
+        /se-file-browser-inner/.test(n.target.className) ? this.context.fileBrowser._closeSignal = !0 : this.context.fileBrowser._closeSignal = !1;
       },
-      _onClick_browser: function(l) {
-        l.stopPropagation(), (/close/.test(l.target.getAttribute("data-command")) || this.context.fileBrowser._closeSignal) && this.plugins.fileBrowser.close.call(this);
+      _onClick_browser: function(n) {
+        n.stopPropagation(), (/close/.test(n.target.getAttribute("data-command")) || this.context.fileBrowser._closeSignal) && this.plugins.fileBrowser.close.call(this);
       },
-      open: function(l, o) {
+      open: function(n, s) {
         this.plugins.fileBrowser._bindClose && (this._d.removeEventListener("keydown", this.plugins.fileBrowser._bindClose), this.plugins.fileBrowser._bindClose = null), this.plugins.fileBrowser._bindClose = function(u) {
           !/27/.test(u.keyCode) || this.plugins.fileBrowser.close.call(this);
         }.bind(this), this._d.addEventListener("keydown", this.plugins.fileBrowser._bindClose);
-        const s = this.context.fileBrowser;
-        s.contextPlugin = l, s.selectorHandler = o;
-        const a = this.context[l], r = a.listClass;
-        this.util.hasClass(s.list, r) || (s.list.className = "se-file-browser-list " + r), this.options.popupDisplay === "full" ? s.area.style.position = "fixed" : s.area.style.position = "absolute", s.titleArea.textContent = a.title, s.area.style.display = "block", this.plugins.fileBrowser._drawFileList.call(this, this.context[l].url, this.context[l].header);
+        const o = this.context.fileBrowser;
+        o.contextPlugin = n, o.selectorHandler = s;
+        const a = this.context[n], r = a.listClass;
+        this.util.hasClass(o.list, r) || (o.list.className = "se-file-browser-list " + r), this.options.popupDisplay === "full" ? o.area.style.position = "fixed" : o.area.style.position = "absolute", o.titleArea.textContent = a.title, o.area.style.display = "block", this.plugins.fileBrowser._drawFileList.call(this, this.context[n].url, this.context[n].header);
       },
       _bindClose: null,
       close: function() {
-        const l = this.plugins.fileBrowser;
-        l._xmlHttp && l._xmlHttp.abort(), l._bindClose && (this._d.removeEventListener("keydown", l._bindClose), l._bindClose = null);
-        const o = this.context.fileBrowser;
-        o.area.style.display = "none", o.selectorHandler = null, o.selectedTags = [], o.items = [], o.list.innerHTML = o.tagArea.innerHTML = o.titleArea.textContent = "", typeof this.plugins[o.contextPlugin].init == "function" && this.plugins[o.contextPlugin].init.call(this), o.contextPlugin = "";
+        const n = this.plugins.fileBrowser;
+        n._xmlHttp && n._xmlHttp.abort(), n._bindClose && (this._d.removeEventListener("keydown", n._bindClose), n._bindClose = null);
+        const s = this.context.fileBrowser;
+        s.area.style.display = "none", s.selectorHandler = null, s.selectedTags = [], s.items = [], s.list.innerHTML = s.tagArea.innerHTML = s.titleArea.textContent = "", typeof this.plugins[s.contextPlugin].init == "function" && this.plugins[s.contextPlugin].init.call(this), s.contextPlugin = "";
       },
       showBrowserLoading: function() {
         this._loading.style.display = "block";
@@ -4993,47 +4837,47 @@ var Ae = { exports: {} };
       closeBrowserLoading: function() {
         this._loading.style.display = "none";
       },
-      _drawFileList: function(l, o) {
-        const s = this.plugins.fileBrowser, a = s._xmlHttp = this.util.getXMLHttpRequest();
-        if (a.onreadystatechange = s._callBackGet.bind(this, a), a.open("get", l, !0), o !== null && typeof o == "object" && this._w.Object.keys(o).length > 0)
-          for (let r in o)
-            a.setRequestHeader(r, o[r]);
+      _drawFileList: function(n, s) {
+        const o = this.plugins.fileBrowser, a = o._xmlHttp = this.util.getXMLHttpRequest();
+        if (a.onreadystatechange = o._callBackGet.bind(this, a), a.open("get", n, !0), s !== null && typeof s == "object" && this._w.Object.keys(s).length > 0)
+          for (let r in s)
+            a.setRequestHeader(r, s[r]);
         a.send(null), this.plugins.fileBrowser.showBrowserLoading();
       },
-      _callBackGet: function(l) {
-        if (l.readyState === 4) {
-          if (this.plugins.fileBrowser._xmlHttp = null, l.status === 200)
+      _callBackGet: function(n) {
+        if (n.readyState === 4) {
+          if (this.plugins.fileBrowser._xmlHttp = null, n.status === 200)
             try {
-              const o = JSON.parse(l.responseText);
-              o.result.length > 0 ? this.plugins.fileBrowser._drawListItem.call(this, o.result, !0) : o.nullMessage && (this.context.fileBrowser.list.innerHTML = o.nullMessage);
-            } catch (o) {
-              throw Error('[SUNEDITOR.fileBrowser.drawList.fail] cause : "' + o.message + '"');
+              const s = JSON.parse(n.responseText);
+              s.result.length > 0 ? this.plugins.fileBrowser._drawListItem.call(this, s.result, !0) : s.nullMessage && (this.context.fileBrowser.list.innerHTML = s.nullMessage);
+            } catch (s) {
+              throw Error('[SUNEDITOR.fileBrowser.drawList.fail] cause : "' + s.message + '"');
             } finally {
               this.plugins.fileBrowser.closeBrowserLoading(), this.context.fileBrowser.body.style.maxHeight = this._w.innerHeight - this.context.fileBrowser.header.offsetHeight - 50 + "px";
             }
-          else if (this.plugins.fileBrowser.closeBrowserLoading(), l.status !== 0) {
-            const o = l.responseText ? JSON.parse(l.responseText) : l, s = "[SUNEDITOR.fileBrowser.get.serverException] status: " + l.status + ", response: " + (o.errorMessage || l.responseText);
-            throw Error(s);
+          else if (this.plugins.fileBrowser.closeBrowserLoading(), n.status !== 0) {
+            const s = n.responseText ? JSON.parse(n.responseText) : n, o = "[SUNEDITOR.fileBrowser.get.serverException] status: " + n.status + ", response: " + (s.errorMessage || n.responseText);
+            throw Error(o);
           }
         }
       },
-      _drawListItem: function(l, o) {
-        const s = this.context.fileBrowser, a = this.context[s.contextPlugin], r = [], u = l.length, d = a.columnSize || s.columnSize, f = d <= 1 ? 1 : Math.round(u / d) || 1, h = a.itemTemplateHandler;
+      _drawListItem: function(n, s) {
+        const o = this.context.fileBrowser, a = this.context[o.contextPlugin], r = [], u = n.length, d = a.columnSize || o.columnSize, f = d <= 1 ? 1 : Math.round(u / d) || 1, h = a.itemTemplateHandler;
         let g = "", p = '<div class="se-file-item-column">', b = 1;
         for (let m = 0, c, _; m < u; m++)
-          if (c = l[m], _ = c.tag ? typeof c.tag == "string" ? c.tag.split(",") : c.tag : [], _ = c.tag = _.map(function(v) {
+          if (c = n[m], _ = c.tag ? typeof c.tag == "string" ? c.tag.split(",") : c.tag : [], _ = c.tag = _.map(function(v) {
             return v.trim();
-          }), p += h(c), (m + 1) % f === 0 && b < d && m + 1 < u && (b++, p += '</div><div class="se-file-item-column">'), o && _.length > 0)
-            for (let v = 0, y = _.length, w; v < y; v++)
-              w = _[v], w && r.indexOf(w) === -1 && (r.push(w), g += '<a title="' + w + '" aria-label="' + w + '">' + w + "</a>");
-        p += "</div>", s.list.innerHTML = p, o && (s.items = l, s.tagArea.innerHTML = g, s.tagElements = s.tagArea.querySelectorAll("A"));
+          }), p += h(c), (m + 1) % f === 0 && b < d && m + 1 < u && (b++, p += '</div><div class="se-file-item-column">'), s && _.length > 0)
+            for (let v = 0, y = _.length, k; v < y; v++)
+              k = _[v], k && r.indexOf(k) === -1 && (r.push(k), g += '<a title="' + k + '" aria-label="' + k + '">' + k + "</a>");
+        p += "</div>", o.list.innerHTML = p, s && (o.items = n, o.tagArea.innerHTML = g, o.tagElements = o.tagArea.querySelectorAll("A"));
       },
-      onClickTag: function(l) {
-        const o = l.target;
-        if (!this.util.isAnchor(o))
+      onClickTag: function(n) {
+        const s = n.target;
+        if (!this.util.isAnchor(s))
           return;
-        const s = o.textContent, a = this.plugins.fileBrowser, r = this.context.fileBrowser, u = r.tagArea.querySelector('a[title="' + s + '"]'), d = r.selectedTags, f = d.indexOf(s);
-        f > -1 ? (d.splice(f, 1), this.util.removeClass(u, "on")) : (d.push(s), this.util.addClass(u, "on")), a._drawListItem.call(
+        const o = s.textContent, a = this.plugins.fileBrowser, r = this.context.fileBrowser, u = r.tagArea.querySelector('a[title="' + o + '"]'), d = r.selectedTags, f = d.indexOf(o);
+        f > -1 ? (d.splice(f, 1), this.util.removeClass(u, "on")) : (d.push(o), this.util.addClass(u, "on")), a._drawListItem.call(
           this,
           d.length === 0 ? r.items : r.items.filter(function(h) {
             return h.tag.some(function(g) {
@@ -5043,17 +4887,17 @@ var Ae = { exports: {} };
           !1
         );
       },
-      onClickFile: function(l) {
-        l.preventDefault(), l.stopPropagation();
-        const o = this.context.fileBrowser, s = o.list;
-        let a = l.target, r = null;
-        if (a === s)
+      onClickFile: function(n) {
+        n.preventDefault(), n.stopPropagation();
+        const s = this.context.fileBrowser, o = s.list;
+        let a = n.target, r = null;
+        if (a === o)
           return;
-        for (; s !== a.parentNode && (r = a.getAttribute("data-command"), !r); )
+        for (; o !== a.parentNode && (r = a.getAttribute("data-command"), !r); )
           a = a.parentNode;
         if (!r)
           return;
-        const u = o.selectorHandler || this.context[o.contextPlugin].selectorHandler;
+        const u = s.selectorHandler || this.context[s.contextPlugin].selectorHandler;
         this.plugins.fileBrowser.close.call(this), u(a);
       }
     };
@@ -5066,14 +4910,14 @@ var Ae = { exports: {} };
       enumerable: !0,
       writable: !1,
       configurable: !1,
-      value: n
-    })), n;
+      value: l
+    })), l;
   });
-})(Ae);
-const jn = Ae.exports, Wn = {
+})(De);
+const xl = De.exports, Cl = {
   name: "imageGallery",
   add: function(e) {
-    e.addModule([jn]);
+    e.addModule([xl]);
     const t = e.context;
     t.imageGallery = {
       title: e.lang.toolbar.imageGallery,
@@ -5098,17 +4942,17 @@ const jn = Ae.exports, Wn = {
       this.plugins.image.create_image.call(this, e.getAttribute("data-value"), null, this.context.image._origin_w, this.context.image._origin_h, "none", t, e.alt);
     }.bind(this), null);
   }
-}, Ne = { blockquote: Ln, align: zn, font: En, fontSize: In, fontColor: Rn, hiliteColor: Tn, horizontalRule: Bn, list: An, table: Nn, formatBlock: Mn, lineHeight: Dn, template: On, paragraphStyle: Un, textStyle: Vn, link: Hn, image: Pn, video: $n, audio: Gn, math: qn, imageGallery: Wn };
-var Me = { exports: {} };
+}, Ve = { blockquote: nl, align: sl, font: ol, fontSize: al, fontColor: rl, hiliteColor: ul, horizontalRule: dl, list: cl, table: hl, formatBlock: pl, lineHeight: fl, template: gl, paragraphStyle: ml, textStyle: bl, link: vl, image: yl, video: kl, audio: wl, math: Sl, imageGallery: Cl };
+var Ue = { exports: {} };
 (function(e) {
   (function(t, i) {
-    e.exports = t.document ? i(t, !0) : function(n) {
-      if (!n.document)
+    e.exports = t.document ? i(t, !0) : function(l) {
+      if (!l.document)
         throw new Error("SUNEDITOR_LANG a window with a document");
-      return i(n);
+      return i(l);
     };
   })(typeof window < "u" ? window : M, function(t, i) {
-    const n = {
+    const l = {
       code: "ckb",
       toolbar: {
         default: "\u0628\u0646\u0647\u200C\u0695\u0647\u200C\u062A",
@@ -5261,21 +5105,21 @@ var Me = { exports: {} };
       enumerable: !0,
       writable: !0,
       configurable: !0,
-      value: n
-    })), n;
+      value: l
+    })), l;
   });
-})(Me);
-const De = Me.exports;
-var Oe = { exports: {} };
+})(Ue);
+const Oe = Ue.exports;
+var Fe = { exports: {} };
 (function(e) {
   (function(t, i) {
-    e.exports = t.document ? i(t, !0) : function(n) {
-      if (!n.document)
+    e.exports = t.document ? i(t, !0) : function(l) {
+      if (!l.document)
         throw new Error("SUNEDITOR_LANG a window with a document");
-      return i(n);
+      return i(l);
     };
   })(typeof window < "u" ? window : M, function(t, i) {
-    const n = {
+    const l = {
       code: "da",
       toolbar: {
         default: "Default",
@@ -5428,21 +5272,21 @@ var Oe = { exports: {} };
       enumerable: !0,
       writable: !0,
       configurable: !0,
-      value: n
-    })), n;
+      value: l
+    })), l;
   });
-})(Oe);
-const Ue = Oe.exports;
-var Ve = { exports: {} };
+})(Fe);
+const He = Fe.exports;
+var Pe = { exports: {} };
 (function(e) {
   (function(t, i) {
-    e.exports = t.document ? i(t, !0) : function(n) {
-      if (!n.document)
+    e.exports = t.document ? i(t, !0) : function(l) {
+      if (!l.document)
         throw new Error("SUNEDITOR_LANG a window with a document");
-      return i(n);
+      return i(l);
     };
   })(typeof window < "u" ? window : M, function(t, i) {
-    const n = {
+    const l = {
       code: "de",
       toolbar: {
         default: "Standard",
@@ -5595,21 +5439,21 @@ var Ve = { exports: {} };
       enumerable: !0,
       writable: !0,
       configurable: !0,
-      value: n
-    })), n;
+      value: l
+    })), l;
   });
-})(Ve);
-const Fe = Ve.exports;
-var He = { exports: {} };
+})(Pe);
+const $e = Pe.exports;
+var Ge = { exports: {} };
 (function(e) {
   (function(t, i) {
-    e.exports = t.document ? i(t, !0) : function(n) {
-      if (!n.document)
+    e.exports = t.document ? i(t, !0) : function(l) {
+      if (!l.document)
         throw new Error("SUNEDITOR_LANG a window with a document");
-      return i(n);
+      return i(l);
     };
   })(typeof window < "u" ? window : M, function(t, i) {
-    const n = {
+    const l = {
       code: "en",
       toolbar: {
         default: "Default",
@@ -5762,21 +5606,21 @@ var He = { exports: {} };
       enumerable: !0,
       writable: !0,
       configurable: !0,
-      value: n
-    })), n;
+      value: l
+    })), l;
   });
-})(He);
-const se = He.exports;
-var Pe = { exports: {} };
+})(Ge);
+const re = Ge.exports;
+var je = { exports: {} };
 (function(e) {
   (function(t, i) {
-    e.exports = t.document ? i(t, !0) : function(n) {
-      if (!n.document)
+    e.exports = t.document ? i(t, !0) : function(l) {
+      if (!l.document)
         throw new Error("SUNEDITOR_LANG a window with a document");
-      return i(n);
+      return i(l);
     };
   })(typeof window < "u" ? window : M, function(t, i) {
-    const n = {
+    const l = {
       code: "es",
       toolbar: {
         default: "Valor por defecto",
@@ -5929,21 +5773,21 @@ var Pe = { exports: {} };
       enumerable: !0,
       writable: !0,
       configurable: !0,
-      value: n
-    })), n;
+      value: l
+    })), l;
   });
-})(Pe);
-const $e = Pe.exports;
-var Ge = { exports: {} };
+})(je);
+const qe = je.exports;
+var We = { exports: {} };
 (function(e) {
   (function(t, i) {
-    e.exports = t.document ? i(t, !0) : function(n) {
-      if (!n.document)
+    e.exports = t.document ? i(t, !0) : function(l) {
+      if (!l.document)
         throw new Error("SUNEDITOR_LANG a window with a document");
-      return i(n);
+      return i(l);
     };
   })(typeof window < "u" ? window : M, function(t, i) {
-    const n = {
+    const l = {
       code: "fr",
       toolbar: {
         default: "D\xE9faut",
@@ -6096,21 +5940,21 @@ var Ge = { exports: {} };
       enumerable: !0,
       writable: !0,
       configurable: !0,
-      value: n
-    })), n;
+      value: l
+    })), l;
   });
-})(Ge);
-const qe = Ge.exports;
-var je = { exports: {} };
+})(We);
+const Ye = We.exports;
+var Xe = { exports: {} };
 (function(e) {
   (function(t, i) {
-    e.exports = t.document ? i(t, !0) : function(n) {
-      if (!n.document)
+    e.exports = t.document ? i(t, !0) : function(l) {
+      if (!l.document)
         throw new Error("SUNEDITOR_LANG a window with a document");
-      return i(n);
+      return i(l);
     };
   })(typeof window < "u" ? window : M, function(t, i) {
-    const n = {
+    const l = {
       code: "he",
       toolbar: {
         default: "\u05D1\u05E8\u05D9\u05E8\u05EA \u05DE\u05D7\u05D3\u05DC",
@@ -6263,21 +6107,21 @@ var je = { exports: {} };
       enumerable: !0,
       writable: !0,
       configurable: !0,
-      value: n
-    })), n;
+      value: l
+    })), l;
   });
-})(je);
-const We = je.exports;
-var Ye = { exports: {} };
+})(Xe);
+const Ke = Xe.exports;
+var Je = { exports: {} };
 (function(e) {
   (function(t, i) {
-    e.exports = t.document ? i(t, !0) : function(n) {
-      if (!n.document)
+    e.exports = t.document ? i(t, !0) : function(l) {
+      if (!l.document)
         throw new Error("SUNEDITOR_LANG una finestra con un documento");
-      return i(n);
+      return i(l);
     };
   })(typeof window < "u" ? window : M, function(t, i) {
-    const n = {
+    const l = {
       code: "it",
       toolbar: {
         default: "Predefinita",
@@ -6430,21 +6274,21 @@ var Ye = { exports: {} };
       enumerable: !0,
       writable: !0,
       configurable: !0,
-      value: n
-    })), n;
+      value: l
+    })), l;
   });
-})(Ye);
-const Xe = Ye.exports;
-var Ke = { exports: {} };
+})(Je);
+const Ze = Je.exports;
+var Qe = { exports: {} };
 (function(e) {
   (function(t, i) {
-    e.exports = t.document ? i(t, !0) : function(n) {
-      if (!n.document)
+    e.exports = t.document ? i(t, !0) : function(l) {
+      if (!l.document)
         throw new Error("SUNEDITOR_LANG a window with a document");
-      return i(n);
+      return i(l);
     };
   })(typeof window < "u" ? window : M, function(t, i) {
-    const n = {
+    const l = {
       code: "ja",
       toolbar: {
         default: "\u30C7\u30D5\u30A9\u30EB\u30C8",
@@ -6597,21 +6441,21 @@ var Ke = { exports: {} };
       enumerable: !0,
       writable: !0,
       configurable: !0,
-      value: n
-    })), n;
+      value: l
+    })), l;
   });
-})(Ke);
-const Je = Ke.exports;
-var Ze = { exports: {} };
+})(Qe);
+const et = Qe.exports;
+var tt = { exports: {} };
 (function(e) {
   (function(t, i) {
-    e.exports = t.document ? i(t, !0) : function(n) {
-      if (!n.document)
+    e.exports = t.document ? i(t, !0) : function(l) {
+      if (!l.document)
         throw new Error("SUNEDITOR_LANG a window with a document");
-      return i(n);
+      return i(l);
     };
   })(typeof window < "u" ? window : M, function(t, i) {
-    const n = {
+    const l = {
       code: "ko",
       toolbar: {
         default: "\uAE30\uBCF8\uAC12",
@@ -6764,21 +6608,21 @@ var Ze = { exports: {} };
       enumerable: !0,
       writable: !0,
       configurable: !0,
-      value: n
-    })), n;
+      value: l
+    })), l;
   });
-})(Ze);
-const Qe = Ze.exports;
-var et = { exports: {} };
+})(tt);
+const it = tt.exports;
+var lt = { exports: {} };
 (function(e) {
   (function(t, i) {
-    e.exports = t.document ? i(t, !0) : function(n) {
-      if (!n.document)
+    e.exports = t.document ? i(t, !0) : function(l) {
+      if (!l.document)
         throw new Error("SUNEDITOR_LANG a window with a document");
-      return i(n);
+      return i(l);
     };
   })(typeof window < "u" ? window : M, function(t, i) {
-    const n = {
+    const l = {
       code: "lv",
       toolbar: {
         default: "Noklus\u0113juma",
@@ -6931,21 +6775,21 @@ var et = { exports: {} };
       enumerable: !0,
       writable: !0,
       configurable: !0,
-      value: n
-    })), n;
+      value: l
+    })), l;
   });
-})(et);
-const tt = et.exports;
-var it = { exports: {} };
+})(lt);
+const nt = lt.exports;
+var st = { exports: {} };
 (function(e) {
   (function(t, i) {
-    e.exports = t.document ? i(t, !0) : function(n) {
-      if (!n.document)
+    e.exports = t.document ? i(t, !0) : function(l) {
+      if (!l.document)
         throw new Error("SUNEDITOR_LANG a window with a document");
-      return i(n);
+      return i(l);
     };
   })(typeof window < "u" ? window : M, function(t, i) {
-    const n = {
+    const l = {
       code: "nl",
       toolbar: {
         default: "Standaard",
@@ -7098,21 +6942,21 @@ var it = { exports: {} };
       enumerable: !0,
       writable: !0,
       configurable: !0,
-      value: n
-    })), n;
+      value: l
+    })), l;
   });
-})(it);
-const nt = it.exports;
-var lt = { exports: {} };
+})(st);
+const ot = st.exports;
+var at = { exports: {} };
 (function(e) {
   (function(t, i) {
-    e.exports = t.document ? i(t, !0) : function(n) {
-      if (!n.document)
+    e.exports = t.document ? i(t, !0) : function(l) {
+      if (!l.document)
         throw new Error("SUNEDITOR_LANG a window with a document");
-      return i(n);
+      return i(l);
     };
   })(typeof window < "u" ? window : M, function(t, i) {
-    const n = {
+    const l = {
       code: "pl",
       toolbar: {
         default: "Domy\u015Blne",
@@ -7265,21 +7109,21 @@ var lt = { exports: {} };
       enumerable: !0,
       writable: !0,
       configurable: !0,
-      value: n
-    })), n;
+      value: l
+    })), l;
   });
-})(lt);
-const ot = lt.exports;
-var st = { exports: {} };
+})(at);
+const rt = at.exports;
+var ut = { exports: {} };
 (function(e) {
   (function(t, i) {
-    e.exports = t.document ? i(t, !0) : function(n) {
-      if (!n.document)
+    e.exports = t.document ? i(t, !0) : function(l) {
+      if (!l.document)
         throw new Error("SUNEDITOR_LANG a window with a document");
-      return i(n);
+      return i(l);
     };
   })(typeof window < "u" ? window : M, function(t, i) {
-    const n = {
+    const l = {
       code: "pt_br",
       toolbar: {
         default: "Padr\xE3o",
@@ -7432,21 +7276,21 @@ var st = { exports: {} };
       enumerable: !0,
       writable: !0,
       configurable: !0,
-      value: n
-    })), n;
+      value: l
+    })), l;
   });
-})(st);
-const at = st.exports;
-var rt = { exports: {} };
+})(ut);
+const dt = ut.exports;
+var ct = { exports: {} };
 (function(e) {
   (function(t, i) {
-    e.exports = t.document ? i(t, !0) : function(n) {
-      if (!n.document)
+    e.exports = t.document ? i(t, !0) : function(l) {
+      if (!l.document)
         throw new Error("SUNEDITOR_LANG a window with a document");
-      return i(n);
+      return i(l);
     };
   })(typeof window < "u" ? window : M, function(t, i) {
-    const n = {
+    const l = {
       code: "ro",
       toolbar: {
         default: "Default",
@@ -7599,21 +7443,21 @@ var rt = { exports: {} };
       enumerable: !0,
       writable: !0,
       configurable: !0,
-      value: n
-    })), n;
+      value: l
+    })), l;
   });
-})(rt);
-const ut = rt.exports;
-var dt = { exports: {} };
+})(ct);
+const ht = ct.exports;
+var pt = { exports: {} };
 (function(e) {
   (function(t, i) {
-    e.exports = t.document ? i(t, !0) : function(n) {
-      if (!n.document)
+    e.exports = t.document ? i(t, !0) : function(l) {
+      if (!l.document)
         throw new Error("SUNEDITOR_LANG a window with a document");
-      return i(n);
+      return i(l);
     };
   })(typeof window < "u" ? window : M, function(t, i) {
-    const n = {
+    const l = {
       code: "ru",
       toolbar: {
         default: "\u041F\u043E \u0443\u043C\u043E\u043B\u0447\u0430\u043D\u0438\u044E",
@@ -7766,21 +7610,21 @@ var dt = { exports: {} };
       enumerable: !0,
       writable: !0,
       configurable: !0,
-      value: n
-    })), n;
+      value: l
+    })), l;
   });
-})(dt);
-const ct = dt.exports;
-var ht = { exports: {} };
+})(pt);
+const ft = pt.exports;
+var gt = { exports: {} };
 (function(e) {
   (function(t, i) {
-    e.exports = t.document ? i(t, !0) : function(n) {
-      if (!n.document)
+    e.exports = t.document ? i(t, !0) : function(l) {
+      if (!l.document)
         throw new Error("SUNEDITOR_LANG a window with a document");
-      return i(n);
+      return i(l);
     };
   })(typeof window < "u" ? window : M, function(t, i) {
-    const n = {
+    const l = {
       code: "se",
       toolbar: {
         default: "Default",
@@ -7933,21 +7777,21 @@ var ht = { exports: {} };
       enumerable: !0,
       writable: !0,
       configurable: !0,
-      value: n
-    })), n;
+      value: l
+    })), l;
   });
-})(ht);
-const pt = ht.exports;
-var ft = { exports: {} };
+})(gt);
+const mt = gt.exports;
+var bt = { exports: {} };
 (function(e) {
   (function(t, i) {
-    e.exports = t.document ? i(t, !0) : function(n) {
-      if (!n.document)
+    e.exports = t.document ? i(t, !0) : function(l) {
+      if (!l.document)
         throw new Error("SUNEDITOR_LANG a window with a document");
-      return i(n);
+      return i(l);
     };
   })(typeof window < "u" ? window : M, function(t, i) {
-    const n = {
+    const l = {
       code: "ua",
       toolbar: {
         default: "\u041F\u043E \u0437\u0430\u043C\u043E\u0432\u0447\u0443\u0432\u0430\u043D\u043D\u044F\u043C",
@@ -8100,21 +7944,21 @@ var ft = { exports: {} };
       enumerable: !0,
       writable: !0,
       configurable: !0,
-      value: n
-    })), n;
+      value: l
+    })), l;
   });
-})(ft);
-const gt = ft.exports;
-var mt = { exports: {} };
+})(bt);
+const _t = bt.exports;
+var vt = { exports: {} };
 (function(e) {
   (function(t, i) {
-    e.exports = t.document ? i(t, !0) : function(n) {
-      if (!n.document)
+    e.exports = t.document ? i(t, !0) : function(l) {
+      if (!l.document)
         throw new Error("SUNEDITOR_LANG a window with a document");
-      return i(n);
+      return i(l);
     };
   })(typeof window < "u" ? window : M, function(t, i) {
-    const n = {
+    const l = {
       code: "zh_cn",
       toolbar: {
         default: "\u9ED8\u8BA4",
@@ -8266,69 +8110,110 @@ var mt = { exports: {} };
       enumerable: !0,
       writable: !0,
       configurable: !0,
-      value: n
-    })), n;
+      value: l
+    })), l;
   });
-})(mt);
-const bt = mt.exports, Yn = { ckb: De, da: Ue, de: Fe, en: se, es: $e, fr: qe, he: We, it: Xe, ja: Je, ko: Qe, lv: tt, nl: nt, pl: ot, pt_br: at, ro: ut, ru: ct, se: pt, ua: gt, zh_cn: bt }, le = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+})(vt);
+const yt = vt.exports, zl = { ckb: Oe, da: He, de: $e, en: re, es: qe, fr: Ye, he: Ke, it: Ze, ja: et, ko: it, lv: nt, nl: ot, pl: rt, pt_br: dt, ro: ht, ru: ft, se: mt, ua: _t, zh_cn: yt }, oe = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  ckb: De,
-  da: Ue,
-  de: Fe,
-  en: se,
-  es: $e,
-  fr: qe,
-  he: We,
-  it: Xe,
-  ja: Je,
-  ko: Qe,
-  lv: tt,
-  nl: nt,
-  pl: ot,
-  pt_br: at,
-  ro: ut,
-  ru: ct,
-  se: pt,
-  ua: gt,
-  zh_cn: bt,
-  default: Yn
+  ckb: Oe,
+  da: He,
+  de: $e,
+  en: re,
+  es: qe,
+  fr: Ye,
+  he: Ke,
+  it: Ze,
+  ja: et,
+  ko: it,
+  lv: nt,
+  nl: ot,
+  pl: rt,
+  pt_br: dt,
+  ro: ht,
+  ru: ft,
+  se: mt,
+  ua: _t,
+  zh_cn: yt,
+  default: zl
 }, Symbol.toStringTag, { value: "Module" }));
-var Xn = Object.defineProperty, ce = Object.getOwnPropertySymbols, Kn = Object.prototype.hasOwnProperty, Jn = Object.prototype.propertyIsEnumerable, he = (e, t, i) => t in e ? Xn(e, t, { enumerable: !0, configurable: !0, writable: !0, value: i }) : e[t] = i, oe = (e, t) => {
+var Ll = Object.defineProperty, fe = Object.getOwnPropertySymbols, El = Object.prototype.hasOwnProperty, Il = Object.prototype.propertyIsEnumerable, ge = (e, t, i) => t in e ? Ll(e, t, { enumerable: !0, configurable: !0, writable: !0, value: i }) : e[t] = i, ae = (e, t) => {
   for (var i in t || (t = {}))
-    Kn.call(t, i) && he(e, i, t[i]);
-  if (ce)
-    for (var i of ce(t))
-      Jn.call(t, i) && he(e, i, t[i]);
+    El.call(t, i) && ge(e, i, t[i]);
+  if (fe)
+    for (var i of fe(t))
+      Il.call(t, i) && ge(e, i, t[i]);
   return e;
 };
-const Zn = (e, t, i) => {
-  const n = {
-    plugins: Ne,
-    lang: le[t] ? le[t] : se
-  }, l = oe(oe({}, e), n);
-  return be.create(i, l);
-}, Qn = (e, t, i) => {
-  const n = {
-    katex: Et,
-    plugins: Ne,
-    lang: le[t] ? le[t] : se
-  }, l = oe(oe({}, e), n);
-  return be.create(i, l);
-}, _t = {
-  mixins: [K, q, X],
+const Tl = (e, t, i) => {
+  const l = {
+    plugins: Ve,
+    lang: oe[t] ? oe[t] : re
+  }, n = ae(ae({}, e), l);
+  return we.create(i, n);
+}, Rl = (e, t, i) => {
+  const l = {
+    katex: It,
+    plugins: Ve,
+    lang: oe[t] ? oe[t] : re
+  }, n = ae(ae({}, e), l);
+  return we.create(i, n);
+}, Bl = "Show password", Nl = "This is mandatory", Al = "Follow link", Ml = "Show details", Dl = "Reset", Vl = "No results. Try typing some text.", Ul = "Today", Ol = "This month", Fl = "Last month", Hl = "This year", Pl = {
+  noOptionsMessage: Vl,
+  showPasswordMessage: Bl,
+  isMandatoryMessage: Nl,
+  followLinkMessage: Al,
+  openMessage: Ml,
+  resetMessage: Dl,
+  todayRangeText: Ul,
+  thisMonthRangeText: Ol,
+  lastMonthRangeText: Fl,
+  thisYearRangeText: Hl
+}, $l = [
+  ["undo", "redo"],
+  ["font", "fontSize", "formatBlock"],
+  ["paragraphStyle", "blockquote"],
+  ["bold", "underline", "italic", "strike", "subscript", "superscript"],
+  ["fontColor", "hiliteColor", "textStyle"],
+  ["removeFormat"],
+  "/",
+  ["outdent", "indent"],
+  ["align", "horizontalRule", "list", "lineHeight"],
+  ["table", "link"],
+  ["fullScreen", "showBlocks", "codeView"],
+  ["preview", "print"],
+  ["template"]
+], Gl = [
+  ["undo", "redo"],
+  ["font", "fontSize", "formatBlock"],
+  ["paragraphStyle", "blockquote"],
+  ["bold", "underline", "italic", "strike", "subscript", "superscript"],
+  ["fontColor", "hiliteColor", "textStyle"],
+  ["removeFormat"],
+  "/",
+  ["outdent", "indent"],
+  ["align", "horizontalRule", "list", "lineHeight"],
+  ["table", "link", "math"],
+  ["fullScreen", "showBlocks", "codeView"],
+  ["preview", "print"],
+  ["template"]
+], kt = {
+  mixins: [Z, j, J],
   props: {
     lang: { type: String, default: "en" },
     editorOptions: {
       type: Object,
       default() {
-        return { buttonList: Qt };
+        return { buttonList: $l };
       }
     }
   },
   data() {
     return {
       editor: void 0,
-      timeout: void 0
+      timeout: void 0,
+      stateConfigValue: new W(this.stateConfig, this.disabled || this.readonly),
+      stateTextValue: new Y(this.stateTexts)
     };
   },
   watch: {
@@ -8346,200 +8231,168 @@ const Zn = (e, t, i) => {
       this.disabled ? this.editor.disabled() : this.editor.enabled();
     }
   }
-}, el = {
+}, jl = {
   name: "LktFieldEditor",
   components: { LktFieldState: G },
-  mixins: [_t],
+  mixins: [kt],
   mounted() {
-    this.editor = Zn(this.editorOptions, this.lang, this.Identifier), this.editor.onChange = this.storeEditorValue, this.updateEditorDisabled();
+    this.editor = Tl(this.editorOptions, this.lang, this.Identifier), this.editor.onChange = this.storeEditorValue, this.updateEditorDisabled();
   }
-}, tl = ["data-show-ui", "data-labeled"], il = ["name", "id", "disabled", "readonly", "placeholder"], nl = ["for", "innerHTML"];
-function ll(e, t, i, n, l, o) {
-  const s = F("lkt-field-state");
-  return k(), L("div", {
-    class: P(["is-editor", e.classes]),
+}, ql = ["data-show-ui", "data-labeled"], Wl = ["name", "id", "disabled", "readonly", "placeholder"], Yl = ["for", "innerHTML"];
+function Xl(e, t, i, l, n, s) {
+  const o = H("lkt-field-state");
+  return S(), z("div", {
+    class: O(["is-editor", e.classes]),
     "data-show-ui": e.showInfoUi,
     "data-labeled": e.canRenderLabelHtml
   }, [
-    N(e.$slots, "prefix"),
-    D(j("textarea", {
+    A(e.$slots, "prefix"),
+    D(q("textarea", {
       "onUpdate:modelValue": t[0] || (t[0] = (a) => e.value = a),
       name: e.name,
       id: e.Identifier,
       disabled: e.disabled,
       readonly: e.readonly,
       placeholder: e.placeholder
-    }, null, 8, il), [
-      [H, e.value]
+    }, null, 8, Wl), [
+      [P, e.value]
     ]),
-    e.canRenderLabelSlot ? N(e.$slots, "label", { key: 0 }) : z("", !0),
-    e.canRenderLabelHtml ? (k(), L("label", {
+    e.canRenderLabelSlot ? A(e.$slots, "label", { key: 0 }) : E("", !0),
+    e.canRenderLabelHtml ? (S(), z("label", {
       key: 1,
       for: e.Identifier,
       innerHTML: e.label
-    }, null, 8, nl)) : z("", !0),
-    e.showInfoUi ? (k(), $(s, {
+    }, null, 8, Yl)) : E("", !0),
+    e.showInfoUi ? (S(), $(o, {
       key: 2,
-      "show-add": e.showAdd,
-      "show-error": e.showError,
-      "show-info": e.showInfo,
-      "show-log": e.showLog,
-      "show-warn": e.showWarn,
-      "text-add": e.textAdd,
-      "text-error": e.textError,
-      "text-info": e.textInfo,
-      "text-log": e.textLog,
-      "text-warn": e.textWarn,
-      "show-mandatory": e.showMandatory,
-      "text-mandatory": e.textMandatory,
-      "show-open": e.showOpen,
-      "text-open": e.textOpen,
-      "show-link": e.showLink,
-      "text-link": e.textLink,
-      "text-reset": e.textReset,
-      "show-reset": e.showReset && !e.disabled,
+      "state-config-value": e.stateConfigValue,
+      "state-texts-value": e.stateTextValue,
       onClickUi: e.onClickUi
-    }, null, 8, ["show-add", "show-error", "show-info", "show-log", "show-warn", "text-add", "text-error", "text-info", "text-log", "text-warn", "show-mandatory", "text-mandatory", "show-open", "text-open", "show-link", "text-link", "text-reset", "show-reset", "onClickUi"])) : z("", !0)
-  ], 10, tl);
+    }, null, 8, ["state-config-value", "state-texts-value", "onClickUi"])) : E("", !0)
+  ], 10, ql);
 }
-const ol = /* @__PURE__ */ U(el, [["render", ll]]), sl = {
+const Kl = /* @__PURE__ */ U(jl, [["render", Xl]]), Jl = {
   name: "LktFieldKatex",
   components: { LktFieldState: G },
-  mixins: [_t],
+  mixins: [kt],
   props: {
     editorOptions: {
       type: Object,
       default() {
-        return { buttonList: ei };
+        return { buttonList: Gl };
       }
     }
   },
   mounted() {
-    this.editor = Qn(this.editorOptions, this.lang, this.Identifier), this.editor.onChange = this.storeEditorValue, this.updateEditorDisabled();
+    this.editor = Rl(this.editorOptions, this.lang, this.Identifier), this.editor.onChange = this.storeEditorValue, this.updateEditorDisabled();
   }
-}, al = ["data-show-ui", "data-labeled"], rl = ["name", "id", "disabled", "readonly", "placeholder"], ul = ["for", "innerHTML"];
-function dl(e, t, i, n, l, o) {
-  const s = F("lkt-field-state");
-  return k(), L("div", {
-    class: P(["is-editor", e.classes]),
+}, Zl = ["data-show-ui", "data-labeled"], Ql = ["name", "id", "disabled", "readonly", "placeholder"], en = ["for", "innerHTML"];
+function tn(e, t, i, l, n, s) {
+  const o = H("lkt-field-state");
+  return S(), z("div", {
+    class: O(["is-editor", e.classes]),
     "data-show-ui": e.showInfoUi,
     "data-labeled": e.canRenderLabelHtml
   }, [
-    N(e.$slots, "prefix"),
-    D(j("textarea", {
+    A(e.$slots, "prefix"),
+    D(q("textarea", {
       "onUpdate:modelValue": t[0] || (t[0] = (a) => e.value = a),
       name: e.name,
       id: e.Identifier,
       disabled: e.disabled,
       readonly: e.readonly,
       placeholder: e.placeholder
-    }, null, 8, rl), [
-      [H, e.value]
+    }, null, 8, Ql), [
+      [P, e.value]
     ]),
-    e.canRenderLabelSlot ? N(e.$slots, "label", { key: 0 }) : z("", !0),
-    e.canRenderLabelHtml ? (k(), L("label", {
+    e.canRenderLabelSlot ? A(e.$slots, "label", { key: 0 }) : E("", !0),
+    e.canRenderLabelHtml ? (S(), z("label", {
       key: 1,
       for: e.Identifier,
       innerHTML: e.label
-    }, null, 8, ul)) : z("", !0),
-    e.showInfoUi ? (k(), $(s, {
+    }, null, 8, en)) : E("", !0),
+    e.showInfoUi ? (S(), $(o, {
       key: 2,
-      "show-add": e.showAdd,
-      "show-error": e.showError,
-      "show-info": e.showInfo,
-      "show-log": e.showLog,
-      "show-warn": e.showWarn,
-      "text-add": e.textAdd,
-      "text-error": e.textError,
-      "text-info": e.textInfo,
-      "text-log": e.textLog,
-      "text-warn": e.textWarn,
-      "show-mandatory": e.showMandatory,
-      "text-mandatory": e.textMandatory,
-      "show-open": e.showOpen,
-      "text-open": e.textOpen,
-      "show-link": e.showLink,
-      "text-link": e.textLink,
-      "text-reset": e.textReset,
-      "show-reset": e.showReset && !e.disabled,
+      "state-config-value": e.stateConfigValue,
+      "state-texts-value": e.stateTextValue,
       onClickUi: e.onClickUi
-    }, null, 8, ["show-add", "show-error", "show-info", "show-log", "show-warn", "text-add", "text-error", "text-info", "text-log", "text-warn", "show-mandatory", "text-mandatory", "show-open", "text-open", "show-link", "text-link", "text-reset", "show-reset", "onClickUi"])) : z("", !0)
-  ], 10, al);
+    }, null, 8, ["state-config-value", "state-texts-value", "onClickUi"])) : E("", !0)
+  ], 10, Zl);
 }
-const cl = /* @__PURE__ */ U(sl, [["render", dl]]);
-function vt(e) {
+const ln = /* @__PURE__ */ U(Jl, [["render", tn]]);
+function wt(e) {
   if (e === null || e === !0 || e === !1)
     return NaN;
   var t = Number(e);
   return isNaN(t) ? t : t < 0 ? Math.ceil(t) : Math.floor(t);
 }
-function W(e, t) {
+function X(e, t) {
   if (t.length < e)
     throw new TypeError(e + " argument" + (e > 1 ? "s" : "") + " required, but only " + t.length + " present");
 }
-function ie(e) {
-  return typeof Symbol == "function" && typeof Symbol.iterator == "symbol" ? ie = function(i) {
+function ne(e) {
+  return typeof Symbol == "function" && typeof Symbol.iterator == "symbol" ? ne = function(i) {
     return typeof i;
-  } : ie = function(i) {
+  } : ne = function(i) {
     return i && typeof Symbol == "function" && i.constructor === Symbol && i !== Symbol.prototype ? "symbol" : typeof i;
-  }, ie(e);
+  }, ne(e);
 }
-function ee(e) {
-  W(1, arguments);
+function ie(e) {
+  X(1, arguments);
   var t = Object.prototype.toString.call(e);
-  return e instanceof Date || ie(e) === "object" && t === "[object Date]" ? new Date(e.getTime()) : typeof e == "number" || t === "[object Number]" ? new Date(e) : ((typeof e == "string" || t === "[object String]") && typeof console < "u" && (console.warn("Starting with v2.0.0-beta.1 date-fns doesn't accept strings as date arguments. Please use `parseISO` to parse strings. See: https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#string-arguments"), console.warn(new Error().stack)), new Date(NaN));
+  return e instanceof Date || ne(e) === "object" && t === "[object Date]" ? new Date(e.getTime()) : typeof e == "number" || t === "[object Number]" ? new Date(e) : ((typeof e == "string" || t === "[object String]") && typeof console < "u" && (console.warn("Starting with v2.0.0-beta.1 date-fns doesn't accept strings as date arguments. Please use `parseISO` to parse strings. See: https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#string-arguments"), console.warn(new Error().stack)), new Date(NaN));
 }
-function hl(e, t) {
-  W(2, arguments);
-  var i = ee(e), n = vt(t);
-  if (isNaN(n))
+function nn(e, t) {
+  X(2, arguments);
+  var i = ie(e), l = wt(t);
+  if (isNaN(l))
     return new Date(NaN);
-  if (!n)
+  if (!l)
     return i;
-  var l = i.getDate(), o = new Date(i.getTime());
-  o.setMonth(i.getMonth() + n + 1, 0);
-  var s = o.getDate();
-  return l >= s ? o : (i.setFullYear(o.getFullYear(), o.getMonth(), l), i);
+  var n = i.getDate(), s = new Date(i.getTime());
+  s.setMonth(i.getMonth() + l + 1, 0);
+  var o = s.getDate();
+  return n >= o ? s : (i.setFullYear(s.getFullYear(), s.getMonth(), n), i);
 }
-function yt(e) {
-  W(1, arguments);
-  var t = ee(e), i = t.getMonth();
+function St(e) {
+  X(1, arguments);
+  var t = ie(e), i = t.getMonth();
   return t.setFullYear(t.getFullYear(), i + 1, 0), t.setHours(23, 59, 59, 999), t;
 }
-function wt(e) {
-  W(1, arguments);
-  var t = ee(e);
+function xt(e) {
+  X(1, arguments);
+  var t = ie(e);
   return t.setDate(1), t.setHours(0, 0, 0, 0), t;
 }
-function pl(e) {
-  W(1, arguments);
-  var t = ee(e), i = t.getFullYear();
+function sn(e) {
+  X(1, arguments);
+  var t = ie(e), i = t.getFullYear();
   return t.setFullYear(i + 1, 0, 0), t.setHours(23, 59, 59, 999), t;
 }
-function fl(e) {
-  W(1, arguments);
-  var t = ee(e), i = new Date(0);
+function on(e) {
+  X(1, arguments);
+  var t = ie(e), i = new Date(0);
   return i.setFullYear(t.getFullYear(), 0, 1), i.setHours(0, 0, 0, 0), i;
 }
-function pe(e, t) {
-  W(2, arguments);
-  var i = vt(t);
-  return hl(e, -i);
+function me(e, t) {
+  X(2, arguments);
+  var i = wt(t);
+  return nn(e, -i);
 }
-const gl = () => ({ label: R.TODAY_RANGE_TEXT, range: [new Date(), new Date()] }), ml = () => ({ label: R.THIS_MONTH_RANGE_TEXT, range: [wt(new Date()), yt(new Date())] }), bl = () => ({
-  label: R.LAST_MONTH_RANGE_TEXT,
-  range: [wt(pe(new Date(), 1)), yt(pe(new Date(), 1))]
-}), _l = () => ({ label: R.THIS_YEAR_RANGE_TEXT, range: [fl(new Date()), pl(new Date())] }), El = () => [
-  gl(),
-  ml(),
-  bl(),
-  _l()
-], Il = {
-  install: (e, t = Zt) => {
-    e.component("Datepicker", kt).component("vue-next-select", fe).component("lkt-field-text", yi).component("lkt-field-text-area", zi).component("lkt-field-check", Nt).component("lkt-field-switch", Ft).component("lkt-field-email", Ni).component("lkt-field-tel", Hi).component("lkt-field-unit", Xi).component("lkt-field-password", nn).component("lkt-field-radio", cn).component("lkt-field-date", bn).component("lkt-field-select", Cn).component("lkt-field-editor", ol).component("lkt-field-katex", cl), typeof t == "object" && (typeof t.noOptionsMessage < "u" && (R.NO_OPTIONS_MESSAGE = t.noOptionsMessage), typeof t.showPasswordMessage < "u" && (R.SHOW_PASSWORD_MESSAGE = t.showPasswordMessage), typeof t.isMandatoryMessage < "u" && (R.IS_MANDATORY_MESSAGE = t.isMandatoryMessage), typeof t.todayRangeText < "u" && (R.TODAY_RANGE_TEXT = t.todayRangeText), typeof t.thisMonthRangeText < "u" && (R.THIS_MONTH_RANGE_TEXT = t.thisMonthRangeText), typeof t.lastMonthRangeText < "u" && (R.LAST_MONTH_RANGE_TEXT = t.lastMonthRangeText), typeof t.thisYearRangeText < "u" && (R.THIS_YEAR_RANGE_TEXT = t.thisYearRangeText), typeof t.followLinkMessage < "u" && (R.FOLLOW_LINK_MESSAGE = t.followLinkMessage), typeof t.openMessage < "u" && (R.OPEN_MESSAGE = t.openMessage), typeof t.resetMessage < "u" && (R.RESET_MESSAGE = t.resetMessage));
+const an = () => ({ label: N.TODAY_RANGE_TEXT, range: [new Date(), new Date()] }), rn = () => ({ label: N.THIS_MONTH_RANGE_TEXT, range: [xt(new Date()), St(new Date())] }), un = () => ({
+  label: N.LAST_MONTH_RANGE_TEXT,
+  range: [xt(me(new Date(), 1)), St(me(new Date(), 1))]
+}), dn = () => ({ label: N.THIS_YEAR_RANGE_TEXT, range: [on(new Date()), sn(new Date())] }), yn = () => [
+  an(),
+  rn(),
+  un(),
+  dn()
+], kn = {
+  install: (e, t = Pl) => {
+    e.component("Datepicker", Ct).component("vue-next-select", be).component("lkt-field-text", Qt).component("lkt-field-text-area", oi).component("lkt-field-check", Mt).component("lkt-field-switch", Ht).component("lkt-field-email", pi).component("lkt-field-tel", yi).component("lkt-field-unit", Ei).component("lkt-field-password", Mi).component("lkt-field-radio", $i).component("lkt-field-date", Xi).component("lkt-field-select", ll).component("lkt-field-editor", Kl).component("lkt-field-katex", ln), typeof t == "object" && (typeof t.noOptionsMessage < "u" && (N.NO_OPTIONS_MESSAGE = t.noOptionsMessage), typeof t.showPasswordMessage < "u" && (N.SHOW_PASSWORD_MESSAGE = t.showPasswordMessage), typeof t.isMandatoryMessage < "u" && (N.IS_MANDATORY_MESSAGE = t.isMandatoryMessage), typeof t.todayRangeText < "u" && (N.TODAY_RANGE_TEXT = t.todayRangeText), typeof t.thisMonthRangeText < "u" && (N.THIS_MONTH_RANGE_TEXT = t.thisMonthRangeText), typeof t.lastMonthRangeText < "u" && (N.LAST_MONTH_RANGE_TEXT = t.lastMonthRangeText), typeof t.thisYearRangeText < "u" && (N.THIS_YEAR_RANGE_TEXT = t.thisYearRangeText), typeof t.followLinkMessage < "u" && (N.FOLLOW_LINK_MESSAGE = t.followLinkMessage), typeof t.openMessage < "u" && (N.OPEN_MESSAGE = t.openMessage), typeof t.resetMessage < "u" && (N.RESET_MESSAGE = t.resetMessage));
   }
 };
 export {
-  Il as default,
-  El as getDefaultPresetRanges
+  kn as default,
+  yn as getDefaultPresetRanges
 };

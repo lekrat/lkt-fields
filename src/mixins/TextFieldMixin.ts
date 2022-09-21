@@ -3,9 +3,14 @@ import {LktObject} from "lkt-ts-interfaces";
 import {slotProvided} from "lkt-vue-tools";
 import {emitBlur, emitClick, emitFocus, emitKeyDown, emitKeyUp} from "../functions/vm-functions";
 import {FieldClassesMixin} from "./styling/FieldClassesMixin";
+import {StateConfigValue} from "../value-objects/StateConfigValue";
+import {PropType} from "vue";
+import {StateConfig} from "../types/StateConfig";
+import {StateTexts} from "../types/StateTexts";
+import {StateTextValue} from "../value-objects/StateTextValue";
 
 export const TextFieldMixin = {
-    emits: ['update:modelValue', 'keyup', 'keydown', 'focus', 'blur', 'click'],
+    emits: ['update:modelValue', 'keyup', 'keydown', 'focus', 'blur', 'click', 'click-ui'],
     mixins: [FieldClassesMixin],
     props: {
         modelValue: {type: String, default: ''},
@@ -17,15 +22,24 @@ export const TextFieldMixin = {
         disabled: { type: Boolean, default: false, },
         readonly: { type: Boolean, default: false, },
         emptyLabel: { type: Boolean, default: false, },
+
+        stateConfig: {type: Object as PropType<StateConfig>, default: () => { return {}}},
+        stateTexts: {type: Object as PropType<StateTexts>, default: () => { return {}}}
     },
     data(): LktObject {
+
         return {
             Identifier: generateRandomString(16),
             originalValue: this.modelValue,
             value: this.modelValue,
+            stateConfigValue: new StateConfigValue(this.stateConfig, this.disabled || this.readonly),
+            stateTextValue: new StateTextValue(this.stateTexts),
         }
     },
     computed: {
+        showInfoUi(){
+            return this.stateConfigValue.amountEnabled() > 0;
+        },
         isValid() {
             if (typeof this.valid === 'function') {
                 return this.valid();
@@ -57,6 +71,16 @@ export const TextFieldMixin = {
         },
         value(v: string) {
             this.$emit('update:modelValue', v)
+        },
+        stateConfig: {
+            handler() {
+                this.stateConfigValue = new StateConfigValue(this.stateConfig, this.disabled || this.readonly);
+            }, deep: true
+        },
+        stateTexts: {
+            handler() {
+                this.stateTextValue = new StateTextValue(this.stateTexts);
+            }, deep: true
         }
     },
     methods: {
@@ -74,7 +98,7 @@ export const TextFieldMixin = {
         },
 
         reset() {
-            this.modelValue = this.originalValue;
+            this.value = this.originalValue;
         },
 
         getValue(){

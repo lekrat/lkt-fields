@@ -16,24 +16,8 @@
 
         <lkt-field-state
                 v-if="showInfoUi"
-                :show-add="showAdd"
-                :show-error="showError"
-                :show-info="showInfo"
-                :show-log="showLog"
-                :show-warn="showWarn"
-                :text-add="textAdd"
-                :text-error="textError"
-                :text-info="textInfo"
-                :text-log="textLog"
-                :text-warn="textWarn"
-                :show-mandatory="showMandatory"
-                :text-mandatory="textMandatory"
-                :show-open="showOpen"
-                :text-open="textOpen"
-                :show-link="showLink"
-                :text-link="textLink"
-                :text-reset="textReset"
-                :show-reset="showReset && !disabled"
+                v-bind:state-config-value="stateConfigValue"
+                v-bind:state-texts-value="stateTextValue"
                 @click-ui="onClickUi"
         ></lkt-field-state>
     </div>

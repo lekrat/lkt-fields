@@ -26,20 +26,8 @@
         <label v-if="canRenderLabelHtml" :for="Identifier" v-html="label"></label>
         <lkt-field-state
             v-if="showInfoUi"
-            v-bind:show-error="showError"
-            v-bind:show-info="showInfo"
-            v-bind:show-log="showLog"
-            v-bind:show-warn="showWarn"
-            v-bind:text-error="textError"
-            v-bind:text-info="textInfo"
-            v-bind:text-log="textLog"
-            v-bind:text-warn="textWarn"
-            v-bind:show-open="showOpen"
-            v-bind:text-open="textOpen"
-            v-bind:show-link="showLink"
-            v-bind:text-link="textLink"
-            v-bind:text-reset="textReset"
-            v-bind:show-reset="showReset && !disabled"
+            v-bind:state-config-value="stateConfigValue"
+            v-bind:state-texts-value="stateTextValue"
             v-on:click-ui="onClickUi"
         ></lkt-field-state>
     </div>

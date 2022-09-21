@@ -3,6 +3,8 @@ import {LktFieldStateMixin} from "./LktFieldStateMixin";
 import {DEFAULT_EDITOR_BUTTONS} from "../constants";
 import {LktObject} from "lkt-ts-interfaces";
 import {FieldClassesMixin} from "./styling/FieldClassesMixin";
+import {StateConfigValue} from "../value-objects/StateConfigValue";
+import {StateTextValue} from "../value-objects/StateTextValue";
 
 export const EditorFieldMixin = {
     mixins: [TextFieldMixin, LktFieldStateMixin, FieldClassesMixin],
@@ -18,6 +20,8 @@ export const EditorFieldMixin = {
         return {
             editor: undefined,
             timeout: undefined,
+            stateConfigValue: new StateConfigValue(this.stateConfig, this.disabled || this.readonly),
+            stateTextValue: new StateTextValue(this.stateTexts),
         };
     },
     watch: {

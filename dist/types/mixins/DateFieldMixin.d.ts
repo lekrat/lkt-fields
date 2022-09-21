@@ -110,6 +110,7 @@ export declare const DateFieldMixin: {
     };
     data(): LktObject;
     computed: {
+        showInfoUi(): boolean;
         isValid(): any;
         isEmpty(): boolean;
         changed(): boolean;
@@ -119,6 +120,14 @@ export declare const DateFieldMixin: {
     watch: {
         modelValue(v: any): void;
         value(v: any): void;
+        stateConfig: {
+            handler(): void;
+            deep: boolean;
+        };
+        stateTexts: {
+            handler(): void;
+            deep: boolean;
+        };
     };
     methods: {
         focus(): void;

@@ -6,9 +6,11 @@ import {LktObject} from "lkt-ts-interfaces";
 import {FieldClassesMixin} from "./styling/FieldClassesMixin";
 import {SearchOptionsValue} from "../value-objects/SearchOptionsValue";
 import {OptionsValue} from "../value-objects/OptionsValue";
+import {StateConfigValue} from "../value-objects/StateConfigValue";
+import {StateTextValue} from "../value-objects/StateTextValue";
 
 export const SelectFieldMixin = {
-    emits: ['update:modelValue'],
+    emits: ['update:modelValue', 'click-ui'],
     mixins: [FieldClassesMixin],
     props: {
         modelValue: {type: [String, Number, Array], default: ''},
@@ -45,10 +47,15 @@ export const SelectFieldMixin = {
             optionsHaystack: [],
             searchString: '',
             searchOptionsValue,
-            optionsValue
+            optionsValue,
+            stateConfigValue: new StateConfigValue(this.stateConfig, this.disabled || this.readonly),
+            stateTextValue: new StateTextValue(this.stateTexts),
         }
     },
     computed: {
+        showInfoUi(){
+            return this.stateConfigValue.amountEnabled() > 0;
+        },
         isSearchable(): boolean {
             return true;
         },
@@ -110,6 +117,16 @@ export const SelectFieldMixin = {
                 this.optionsValue = optionsValue;
             }, deep: true
         },
+        stateConfig: {
+            handler() {
+                this.stateConfigValue = new StateConfigValue(this.stateConfig, this.disabled || this.readonly);
+            }, deep: true
+        },
+        stateTexts: {
+            handler() {
+                this.stateTextValue = new StateTextValue(this.stateTexts);
+            }, deep: true
+        }
     },
     methods: {
         buildVisibleOptions() {
@@ -176,7 +193,7 @@ export const SelectFieldMixin = {
         },
 
         reset() {
-            this.modelValue = this.originalValue;
+            this.value = this.originalValue;
         },
 
         getValue() {

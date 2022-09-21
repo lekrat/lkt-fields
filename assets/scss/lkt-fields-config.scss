@@ -18,6 +18,9 @@ $gap: 15px !default;
 $box-shadow: inset 0 1px 2px rgba(0, 0, 0, .07) !default;
 $padding-input: 5px 10px !default;;
 $transition: lkt-theme.$primary-transition !default;
+$state-right: 10px !default;
+$state-icon-size: 16px !default;
+$state-gap: 5px !default;
 
 @mixin configure($opts: ()) {
   @if map-get($opts, focus-color) {
@@ -73,6 +76,15 @@ $transition: lkt-theme.$primary-transition !default;
   }
   @if map-get($opts, border-radius) {
     $border-radius: map-get($opts, border-radius) !global;
+  }
+  @if map-get($opts, state-right) {
+    $state-right: map-get($opts, state-right) !global;
+  }
+  @if map-get($opts, state-icon-size) {
+    $state-icon-size: map-get($opts, state-icon-size) !global;
+  }
+  @if map-get($opts, state-gap) {
+    $state-gap: map-get($opts, state-gap) !global;
   }
 }
 

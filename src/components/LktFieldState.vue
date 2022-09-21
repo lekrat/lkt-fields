@@ -1,24 +1,38 @@
 <template>
     <div class="lkt-field__state">
-        <i class="lkt-field__add-icon" v-if="showAdd" v-bind:title="textAdd" v-on:click="onUIStatusClick($event, 'add')"></i>
-        <i class="lkt-field__open-icon" v-if="showOpen" v-bind:title="textOpen" v-on:click="onUIStatusClick($event, 'open')"></i>
-        <i class="lkt-field__link-icon" v-if="showLink" v-bind:title="textLink" v-on:click="onUIStatusClick($event, 'link')"></i>
-        <i class="lkt-field__info-icon" v-if="showInfo" v-bind:title="textInfo" v-on:click="onUIStatusClick($event, 'info')"></i>
-        <i class="lkt-field__show-password-icon" v-if="showPassword" v-bind:title="textPassword" v-on:click="onUIStatusClick($event, 'show-password')"></i>
-        <i class="lkt-field__log-icon" v-if="showLog" v-bind:title="textLog" v-on:click="onUIStatusClick($event, 'log')"></i>
-        <i class="lkt-field__warn-icon" v-if="showWarn" v-bind:title="textWarn" v-on:click="onUIStatusClick($event, 'warn')"></i>
-        <i class="lkt-field__error-icon" v-if="showError" v-bind:title="textError" v-on:click="onUIStatusClick($event, 'error')"></i>
-        <i class="lkt-field__mandatory-icon" v-if="showMandatory" v-bind:title="textMandatory" v-on:click="onUIStatusClick($event, 'mandatory')"></i>
-        <i class="lkt-field__reset-icon" v-if="showReset" v-bind:title="textReset" v-on:click="onUIStatusClick($event, 'reset')"></i>
+        <i v-for="icon in enabledIcons" v-bind:class="'lkt-field__' + icon + '-icon'" v-bind:title="stateTextsValue.text(icon)" v-on:click="onUIStatusClick($event, icon)"></i>
     </div>
 </template>
 
 <script lang="ts">
-import {LktStateUIMixin} from "../mixins/LktStateUIMixin";
+import {PropType} from "vue";
+import {emitClickUI} from "../functions/vm-functions";
+import {StateConfigValue} from "../value-objects/StateConfigValue";
+import {StateTextValue} from "../value-objects/StateTextValue";
 
 export default {
 name: "lktFieldState",
     emits: ['click-ui'],
-    mixins: [LktStateUIMixin]
+    props: {
+        stateConfigValue: {type: Object as PropType<StateConfigValue>, default: () => { return {}}},
+        stateTextsValue: {type: Object as PropType<StateTextValue>, default: () => { return {}}}
+    },
+    computed: {
+        enabledIcons(){
+            return this.stateConfigValue.enabled();
+        }
+    },
+
+    methods: {
+        /**
+         *
+         * @param $event
+         * @param key
+         * @param data
+         */
+        onUIStatusClick($event: any, key: string, data:any = {}){
+            emitClickUI(this, $event, key, data);
+        },
+    }
 }
 </script>

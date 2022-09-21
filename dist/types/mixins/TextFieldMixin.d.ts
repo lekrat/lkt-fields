@@ -1,4 +1,7 @@
 import { LktObject } from "lkt-ts-interfaces";
+import { PropType } from "vue";
+import { StateConfig } from "../types/StateConfig";
+import { StateTexts } from "../types/StateTexts";
 export declare const TextFieldMixin: {
     emits: string[];
     mixins: {
@@ -43,9 +46,18 @@ export declare const TextFieldMixin: {
             type: BooleanConstructor;
             default: boolean;
         };
+        stateConfig: {
+            type: PropType<StateConfig>;
+            default: () => {};
+        };
+        stateTexts: {
+            type: PropType<StateTexts>;
+            default: () => {};
+        };
     };
     data(): LktObject;
     computed: {
+        showInfoUi(): boolean;
         isValid(): any;
         isEmpty(): boolean;
         changed(): boolean;
@@ -55,6 +67,14 @@ export declare const TextFieldMixin: {
     watch: {
         modelValue(v: string): void;
         value(v: string): void;
+        stateConfig: {
+            handler(): void;
+            deep: boolean;
+        };
+        stateTexts: {
+            handler(): void;
+            deep: boolean;
+        };
     };
     methods: {
         focus(): void;

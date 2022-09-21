@@ -2,9 +2,11 @@ import {generateRandomString} from "lkt-string-tools";
 import {slotProvided} from "lkt-vue-tools";
 import {LktObject} from "lkt-ts-interfaces";
 import {FieldClassesMixin} from "./styling/FieldClassesMixin";
+import {StateConfigValue} from "../value-objects/StateConfigValue";
+import {StateTextValue} from "../value-objects/StateTextValue";
 
 export const DateFieldMixin = {
-    emits: ['update:modelValue'],
+    emits: ['update:modelValue', 'click-ui'],
     mixins: [FieldClassesMixin],
     props: {
         modelValue: {type: [String, Date], default: '',},
@@ -38,9 +40,14 @@ export const DateFieldMixin = {
             Identifier: generateRandomString(16),
             originalValue: this.modelValue,
             value: this.modelValue,
+            stateConfigValue: new StateConfigValue(this.stateConfig, this.disabled || this.readonly),
+            stateTextValue: new StateTextValue(this.stateTexts),
         }
     },
     computed: {
+        showInfoUi(){
+            return this.stateConfigValue.amountEnabled() > 0;
+        },
         isValid() {
             if (typeof this.valid === 'function') {
                 return this.valid();
@@ -72,6 +79,16 @@ export const DateFieldMixin = {
         },
         value(v: any) {
             this.$emit('update:modelValue', v)
+        },
+        stateConfig: {
+            handler() {
+                this.stateConfigValue = new StateConfigValue(this.stateConfig, this.disabled || this.readonly);
+            }, deep: true
+        },
+        stateTexts: {
+            handler() {
+                this.stateTextValue = new StateTextValue(this.stateTexts);
+            }, deep: true
         }
     },
     methods: {
@@ -89,7 +106,7 @@ export const DateFieldMixin = {
         },
 
         reset() {
-            this.modelValue = this.originalValue;
+            this.value = this.originalValue;
         },
 
         getValue() {

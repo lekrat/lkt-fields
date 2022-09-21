@@ -86,6 +86,7 @@ export declare const SelectFieldMixin: {
     };
     data(): LktObject;
     computed: {
+        showInfoUi(): boolean;
         isSearchable(): boolean;
         isRemoteSearch(): boolean;
         renderSelectedOption: {
@@ -106,6 +107,14 @@ export declare const SelectFieldMixin: {
             deep: boolean;
         };
         options: {
+            handler(): void;
+            deep: boolean;
+        };
+        stateConfig: {
+            handler(): void;
+            deep: boolean;
+        };
+        stateTexts: {
             handler(): void;
             deep: boolean;
         };

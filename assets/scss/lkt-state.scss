@@ -1,4 +1,7 @@
 @use "lkt-fields-config";
+@function calculate-lateral-padding($i: 0) {
+  @return 2 * lkt-fields-config.$state-right + $i * lkt-fields-config.$state-icon-size + ($i - 2) * lkt-fields-config.$state-gap;
+}
 
 @mixin generate() {
   .lkt-field__state {
@@ -6,10 +9,10 @@
     align-items: center;
     justify-content: center;
     position: absolute;
-    right: 0;
+    right: lkt-fields-config.$state-right;
     bottom: 0;
     height: lkt-fields-config.get-height-one();
-    gap: 5px;
+    gap: lkt-fields-config.$state-gap;
 
     .lkt-field__add-icon {
       &:before {
@@ -23,7 +26,7 @@
       }
     }
 
-    .lkt-field__show-password-icon {
+    .lkt-field__password-icon {
       &:before {
         content: '\1F441';
       }
@@ -89,9 +92,9 @@
     .lkt-field__log-icon {
       font-family: arial;
       font-style: normal;
-      font-size: 16px;
+      font-size: lkt-fields-config.$state-icon-size;
       cursor: help;
-      width: 16px;
+      width: lkt-fields-config.$state-icon-size;
       text-align: center;
       display: inline-flex;
       align-items: center;
@@ -114,6 +117,27 @@
       .lkt-field__state {
         height: lkt-fields-config.get-height-two();
         align-items: flex-start;
+      }
+    }
+
+    &.is-text,
+    &.is-email,
+    &.is-password,
+    &.is-tel {
+      @for $i from 1 through 10 {
+        &.has-icons-#{$i} {
+          input {
+            padding-right: calculate-lateral-padding($i);
+          }
+        }
+      }
+    }
+
+    &.is-textarea {
+      &.has-icons {
+        textarea {
+          padding-top: lkt-fields-config.$state-icon-size + lkt-fields-config.$state-right;
+        }
       }
     }
   }

@@ -4,191 +4,32 @@ declare const _default: {
         lktFieldState: {
             name: string;
             emits: string[];
-            mixins: {
-                props: {
-                    showAdd: {
-                        type: BooleanConstructor;
-                        default: boolean;
-                    };
-                    showLink: {
-                        type: BooleanConstructor;
-                        default: boolean;
-                    };
-                    showOpen: {
-                        type: BooleanConstructor;
-                        default: boolean;
-                    };
-                    showInfo: {
-                        type: BooleanConstructor;
-                        default: boolean;
-                    };
-                    showPassword: {
-                        type: BooleanConstructor;
-                        default: boolean;
-                    };
-                    showMandatory: {
-                        type: BooleanConstructor;
-                        default: boolean;
-                    };
-                    showError: {
-                        type: BooleanConstructor;
-                        default: boolean;
-                    };
-                    showWarn: {
-                        type: BooleanConstructor;
-                        default: boolean;
-                    };
-                    showLog: {
-                        type: BooleanConstructor;
-                        default: boolean;
-                    };
-                    showReset: {
-                        type: BooleanConstructor;
-                        default: boolean;
-                    };
-                    textAdd: {
-                        type: StringConstructor;
-                        default: string;
-                    };
-                    textInfo: {
-                        type: StringConstructor;
-                        default: string;
-                    };
-                    textPassword: {
-                        type: StringConstructor;
-                        default: string;
-                    };
-                    textMandatory: {
-                        type: StringConstructor;
-                        default: string;
-                    };
-                    textError: {
-                        type: StringConstructor;
-                        default: string;
-                    };
-                    textWarn: {
-                        type: StringConstructor;
-                        default: string;
-                    };
-                    textLog: {
-                        type: StringConstructor;
-                        default: string;
-                    };
-                    textLink: {
-                        type: StringConstructor;
-                        default: string;
-                    };
-                    textOpen: {
-                        type: StringConstructor;
-                        default: string;
-                    };
-                    textReset: {
-                        type: StringConstructor;
-                        default: string;
-                    };
+            props: {
+                stateConfigValue: {
+                    type: import("vue").PropType<import("../value-objects/StateConfigValue").StateConfigValue>;
+                    default: () => {};
                 };
-                computed: {
-                    showInfoUi(): any;
+                stateTextsValue: {
+                    type: import("vue").PropType<import("../value-objects/StateTextValue").StateTextValue>;
+                    default: () => {};
                 };
-                methods: {
-                    onUIStatusClick($event: any, key: string, data?: any): void;
-                };
-            }[];
+            };
+            computed: {
+                enabledIcons(): any;
+            };
+            methods: {
+                onUIStatusClick($event: any, key: string, data?: any): void;
+            };
         };
     };
     mixins: ({
         mixins: {
-            props: {
-                showAdd: {
-                    type: BooleanConstructor;
-                    default: boolean;
-                };
-                showLink: {
-                    type: BooleanConstructor;
-                    default: boolean;
-                };
-                showOpen: {
-                    type: BooleanConstructor;
-                    default: boolean;
-                };
-                showInfo: {
-                    type: BooleanConstructor;
-                    default: boolean;
-                };
-                showPassword: {
-                    type: BooleanConstructor;
-                    default: boolean;
-                };
-                showMandatory: {
-                    type: BooleanConstructor;
-                    default: boolean;
-                };
-                showError: {
-                    type: BooleanConstructor;
-                    default: boolean;
-                };
-                showWarn: {
-                    type: BooleanConstructor;
-                    default: boolean;
-                };
-                showLog: {
-                    type: BooleanConstructor;
-                    default: boolean;
-                };
-                showReset: {
-                    type: BooleanConstructor;
-                    default: boolean;
-                };
-                textAdd: {
-                    type: StringConstructor;
-                    default: string;
-                };
-                textInfo: {
-                    type: StringConstructor;
-                    default: string;
-                };
-                textPassword: {
-                    type: StringConstructor;
-                    default: string;
-                };
-                textMandatory: {
-                    type: StringConstructor;
-                    default: string;
-                };
-                textError: {
-                    type: StringConstructor;
-                    default: string;
-                };
-                textWarn: {
-                    type: StringConstructor;
-                    default: string;
-                };
-                textLog: {
-                    type: StringConstructor;
-                    default: string;
-                };
-                textLink: {
-                    type: StringConstructor;
-                    default: string;
-                };
-                textOpen: {
-                    type: StringConstructor;
-                    default: string;
-                };
-                textReset: {
-                    type: StringConstructor;
-                    default: string;
-                };
-            };
-            computed: {
-                showInfoUi(): any;
-            };
             methods: {
                 onUIStatusClick($event: any, key: string, data?: any): void;
             };
         }[];
         methods: {
-            onClickUi($event: any, key: string): void;
+            onClickUi($event: any, event: import("lkt-events/dist/types/classes/LktEvent").LktEvent): void;
         };
     } | {
         emits: string[];
@@ -301,6 +142,7 @@ declare const _default: {
         };
         data(): import("lkt-ts-interfaces").LktObject;
         computed: {
+            showInfoUi(): boolean;
             isValid(): any;
             isEmpty(): boolean;
             changed(): boolean;
@@ -310,6 +152,14 @@ declare const _default: {
         watch: {
             modelValue(v: any): void;
             value(v: any): void;
+            stateConfig: {
+                handler(): void;
+                deep: boolean;
+            };
+            stateTexts: {
+                handler(): void;
+                deep: boolean;
+            };
         };
         methods: {
             focus(): void;

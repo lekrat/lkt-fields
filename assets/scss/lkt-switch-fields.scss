@@ -101,33 +101,13 @@
       }
     }
 
-    @if (lkt-theme.$primary-color) {
-      &--primary {
-        @include __generateColor(lkt-theme.$primary-color, lkt-theme.$primary-color-contrast);
-      }
-    }
+    $colors: lkt-theme.get-color-map();
+    @each $code, $palette in $colors {
+      $color: map-get($palette, color);
+      $contrast: map-get($palette, contrast);
 
-    @if (lkt-theme.$success-color) {
-      &--success {
-        @include __generateColor(lkt-theme.$success-color, lkt-theme.$success-color-contrast);
-      }
-    }
-
-    @if (lkt-theme.$warning-color) {
-      &--warning {
-        @include __generateColor(lkt-theme.$warning-color, lkt-theme.$warning-color-contrast);
-      }
-    }
-
-    @if (lkt-theme.$danger-color) {
-      &--danger {
-        @include __generateColor(lkt-theme.$danger-color, lkt-theme.$danger-color-contrast);
-      }
-    }
-
-    @if (lkt-theme.$info-color) {
-      &--danger {
-        @include __generateColor(lkt-theme.$info-color, lkt-theme.$info-color-contrast);
+      &--#{$code} {
+        @include __generateColor($color, $contrast);
       }
     }
   }
