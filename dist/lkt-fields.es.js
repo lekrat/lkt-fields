@@ -1125,7 +1125,7 @@ const Zi = {
     searchPlaceholder: { type: String, default: "" }
   },
   data() {
-    const e = new pe(this.searchOptions), t = new se(this.options);
+    const e = new pe(this.searchOptions), t = new se([...this.options]);
     return {
       Identifier: F(16),
       originalValue: this.modelValue,
@@ -1133,8 +1133,8 @@ const Zi = {
       loading: !1,
       updatedModelValue: !1,
       latestTimestamp: Date.now(),
-      visibleOptions: [],
-      optionsHaystack: [],
+      visibleOptions: [...this.options],
+      optionsHaystack: [...this.options],
       searchString: "",
       searchOptionsValue: e,
       optionsValue: t,
@@ -1152,18 +1152,11 @@ const Zi = {
     isRemoteSearch() {
       return Lt(this.resource);
     },
-    renderSelectedOption: {
-      cache: !1,
-      get() {
-        let e = this.Options.filter((t) => t.selected === !0);
-        return e && e.length > 0 && typeof this.optionFormatter == "function" ? this.optionFormatter(e[0]) : this.fetchString;
-      }
-    },
     isValid() {
       return typeof this.valid == "function" ? this.valid() : this.valid;
     },
     isEmpty() {
-      return !this.modelValue;
+      return !this.value;
     },
     changed() {
       return this.value !== this.originalValue;
@@ -1213,7 +1206,7 @@ const Zi = {
   },
   methods: {
     buildVisibleOptions() {
-      this.optionsHaystack = this.optionsValue.all(), this.visibleOptions = this.optionsValue.filter(this.searchString);
+      this.optionsHaystack = this.optionsValue.all(), this.visibleOptions = this.optionsValue.filter(this.searchString), console.log("buildVisibleOptions", this.optionsHaystack, this.visibleOptions);
     },
     resetSearch() {
       this.searchString = "", this.buildVisibleOptions();
@@ -1268,7 +1261,8 @@ const Zi = {
 }, Qi = {
   name: "LktFieldSelect",
   components: { lktFieldState: G, VueNextSelect: be },
-  mixins: [Zi, j]
+  mixins: [Zi, j],
+  props: { showTest: { type: Boolean, default: !1 } }
 }, el = ["data-show-ui", "data-labeled"], tl = ["for", "innerHTML"];
 function il(e, t, i, l, n, s) {
   const o = H("vue-next-select"), a = H("lkt-field-state");
@@ -1287,6 +1281,7 @@ function il(e, t, i, l, n, s) {
       options: e.optionsHaystack,
       "label-by": "label",
       "group-by": "group",
+      "value-by": "value",
       "visible-options": e.visibleOptions,
       searchable: e.isSearchable,
       multiple: e.multiple,

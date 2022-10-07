@@ -11,6 +11,7 @@
             v-bind:options="optionsHaystack"
             v-bind:label-by="'label'"
             v-bind:group-by="'group'"
+            v-bind:value-by="'value'"
             v-bind:visible-options="visibleOptions"
             v-bind:searchable="isSearchable"
             v-bind:multiple="multiple"
@@ -47,5 +48,6 @@ export default {
     name: "LktFieldSelect",
     components: {lktFieldState, VueNextSelect},
     mixins: [SelectFieldMixin, LktFieldStateMixin],
+    props: {showTest: {type: Boolean, default: false}}
 }
 </script>

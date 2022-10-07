@@ -355,10 +355,6 @@ declare const _default: {
             showInfoUi(): boolean;
             isSearchable(): boolean;
             isRemoteSearch(): boolean;
-            renderSelectedOption: {
-                cache: boolean;
-                get(): any;
-            };
             isValid(): any;
             isEmpty(): boolean;
             changed(): boolean;
@@ -403,5 +399,11 @@ declare const _default: {
         };
         mounted(): void;
     })[];
+    props: {
+        showTest: {
+            type: BooleanConstructor;
+            default: boolean;
+        };
+    };
 };
 export default _default;

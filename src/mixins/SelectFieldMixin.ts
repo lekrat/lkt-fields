@@ -35,7 +35,7 @@ export const SelectFieldMixin = {
     },
     data(): LktObject {
         const searchOptionsValue = new SearchOptionsValue(this.searchOptions);
-        const optionsValue = new OptionsValue(this.options);
+        const optionsValue = new OptionsValue([...this.options]);
         return {
             Identifier: generateRandomString(16),
             originalValue: this.modelValue,
@@ -43,8 +43,8 @@ export const SelectFieldMixin = {
             loading: false,
             updatedModelValue: false,
             latestTimestamp: Date.now(),
-            visibleOptions: [],
-            optionsHaystack: [],
+            visibleOptions: [...this.options],
+            optionsHaystack: [...this.options],
             searchString: '',
             searchOptionsValue,
             optionsValue,
@@ -62,15 +62,6 @@ export const SelectFieldMixin = {
         isRemoteSearch(): boolean {
             return existsHTTPResource(this.resource);
         },
-        renderSelectedOption: {
-            cache: false,
-            get() {
-                let option = this.Options.filter((opt: any) => {
-                    return opt.selected === true;
-                });
-                return option && option.length > 0 && typeof this.optionFormatter === 'function' ? this.optionFormatter(option[0]) : this.fetchString;
-            }
-        },
         isValid() {
             if (typeof this.valid === 'function') {
                 return this.valid();
@@ -78,7 +69,7 @@ export const SelectFieldMixin = {
             return this.valid;
         },
         isEmpty() {
-            return !this.modelValue;
+            return !this.value;
         },
         changed() {
             return this.value !== this.originalValue;
@@ -132,6 +123,7 @@ export const SelectFieldMixin = {
         buildVisibleOptions() {
             this.optionsHaystack = this.optionsValue.all();
             this.visibleOptions = this.optionsValue.filter(this.searchString);
+            console.log('buildVisibleOptions', this.optionsHaystack, this.visibleOptions);
         },
         resetSearch () {
             this.searchString = '';

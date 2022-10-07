@@ -89,10 +89,6 @@ export declare const SelectFieldMixin: {
         showInfoUi(): boolean;
         isSearchable(): boolean;
         isRemoteSearch(): boolean;
-        renderSelectedOption: {
-            cache: boolean;
-            get(): any;
-        };
         isValid(): any;
         isEmpty(): boolean;
         changed(): boolean;
