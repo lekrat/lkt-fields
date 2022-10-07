@@ -36,6 +36,12 @@ export const SelectFieldMixin = {
     data(): LktObject {
         const searchOptionsValue = new SearchOptionsValue(this.searchOptions);
         const optionsValue = new OptionsValue([...this.options]);
+        let closeAfterSelect = false;
+        if (this.closeOnSelect === null) {
+            closeAfterSelect = this.multiple === true;
+        } else {
+            closeAfterSelect = this.closeOnSelect;
+        }
         return {
             Identifier: generateRandomString(16),
             originalValue: this.modelValue,
@@ -50,6 +56,7 @@ export const SelectFieldMixin = {
             optionsValue,
             stateConfigValue: new StateConfigValue(this.stateConfig, this.disabled || this.readonly),
             stateTextValue: new StateTextValue(this.stateTexts),
+            closeAfterSelect
         }
     },
     computed: {
@@ -123,7 +130,6 @@ export const SelectFieldMixin = {
         buildVisibleOptions() {
             this.optionsHaystack = this.optionsValue.all();
             this.visibleOptions = this.optionsValue.filter(this.searchString);
-            console.log('buildVisibleOptions', this.optionsHaystack, this.visibleOptions);
         },
         resetSearch () {
             this.searchString = '';

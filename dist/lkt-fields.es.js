@@ -77,7 +77,7 @@ const J = {
       return this.modelValue;
     }
   }
-}, U = (e, t) => {
+}, V = (e, t) => {
   const i = e.__vccOpts || e;
   for (const [l, n] of t)
     i[l] = n;
@@ -113,10 +113,10 @@ function At(e, t, i, l, n, s) {
     }, null, 8, Nt)) : E("", !0)
   ], 10, Rt);
 }
-const Mt = /* @__PURE__ */ U(Tt, [["render", At]]), Dt = {
+const Mt = /* @__PURE__ */ V(Tt, [["render", At]]), Dt = {
   name: "LktFieldSwitch",
   mixins: [Se]
-}, Vt = ["data-labeled"], Ut = ["name", "id", "disabled", "readonly", "placeholder"], Ot = ["for", "innerHTML"];
+}, Ut = ["data-labeled"], Vt = ["name", "id", "disabled", "readonly", "placeholder"], Ot = ["for", "innerHTML"];
 function Ft(e, t, i, l, n, s) {
   return S(), z("div", {
     class: O(["is-switch", e.classes]),
@@ -132,7 +132,7 @@ function Ft(e, t, i, l, n, s) {
       disabled: e.disabled,
       readonly: e.readonly,
       placeholder: e.placeholder
-    }, null, 8, Ut), [
+    }, null, 8, Vt), [
       [_e, e.Value]
     ]),
     e.canRenderLabelSlot ? A(e.$slots, "label", { key: 0 }) : E("", !0),
@@ -141,9 +141,9 @@ function Ft(e, t, i, l, n, s) {
       for: e.Identifier,
       innerHTML: e.label
     }, null, 8, Ot)) : E("", !0)
-  ], 10, Vt);
+  ], 10, Ut);
 }
-const Ht = /* @__PURE__ */ U(Dt, [["render", Ft]]), ue = (e, t, i, l = {}) => {
+const Ht = /* @__PURE__ */ V(Dt, [["render", Ft]]), ue = (e, t, i, l = {}) => {
   e.$emit("click-ui", t, K(i, l));
 }, xe = (e, t, i, l = {}) => {
   e.$emit("keyup", t, K(i, l));
@@ -204,7 +204,7 @@ function qt(e, t, i, l, n, s) {
     }, null, 10, jt))), 256))
   ]);
 }
-const G = /* @__PURE__ */ U($t, [["render", qt]]);
+const G = /* @__PURE__ */ V($t, [["render", qt]]);
 class W {
   constructor(t, i) {
     t || (t = {}), this.value = t, i || (i = !1), this.disabled = i;
@@ -384,7 +384,7 @@ function Zt(e, t, i, l, n, s) {
     }, null, 8, ["state-config-value", "state-texts-value", "onClickUi"])) : E("", !0)
   ], 10, Yt);
 }
-const Qt = /* @__PURE__ */ U(Wt, [["render", Zt]]), ei = {
+const Qt = /* @__PURE__ */ V(Wt, [["render", Zt]]), ei = {
   name: "LktFieldTextArea",
   components: { lktFieldState: G },
   mixins: [Z, j]
@@ -431,7 +431,7 @@ function si(e, t, i, l, n, s) {
     }, null, 8, ["state-config-value", "state-texts-value", "onClickUi"])) : E("", !0)
   ], 10, ti);
 }
-const oi = /* @__PURE__ */ U(ei, [["render", si]]), ai = {
+const oi = /* @__PURE__ */ V(ei, [["render", si]]), ai = {
   name: "LktFieldEmail",
   components: { lktFieldState: G },
   mixins: [Z, j]
@@ -480,7 +480,7 @@ function hi(e, t, i, l, n, s) {
     }, null, 8, ["state-config-value", "state-texts-value", "onClickUi"])) : E("", !0)
   ], 10, ri);
 }
-const pi = /* @__PURE__ */ U(ai, [["render", hi]]), fi = {
+const pi = /* @__PURE__ */ V(ai, [["render", hi]]), fi = {
   name: "LktFieldTel",
   components: { lktFieldState: G },
   mixins: [Z, j]
@@ -529,7 +529,7 @@ function vi(e, t, i, l, n, s) {
     }, null, 8, ["state-config-value", "state-texts-value", "onClickUi"])) : E("", !0)
   ], 10, gi);
 }
-const yi = /* @__PURE__ */ U(fi, [["render", vi]]), ki = {
+const yi = /* @__PURE__ */ V(fi, [["render", vi]]), ki = {
   props: {
     modelValue: { type: [String, Number, Object, Array, Date, Boolean], default: () => {
     } },
@@ -713,7 +713,7 @@ function Li(e, t, i, l, n, s) {
     }, null, 8, ["state-config-value", "state-texts-value", "onClickUi"])) : E("", !0)
   ], 8, Si);
 }
-const Ei = /* @__PURE__ */ U(wi, [["render", Li]]), Ii = {
+const Ei = /* @__PURE__ */ V(wi, [["render", Li]]), Ii = {
   name: "LktFieldPassword",
   components: { lktFieldState: G },
   mixins: [Z, j],
@@ -772,7 +772,7 @@ function Ai(e, t, i, l, n, s) {
     }, null, 8, ["state-config-value", "state-texts-value", "onClickUi"])) : E("", !0)
   ], 10, Ti);
 }
-const Mi = /* @__PURE__ */ U(Ii, [["render", Ai]]);
+const Mi = /* @__PURE__ */ V(Ii, [["render", Ai]]);
 class se {
   constructor(t = []) {
     this.value = [...t];
@@ -876,13 +876,13 @@ const Di = {
       return this.modelValue;
     }
   }
-}, Vi = {
+}, Ui = {
   name: "LktFieldRadio",
   mixins: [Di],
   props: {
     value: { type: String, default: "" }
   }
-}, Ui = ["data-labeled"], Oi = { class: "lkt-field__option" }, Fi = ["name", "id", "disabled", "readonly", "placeholder", "value", "checked"], Hi = ["for", "innerHTML"];
+}, Vi = ["data-labeled"], Oi = { class: "lkt-field__option" }, Fi = ["name", "id", "disabled", "readonly", "placeholder", "value", "checked"], Hi = ["for", "innerHTML"];
 function Pi(e, t, i, l, n, s) {
   return S(), z("div", {
     class: O(["is-radio", e.classes]),
@@ -908,9 +908,9 @@ function Pi(e, t, i, l, n, s) {
         innerHTML: o.label
       }, null, 8, Hi)
     ]))), 256))
-  ], 10, Ui);
+  ], 10, Vi);
 }
-const $i = /* @__PURE__ */ U(Vi, [["render", Pi]]), Gi = {
+const $i = /* @__PURE__ */ V(Ui, [["render", Pi]]), Gi = {
   emits: ["update:modelValue", "click-ui"],
   mixins: [J],
   props: {
@@ -1058,7 +1058,7 @@ function Yi(e, t, i, l, n, s) {
     }, null, 8, ["state-config-value", "state-texts-value", "onClickUi"])) : E("", !0)
   ], 10, qi);
 }
-const Xi = /* @__PURE__ */ U(ji, [["render", Yi]]);
+const Xi = /* @__PURE__ */ V(ji, [["render", Yi]]);
 class N {
 }
 N.SHOW_PASSWORD_MESSAGE = "";
@@ -1126,7 +1126,8 @@ const Zi = {
   },
   data() {
     const e = new pe(this.searchOptions), t = new se([...this.options]);
-    return {
+    let i = !1;
+    return this.closeOnSelect === null ? i = this.multiple === !0 : i = this.closeOnSelect, {
       Identifier: F(16),
       originalValue: this.modelValue,
       value: this.modelValue,
@@ -1139,7 +1140,8 @@ const Zi = {
       searchOptionsValue: e,
       optionsValue: t,
       stateConfigValue: new W(this.stateConfig, this.disabled || this.readonly),
-      stateTextValue: new Y(this.stateTexts)
+      stateTextValue: new Y(this.stateTexts),
+      closeAfterSelect: i
     };
   },
   computed: {
@@ -1206,7 +1208,7 @@ const Zi = {
   },
   methods: {
     buildVisibleOptions() {
-      this.optionsHaystack = this.optionsValue.all(), this.visibleOptions = this.optionsValue.filter(this.searchString), console.log("buildVisibleOptions", this.optionsHaystack, this.visibleOptions);
+      this.optionsHaystack = this.optionsValue.all(), this.visibleOptions = this.optionsValue.filter(this.searchString);
     },
     resetSearch() {
       this.searchString = "", this.buildVisibleOptions();
@@ -1291,7 +1293,7 @@ function il(e, t, i, l, n, s) {
       onFocus: e.handleFocus,
       "onSearch:input": e.handleInput,
       "search-placeholder": e.searchPlaceholder,
-      "close-on-select": e.closeOnSelect,
+      "close-on-select": e.closeAfterSelect,
       "clear-on-close": ""
     }, null, 8, ["modelValue", "options", "visible-options", "searchable", "multiple", "taggable", "loading", "disabled", "onFocus", "onSearch:input", "onUpdate:modelValue", "search-placeholder", "close-on-select"]),
     e.canRenderLabelSlot ? A(e.$slots, "label", { key: 0 }) : E("", !0),
@@ -1308,7 +1310,7 @@ function il(e, t, i, l, n, s) {
     }, null, 8, ["state-config-value", "state-texts-value", "onClickUi"])) : E("", !0)
   ], 10, el);
 }
-const ll = /* @__PURE__ */ U(Qi, [["render", il]]), nl = {
+const ll = /* @__PURE__ */ V(Qi, [["render", il]]), nl = {
   name: "blockquote",
   display: "command",
   add: function(e, t) {
@@ -1830,12 +1832,12 @@ const ll = /* @__PURE__ */ U(Qi, [["render", il]]), nl = {
       const y = function(k) {
         return !this.isComponent(k) && !this.isList(k);
       }.bind(s);
-      for (let k = 0, x = n.length, w, L, R, B, C, I, T, V, le; k < x; k++) {
+      for (let k = 0, x = n.length, w, L, R, B, C, I, T, U, le; k < x; k++) {
         if (L = n[k], L.childNodes.length === 0 && !s._isIgnoreNodeChange(L)) {
           s.removeItem(L);
           continue;
         }
-        if (B = n[k + 1], C = L.parentNode, I = B ? B.parentNode : null, R = s.isListCell(L), le = s.isRangeFormatElement(C) ? C : null, T = R && !s.isWysiwygDiv(C) ? C.parentNode : C, V = R && !s.isWysiwygDiv(C) ? !B || s.isListCell(T) ? C : C.nextSibling : L.nextSibling, w = s.createElement("LI"), s.copyFormatAttributes(w, L), k === 0 && d.sc === L && (d.sc = w), k === x - 1 && d.ec === L && (d.ec = w), s.isComponent(L)) {
+        if (B = n[k + 1], C = L.parentNode, I = B ? B.parentNode : null, R = s.isListCell(L), le = s.isRangeFormatElement(C) ? C : null, T = R && !s.isWysiwygDiv(C) ? C.parentNode : C, U = R && !s.isWysiwygDiv(C) ? !B || s.isListCell(T) ? C : C.nextSibling : L.nextSibling, w = s.createElement("LI"), s.copyFormatAttributes(w, L), k === 0 && d.sc === L && (d.sc = w), k === x - 1 && d.ec === L && (d.ec = w), s.isComponent(L)) {
           const Q = /^HR$/i.test(L.nodeName);
           Q || (w.innerHTML = "<br>"), w.innerHTML += L.outerHTML, Q && (w.innerHTML += "<br>");
         } else {
@@ -1843,7 +1845,7 @@ const ll = /* @__PURE__ */ U(Qi, [["render", il]]), nl = {
           for (; Q[0]; )
             w.appendChild(Q[0]);
         }
-        m.appendChild(w), (!B || T !== I || s.isRangeFormatElement(V)) && (c || (c = m), (!p || !B || T !== I) && !(B && s.isList(I) && I === C) && m.parentNode !== T && T.insertBefore(m, V)), s.removeItem(L), p && _ === null && (_ = m.children.length - 1), B && (s.getRangeFormatElement(I, y) !== s.getRangeFormatElement(C, y) || s.isList(I) && s.isList(C) && s.getElementDepth(I) !== s.getElementDepth(C)) && (m = s.createElement(e)), le && le.children.length === 0 && s.removeItem(le);
+        m.appendChild(w), (!B || T !== I || s.isRangeFormatElement(U)) && (c || (c = m), (!p || !B || T !== I) && !(B && s.isList(I) && I === C) && m.parentNode !== T && T.insertBefore(m, U)), s.removeItem(L), p && _ === null && (_ = m.children.length - 1), B && (s.getRangeFormatElement(I, y) !== s.getRangeFormatElement(C, y) || s.isList(I) && s.isList(C) && s.getElementDepth(I) !== s.getElementDepth(C)) && (m = s.createElement(e)), le && le.children.length === 0 && s.removeItem(le);
       }
       _ && (c = c.children[_]), b && (v = m.children.length - 1, m.innerHTML += u.innerHTML, m.children[v], s.removeItem(u));
     }
@@ -2177,8 +2179,8 @@ const ll = /* @__PURE__ */ U(Qi, [["render", il]]), nl = {
         if (R = w.rowSpan - 1, B = w.colSpan - 1, n) {
           if (C = x + k, d.length > 0) {
             const I = !_[x + 1];
-            for (let T = 0, V; T < d.length; T++)
-              V = d[T], !(V.row > p) && (C >= V.index ? (k += V.cs, C = x + k, V.rs -= 1, V.row = p + 1, V.rs < 1 && (d.splice(T, 1), T--)) : I && (V.rs -= 1, V.row = p + 1, V.rs < 1 && (d.splice(T, 1), T--)));
+            for (let T = 0, U; T < d.length; T++)
+              U = d[T], !(U.row > p) && (C >= U.index ? (k += U.cs, C = x + k, U.rs -= 1, U.row = p + 1, U.rs < 1 && (d.splice(T, 1), T--)) : I && (U.rs -= 1, U.row = p + 1, U.rs < 1 && (d.splice(T, 1), T--)));
           }
           R > 0 && u.push({
             rs: R,
@@ -4937,8 +4939,8 @@ const xl = De.exports, Cl = {
       this.plugins.image.create_image.call(this, e.getAttribute("data-value"), null, this.context.image._origin_w, this.context.image._origin_h, "none", t, e.alt);
     }.bind(this), null);
   }
-}, Ve = { blockquote: nl, align: sl, font: ol, fontSize: al, fontColor: rl, hiliteColor: ul, horizontalRule: dl, list: cl, table: hl, formatBlock: pl, lineHeight: fl, template: gl, paragraphStyle: ml, textStyle: bl, link: vl, image: yl, video: kl, audio: wl, math: Sl, imageGallery: Cl };
-var Ue = { exports: {} };
+}, Ue = { blockquote: nl, align: sl, font: ol, fontSize: al, fontColor: rl, hiliteColor: ul, horizontalRule: dl, list: cl, table: hl, formatBlock: pl, lineHeight: fl, template: gl, paragraphStyle: ml, textStyle: bl, link: vl, image: yl, video: kl, audio: wl, math: Sl, imageGallery: Cl };
+var Ve = { exports: {} };
 (function(e) {
   (function(t, i) {
     e.exports = t.document ? i(t, !0) : function(l) {
@@ -5103,8 +5105,8 @@ var Ue = { exports: {} };
       value: l
     })), l;
   });
-})(Ue);
-const Oe = Ue.exports;
+})(Ve);
+const Oe = Ve.exports;
 var Fe = { exports: {} };
 (function(e) {
   (function(t, i) {
@@ -8142,25 +8144,25 @@ var Ll = Object.defineProperty, fe = Object.getOwnPropertySymbols, El = Object.p
 };
 const Tl = (e, t, i) => {
   const l = {
-    plugins: Ve,
+    plugins: Ue,
     lang: oe[t] ? oe[t] : re
   }, n = ae(ae({}, e), l);
   return we.create(i, n);
 }, Rl = (e, t, i) => {
   const l = {
     katex: It,
-    plugins: Ve,
+    plugins: Ue,
     lang: oe[t] ? oe[t] : re
   }, n = ae(ae({}, e), l);
   return we.create(i, n);
-}, Bl = "Show password", Nl = "This is mandatory", Al = "Follow link", Ml = "Show details", Dl = "Reset", Vl = "No results. Try typing some text.", Ul = "Today", Ol = "This month", Fl = "Last month", Hl = "This year", Pl = {
-  noOptionsMessage: Vl,
+}, Bl = "Show password", Nl = "This is mandatory", Al = "Follow link", Ml = "Show details", Dl = "Reset", Ul = "No results. Try typing some text.", Vl = "Today", Ol = "This month", Fl = "Last month", Hl = "This year", Pl = {
+  noOptionsMessage: Ul,
   showPasswordMessage: Bl,
   isMandatoryMessage: Nl,
   followLinkMessage: Al,
   openMessage: Ml,
   resetMessage: Dl,
-  todayRangeText: Ul,
+  todayRangeText: Vl,
   thisMonthRangeText: Ol,
   lastMonthRangeText: Fl,
   thisYearRangeText: Hl
@@ -8266,7 +8268,7 @@ function Xl(e, t, i, l, n, s) {
     }, null, 8, ["state-config-value", "state-texts-value", "onClickUi"])) : E("", !0)
   ], 10, ql);
 }
-const Kl = /* @__PURE__ */ U(jl, [["render", Xl]]), Jl = {
+const Kl = /* @__PURE__ */ V(jl, [["render", Xl]]), Jl = {
   name: "LktFieldKatex",
   components: { LktFieldState: G },
   mixins: [kt],
@@ -8314,7 +8316,7 @@ function tn(e, t, i, l, n, s) {
     }, null, 8, ["state-config-value", "state-texts-value", "onClickUi"])) : E("", !0)
   ], 10, Zl);
 }
-const ln = /* @__PURE__ */ U(Jl, [["render", tn]]);
+const ln = /* @__PURE__ */ V(Jl, [["render", tn]]);
 function wt(e) {
   if (e === null || e === !0 || e === !1)
     return NaN;

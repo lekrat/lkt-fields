@@ -22,7 +22,7 @@
             v-on:search:input="handleInput"
             v-on:update:modelValue="resetSearch"
             v-bind:search-placeholder="searchPlaceholder"
-            v-bind:close-on-select="closeOnSelect"
+            v-bind:close-on-select="closeAfterSelect"
             clear-on-close
         > </vue-next-select>
 
