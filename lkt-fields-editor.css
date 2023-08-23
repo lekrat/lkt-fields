@@ -1,0 +1,138 @@
+.lkt-field.is-editor {
+    display: flex;
+    flex-direction: column-reverse;
+    position: relative;
+    color: var(--text-color);
+}
+
+.lkt-field.is-editor .sun-editor {
+    width: 100% !important;
+    border: var(--field-border-width) var(--field-border-style) var(--field-border-color);
+    box-shadow: var(--field-shadow);
+    color: var(--text-color);
+    background-color: var(--field-background-color);
+}
+
+.lkt-field.is-editor .sun-editor .se-toolbar {
+    z-index: 2;
+}
+
+.lkt-field.is-editor .sun-editor .se-toolbar.se-toolbar-sticky {
+    position: static !important;
+}
+
+.lkt-field.is-editor .sun-editor .se-wrapper .se-wrapper-inner {
+    height: calc(var(--input-height) * 8 + var(--field-gap) * 3);
+}
+
+.lkt-field.is-editor .sun-editor + label {
+    display: block;
+    font-weight: var(--field-label-font-weight);
+    font-size: var(--field-label-font-size);
+    line-height: var(--field-label-line-height);
+    margin: var(--field-label-margin);
+}
+
+.lkt-field--alert.lkt-field.is-editor .sun-editor {
+    background: var(--alert-contrast);
+    border-color: var(--alert-color);
+}
+
+.lkt-field--alert.lkt-field.is-editor .sun-editor .se-toolbar {
+    outline-color: var(--alert-color);
+}
+
+.lkt-field--alert.lkt-field.is-editor:hover .sun-editor {
+    background: var(--alert-contrast);
+    border-color: var(--alert-color);
+}
+
+.lkt-field--alert.lkt-field.is-editor:hover .sun-editor .se-toolbar {
+    outline-color: var(--alert-color);
+}
+
+.lkt-field--danger.lkt-field.is-editor .sun-editor {
+    background: var(--danger-contrast);
+    border-color: var(--danger-color);
+}
+
+.lkt-field--danger.lkt-field.is-editor .sun-editor .se-toolbar {
+    outline-color: var(--danger-color);
+}
+
+.lkt-field--danger.lkt-field.is-editor:hover .sun-editor {
+    background: var(--danger-contrast);
+    border-color: var(--danger-color);
+}
+
+.lkt-field--danger.lkt-field.is-editor:hover .sun-editor .se-toolbar {
+    outline-color: var(--danger-color);
+}
+
+.lkt-field--info.lkt-field.is-editor .sun-editor {
+    background: var(--info-contrast);
+    border-color: var(--info-color);
+}
+
+.lkt-field--info.lkt-field.is-editor .sun-editor .se-toolbar {
+    outline-color: var(--info-color);
+}
+
+.lkt-field--info.lkt-field.is-editor:hover .sun-editor {
+    background: var(--info-contrast);
+    border-color: var(--info-color);
+}
+
+.lkt-field--info.lkt-field.is-editor:hover .sun-editor .se-toolbar {
+    outline-color: var(--info-color);
+}
+
+.lkt-field--warning.lkt-field.is-editor .sun-editor {
+    background: var(--warning-contrast);
+    border-color: var(--warning-color);
+}
+
+.lkt-field--warning.lkt-field.is-editor .sun-editor .se-toolbar {
+    outline-color: var(--warning-color);
+}
+
+.lkt-field--warning.lkt-field.is-editor:hover .sun-editor {
+    background: var(--warning-contrast);
+    border-color: var(--warning-color);
+}
+
+.lkt-field--warning.lkt-field.is-editor:hover .sun-editor .se-toolbar {
+    outline-color: var(--warning-color);
+}
+
+.lkt-field--target.lkt-field.is-editor .sun-editor {
+    background: var(--target-contrast);
+    border-color: var(--target-color);
+}
+
+.lkt-field--target.lkt-field.is-editor .sun-editor .se-toolbar {
+    outline-color: var(--target-color);
+}
+
+.lkt-field--target.lkt-field.is-editor:hover .sun-editor {
+    background: var(--target-contrast);
+    border-color: var(--target-color);
+}
+
+.lkt-field--target.lkt-field.is-editor:hover .sun-editor .se-toolbar {
+    outline-color: var(--target-color);
+}
+
+
+.lkt-field.is-editor .sun-editor:focus {
+    outline: 0;
+    border: var(--field-border-width) var(--field-border-style) var(--focus-color);
+    box-shadow: 0 0 0 2px var(--focus-color);
+}
+
+.lkt-field.is-editor .sun-editor[disabled],
+.lkt-field.is-editor .sun-editor[readonly] {
+    box-shadow: none;
+    border: var(--field-border-width) var(--field-border-style) var(--disabled-color);
+    background-color: var(--disabled-color) !important;
+}

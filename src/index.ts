@@ -45,23 +45,80 @@ import {App} from "vue";
 
 const LktFields = {
     install: (app: App, options: IPluginOptions = DEFAULT_PLUGIN_OPTIONS) => {
-        app
-            .component('Datepicker', Datepicker)
-            .component('vue-next-select', VueNextSelect)
-            .component('lkt-field-text', LktFieldText)
-            .component('lkt-field-text-area', LktFieldTextArea)
-            .component('lkt-field-check', LktFieldCheck)
-            .component('lkt-field-switch', LktFieldSwitch)
-            .component('lkt-field-email', LktFieldEmail)
-            .component('lkt-field-tel', LktFieldTel)
-            .component('lkt-field-unit', LktFieldUnit)
-            .component('lkt-field-password', LktFieldPassword)
-            .component('lkt-field-radio', LktFieldRadio)
-            .component('lkt-field-date', LktFieldDate)
-            .component('lkt-field-select', LktFieldSelect)
-            .component('lkt-field-editor', LktFieldEditor)
-            .component('lkt-field-katex', LktFieldKatex)
-        ;
+
+        if (!options.components) {
+            app
+                .component('Datepicker', Datepicker)
+                .component('vue-next-select', VueNextSelect)
+                .component('lkt-field-text', LktFieldText)
+                .component('lkt-field-text-area', LktFieldTextArea)
+                .component('lkt-field-check', LktFieldCheck)
+                .component('lkt-field-switch', LktFieldSwitch)
+                .component('lkt-field-email', LktFieldEmail)
+                .component('lkt-field-tel', LktFieldTel)
+                .component('lkt-field-unit', LktFieldUnit)
+                .component('lkt-field-password', LktFieldPassword)
+                .component('lkt-field-radio', LktFieldRadio)
+                .component('lkt-field-date', LktFieldDate)
+                .component('lkt-field-select', LktFieldSelect)
+                .component('lkt-field-editor', LktFieldEditor)
+                .component('lkt-field-katex', LktFieldKatex)
+            ;
+        } else {
+            if (options.components.date) {
+                app.component('Datepicker', Datepicker)
+                    .component('lkt-field-date', LktFieldDate);
+            }
+
+            if (options.components.select) {
+                app.component('vue-next-select', VueNextSelect)
+                    .component('lkt-field-select', LktFieldSelect);
+            }
+
+            if (options.components.tel) {
+                app.component('lkt-field-tel', LktFieldTel);
+            }
+
+            if (options.components.text) {
+                app.component('lkt-field-text', LktFieldText);
+            }
+
+            if (options.components.textarea) {
+                app.component('lkt-field-text-area', LktFieldTextArea);
+            }
+
+            if (options.components.email) {
+                app.component('lkt-field-email', LktFieldEmail);
+            }
+
+            if (options.components.password) {
+                app.component('lkt-field-password', LktFieldPassword);
+            }
+
+            if (options.components.check) {
+                app.component('lkt-field-check', LktFieldCheck);
+            }
+
+            if (options.components.unit) {
+                app.component('lkt-field-unit', LktFieldUnit);
+            }
+
+            if (options.components.switch) {
+                app.component('lkt-field-switch', LktFieldSwitch);
+            }
+
+            if (options.components.radio) {
+                app.component('lkt-field-radio', LktFieldRadio);
+            }
+
+            if (options.components.editor) {
+                app.component('lkt-field-editor', LktFieldEditor);
+            }
+
+            if (options.components.katex) {
+                app.component('lkt-field-katex', LktFieldKatex);
+            }
+        }
 
         if (typeof options === 'object') {
             if (typeof options.noOptionsMessage !== 'undefined') {

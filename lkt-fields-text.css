@@ -1,0 +1,170 @@
+.lkt-field.is-text,
+.lkt-field.is-textarea,
+.lkt-field.is-password,
+.lkt-field.is-tel,
+.lkt-field.is-email {
+    display: flex;
+    flex-direction: column-reverse;
+    position: relative;
+    color: var(--text-color);
+}
+
+.lkt-field.is-text input,
+.lkt-field.is-password input,
+.lkt-field.is-tel input,
+.lkt-field.is-email input {
+    height: var(--input-height);
+    line-height: var(--input-line-height);
+}
+
+.lkt-field.is-textarea textarea {
+    height: calc(var(--input-height) * 2 + var(--field-gap));
+    min-height: calc(var(--input-height) * 2 + var(--field-gap));
+    resize: vertical;
+}
+
+.lkt-field.is-text input,
+.lkt-field.is-textarea textarea,
+.lkt-field.is-password input,
+.lkt-field.is-tel input,
+.lkt-field.is-email input {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    outline: 0;
+    border: var(--field-border-width) var(--field-border-style) var(--field-border-color);
+    box-shadow: var(--field-shadow);
+    padding: var(--field-padding);
+    transition: var(--field-transition);
+    font-size: var(--field-font-size);
+    border-radius: var(--field-border-radius);
+    background-color: var(--field-background-color);
+}
+
+.lkt-field.is-text input + label,
+.lkt-field.is-textarea textarea + label,
+.lkt-field.is-password input + label,
+.lkt-field.is-tel input + label,
+.lkt-field.is-email input + label {
+    display: block;
+    font-weight: var(--field-label-font-weight);
+    font-size: var(--field-label-font-size);
+    line-height: var(--field-label-line-height);
+    margin: var(--field-label-margin);
+}
+
+.lkt-field--alert.lkt-field.is-text input,
+.lkt-field--alert.lkt-field.is-textarea textarea,
+.lkt-field--alert.lkt-field.is-password input,
+.lkt-field--alert.lkt-field.is-tel input,
+.lkt-field--alert.lkt-field.is-email input {
+    background: var(--alert-contrast);
+    border-color: var(--alert-color);
+}
+
+.lkt-field--alert.lkt-field.is-text:hover input,
+.lkt-field--alert.lkt-field.is-textarea:hover textarea,
+.lkt-field--alert.lkt-field.is-password:hover input,
+.lkt-field--alert.lkt-field.is-tel:hover input,
+.lkt-field--alert.lkt-field.is-email:hover input {
+    background: var(--alert-contrast);
+    border-color: var(--alert-color);
+}
+
+.lkt-field--danger.lkt-field.is-text input,
+.lkt-field--danger.lkt-field.is-textarea textarea,
+.lkt-field--danger.lkt-field.is-password input,
+.lkt-field--danger.lkt-field.is-tel input,
+.lkt-field--danger.lkt-field.is-email input {
+    background: var(--danger-contrast);
+    border-color: var(--danger-color);
+}
+
+.lkt-field--danger.lkt-field.is-text:hover input,
+.lkt-field--danger.lkt-field.is-textarea:hover textarea,
+.lkt-field--danger.lkt-field.is-password:hover input,
+.lkt-field--danger.lkt-field.is-tel:hover input,
+.lkt-field--danger.lkt-field.is-email:hover input {
+    background: var(--danger-contrast);
+    border-color: var(--danger-color);
+}
+
+.lkt-field--info.lkt-field.is-text input,
+.lkt-field--info.lkt-field.is-textarea textarea,
+.lkt-field--info.lkt-field.is-password input,
+.lkt-field--info.lkt-field.is-tel input,
+.lkt-field--info.lkt-field.is-email input {
+    background: var(--info-contrast);
+    border-color: var(--info-color);
+}
+
+.lkt-field--info.lkt-field.is-text:hover input,
+.lkt-field--info.lkt-field.is-textarea:hover textarea,
+.lkt-field--info.lkt-field.is-password:hover input,
+.lkt-field--info.lkt-field.is-tel:hover input,
+.lkt-field--info.lkt-field.is-email:hover input {
+    background: var(--info-contrast);
+    border-color: var(--info-color);
+}
+
+.lkt-field--warning.lkt-field.is-text input,
+.lkt-field--warning.lkt-field.is-textarea textarea,
+.lkt-field--warning.lkt-field.is-password input,
+.lkt-field--warning.lkt-field.is-tel input,
+.lkt-field--warning.lkt-field.is-email input {
+    background: var(--warning-contrast);
+    border-color: var(--warning-color);
+}
+
+.lkt-field--warning.lkt-field.is-text:hover input,
+.lkt-field--warning.lkt-field.is-textarea:hover textarea,
+.lkt-field--warning.lkt-field.is-password:hover input,
+.lkt-field--warning.lkt-field.is-tel:hover input,
+.lkt-field--warning.lkt-field.is-email:hover input {
+    background: var(--warning-contrast);
+    border-color: var(--warning-color);
+}
+
+.lkt-field--target.lkt-field.is-text input,
+.lkt-field--target.lkt-field.is-textarea textarea,
+.lkt-field--target.lkt-field.is-password input,
+.lkt-field--target.lkt-field.is-tel input,
+.lkt-field--target.lkt-field.is-email input {
+    background: var(--target-contrast);
+    border-color: var(--target-color);
+}
+
+.lkt-field--target.lkt-field.is-text:hover input,
+.lkt-field--target.lkt-field.is-textarea:hover textarea,
+.lkt-field--target.lkt-field.is-password:hover input,
+.lkt-field--target.lkt-field.is-tel:hover input,
+.lkt-field--target.lkt-field.is-email:hover input {
+    background: var(--target-contrast);
+    border-color: var(--target-color);
+}
+
+
+.lkt-field.is-text input:focus,
+.lkt-field.is-textarea textarea:focus,
+.lkt-field.is-password input:focus,
+.lkt-field.is-tel input:focus,
+.lkt-field.is-email input:focus {
+    outline: 0;
+    border: var(--field-border-width) var(--field-border-style) var(--focus-color);
+    box-shadow: 0 0 0 2px var(--focus-color);
+}
+
+.lkt-field.is-text input[disabled],
+.lkt-field.is-text input[readonly],
+.lkt-field.is-textarea textarea[disabled],
+.lkt-field.is-textarea textarea[readonly],
+.lkt-field.is-password input[disabled],
+.lkt-field.is-password input[readonly],
+.lkt-field.is-tel input[disabled],
+.lkt-field.is-tel input[readonly],
+.lkt-field.is-email input[disabled],
+.lkt-field.is-email input[readonly] {
+    box-shadow: none;
+    border: var(--field-border-width) var(--field-border-style) var(--disabled-color);
+    background-color: var(--disabled-color) !important;
+}

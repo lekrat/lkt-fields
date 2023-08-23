@@ -1,0 +1,98 @@
+.lkt-field.is-date {
+    display: flex;
+    flex-direction: column-reverse;
+    position: relative;
+    color: var(--text-color);
+}
+
+.lkt-field.is-date input {
+    height: var(--input-height);
+    padding-left: 35px;
+    padding-right: 35px;
+}
+
+.lkt-field.is-date input {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    outline: 0;
+    border: var(--field-border-width) var(--field-border-style) var(--field-border-color);
+    box-shadow: var(--field-shadow);
+    padding: var(--field-padding);
+    transition: var(--field-transition);
+    font-size: var(--field-font-size);
+    border-radius: var(--field-border-radius);
+    background-color: var(--field-background-color);
+}
+
+.lkt-field.is-date input + label {
+    display: block;
+    font-weight: var(--field-label-font-weight);
+    font-size: var(--field-label-font-size);
+    line-height: var(--field-label-line-height);
+    margin: var(--field-label-margin);
+}
+
+.lkt-field--alert.lkt-field.is-date input {
+    background: var(--alert-contrast);
+    border-color: var(--alert-color);
+}
+
+.lkt-field--alert.lkt-field.is-date:hover input {
+    background: var(--alert-contrast);
+    border-color: var(--alert-color);
+}
+
+.lkt-field--danger.lkt-field.is-date input {
+    background: var(--danger-contrast);
+    border-color: var(--danger-color);
+}
+
+.lkt-field--danger.lkt-field.is-date:hover input {
+    background: var(--danger-contrast);
+    border-color: var(--danger-color);
+}
+
+.lkt-field--info.lkt-field.is-date input {
+    background: var(--info-contrast);
+    border-color: var(--info-color);
+}
+
+.lkt-field--info.lkt-field.is-date:hover input {
+    background: var(--info-contrast);
+    border-color: var(--info-color);
+}
+
+.lkt-field--warning.lkt-field.is-date input {
+    background: var(--warning-contrast);
+    border-color: var(--warning-color);
+}
+
+.lkt-field--warning.lkt-field.is-date:hover input {
+    background: var(--warning-contrast);
+    border-color: var(--warning-color);
+}
+
+.lkt-field--target.lkt-field.is-date input {
+    background: var(--target-contrast);
+    border-color: var(--target-color);
+}
+
+.lkt-field--target.lkt-field.is-date:hover input {
+    background: var(--target-contrast);
+    border-color: var(--target-color);
+}
+
+
+.lkt-field.is-date input:focus {
+    outline: 0;
+    border: var(--field-border-width) var(--field-border-style) var(--focus-color);
+    box-shadow: 0 0 0 2px var(--focus-color);
+}
+
+.lkt-field.is-date input[disabled],
+.lkt-field.is-date input[readonly] {
+    box-shadow: none;
+    border: var(--field-border-width) var(--field-border-style) var(--disabled-color);
+    background-color: var(--disabled-color) !important;
+}

@@ -1,0 +1,176 @@
+.lkt-field__state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: var(--field-state-right);
+    bottom: 0;
+    height: var(--input-height);
+    gap: var(--field-state-gap);
+}
+
+.lkt-field__add-icon:before {
+    content: '\002B';
+}
+
+.lkt-field__info-icon:before {
+    content: '\2139';
+}
+
+.lkt-field__password-icon:before {
+    content: '\1F441';
+}
+
+.lkt-field__mandatory-icon:before {
+    content: '\002A';
+}
+
+.lkt-field__warn-icon:before {
+    content: '\26A0';
+}
+
+.lkt-field__error-icon:before {
+    content: '\274C';
+}
+
+.lkt-field__log-icon:before {
+    content: '\003F';
+}
+
+.lkt-field__reset-icon:before {
+    content: '\00d7';
+}
+
+.lkt-field__open-icon:before {
+    content: '\21F1';
+    transform: rotate(90deg);
+    display: block;
+}
+
+.lkt-field__link-icon:before {
+    content: '\21B5';
+    transform: rotate(180deg);
+    display: block;
+    margin-top: -5px;
+}
+
+.lkt-field__add-icon,
+.lkt-field__open-icon,
+.lkt-field__show-password-icon,
+.lkt-field__link-icon,
+.lkt-field__mandatory-icon,
+.lkt-field__info-icon,
+.lkt-field__warn-icon,
+.lkt-field__error-icon,
+.lkt-field__reset-icon,
+.lkt-field__undo-icon,
+.lkt-field__log-icon {
+    font-family: arial;
+    font-style: normal;
+    font-size: var(--field-state-icon-size);
+    cursor: help;
+    width: var(--field-state-icon-size);
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lkt-field__add-icon,
+.lkt-field__open-icon {
+    cursor: pointer;
+}
+
+.lkt-field__link-icon {
+    cursor: alias;
+}
+
+.lkt-field.is-textarea .lkt-field__state,
+.lkt-field.is-select.is-multiple .lkt-field__state {
+    height: calc(var(--input-height) * 2 + var(--field-gap));
+    align-items: flex-start;
+}
+
+.lkt-field.is-textarea.has-icons textarea {
+    padding-top: calc(var(--field-state-icon-size) + var(--field-state-right));
+}
+
+.lkt-field.is-text.has-icons-1 input,
+.lkt-field.is-email.has-icons-1 input,
+.lkt-field.is-password.has-icons-1 input,
+.lkt-field.is-tel.has-icons-1 input
+{
+    padding-right: calc(2 * var(--field-state-right) + var(--field-state-icon-size) + (1 - 2) * var(--field-state-gap));
+}
+
+.lkt-field.is-text.has-icons-2 input,
+.lkt-field.is-email.has-icons-2 input,
+.lkt-field.is-password.has-icons-2 input,
+.lkt-field.is-tel.has-icons-2 input
+{
+    padding-right: calc(2 * var(--field-state-right) + 2 * var(--field-state-icon-size) + (2 - 2) * var(--field-state-gap));
+}
+
+.lkt-field.is-text.has-icons-3 input,
+.lkt-field.is-email.has-icons-3 input,
+.lkt-field.is-password.has-icons-3 input,
+.lkt-field.is-tel.has-icons-3 input
+{
+    padding-right: calc(2 * var(--field-state-right) + 3 * var(--field-state-icon-size) + (3 - 2) * var(--field-state-gap));
+}
+
+.lkt-field.is-text.has-icons-4 input,
+.lkt-field.is-email.has-icons-4 input,
+.lkt-field.is-password.has-icons-4 input,
+.lkt-field.is-tel.has-icons-4 input
+{
+    padding-right: calc(2 * var(--field-state-right) + 4 * var(--field-state-icon-size) + (4 - 2) * var(--field-state-gap));
+}
+
+.lkt-field.is-text.has-icons-5 input,
+.lkt-field.is-email.has-icons-5 input,
+.lkt-field.is-password.has-icons-5 input,
+.lkt-field.is-tel.has-icons-5 input
+{
+    padding-right: calc(2 * var(--field-state-right) + 5 * var(--field-state-icon-size) + (5 - 2) * var(--field-state-gap));
+}
+
+.lkt-field.is-text.has-icons-6 input,
+.lkt-field.is-email.has-icons-6 input,
+.lkt-field.is-password.has-icons-6 input,
+.lkt-field.is-tel.has-icons-6 input
+{
+    padding-right: calc(2 * var(--field-state-right) + 6 * var(--field-state-icon-size) + (6 - 2) * var(--field-state-gap));
+}
+
+.lkt-field.is-text.has-icons-7 input,
+.lkt-field.is-email.has-icons-7 input,
+.lkt-field.is-password.has-icons-7 input,
+.lkt-field.is-tel.has-icons-7 input
+{
+    padding-right: calc(2 * var(--field-state-right) + 7 * var(--field-state-icon-size) + (7 - 2) * var(--field-state-gap));
+}
+
+.lkt-field.is-text.has-icons-8 input,
+.lkt-field.is-email.has-icons-8 input,
+.lkt-field.is-password.has-icons-8 input,
+.lkt-field.is-tel.has-icons-8 input
+{
+    padding-right: calc(2 * var(--field-state-right) + 8 * var(--field-state-icon-size) + (8 - 2) * var(--field-state-gap));
+}
+
+.lkt-field.is-text.has-icons-9 input,
+.lkt-field.is-email.has-icons-9 input,
+.lkt-field.is-password.has-icons-9 input,
+.lkt-field.is-tel.has-icons-9 input
+{
+    padding-right: calc(2 * var(--field-state-right) + 9 * var(--field-state-icon-size) + (9 - 2) * var(--field-state-gap));
+}
+
+.lkt-field.is-text.has-icons-10 input,
+.lkt-field.is-email.has-icons-10 input,
+.lkt-field.is-password.has-icons-10 input,
+.lkt-field.is-tel.has-icons-10 input
+{
+    padding-right: calc(2 * var(--field-state-right) + 10 * var(--field-state-icon-size) + (10 - 2) * var(--field-state-gap));
+}
