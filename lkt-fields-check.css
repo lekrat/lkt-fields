@@ -1,0 +1,71 @@
+.lkt-field.is-check {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    align-items: center;
+    color: var(--text-color);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.lkt-field.is-check input[type="checkbox"] {
+    display: inline-flex;
+    min-height: var(--input-height);
+    position: absolute;
+    opacity: 0;
+
+    &:focus ~ label:before {
+        border: 2px solid var(--text-color);
+    }
+
+    &:focus:checked ~ label:before {
+        border: 2px solid var(--text-color);
+    }
+
+    &:checked ~ label:before {
+        color: #ffffff;
+        background: #ff0000 url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+DQo8c3ZnIHdpZHRoPSIxMiIgaGVpZ2h0PSI5IiB2aWV3Qm94PSIwIDAgMTIgOSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCiAgPHBhdGggZD0iTTQuNTc1IDguOTc3cy0uNDA0LS4wMDctLjUzNi0uMTY1TC4wNTcgNS42NGwuODI5LTEuMjI3TDQuNDcgNy4yNjggMTAuOTIxLjA4NmwuOTIzIDEuMTAzLTYuODYzIDcuNjRjLS4xMzQtLjAwMy0uNDA2LjE0OC0uNDA2LjE0OHoiIGZpbGw9IiNGRkYiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPg0KPC9zdmc+) 50% 40% no-repeat;
+        border: 2px solid #ff0000;
+    }
+}
+
+.lkt-field.is-check input + label {
+    display: block;
+    font-weight: var(--field-label-font-weight);
+    font-size: var(--field-label-font-size);
+    line-height: var(--field-label-line-height);
+    margin: var(--field-label-margin);
+}
+
+.lkt-field.is-check label:before {
+    content: '';
+    display: inline-block;
+    border-radius: var(--field-border-radius);
+    position: absolute;
+    left: 0;
+    top: -2px;
+    width:  1rem;
+    height: 1rem;
+    background-color: var(--text-color);
+    border: 2px solid var(--text-color);
+    pointer-events: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.lkt-field.is-check input:focus {
+    outline: 0;
+    border-color: var(--focus-color);
+    box-shadow: 0 0 0 2px var(--focus-color);
+}
+
+.lkt-field.is-check input[disabled],
+.lkt-field.is-check input[readonly] {
+    box-shadow: none;
+    border-color: var(--disabled-color);
+    background-color: var(--disabled-color-contrast) !important;
+}
