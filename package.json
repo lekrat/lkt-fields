@@ -13,6 +13,7 @@
     "lkt-fields-date.css",
     "lkt-fields-editor.css",
     "lkt-fields-state.css",
+    "lkt-fields-select.css",
     "lkt-fields-text.css"
   ],
   "sideEffects": false,

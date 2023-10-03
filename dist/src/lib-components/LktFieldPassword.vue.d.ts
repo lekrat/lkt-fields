@@ -122,7 +122,7 @@ declare const _default: {
         visiblePassword: boolean;
     };
     computed: {
-        inputType(): "password" | "text";
+        inputType(): "text" | "password";
     };
 };
 export default _default;

@@ -1,4 +1,4 @@
-export declare type StateConfig = {
+export type StateConfig = {
     add?: boolean;
     link?: boolean;
     open?: boolean;

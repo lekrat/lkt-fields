@@ -1,5 +1,5 @@
 import { LktObject } from "lkt-ts-interfaces";
-export declare type Option = {
+export type Option = {
     value: string | number | Option[];
     label: string;
     data?: LktObject;

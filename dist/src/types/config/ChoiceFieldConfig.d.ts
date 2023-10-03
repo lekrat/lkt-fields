@@ -1,4 +1,4 @@
-export declare type ChoiceFieldConfig = {
+export type ChoiceFieldConfig = {
     type: 'select' | 'radio';
     multiple?: boolean;
 };

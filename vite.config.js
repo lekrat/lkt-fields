@@ -20,7 +20,19 @@ export default {
         outDir,
         minify: true,
         rollupOptions: {
-            external: ['vue', '@vuepic/vue-datepicker', 'vue-next-select', 'suneditor', 'katex', 'lkt-http', 'lkt-tools', 'lkt-string-tools', 'lkt-vue-tools', 'lkt-control-tools', 'lkt-events'],
+            external: [
+                'vue',
+                '@vuepic/vue-datepicker',
+                'vue-next-select',
+                'suneditor',
+                'katex',
+                'lkt-http',
+                'lkt-tools',
+                'lkt-string-tools',
+                'lkt-vue-tools',
+                'lkt-control-tools',
+                'lkt-events'
+            ],
             output: {
                 globals: {
                     vue: 'Vue',
@@ -30,6 +42,9 @@ export default {
                     'katex': 'katex',
                     'lkt-tools': 'LktTools',
                     'lkt-http': 'LktHTTP',
+                    'lkt-string-tools': 'LktStringTools',
+                    'lkt-vue-tools': 'LktVueTools',
+                    'lkt-events': 'LktEvents',
                 },
                 sourcemapExcludeSources: true
             }

@@ -1,4 +1,4 @@
-export declare type StateTexts = {
+export type StateTexts = {
     add?: string;
     link?: string;
     open?: string;

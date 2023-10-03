@@ -73,7 +73,7 @@ declare const _default: {
             };
         };
         methods: {
-            renderOption(option: import("../types/Option").Option): any;
+            renderOption(option: import("./LktFieldSelect.vue.__VLS_script").__VLS_types_Option): any;
             focus(): void;
             setIsDisabled(status?: boolean): any;
             isDisabled(): any;

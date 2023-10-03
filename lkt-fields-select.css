@@ -1,0 +1,126 @@
+.lkt-field.is-select {
+  display: flex;
+  flex-direction: column-reverse;
+  position: relative;
+  color: var(--text-color);
+}
+
+.lkt-field.is-select .vue-select {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  outline: 0;
+  border: var(--field-border-width) var(--field-border-style) var(--field-border-color);
+  box-shadow: var(--field-shadow);
+  padding: var(--field-padding);
+  transition: var(--field-transition);
+  font-size: var(--field-font-size);
+  border-radius: var(--field-border-radius);
+  background-color: var(--field-background-color);
+  height: var(--input-height);
+}
+
+.lkt-field.is-select.is-multiple .vue-select {
+  height: calc(var(--input-height) * 2 + var(--field-gap));
+}
+
+.lkt-field.is-select .vue-select + label {
+  display: block;
+  font-weight: var(--field-label-font-weight);
+  font-size: var(--field-label-font-size);
+  line-height: var(--field-label-line-height);
+  margin: var(--field-label-margin);
+}
+
+.lkt-field.is-select .vue-dropdown {
+  z-index: 9;
+}
+
+
+
+.lkt-field--alert.lkt-field.is-select .vue-select {
+  background: var(--alert-contrast);
+  border-color: var(--alert-color);
+}
+
+.lkt-field--alert.lkt-field.is-select .vue-tag {
+  background: var(--alert-color);
+  border-color: var(--alert-contrast);
+}
+
+.lkt-field--alert.lkt-field.is-select:hover .vue-select {
+  background: var(--alert-contrast);
+  border-color: var(--alert-color);
+  box-shadow: inset 0 1px 2px rgba(var(--alert-color), .07);
+}
+
+.lkt-field--danger.lkt-field.is-select .vue-select {
+  background: var(--danger-contrast);
+  border-color: var(--danger-color);
+}
+
+.lkt-field--danger.lkt-field.is-select .vue-tag {
+  background: var(--danger-color);
+  border-color: var(--danger-contrast);
+}
+
+.lkt-field--danger.lkt-field.is-select:hover .vue-select {
+  background: var(--danger-contrast);
+  border-color: var(--danger-color);
+  box-shadow: inset 0 1px 2px rgba(var(--danger-color), .07);
+}
+
+.lkt-field--info.lkt-field.is-select .vue-select {
+  background: var(--info-contrast);
+  border-color: var(--info-color);
+}
+
+.lkt-field--info.lkt-field.is-select .vue-tag {
+  background: var(--info-color);
+  border-color: var(--info-contrast);
+}
+
+.lkt-field--info.lkt-field.is-select:hover .vue-select {
+  background: var(--info-contrast);
+  border-color: var(--info-color);
+  box-shadow: inset 0 1px 2px rgba(var(--info-color), .07);
+}
+
+.lkt-field--warning.lkt-field.is-select .vue-select {
+  background: var(--warning-contrast);
+  border-color: var(--warning-color);
+}
+
+.lkt-field--warning.lkt-field.is-select .vue-tag {
+  background: var(--warning-color);
+  border-color: var(--warning-contrast);
+}
+
+.lkt-field--warning.lkt-field.is-select:hover .vue-select {
+  background: var(--warning-contrast);
+  border-color: var(--warning-color);
+  box-shadow: inset 0 1px 2px rgba(var(--warning-color), .07);
+}
+
+.lkt-field--target.lkt-field.is-select .vue-select {
+  background: var(--target-contrast);
+  border-color: var(--target-color);
+}
+
+.lkt-field--target.lkt-field.is-select .vue-tag {
+  background: var(--target-color);
+  border-color: var(--target-contrast);
+}
+
+.lkt-field--target.lkt-field.is-select:hover .vue-select {
+  background: var(--target-contrast);
+  border-color: var(--target-color);
+  box-shadow: inset 0 1px 2px rgba(var(--target-color), .07);
+}
+
+.lkt-field.is-select.is-disabled .vue-select {
+  box-shadow: none;
+  border: var(--field-border-width) var(--field-border-style) var(--disabled-color);
+  background-color: var(--disabled-color) !important;
+}
+

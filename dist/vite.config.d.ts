@@ -25,6 +25,9 @@ declare namespace _default {
                     katex: string;
                     'lkt-tools': string;
                     'lkt-http': string;
+                    'lkt-string-tools': string;
+                    'lkt-vue-tools': string;
+                    'lkt-events': string;
                 };
                 const sourcemapExcludeSources: boolean;
             }
