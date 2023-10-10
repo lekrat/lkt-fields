@@ -1,14 +1,5 @@
 <script lang="ts">
-import lktFieldState from "../components/LktFieldState.vue";
-import {LktFieldStateMixin} from "../mixins/LktFieldStateMixin";
-import VueNextSelect from 'vue-next-select';
-
-export default {
-    name: "LktFieldSelect",
-    inheritAttrs: false,
-    components: {lktFieldState, VueNextSelect},
-    mixins: [LktFieldStateMixin]
-}
+export default {name: "LktFieldSelect", inheritAttrs: false}
 </script>
 
 <script lang="ts" setup>
@@ -22,6 +13,8 @@ import {LktEvent} from "lkt-events/dist/types/classes/LktEvent";
 import {StateKey} from "../types/StateKey";
 import {Option} from "../types/Option";
 import {createLktEvent} from "lkt-events";
+import LktFieldText from "../lib-components/LktFieldText.vue";
+import {onBeforeUnmount} from "@vue/runtime-core";
 
 // Emits
 const emits = defineEmits(['update:modelValue', 'click-ui']);
@@ -32,16 +25,17 @@ const slots = useSlots()
 // Props
 const props = defineProps({
     modelValue: {type: [String, Number, Array], default: ''},
+
     placeholder: {type: String, default: ''},
     label: {type: String, default: ''},
     palette: {type: String, default: ''},
     name: {type: String, default: generateRandomString(16)},
-    valid: {type: [Boolean, Function], default: false,},
-    disabled: {type: Boolean, default: false,},
-    closeOnSelect: {type: Boolean, default: false,},
-    readonly: {type: Boolean, default: false,},
-    emptyLabel: {type: Boolean, default: false,},
-    options: {type: Array, default: (): Option[] => []},
+    valid: {type: Boolean, default: false},
+    disabled: {type: Boolean, default: false},
+    closeOnSelect: {type: Boolean, default: false},
+    readonly: {type: Boolean, default: false},
+    emptyLabel: {type: Boolean, default: false},
+    options: {type: Array<Option>, default: (): Option[] => []},
     disabledOptions: {type: Array, default: (): Array<any> => []},
     multiple: {type: Boolean, default: false},
     canTag: {type: Boolean, default: false},
@@ -52,18 +46,23 @@ const props = defineProps({
     searchPlaceholder: {type: String, default: ''}
 });
 
+// Components refs
+const searchField = ref(null);
+const select = ref(null);
+
 // Constant data
 const Identifier = generateRandomString(16);
 
 // Reactive data
 const searchOptionsValue = ref(new SearchOptionsValue(props.searchOptions)),
-    //@ts-ignore
     optionsValue = ref(new OptionsValue([...props.options])),
     closeAfterSelect = ref(false),
     originalValue = ref(props.modelValue),
     value = ref(props.modelValue),
+    valueText = ref(''),
     loading = ref(false),
     updatedModelValue = ref(false),
+    showDropdown = ref(false),
     visibleOptions = ref([...props.options]),
     optionsHaystack = ref([...props.options]),
     searchString = ref('')
@@ -84,6 +83,7 @@ const canRenderLabelHtml = computed(() => {
 });
 const isRemoteSearch = computed(() => existsHTTPResource(props.resource));
 const isValid = computed(() => {
+    // @ts-ignore
     if (typeof props.valid === 'function') return props.valid();
     return props.valid;
 })
@@ -92,27 +92,11 @@ const changed = computed(() => value.value !== originalValue.value);
 const classes = computed(() => {
     const r = ['lkt-field'];
 
-    if (props.palette) {
-        r.push(`lkt-field--${props.palette}`);
-    }
-
-    if (changed.value) {
-        r.push('is-changed');
-    }
-
-    if (props.multiple) {
-        r.push('is-multiple');
-    }
-
-    if (props.disabled) {
-        r.push('is-disabled');
-    }
-
-        // const amountEnabled = this.stateConfigValue.amountEnabled();
-        // if (amountEnabled > 0) {
-        //     r.push(`has-icons`);
-        //     r.push(`has-icons-${amountEnabled}`);
-        // }
+    if (props.palette) r.push(`lkt-field--${props.palette}`);
+    if (changed.value) r.push('is-changed');
+    if (props.multiple) r.push('is-multiple');
+    if (props.disabled) r.push('is-disabled');
+    if (showDropdown.value) r.push('has-focus');
 
     r.push(isValid.value ? 'is-valid' : 'is-error');
     r.push(!!props.modelValue ? 'is-filled' : 'is-empty');
@@ -120,24 +104,23 @@ const classes = computed(() => {
     return r.join(' ');
 })
 
-// Watch data
-watch(() => props.modelValue, (v) => {
-    value.value = v;
+const setValueText = () => {
+    let r = '';
+    optionsHaystack.value.forEach((opt) => {
+        if (opt.value === value.value) r = opt.label;
+    })
+
+}
+
+const computedValueText = computed(() => {
+
+    let r = '';
+    optionsHaystack.value.forEach((opt) => {
+        if (opt.value == value.value) r = opt.label;
+    })
+    return r;
 })
 
-watch(value, (v) => {
-    emits('update:modelValue', v);
-    updatedModelValue.value = true;
-    nextTick(() => updatedModelValue.value = false);
-})
-
-watch(() => props.searchOptions, (v) => {
-    searchOptionsValue.value = new SearchOptionsValue(v);
-})
-
-watch(() => props.options, (v: Option[]) => {
-    optionsValue.value = new OptionsValue(v);
-})
 
 // Methods
 const buildVisibleOptions = () => {
@@ -190,9 +173,84 @@ const onClickUi = ($event: any, event: LktEvent) => {
     emits('click-ui', $event, createLktEvent(event.id, {field: this}));
 }
 
+const focusOnSearch = () => {
+    nextTick(() => {
+        searchField.value.focus();
+    })
+}
 
-// Mounted actions
+const focusOnSelect = () => {
+    nextTick(() => {
+        select.value.focus();
+    })
+}
+
+const toggleDropdown = () => {
+    resetSearch();
+    showDropdown.value = !showDropdown.value;
+    // if (showDropdown.value) {
+    //     focusOnSelect();
+    //     focusOnSearch();
+    // }
+}
+
+// Watch data
+watch(() => props.modelValue, (v) => {
+    value.value = v;
+})
+
+watch(value, (v) => {
+    emits('update:modelValue', v);
+    updatedModelValue.value = true;
+    nextTick(() => updatedModelValue.value = false);
+})
+
+watch(searchString, buildVisibleOptions)
+
+watch(() => props.searchOptions, (v) => {
+    searchOptionsValue.value = new SearchOptionsValue(v);
+})
+
+watch(() => props.options, (v: Option[]) => {
+    optionsValue.value = new OptionsValue(v);
+})
+
 buildVisibleOptions();
+
+const onClickOption = (option: Option) => {
+    value.value = option.value;
+    showDropdown.value = false;
+}
+
+const onClickOutside = (e) => {
+    const checkClasses = [
+        'is-select',
+        'lkt-field__select',
+        'lkt-field__select-value',
+        'lkt-field__select-dropdown',
+        'lkt-field__select-search-container',
+        'lkt-field__select-options',
+        'lkt-field__select-option',
+        'lkt-field__select-search',
+    ];
+    const target = e.target;
+    let included = false;
+    checkClasses.forEach((className) => {
+        if (target.className.includes(className) || target.parentElement && target.parentElement.className.includes(className)) included = true;
+    });
+
+    if (!included) {
+        resetSearch();
+        showDropdown.value = false;
+    }
+};
+window.addEventListener('click', onClickOutside);
+
+
+onBeforeUnmount(() => {
+    window.removeEventListener('click', onClickOutside);
+})
+
 
 </script>
 
@@ -200,38 +258,29 @@ buildVisibleOptions();
     <div class="is-select"
          v-bind:class="classes"
          v-bind:data-show-ui="false"
-         v-bind:data-labeled="canRenderLabelHtml"
     >
         <slot name="prefix"></slot>
 
-        <vue-next-select
-            v-model="value"
-            v-bind:options="optionsHaystack"
-            v-bind:label-by="'label'"
-            v-bind:group-by="'group'"
-            v-bind:value-by="'value'"
-            v-bind:visible-options="visibleOptions"
-            v-bind:searchable="true"
-            v-bind:multiple="multiple"
-            v-bind:taggable="multiple"
-            v-bind:loading="loading"
-            v-bind:disabled="disabled"
-            v-on:focus="handleFocus"
-            v-on:search:input="handleInput"
-            v-on:update:modelValue="resetSearch"
-            v-bind:search-placeholder="searchPlaceholder"
-            v-bind:close-on-select="closeAfterSelect"
-            clear-on-close
-        ></vue-next-select>
+        <select ref="select" :id="Identifier" v-on:focus.stop.prevent="toggleDropdown" v-on:blur.stop.prevent="toggleDropdown" style="height: 0; opacity: 0; width: 0;"></select>
 
-        <slot v-if="canRenderLabelSlot" name="label"></slot>
-        <label v-if="canRenderLabelHtml" :for="Identifier" v-html="label"></label>
+        <div class="lkt-field__select">
+            <div class="lkt-field__select-value" v-on:click.stop.prevent="toggleDropdown">{{computedValueText}}</div>
+            <div class="lkt-field__select-dropdown" v-if="showDropdown">
+                <div class="lkt-field__select-search-container">
+                    <lkt-field-text ref="searchField"
+                                    v-model="searchString"
+                                    tabindex="-1"
+                                    class="lkt-field__select-search"></lkt-field-text>
+                </div>
+                <ul class="lkt-field__select-options">
+                    <li class="lkt-field__select-option"
+                        v-for="option in visibleOptions"
+                        :class="{'is-active': option.value == value}"
+                        v-on:click.prevent.stop="onClickOption(option)">{{option.label}}</li>
+                </ul>
+            </div>
+        </div>
 
-        <lkt-field-state
-            v-if="false"
-            v-bind:state-config-value="undefined"
-            v-bind:state-texts-value="undefined"
-            v-on:click-ui="onClickUi"
-        ></lkt-field-state>
+        <label v-html="label" v-on:click.stop.prevent="toggleDropdown"></label>
     </div>
 </template>

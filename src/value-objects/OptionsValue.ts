@@ -9,7 +9,7 @@ export class OptionsValue {
     }
 
     all() {
-        return this.value;
+        return [...this.value];
     }
 
     filter(query: string) {

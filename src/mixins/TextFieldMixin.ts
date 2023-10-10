@@ -22,6 +22,7 @@ export const TextFieldMixin = {
         disabled: { type: Boolean, default: false, },
         readonly: { type: Boolean, default: false, },
         emptyLabel: { type: Boolean, default: false, },
+        tabindex: { type: [Number, Boolean], default: false, },
 
         stateConfig: {type: Object as PropType<StateConfig>, default: () => { return {}}},
         stateTexts: {type: Object as PropType<StateTexts>, default: () => { return {}}}

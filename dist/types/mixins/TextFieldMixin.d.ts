@@ -46,6 +46,10 @@ export declare const TextFieldMixin: {
             type: BooleanConstructor;
             default: boolean;
         };
+        tabindex: {
+            type: (BooleanConstructor | NumberConstructor)[];
+            default: boolean;
+        };
         stateConfig: {
             type: PropType<StateConfig>;
             default: () => {};

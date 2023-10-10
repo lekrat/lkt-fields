@@ -1,28 +1,10 @@
-declare const _default: {
-    name: string;
-    components: {
-        lktFieldState: {
-            name: string;
-            emits: string[];
-            props: {
-                stateConfigValue: {
-                    type: import("vue").PropType<import("../value-objects/StateConfigValue").StateConfigValue>;
-                    default: () => {};
-                };
-                stateTextsValue: {
-                    type: import("vue").PropType<import("../value-objects/StateTextValue").StateTextValue>;
-                    default: () => {};
-                };
-            };
-            computed: {
-                enabledIcons(): any;
-            };
-            methods: {
-                onUIStatusClick($event: any, key: string, data?: any): void;
-            };
-        };
-    };
+import { LktObject } from "lkt-ts-interfaces";
+export declare const EditorFieldMixin: {
     mixins: ({
+        computed: {
+            classes(): string;
+        };
+    } | {
         mixins: {
             methods: {
                 onUIStatusClick($event: any, key: string, data?: any): void;
@@ -75,6 +57,10 @@ declare const _default: {
                 type: BooleanConstructor;
                 default: boolean;
             };
+            tabindex: {
+                type: (BooleanConstructor | NumberConstructor)[];
+                default: boolean;
+            };
             stateConfig: {
                 type: import("vue").PropType<import("../types/StateConfig").StateConfig>;
                 default: () => {};
@@ -84,7 +70,7 @@ declare const _default: {
                 default: () => {};
             };
         };
-        data(): import("lkt-ts-interfaces").LktObject;
+        data(): LktObject;
         computed: {
             showInfoUi(): boolean;
             isValid(): any;
@@ -118,11 +104,24 @@ declare const _default: {
             onClick($event: any): void;
         };
     })[];
-    data(): {
-        visiblePassword: boolean;
+    props: {
+        lang: {
+            type: StringConstructor;
+            default: string;
+        };
+        editorOptions: {
+            type: ObjectConstructor;
+            default(): {
+                buttonList: (string | string[])[];
+            };
+        };
     };
-    computed: {
-        inputType(): "text" | "password";
+    data(): LktObject;
+    watch: {
+        disabled(): void;
+    };
+    methods: {
+        storeEditorValue(content: string): void;
+        updateEditorDisabled(): void;
     };
 };
-export default _default;

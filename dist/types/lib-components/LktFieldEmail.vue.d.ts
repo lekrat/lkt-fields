@@ -75,6 +75,10 @@ declare const _default: {
                 type: BooleanConstructor;
                 default: boolean;
             };
+            tabindex: {
+                type: (BooleanConstructor | NumberConstructor)[];
+                default: boolean;
+            };
             stateConfig: {
                 type: import("vue").PropType<import("../types/StateConfig").StateConfig>;
                 default: () => {};

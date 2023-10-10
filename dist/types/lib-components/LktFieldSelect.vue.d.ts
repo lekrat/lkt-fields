@@ -1,5 +1,4 @@
 import { nextTick } from "vue";
-import { LktEvent } from "lkt-events/dist/types/classes/LktEvent";
 import { Option } from "../types/Option";
 declare const _default: {
     new (...args: any[]): {
@@ -10,21 +9,21 @@ declare const _default: {
             label?: string;
             disabled?: boolean;
             multiple?: boolean;
-            options?: unknown[];
+            options?: Option[];
             readonly?: boolean;
             placeholder?: string;
             resource?: string;
             modelValue?: string | number | unknown[];
-            searchPlaceholder?: string;
-            closeOnSelect?: boolean;
             palette?: string;
-            valid?: boolean | Function;
+            valid?: boolean;
+            closeOnSelect?: boolean;
             emptyLabel?: boolean;
             disabledOptions?: unknown[];
             canTag?: boolean;
             noOptionsMessage?: string;
             searchStringResourceParam?: string;
             searchOptions?: Function | Record<string, any>;
+            searchPlaceholder?: string;
             key?: string | number | symbol;
             style?: unknown;
             class?: unknown;
@@ -107,7 +106,7 @@ declare const _default: {
                 default: string;
             };
             valid: {
-                type: (FunctionConstructor | BooleanConstructor)[];
+                type: BooleanConstructor;
                 default: boolean;
             };
             disabled: {
@@ -127,7 +126,20 @@ declare const _default: {
                 default: boolean;
             };
             options: {
-                type: ArrayConstructor;
+                type: {
+                    (arrayLength: number): Option[];
+                    (...items: Option[]): Option[];
+                    new (arrayLength: number): Option[];
+                    new (...items: Option[]): Option[];
+                    isArray(arg: any): arg is any[];
+                    readonly prototype: any[];
+                    from<T>(arrayLike: ArrayLike<T>): T[];
+                    from<T_1, U>(arrayLike: ArrayLike<T_1>, mapfn: (v: T_1, k: number) => U, thisArg?: any): U[];
+                    from<T_2>(iterable: Iterable<T_2> | ArrayLike<T_2>): T_2[];
+                    from<T_3, U_1>(iterable: Iterable<T_3> | ArrayLike<T_3>, mapfn: (v: T_3, k: number) => U_1, thisArg?: any): U_1[];
+                    of<T_4>(...items: T_4[]): T_4[];
+                    readonly [Symbol.species]: ArrayConstructor;
+                };
                 default: () => Option[];
             };
             disabledOptions: {
@@ -165,35 +177,26 @@ declare const _default: {
         }>> & {
             "onClick-ui"?: (...args: any[]) => any;
             "onUpdate:modelValue"?: (...args: any[]) => any;
-        }, {}, unknown, {}, {}, {
-            mixins: {
-                methods: {
-                    onUIStatusClick($event: any, key: string, data?: any): void;
-                };
-            }[];
-            methods: {
-                onClickUi($event: any, event: LktEvent): void;
-            };
-        }, import("vue").ComponentOptionsMixin, ("click-ui" | "update:modelValue")[], string, {
+        }, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("click-ui" | "update:modelValue")[], string, {
             name: string;
             label: string;
             disabled: boolean;
             multiple: boolean;
-            options: unknown[];
+            options: Option[];
             readonly: boolean;
             placeholder: string;
             resource: string;
             modelValue: string | number | unknown[];
-            searchPlaceholder: string;
-            closeOnSelect: boolean;
             palette: string;
-            valid: boolean | Function;
+            valid: boolean;
+            closeOnSelect: boolean;
             emptyLabel: boolean;
             disabledOptions: unknown[];
             canTag: boolean;
             noOptionsMessage: string;
             searchStringResourceParam: string;
             searchOptions: Function | Record<string, any>;
+            searchPlaceholder: string;
         }, {}, string, {}> & {
             beforeCreate?: (() => void) | (() => void)[];
             created?: (() => void) | (() => void)[];
@@ -213,7 +216,7 @@ declare const _default: {
         };
         $forceUpdate: () => void;
         $nextTick: typeof nextTick;
-        $watch<T extends string | ((...args: any) => any)>(source: T, cb: T extends (...args: any) => infer R ? (args_0: R, args_1: R) => any : (...args: any) => any, options?: import("vue").WatchOptions<boolean>): import("vue").WatchStopHandle;
+        $watch<T_5 extends string | ((...args: any) => any)>(source: T_5, cb: T_5 extends (...args: any) => infer R ? (args_0: R, args_1: R) => any : (...args: any) => any, options?: import("vue").WatchOptions<boolean>): import("vue").WatchStopHandle;
     } & Readonly<import("vue").ExtractPropTypes<{
         modelValue: {
             type: (StringConstructor | NumberConstructor | ArrayConstructor)[];
@@ -236,7 +239,7 @@ declare const _default: {
             default: string;
         };
         valid: {
-            type: (FunctionConstructor | BooleanConstructor)[];
+            type: BooleanConstructor;
             default: boolean;
         };
         disabled: {
@@ -256,7 +259,20 @@ declare const _default: {
             default: boolean;
         };
         options: {
-            type: ArrayConstructor;
+            type: {
+                (arrayLength: number): Option[];
+                (...items: Option[]): Option[];
+                new (arrayLength: number): Option[];
+                new (...items: Option[]): Option[];
+                isArray(arg: any): arg is any[];
+                readonly prototype: any[];
+                from<T>(arrayLike: ArrayLike<T>): T[];
+                from<T_1, U>(arrayLike: ArrayLike<T_1>, mapfn: (v: T_1, k: number) => U, thisArg?: any): U[];
+                from<T_2>(iterable: Iterable<T_2> | ArrayLike<T_2>): T_2[];
+                from<T_3, U_1>(iterable: Iterable<T_3> | ArrayLike<T_3>, mapfn: (v: T_3, k: number) => U_1, thisArg?: any): U_1[];
+                of<T_4>(...items: T_4[]): T_4[];
+                readonly [Symbol.species]: ArrayConstructor;
+            };
             default: () => Option[];
         };
         disabledOptions: {
@@ -294,13 +310,7 @@ declare const _default: {
     }>> & {
         "onClick-ui"?: (...args: any[]) => any;
         "onUpdate:modelValue"?: (...args: any[]) => any;
-    } & import("vue").ShallowUnwrapRef<{}> & {
-        [x: string]: never;
-    } & {
-        onClickUi($event: any, event: LktEvent): void;
-    } & {
-        onUIStatusClick($event: any, key: string, data?: any): void;
-    } & import("vue").ComponentCustomProperties & {};
+    } & import("vue").ShallowUnwrapRef<{}> & {} & import("vue").ComponentCustomProperties & {};
     __isFragment?: never;
     __isTeleport?: never;
     __isSuspense?: never;
@@ -326,7 +336,7 @@ declare const _default: {
         default: string;
     };
     valid: {
-        type: (FunctionConstructor | BooleanConstructor)[];
+        type: BooleanConstructor;
         default: boolean;
     };
     disabled: {
@@ -346,7 +356,20 @@ declare const _default: {
         default: boolean;
     };
     options: {
-        type: ArrayConstructor;
+        type: {
+            (arrayLength: number): Option[];
+            (...items: Option[]): Option[];
+            new (arrayLength: number): Option[];
+            new (...items: Option[]): Option[];
+            isArray(arg: any): arg is any[];
+            readonly prototype: any[];
+            from<T>(arrayLike: ArrayLike<T>): T[];
+            from<T_1, U>(arrayLike: ArrayLike<T_1>, mapfn: (v: T_1, k: number) => U, thisArg?: any): U[];
+            from<T_2>(iterable: Iterable<T_2> | ArrayLike<T_2>): T_2[];
+            from<T_3, U_1>(iterable: Iterable<T_3> | ArrayLike<T_3>, mapfn: (v: T_3, k: number) => U_1, thisArg?: any): U_1[];
+            of<T_4>(...items: T_4[]): T_4[];
+            readonly [Symbol.species]: ArrayConstructor;
+        };
         default: () => Option[];
     };
     disabledOptions: {
@@ -384,39 +407,29 @@ declare const _default: {
 }>> & {
     "onClick-ui"?: (...args: any[]) => any;
     "onUpdate:modelValue"?: (...args: any[]) => any;
-}, {}, unknown, {}, {}, {
-    mixins: {
-        methods: {
-            onUIStatusClick($event: any, key: string, data?: any): void;
-        };
-    }[];
-    methods: {
-        onClickUi($event: any, event: LktEvent): void;
-    };
-}, import("vue").ComponentOptionsMixin, ("click-ui" | "update:modelValue")[], "click-ui" | "update:modelValue", {
+}, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("click-ui" | "update:modelValue")[], "click-ui" | "update:modelValue", {
     name: string;
     label: string;
     disabled: boolean;
     multiple: boolean;
-    options: unknown[];
+    options: Option[];
     readonly: boolean;
     placeholder: string;
     resource: string;
     modelValue: string | number | unknown[];
-    searchPlaceholder: string;
-    closeOnSelect: boolean;
     palette: string;
-    valid: boolean | Function;
+    valid: boolean;
+    closeOnSelect: boolean;
     emptyLabel: boolean;
     disabledOptions: unknown[];
     canTag: boolean;
     noOptionsMessage: string;
     searchStringResourceParam: string;
     searchOptions: Function | Record<string, any>;
+    searchPlaceholder: string;
 }, {}, string, {}> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & (new () => {
     $slots: {
         prefix: (_: {}) => any;
-        label: (_: {}) => any;
     };
 });
 export default _default;
