@@ -2,20 +2,18 @@ import {Option} from "../types/Option";
 
 export class OptionsValue {
     private value: Option[];
-    private labels: string[];
 
     constructor(value: Option[] = []) {
         this.value = [...value];
     }
 
     all() {
-        return [...this.value];
+        return this.value;
     }
 
     filter(query: string) {
-        if (query === '') {
-            return this.value;
-        }
+        if (query === '') return this.all();
+
         const q = query.toLowerCase();
         return this.value.filter((z: Option) => {
             return z.label.toLowerCase().indexOf(q) !== -1;

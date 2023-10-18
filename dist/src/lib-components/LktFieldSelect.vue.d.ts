@@ -177,7 +177,10 @@ declare const _default: {
         }>> & {
             "onClick-ui"?: (...args: any[]) => any;
             "onUpdate:modelValue"?: (...args: any[]) => any;
-        }, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("click-ui" | "update:modelValue")[], string, {
+        }, {
+            reset: () => void;
+            value: () => string | number | unknown[];
+        }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("click-ui" | "update:modelValue")[], string, {
             name: string;
             label: string;
             disabled: boolean;
@@ -310,7 +313,10 @@ declare const _default: {
     }>> & {
         "onClick-ui"?: (...args: any[]) => any;
         "onUpdate:modelValue"?: (...args: any[]) => any;
-    } & import("vue").ShallowUnwrapRef<{}> & {} & import("vue").ComponentCustomProperties & {};
+    } & import("vue").ShallowUnwrapRef<{
+        reset: () => void;
+        value: () => string | number | unknown[];
+    }> & {} & import("vue").ComponentCustomProperties & {};
     __isFragment?: never;
     __isTeleport?: never;
     __isSuspense?: never;
@@ -407,7 +413,10 @@ declare const _default: {
 }>> & {
     "onClick-ui"?: (...args: any[]) => any;
     "onUpdate:modelValue"?: (...args: any[]) => any;
-}, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("click-ui" | "update:modelValue")[], "click-ui" | "update:modelValue", {
+}, {
+    reset: () => void;
+    value: () => string | number | unknown[];
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("click-ui" | "update:modelValue")[], "click-ui" | "update:modelValue", {
     name: string;
     label: string;
     disabled: boolean;

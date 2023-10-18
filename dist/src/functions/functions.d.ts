@@ -1,3 +1,6 @@
+import { FieldCallToAction } from "../types/FieldCallToAction";
+import { StateConfigValue } from "../value-objects/StateConfigValue";
+import { StateTextValue } from "../value-objects/StateTextValue";
 /**
  *
  * @param option
@@ -24,3 +27,7 @@ export declare const mapDisabledOptions: (options: IOption[], disabledOptions: a
  * @param data
  */
 export declare const createOption: (value: string | number | IOption[], label: string, data?: object) => IOption;
+export declare const getStateConfigFromCTAForTextField: (reset: boolean | string | FieldCallToAction, error: boolean | string | FieldCallToAction, info: boolean | string | FieldCallToAction) => {
+    config: StateConfigValue;
+    texts: StateTextValue;
+};

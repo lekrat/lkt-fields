@@ -55,16 +55,14 @@ const Identifier = generateRandomString(16);
 
 // Reactive data
 const searchOptionsValue = ref(new SearchOptionsValue(props.searchOptions)),
-    optionsValue = ref(new OptionsValue([...props.options])),
+    optionsValue = ref(new OptionsValue(props.options)),
     closeAfterSelect = ref(false),
     originalValue = ref(props.modelValue),
     value = ref(props.modelValue),
-    valueText = ref(''),
-    loading = ref(false),
     updatedModelValue = ref(false),
     showDropdown = ref(false),
-    visibleOptions = ref([...props.options]),
-    optionsHaystack = ref([...props.options]),
+    visibleOptions = ref(optionsValue.value.all()),
+    optionsHaystack = ref(optionsValue.value.all()),
     searchString = ref('')
 ;
 
@@ -104,16 +102,7 @@ const classes = computed(() => {
     return r.join(' ');
 })
 
-const setValueText = () => {
-    let r = '';
-    optionsHaystack.value.forEach((opt) => {
-        if (opt.value === value.value) r = opt.label;
-    })
-
-}
-
 const computedValueText = computed(() => {
-
     let r = '';
     optionsHaystack.value.forEach((opt) => {
         if (opt.value == value.value) r = opt.label;
@@ -173,25 +162,17 @@ const onClickUi = ($event: any, event: LktEvent) => {
     emits('click-ui', $event, createLktEvent(event.id, {field: this}));
 }
 
-const focusOnSearch = () => {
-    nextTick(() => {
-        searchField.value.focus();
-    })
-}
-
-const focusOnSelect = () => {
-    nextTick(() => {
-        select.value.focus();
-    })
-}
-
 const toggleDropdown = () => {
     resetSearch();
     showDropdown.value = !showDropdown.value;
-    // if (showDropdown.value) {
-    //     focusOnSelect();
-    //     focusOnSearch();
-    // }
+    if (showDropdown.value) {
+        nextTick(() => {
+            searchField.value.focus();
+            nextTick(() => {
+                searchField.value.focus();
+            })
+        })
+    }
 }
 
 // Watch data
@@ -251,6 +232,10 @@ onBeforeUnmount(() => {
     window.removeEventListener('click', onClickOutside);
 })
 
+defineExpose({
+    reset,
+    value: getValue,
+});
 
 </script>
 
@@ -261,22 +246,25 @@ onBeforeUnmount(() => {
     >
         <slot name="prefix"></slot>
 
-        <select ref="select" :id="Identifier" v-on:focus.stop.prevent="toggleDropdown" v-on:blur.stop.prevent="toggleDropdown" style="height: 0; opacity: 0; width: 0;"></select>
+        <select :ref="(el) => select = el" :id="Identifier" v-on:focus.stop.prevent="toggleDropdown"
+                v-on:blur.stop.prevent="toggleDropdown" style="height: 0; opacity: 0; width: 0;"></select>
 
         <div class="lkt-field__select">
-            <div class="lkt-field__select-value" v-on:click.stop.prevent="toggleDropdown">{{computedValueText}}</div>
+            <div class="lkt-field__select-value" v-on:click.stop.prevent="toggleDropdown">{{ computedValueText }}</div>
             <div class="lkt-field__select-dropdown" v-if="showDropdown">
                 <div class="lkt-field__select-search-container">
-                    <lkt-field-text ref="searchField"
+                    <lkt-field-text :ref="(el) => searchField = el"
                                     v-model="searchString"
+                                    :placeholder="searchPlaceholder"
                                     tabindex="-1"
                                     class="lkt-field__select-search"></lkt-field-text>
                 </div>
-                <ul class="lkt-field__select-options">
+                <ul class="lkt-field__select-options" v-if="!readonly">
                     <li class="lkt-field__select-option"
                         v-for="option in visibleOptions"
                         :class="{'is-active': option.value == value}"
-                        v-on:click.prevent.stop="onClickOption(option)">{{option.label}}</li>
+                        v-on:click.prevent.stop="onClickOption(option)">{{ option.label }}
+                    </li>
                 </ul>
             </div>
         </div>
