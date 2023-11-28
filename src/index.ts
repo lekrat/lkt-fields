@@ -7,12 +7,6 @@ import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 
 /**
- * Import Select
- */
-import VueNextSelect from 'vue-next-select';
-import 'vue-next-select/dist/index.min.css';
-
-/**
  * Import editor
  */
 import 'suneditor/dist/css/suneditor.min.css'
@@ -49,7 +43,6 @@ const LktFields = {
         if (!options.components) {
             app
                 .component('Datepicker', Datepicker)
-                .component('vue-next-select', VueNextSelect)
                 .component('lkt-field-text', LktFieldText)
                 .component('lkt-field-text-area', LktFieldTextArea)
                 .component('lkt-field-check', LktFieldCheck)
@@ -71,8 +64,7 @@ const LktFields = {
             }
 
             if (options.components.select) {
-                app.component('vue-next-select', VueNextSelect)
-                    .component('lkt-field-select', LktFieldSelect);
+                app.component('lkt-field-select', LktFieldSelect);
             }
 
             if (options.components.tel) {

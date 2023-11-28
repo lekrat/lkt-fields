@@ -11,7 +11,7 @@ import {FieldCallToAction} from "../types/FieldCallToAction";
 import {getStateConfigFromCTAForTextField} from "../functions/functions";
 import {LktEvent} from "lkt-events/dist/types/classes/LktEvent";
 import {StateKey} from "../types/StateKey";
-import LktFieldState from "@/components/LktFieldState.vue";
+import LktFieldState from "../components/LktFieldState.vue";
 
 const emits = defineEmits(['update:modelValue', 'keyup', 'keydown', 'focus', 'blur', 'click', 'click-ui']);
 

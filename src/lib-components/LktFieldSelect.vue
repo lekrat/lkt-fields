@@ -8,7 +8,7 @@ import {getNoOptionsMessage} from "../functions/settings-functions";
 import {SearchOptionsValue} from "../value-objects/SearchOptionsValue";
 import {OptionsValue} from "../value-objects/OptionsValue";
 import {computed, nextTick, ref, useSlots, watch} from "vue";
-import {existsHTTPResource, httpCall} from "lkt-http";
+import {existsHTTPResource, httpCall} from "lkt-http-client";
 import {LktEvent} from "lkt-events/dist/types/classes/LktEvent";
 import {StateKey} from "../types/StateKey";
 import {Option} from "../types/Option";
@@ -256,7 +256,7 @@ defineExpose({
                     <lkt-field-text :ref="(el) => searchField = el"
                                     v-model="searchString"
                                     :placeholder="searchPlaceholder"
-                                    tabindex="-1"
+                                    :tabindex="-1"
                                     class="lkt-field__select-search"></lkt-field-text>
                 </div>
                 <ul class="lkt-field__select-options" v-if="!readonly">

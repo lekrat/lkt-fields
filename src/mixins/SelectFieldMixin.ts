@@ -1,7 +1,7 @@
 import {generateRandomString} from "lkt-string-tools";
 import {slotProvided} from "lkt-vue-tools";
 import {getNoOptionsMessage} from "../functions/settings-functions";
-import {existsHTTPResource, httpCall} from "lkt-http";
+import {existsHTTPResource, httpCall} from "lkt-http-client";
 import {LktObject} from "lkt-ts-interfaces";
 import {FieldClassesMixin} from "./styling/FieldClassesMixin";
 import {SearchOptionsValue} from "../value-objects/SearchOptionsValue";

@@ -1,5 +1,4 @@
 import '@vuepic/vue-datepicker/dist/main.css';
-import 'vue-next-select/dist/index.min.css';
 /**
  * Import editor
  */

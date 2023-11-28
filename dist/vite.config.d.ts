@@ -20,11 +20,10 @@ declare namespace _default {
                 const globals: {
                     vue: string;
                     '@vuepic/vue-datepicker': string;
-                    'vue-next-select': string;
                     suneditor: string;
                     katex: string;
                     'lkt-tools': string;
-                    'lkt-http': string;
+                    'lkt-http-client': string;
                     'lkt-string-tools': string;
                     'lkt-vue-tools': string;
                     'lkt-events': string;
