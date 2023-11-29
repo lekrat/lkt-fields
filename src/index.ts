@@ -17,12 +17,8 @@ import 'katex/dist/katex.min.css'
  */
 import LktFieldCheck from "./lib-components/LktFieldCheck.vue";
 import LktFieldSwitch from "./lib-components/LktFieldSwitch.vue";
-import LktFieldText from "./lib-components/LktFieldText.vue";
 import LktFieldTextArea from "./lib-components/LktFieldTextArea.vue";
-import LktFieldEmail from "./lib-components/LktFieldEmail.vue";
-import LktFieldTel from "./lib-components/LktFieldTel.vue";
 import LktFieldUnit from "./lib-components/LktFieldUnit.vue";
-import LktFieldPassword from "./lib-components/LktFieldPassword.vue";
 import LktFieldRadio from "./lib-components/LktFieldRadio.vue";
 import LktFieldDate from "./lib-components/LktFieldDate.vue";
 import LktFieldSelect from "./lib-components/LktFieldSelect.vue";
@@ -42,14 +38,10 @@ const LktFields = {
 
         app
             .component('Datepicker', Datepicker)
-            .component('lkt-field-text', LktFieldText)
             .component('lkt-field-text-area', LktFieldTextArea)
             .component('lkt-field-check', LktFieldCheck)
             .component('lkt-field-switch', LktFieldSwitch)
-            .component('lkt-field-email', LktFieldEmail)
-            .component('lkt-field-tel', LktFieldTel)
             .component('lkt-field-unit', LktFieldUnit)
-            .component('lkt-field-password', LktFieldPassword)
             .component('lkt-field-radio', LktFieldRadio)
             .component('lkt-field-date', LktFieldDate)
             .component('lkt-field-select', LktFieldSelect)

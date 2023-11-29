@@ -44,6 +44,10 @@ declare const _default: {
             type: BooleanConstructor;
             default: boolean;
         };
+        resetMessage: {
+            type: StringConstructor;
+            default: string;
+        };
         mandatoryMessage: {
             type: StringConstructor;
             default: string;
@@ -132,6 +136,10 @@ declare const _default: {
             type: BooleanConstructor;
             default: boolean;
         };
+        resetMessage: {
+            type: StringConstructor;
+            default: string;
+        };
         mandatoryMessage: {
             type: StringConstructor;
             default: string;
@@ -181,6 +189,7 @@ declare const _default: {
         modelValue: string | number | unknown[];
         palette: string;
         valid: boolean;
+        resetMessage: string;
         mandatoryMessage: string;
         infoMessage: string;
         errorMessage: string;
@@ -240,6 +249,10 @@ declare const _default: {
             type: BooleanConstructor;
             default: boolean;
         };
+        resetMessage: {
+            type: StringConstructor;
+            default: string;
+        };
         mandatoryMessage: {
             type: StringConstructor;
             default: string;
@@ -295,6 +308,7 @@ declare const _default: {
         modelValue: string | number | unknown[];
         palette: string;
         valid: boolean;
+        resetMessage: string;
         mandatoryMessage: string;
         infoMessage: string;
         errorMessage: string;
@@ -351,6 +365,10 @@ declare const _default: {
         type: BooleanConstructor;
         default: boolean;
     };
+    resetMessage: {
+        type: StringConstructor;
+        default: string;
+    };
     mandatoryMessage: {
         type: StringConstructor;
         default: string;
@@ -406,6 +424,7 @@ declare const _default: {
     modelValue: string | number | unknown[];
     palette: string;
     valid: boolean;
+    resetMessage: string;
     mandatoryMessage: string;
     infoMessage: string;
     errorMessage: string;
