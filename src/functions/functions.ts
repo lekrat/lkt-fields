@@ -1,7 +1,4 @@
 import {LktObject} from "lkt-ts-interfaces";
-import {FieldCallToAction} from "../types/FieldCallToAction";
-import {StateConfigValue} from "../value-objects/StateConfigValue";
-import {StateTextValue} from "../value-objects/StateTextValue";
 
 /**
  *
@@ -77,78 +74,4 @@ export const mapOptions = (options: Array<any>, parser: Function, select2Compati
         return r;
     }
     return options.map((option:any, i:number): IOption => parser(option, i))
-}
-
-export const mapDisabledOptions = (options: IOption[], disabledOptions: any[]) => {
-    options.forEach(z => {
-        z.disabled = z.disabled === true || (disabledOptions.indexOf(z.value) > -1);
-    });
-    return options;
-}
-
-/**
- *
- * @param value
- * @param label
- * @param data
- */
-export const createOption = (value: string|number|IOption[], label: string, data:object = {}): IOption => {
-    return { value, label, data };
-}
-
-export const getStateConfigFromCTAForTextField = (reset: boolean|string|FieldCallToAction, error: boolean|string|FieldCallToAction, info: boolean|string|FieldCallToAction) => {
-    const resetCTA:FieldCallToAction = [false, ''],
-        errorCTA:FieldCallToAction = [false,''],
-        infoCTA:FieldCallToAction = [false, ''];
-
-    if (reset === true) resetCTA[0] = true;
-    if (error === true) errorCTA[0] = true;
-    if (info === true) infoCTA[0] = true;
-
-    if (Array.isArray(reset)) {
-        resetCTA[0] = reset[0];
-        resetCTA[1] = reset[1];
-    }
-    if (Array.isArray(error)) {
-        errorCTA[0] = error[0];
-        errorCTA[1] = error[1];
-    }
-    if (Array.isArray(info)) {
-        infoCTA[0] = info[0];
-        infoCTA[1] = info[1];
-    }
-
-    let amountEnabled = 0;
-
-    if (typeof reset === 'string' && reset.length > 0) {
-        resetCTA[0] = true;
-        resetCTA[1] = reset;
-        ++amountEnabled;
-    }
-
-    if (typeof error === 'string' && error.length > 0) {
-        errorCTA[0] = true;
-        errorCTA[1] = error;
-        ++amountEnabled;
-    }
-
-    if (typeof info === 'string' && info.length > 0) {
-        infoCTA[0] = true;
-        infoCTA[1] = info;
-        ++amountEnabled;
-    }
-
-    return {
-        config: new StateConfigValue({
-            reset: resetCTA[0],
-            error: errorCTA[0],
-            info: infoCTA[0],
-        }),
-        texts: new StateTextValue({
-            reset: resetCTA[1],
-            error: errorCTA[1],
-            info: infoCTA[1],
-        }),
-        amountEnabled,
-    };
 }
