@@ -34,8 +34,8 @@ declare const _default: {
             default: boolean;
         };
         tabindex: {
-            type: (BooleanConstructor | NumberConstructor)[];
-            default: boolean;
+            type: NumberConstructor;
+            default: any;
         };
         reset: {
             type: (StringConstructor | BooleanConstructor | {
@@ -96,12 +96,7 @@ declare const _default: {
         onClick?: (...args: any[]) => any;
         "onClick-ui"?: (...args: any[]) => any;
         "onUpdate:modelValue"?: (...args: any[]) => any;
-    }, {
-        Identifier: string;
-        reset: () => string | number | unknown[];
-        focus: () => void;
-        value: () => string | number | unknown[];
-    }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("blur" | "click" | "focus" | "keydown" | "keyup" | "click-ui" | "update:modelValue")[], import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & Readonly<import("vue").ExtractPropTypes<{
+    }, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("blur" | "click" | "focus" | "keydown" | "keyup" | "click-ui" | "update:modelValue")[], import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & Readonly<import("vue").ExtractPropTypes<{
         modelValue: {
             type: (StringConstructor | NumberConstructor | ArrayConstructor)[];
             default: string;
@@ -135,8 +130,8 @@ declare const _default: {
             default: boolean;
         };
         tabindex: {
-            type: (BooleanConstructor | NumberConstructor)[];
-            default: boolean;
+            type: NumberConstructor;
+            default: any;
         };
         reset: {
             type: (StringConstructor | BooleanConstructor | {
@@ -205,7 +200,7 @@ declare const _default: {
         disabled: boolean;
         readonly: boolean;
         placeholder: string;
-        tabindex: number | boolean;
+        tabindex: number;
         info: string | boolean | FieldCallToAction[];
         modelValue: string | number | unknown[];
         palette: string;
@@ -251,8 +246,8 @@ declare const _default: {
             default: boolean;
         };
         tabindex: {
-            type: (BooleanConstructor | NumberConstructor)[];
-            default: boolean;
+            type: NumberConstructor;
+            default: any;
         };
         reset: {
             type: (StringConstructor | BooleanConstructor | {
@@ -313,12 +308,7 @@ declare const _default: {
         onClick?: (...args: any[]) => any;
         "onClick-ui"?: (...args: any[]) => any;
         "onUpdate:modelValue"?: (...args: any[]) => any;
-    }, {
-        Identifier: string;
-        reset: () => string | number | unknown[];
-        focus: () => void;
-        value: () => string | number | unknown[];
-    }, {}, {}, {}, {
+    }, {}, {}, {}, {}, {
         error: string | boolean | FieldCallToAction[];
         name: string;
         label: string;
@@ -326,7 +316,7 @@ declare const _default: {
         disabled: boolean;
         readonly: boolean;
         placeholder: string;
-        tabindex: number | boolean;
+        tabindex: number;
         info: string | boolean | FieldCallToAction[];
         modelValue: string | number | unknown[];
         palette: string;
@@ -369,8 +359,8 @@ declare const _default: {
         default: boolean;
     };
     tabindex: {
-        type: (BooleanConstructor | NumberConstructor)[];
-        default: boolean;
+        type: NumberConstructor;
+        default: any;
     };
     reset: {
         type: (StringConstructor | BooleanConstructor | {
@@ -431,12 +421,7 @@ declare const _default: {
     onClick?: (...args: any[]) => any;
     "onClick-ui"?: (...args: any[]) => any;
     "onUpdate:modelValue"?: (...args: any[]) => any;
-}, {
-    Identifier: string;
-    reset: () => string | number | unknown[];
-    focus: () => void;
-    value: () => string | number | unknown[];
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("blur" | "click" | "focus" | "keydown" | "keyup" | "click-ui" | "update:modelValue")[], "blur" | "click" | "focus" | "keydown" | "keyup" | "click-ui" | "update:modelValue", {
+}, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("blur" | "click" | "focus" | "keydown" | "keyup" | "click-ui" | "update:modelValue")[], "blur" | "click" | "focus" | "keydown" | "keyup" | "click-ui" | "update:modelValue", {
     error: string | boolean | FieldCallToAction[];
     name: string;
     label: string;
@@ -444,14 +429,13 @@ declare const _default: {
     disabled: boolean;
     readonly: boolean;
     placeholder: string;
-    tabindex: number | boolean;
+    tabindex: number;
     info: string | boolean | FieldCallToAction[];
     modelValue: string | number | unknown[];
     palette: string;
     valid: boolean;
 }, {}, string, {}> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & (new () => {
     $slots: {
-        prefix: (_: {}) => any;
         label: (_: {}) => any;
     };
 });

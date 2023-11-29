@@ -7,16 +7,12 @@ export default {name: "LktFieldText", inheritAttrs: false}
 import {generateRandomString} from "lkt-string-tools";
 import {computed, nextTick, ref, useSlots, watch} from "vue";
 import {createLktEvent} from "lkt-events";
-import {FieldCallToAction} from "../types/FieldCallToAction";
-import {getStateConfigFromCTAForTextField} from "../functions/functions";
-import {LktEvent} from "lkt-events/dist/types/classes/LktEvent";
-import {StateKey} from "../types/StateKey";
-import LktFieldState from "../components/LktFieldState.vue";
+import {Settings} from "../settings/Settings";
 
-const emits = defineEmits(['update:modelValue', 'keyup', 'keydown', 'focus', 'blur', 'click', 'click-ui']);
+const emits = defineEmits(['update:modelValue', 'keyup', 'keydown', 'focus', 'blur', 'click', 'click-info', 'click-error']);
 
 // Slots
-const slots = useSlots()
+const slots = useSlots();
 
 // Props
 const props = defineProps({
@@ -29,25 +25,18 @@ const props = defineProps({
     valid: {type: Boolean, default: false},
     disabled: {type: Boolean, default: false},
     readonly: {type: Boolean, default: false},
-    tabindex: {type: [Number, Boolean], default: false},
-    reset: {type: [Boolean, String, Array<FieldCallToAction>], default: false},
-    info: {type: [Boolean, String, Array<FieldCallToAction>], default: false},
-    error: {type: [Boolean, String, Array<FieldCallToAction>], default: false},
+    tabindex: {type: Number, default: undefined},
+    mandatory: {type: Boolean, default: false},
+    reset: {type: Boolean, default: false},
+    resetMessage: {type: String, default: ''},
+    mandatoryMessage: {type: String, default: ''},
+    infoMessage: {type: String, default: ''},
+    errorMessage: {type: String, default: ''},
+    resetPasswordMessage: {type: String, default: ''},
+    isTel: {type: Boolean, default: false},
+    isEmail: {type: Boolean, default: false},
+    isPassword: {type: Boolean, default: false},
 });
-
-let stateConfigValue = ref(null),
-    stateTextValue = ref(null);
-
-
-const refreshCTA = () => {
-    //@ts-ignore
-    const stateConfig = getStateConfigFromCTAForTextField(props.reset, props.info, props.error);
-
-    stateConfigValue = ref(stateConfig.config).value;
-    stateTextValue = ref(stateConfig.texts).value;
-}
-
-refreshCTA();
 
 // Constant data
 const Identifier = generateRandomString(16);
@@ -58,34 +47,45 @@ const inputElement = ref(null);
 
 // Reactive data
 const originalValue = ref(props.modelValue),
-    value = ref(props.modelValue);
+    value = ref(props.modelValue),
+    showPasswordIcon = ref(false);
 
 
 const isValid = computed(() => {
-    // @ts-ignore
-    if (typeof props.valid === 'function') return props.valid();
-    return props.valid;
-})
-const changed = computed(() => value.value !== originalValue.value);
+        // @ts-ignore
+        if (typeof props.valid === 'function') return props.valid();
+        return props.valid;
+    }),
+    changed = computed(() => value.value !== originalValue.value),
+    showInfoUi = computed(() => {
+        return props.reset || props.infoMessage !== '' || props.errorMessage !== '' || (props.isPassword && props.resetPasswordMessage !== '');
+    }),
+    resetText = computed(() => {
+        if (props.resetMessage !== '') return props.resetMessage;
+        return Settings.RESET_MESSAGE;
+    }),
+    passwordIcon = computed(() => {
+        return showPasswordIcon.value ? 'lkt-field__password-icon' : 'lkt-field__show-password-icon';
+    }),
+    type = computed(() => {
+        if (props.isEmail) return 'email';
+        if (props.isPassword) return 'password';
+        if (props.isTel) return 'tel';
+        return 'text';
+    }),
+    classes = computed(() => {
+        const r = ['lkt-field', 'lkt-field-text'];
 
+        if (props.palette) r.push(`lkt-field--${props.palette}`);
+        if (type) r.push(`is-${type}`);
+        if (changed.value) r.push('is-changed');
+        if (props.disabled) r.push('is-disabled');
 
-const showInfoUi = computed(() => {
-    return stateConfigValue.amountEnabled() > 0;
-});
+        r.push(isValid.value ? 'is-valid' : 'is-error');
+        r.push(!!props.modelValue ? 'is-filled' : 'is-empty');
 
-
-const classes = computed(() => {
-    const r = ['lkt-field'];
-
-    if (props.palette) r.push(`lkt-field--${props.palette}`);
-    if (changed.value) r.push('is-changed');
-    if (props.disabled) r.push('is-disabled');
-
-    r.push(isValid.value ? 'is-valid' : 'is-error');
-    r.push(!!props.modelValue ? 'is-filled' : 'is-empty');
-
-    return r.join(' ');
-})
+        return r.join(' ');
+    });
 
 const focus = () => {
     nextTick(() => {
@@ -98,32 +98,28 @@ const focus = () => {
 watch(() => props.modelValue, (v) => value.value = v)
 watch(value, (v) => emits('update:modelValue', v))
 
-const reset = () => value.value = originalValue.value;
-const getValue = () => value.value;
-const onKeyUp = ($event: any) => emits('keyup', $event, createLktEvent(Identifier, {value: value.value}));
-const onKeyDown = ($event: any) => emits('keydown', $event, createLktEvent(Identifier, {value: value.value}));
-const onFocus = ($event: any) => emits('focus', $event, createLktEvent(Identifier, {value: value.value}));
-const onBlur = ($event: any) => emits('blur', $event, createLktEvent(Identifier, {value: value.value}));
-const onClick = ($event: any) => emits('click', $event, createLktEvent(Identifier, {value: value.value}));
-
-const onClickUi = ($event: any, event: LktEvent) => {
-    const id: StateKey = event.id;
-    if (id === 'reset') return reset();
-    emits('click-ui', $event, createLktEvent(event.id, {field: this}));
-}
+const reset = () => value.value = originalValue.value,
+    getValue = () => value.value,
+    onKeyUp = ($event: any) => emits('keyup', $event, createLktEvent(Identifier, {value: value.value})),
+    onKeyDown = ($event: any) => emits('keydown', $event, createLktEvent(Identifier, {value: value.value})),
+    onFocus = ($event: any) => emits('focus', $event, createLktEvent(Identifier, {value: value.value})),
+    onBlur = ($event: any) => emits('blur', $event, createLktEvent(Identifier, {value: value.value})),
+    onClick = ($event: any) => emits('click', $event, createLktEvent(Identifier, {value: value.value})),
+    onClickInfo = ($event: any) => emits('click-info', $event, createLktEvent(Identifier, {value: value.value})),
+    onClickError = ($event: any) => emits('click-error', $event, createLktEvent(Identifier, {value: value.value})),
+    onClickShowPassword = ($event: any) => showPasswordIcon.value = !showPasswordIcon.value;
 
 defineExpose({
     Identifier,
     reset,
     focus,
     value: getValue,
+    isMandatory: () => props.mandatory
 });
 </script>
 
-
 <template>
-    <div class="is-text"
-         v-bind:class="classes"
+    <div v-bind:class="classes"
          v-bind:data-show-ui="showInfoUi"
          v-bind:data-labeled="!!!slots.label"
     >
@@ -131,7 +127,7 @@ defineExpose({
         <template v-if="placeholder">
             <input v-model="value"
                    :ref="(el) => inputElement = el"
-                   type="text"
+                   v-bind:type="type"
                    v-bind:name="name"
                    v-bind:id="Identifier"
                    v-bind:disabled="disabled"
@@ -148,7 +144,7 @@ defineExpose({
         <template v-else>
             <input v-model="value"
                    :ref="(el) => inputElement = el"
-                   type="text"
+                   v-bind:type="type"
                    v-bind:name="name"
                    v-bind:id="Identifier"
                    v-bind:disabled="disabled"
@@ -163,11 +159,16 @@ defineExpose({
         <slot v-if="!!slots.label" name="label"></slot>
         <label v-if="!!!slots.label" :for="Identifier" v-html="label"></label>
 
-        <lkt-field-state
-            v-if="showInfoUi"
-            v-bind:state-config-value="stateConfigValue"
-            v-bind:state-texts-value="stateTextValue"
-            v-on:click-ui="onClickUi"
-        ></lkt-field-state>
+        <div class="lkt-field__state" v-if="showInfoUi">
+            <i v-if="props.errorMessage" class="lkt-field__error-icon" :title="props.errorMessage"
+               v-on:click="onClickError"></i>
+            <i v-if="props.infoMessage" class="lkt-field__info-icon" :title="props.infoMessage"
+               v-on:click="onClickInfo"></i>
+            <i v-if="props.isPassword && props.resetPasswordMessage" :class="passwordIcon"
+               :title="props.resetPasswordMessage"
+               v-on:click="onClickShowPassword"></i>
+            <i v-if="props.reset" class="lkt-field__reset-icon" :title="resetText" v-on:click="reset"></i>
+            <i v-if="props.mandatory" class="lkt-field__mandatory-icon" :title="props.mandatoryMessage"></i>
+        </div>
     </div>
 </template>

@@ -1,5 +1,4 @@
 import {LktObject} from "lkt-ts-interfaces";
-import {rmArrayValue} from "lkt-tools";
 import {FieldCallToAction} from "../types/FieldCallToAction";
 import {StateConfigValue} from "../value-objects/StateConfigValue";
 import {StateTextValue} from "../value-objects/StateTextValue";
@@ -36,10 +35,17 @@ export const mapOptions = (options: Array<any>, parser: Function, select2Compati
 
             let keys = Object.keys(opt);
 
-            rmArrayValue(keys, 'id');
-            rmArrayValue(keys, 'text');
-            rmArrayValue(keys, 'children');
-            rmArrayValue(keys, 'disabled');
+            let index = keys.indexOf('id');
+            if (index >= 0) keys.splice(index, 1);
+
+            index = keys.indexOf('text');
+            if (index >= 0) keys.splice(index, 1);
+
+            index = keys.indexOf('children');
+            if (index >= 0) keys.splice(index, 1);
+
+            index = keys.indexOf('disabled');
+            if (index >= 0) keys.splice(index, 1);
 
             let group = false,
                 children: IOption[] = [];
@@ -112,19 +118,24 @@ export const getStateConfigFromCTAForTextField = (reset: boolean|string|FieldCal
         infoCTA[1] = info[1];
     }
 
+    let amountEnabled = 0;
+
     if (typeof reset === 'string' && reset.length > 0) {
         resetCTA[0] = true;
         resetCTA[1] = reset;
+        ++amountEnabled;
     }
 
     if (typeof error === 'string' && error.length > 0) {
         errorCTA[0] = true;
         errorCTA[1] = error;
+        ++amountEnabled;
     }
 
     if (typeof info === 'string' && info.length > 0) {
         infoCTA[0] = true;
         infoCTA[1] = info;
+        ++amountEnabled;
     }
 
     return {
@@ -137,6 +148,7 @@ export const getStateConfigFromCTAForTextField = (reset: boolean|string|FieldCal
             reset: resetCTA[1],
             error: errorCTA[1],
             info: infoCTA[1],
-        })
+        }),
+        amountEnabled,
     };
 }

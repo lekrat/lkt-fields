@@ -47,8 +47,8 @@ const props = defineProps({
 });
 
 // Components refs
-const searchField = ref(null);
-const select = ref(null);
+const searchField = ref(null),
+    select = ref(null);
 
 // Constant data
 const Identifier = generateRandomString(16);
@@ -73,107 +73,97 @@ if (props.closeOnSelect === null) {
 }
 
 // Computed data
-const canRenderLabelSlot = computed(() => !!slots.label);
-const canRenderLabelHtml = computed(() => {
-    if (canRenderLabelSlot) return false;
-    if (!props.label && props.emptyLabel) return true;
-    return !!props.label;
-});
-const isRemoteSearch = computed(() => existsHTTPResource(props.resource));
-const isValid = computed(() => {
-    // @ts-ignore
-    if (typeof props.valid === 'function') return props.valid();
-    return props.valid;
-})
-const changed = computed(() => value.value !== originalValue.value);
+const canRenderLabelSlot = computed(() => !!slots.label),
+    canRenderLabelHtml = computed(() => {
+        if (canRenderLabelSlot) return false;
+        if (!props.label && props.emptyLabel) return true;
+        return !!props.label;
+    }),
+    isRemoteSearch = computed(() => existsHTTPResource(props.resource)),
+    isValid = computed(() => {
+        // @ts-ignore
+        if (typeof props.valid === 'function') return props.valid();
+        return props.valid;
+    }),
+    changed = computed(() => value.value !== originalValue.value),
+    classes = computed(() => {
+        const r = ['lkt-field'];
 
-const classes = computed(() => {
-    const r = ['lkt-field'];
+        if (props.palette) r.push(`lkt-field--${props.palette}`);
+        if (changed.value) r.push('is-changed');
+        if (props.multiple) r.push('is-multiple');
+        if (props.disabled) r.push('is-disabled');
+        if (showDropdown.value) r.push('has-focus');
 
-    if (props.palette) r.push(`lkt-field--${props.palette}`);
-    if (changed.value) r.push('is-changed');
-    if (props.multiple) r.push('is-multiple');
-    if (props.disabled) r.push('is-disabled');
-    if (showDropdown.value) r.push('has-focus');
+        r.push(isValid.value ? 'is-valid' : 'is-error');
+        r.push(!!props.modelValue ? 'is-filled' : 'is-empty');
 
-    r.push(isValid.value ? 'is-valid' : 'is-error');
-    r.push(!!props.modelValue ? 'is-filled' : 'is-empty');
-
-    return r.join(' ');
-})
-
-const computedValueText = computed(() => {
-    let r = '';
-    optionsHaystack.value.forEach((opt) => {
-        if (opt.value == value.value) r = opt.label;
+        return r.join(' ');
+    }),
+    computedValueText = computed(() => {
+        let r = '';
+        optionsHaystack.value.forEach((opt) => {
+            if (opt.value == value.value) r = opt.label;
+        })
+        return r;
     })
-    return r;
-})
 
 
 // Methods
 const buildVisibleOptions = () => {
-    optionsHaystack.value = optionsValue.value.all();
-    visibleOptions.value = optionsValue.value.filter(searchString.value);
-}
+        optionsHaystack.value = optionsValue.value.all();
+        visibleOptions.value = optionsValue.value.filter(searchString.value);
+    },
+    resetSearch = () => {
+        searchString.value = '';
+        buildVisibleOptions();
+    },
+    handleFocus = async () => {
+        if (isRemoteSearch.value) {
+            const opts = searchOptionsValue.value.getOptions();
 
+            if (props.searchStringResourceParam) {
+                opts[props.searchStringResourceParam] = searchString.value;
+            }
 
-const resetSearch = () => {
-    searchString.value = '';
-    buildVisibleOptions();
-}
+            const results = await httpCall(props.resource, opts);
+            optionsValue.value.receiveOptions(results);
+            buildVisibleOptions();
 
-const handleFocus = async () => {
-    if (isRemoteSearch.value) {
-        const opts = searchOptionsValue.value.getOptions();
-
-        if (props.searchStringResourceParam) {
-            opts[props.searchStringResourceParam] = searchString.value;
+        } else {
+            buildVisibleOptions();
         }
+    },
+    handleInput = async (inputEvent: InputEvent) => {
+        if (updatedModelValue.value) return;
+        const target = inputEvent.target as HTMLInputElement | null;
+        searchString.value = target?.value;
 
-        const results = await httpCall(props.resource, opts);
-        optionsValue.value.receiveOptions(results);
-        buildVisibleOptions();
-
-    } else {
-        buildVisibleOptions();
-    }
-}
-
-const handleInput = async (inputEvent: InputEvent) => {
-    if (updatedModelValue.value) return;
-    const target = inputEvent.target as HTMLInputElement | null;
-    searchString.value = target?.value;
-
-    await handleFocus();
-}
-
-const reset = () => {
-    value.value = originalValue.value;
-}
-
-const getValue = () => {
-    return props.modelValue;
-}
-
-const onClickUi = ($event: any, event: LktEvent) => {
-    const id: StateKey = event.id;
-    if (id === 'reset') return reset();
-    emits('click-ui', $event, createLktEvent(event.id, {field: this}));
-}
-
-const toggleDropdown = () => {
-    resetSearch();
-    showDropdown.value = !showDropdown.value;
-    if (showDropdown.value) {
-        nextTick(() => {
-            searchField.value.focus();
+        await handleFocus();
+    },
+    reset = () => {
+        value.value = originalValue.value;
+    },
+    getValue = () => {
+        return props.modelValue;
+    },
+    onClickUi = ($event: any, event: LktEvent) => {
+        const id: StateKey = event.id;
+        if (id === 'reset') return reset();
+        emits('click-ui', $event, createLktEvent(event.id, {field: this}));
+    },
+    toggleDropdown = () => {
+        resetSearch();
+        showDropdown.value = !showDropdown.value;
+        if (showDropdown.value) {
             nextTick(() => {
                 searchField.value.focus();
+                nextTick(() => {
+                    searchField.value.focus();
+                })
             })
-        })
+        }
     }
-}
 
 // Watch data
 watch(() => props.modelValue, (v) => {

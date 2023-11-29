@@ -30,4 +30,5 @@ export declare const createOption: (value: string | number | IOption[], label: s
 export declare const getStateConfigFromCTAForTextField: (reset: boolean | string | FieldCallToAction, error: boolean | string | FieldCallToAction, info: boolean | string | FieldCallToAction) => {
     config: StateConfigValue;
     texts: StateTextValue;
+    amountEnabled: number;
 };
