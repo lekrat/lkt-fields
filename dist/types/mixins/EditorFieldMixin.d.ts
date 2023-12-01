@@ -1,10 +1,6 @@
 import { LktObject } from "lkt-ts-interfaces";
 export declare const EditorFieldMixin: {
     mixins: ({
-        computed: {
-            classes(): string;
-        };
-    } | {
         mixins: {
             methods: {
                 onUIStatusClick($event: any, key: string, data?: any): void;
@@ -12,6 +8,10 @@ export declare const EditorFieldMixin: {
         }[];
         methods: {
             onClickUi($event: any, event: import("lkt-events/dist/types/classes/LktEvent").LktEvent): void;
+        };
+    } | {
+        computed: {
+            classes(): string;
         };
     } | {
         emits: string[];

@@ -24,10 +24,6 @@ declare const _default: {
     };
     mixins: {
         mixins: ({
-            computed: {
-                classes(): string;
-            };
-        } | {
             mixins: {
                 methods: {
                     onUIStatusClick($event: any, key: string, data?: any): void;
@@ -35,6 +31,10 @@ declare const _default: {
             }[];
             methods: {
                 onClickUi($event: any, event: import("lkt-events/dist/types/classes/LktEvent").LktEvent): void;
+            };
+        } | {
+            computed: {
+                classes(): string;
             };
         } | {
             emits: string[];
