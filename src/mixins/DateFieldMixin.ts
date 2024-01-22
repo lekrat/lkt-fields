@@ -9,7 +9,7 @@ export const DateFieldMixin = {
     emits: ['update:modelValue', 'click-ui'],
     mixins: [FieldClassesMixin],
     props: {
-        modelValue: {type: [String, Date], default: '',},
+        modelValue: {type: [String, Date], default: ''},
         disabledDates: {type: Array, default: (): Array<any> => []},
         utc: {type: Boolean, default: false},
         multiDates: {type: Boolean, default: false},
@@ -30,10 +30,10 @@ export const DateFieldMixin = {
         label: {type: String, default: ''},
         palette: {type: String, default: ''},
         name: {type: String, default: generateRandomString(16)},
-        valid: {type: [Boolean, Function], default: false,},
-        disabled: {type: Boolean, default: false,},
-        readonly: {type: Boolean, default: false,},
-        emptyLabel: {type: Boolean, default: false,},
+        valid: {type: [Boolean, Function], default: false},
+        disabled: {type: Boolean, default: false},
+        readonly: {type: Boolean, default: false},
+        emptyLabel: {type: Boolean, default: false},
     },
     data(): LktObject {
         return {

@@ -15,7 +15,6 @@ import 'katex/dist/katex.min.css'
 /**
  * Import library components
  */
-import LktFieldTextArea from "./lib-components/LktFieldTextArea.vue";
 import LktFieldRadio from "./lib-components/LktFieldRadio.vue";
 import LktFieldDate from "./lib-components/LktFieldDate.vue";
 import LktFieldEditor from "./lib-components/LktFieldEditor.vue";
@@ -33,7 +32,6 @@ const LktFields = {
         app
             .component('Datepicker', Datepicker)
             .component('lkt-field-date', LktFieldDate)
-            .component('lkt-field-text-area', LktFieldTextArea)
             .component('lkt-field-radio', LktFieldRadio)
             .component('lkt-field-editor', LktFieldEditor)
             .component('lkt-field-katex', LktFieldKatex)
