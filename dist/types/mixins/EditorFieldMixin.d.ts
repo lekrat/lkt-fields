@@ -1,15 +1,6 @@
 import { LktObject } from "lkt-ts-interfaces";
 export declare const EditorFieldMixin: {
     mixins: ({
-        mixins: {
-            methods: {
-                onUIStatusClick($event: any, key: string, data?: any): void;
-            };
-        }[];
-        methods: {
-            onClickUi($event: any, event: import("lkt-events/dist/types/classes/LktEvent").LktEvent): void;
-        };
-    } | {
         computed: {
             classes(): string;
         };
@@ -102,6 +93,15 @@ export declare const EditorFieldMixin: {
             onFocus($event: any): void;
             onBlur($event: any): void;
             onClick($event: any): void;
+        };
+    } | {
+        mixins: {
+            methods: {
+                onUIStatusClick($event: any, key: string, data?: any): void;
+            };
+        }[];
+        methods: {
+            onClickUi($event: any, event: import("lkt-events/dist/types/classes/LktEvent").LktEvent): void;
         };
     })[];
     props: {

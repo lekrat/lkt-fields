@@ -24,15 +24,6 @@ declare const _default: {
     };
     mixins: {
         mixins: ({
-            mixins: {
-                methods: {
-                    onUIStatusClick($event: any, key: string, data?: any): void;
-                };
-            }[];
-            methods: {
-                onClickUi($event: any, event: import("lkt-events/dist/types/classes/LktEvent").LktEvent): void;
-            };
-        } | {
             computed: {
                 classes(): string;
             };
@@ -125,6 +116,15 @@ declare const _default: {
                 onFocus($event: any): void;
                 onBlur($event: any): void;
                 onClick($event: any): void;
+            };
+        } | {
+            mixins: {
+                methods: {
+                    onUIStatusClick($event: any, key: string, data?: any): void;
+                };
+            }[];
+            methods: {
+                onClickUi($event: any, event: import("lkt-events/dist/types/classes/LktEvent").LktEvent): void;
             };
         })[];
         props: {
